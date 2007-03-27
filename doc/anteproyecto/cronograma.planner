@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<project name="IDE WEB" company="Universidad del Valle" manager="Juan Diego Tascon" phase="" project-start="20060710T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases/>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Obra realiz&#xE1;ndose" description="Un d&#xED;a de trabajo predeterminado"/>
+      <day-type id="1" name="Jornada de descanso" description="Un d&#xED;a predeterminado de descanso"/>
+      <day-type id="2" name="Usar base" description="Usar d&#xED;a del calendario base"/>
+    </day-types>
+    <calendar id="1" name="Predeterminado">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="0" sun="0"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="0800" end="1200"/>
+          <interval start="1300" end="1700"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days>
+        <day date="20060607" type="day-type" id="0"/>
+      </days>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="Introduccion" note="" work="201600" duration="201600" start="20060710T000000Z" end="20060716T170000Z" work-start="20060710T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration"/>
+    <task id="2" name="Marco Teorico" note="" work="403200" start="20060716T170000Z" end="20060730T170000Z" work-start="20060717T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="3" name="Conceptos" note="" work="201600" duration="201600" start="20060716T170000Z" end="20060723T170000Z" work-start="20060717T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+        <predecessors>
+          <predecessor id="1" predecessor-id="1" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="4" name="Estado del Arte" note="" work="201600" duration="201600" start="20060723T170000Z" end="20060730T170000Z" work-start="20060724T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+        <predecessors>
+          <predecessor id="1" predecessor-id="3" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="5" name="IDE WEB" note="" work="4032000" start="20060730T170000Z" end="20061217T170000Z" work-start="20060731T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="2" type="FS"/>
+      </predecessors>
+      <task id="6" name="Formulacion" note="" work="403200" start="20060730T170000Z" end="20060813T170000Z" work-start="20060731T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="7" name="Casos de Uso" note="" work="201600" duration="201600" start="20060730T170000Z" end="20060806T170000Z" work-start="20060731T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+          <predecessors>
+            <predecessor id="1" predecessor-id="2" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="8" name="Definicion de la Arquitectura" note="" work="201600" duration="201600" start="20060806T170000Z" end="20060813T170000Z" work-start="20060807T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+          <predecessors>
+            <predecessor id="1" predecessor-id="7" type="FS"/>
+          </predecessors>
+        </task>
+      </task>
+      <task id="9" name="Dise&#xF1;o" note="" work="1209600" start="20060813T170000Z" end="20060924T170000Z" work-start="20060814T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="6" type="FS"/>
+        </predecessors>
+        <task id="10" name="Modelo Conceptual" note="" work="201600" duration="201600" start="20060813T170000Z" end="20060820T170000Z" work-start="20060814T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+          <predecessors>
+            <predecessor id="1" predecessor-id="6" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="11" name="Dise&#xF1;o de Interfaz" note="" work="403200" duration="403200" start="20060820T170000Z" end="20060903T170000Z" work-start="20060821T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+          <predecessors>
+            <predecessor id="1" predecessor-id="10" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="12" name="Diagrama de Paquetes" note="" work="201600" duration="201600" start="20060903T170000Z" end="20060910T170000Z" work-start="20060904T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+          <predecessors>
+            <predecessor id="1" predecessor-id="10" type="FS"/>
+            <predecessor id="1" predecessor-id="11" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="13" name="Diagrama de BD" note="" work="403200" duration="403200" start="20060910T170000Z" end="20060924T170000Z" work-start="20060911T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+          <predecessors>
+            <predecessor id="1" predecessor-id="10" type="FS"/>
+            <predecessor id="1" predecessor-id="12" type="FS"/>
+          </predecessors>
+        </task>
+      </task>
+      <task id="14" name="Implementacion" note="" work="2016000" start="20060924T170000Z" end="20061203T170000Z" work-start="20060925T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="9" type="FS"/>
+        </predecessors>
+        <task id="15" name="Implementacion del Software" note="" work="1728000" duration="1728000" start="20060924T170000Z" end="20061123T170000Z" work-start="20060925T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+          <predecessors>
+            <predecessor id="1" predecessor-id="9" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="16" name="Documentacion Interna" note="" work="86400" duration="86400" start="20061123T170000Z" end="20061126T170000Z" work-start="20061124T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+          <predecessors>
+            <predecessor id="1" predecessor-id="15" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="17" name="Manual de Usuario" note="" work="201600" duration="201600" start="20061126T170000Z" end="20061203T170000Z" work-start="20061127T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+          <predecessors>
+            <predecessor id="1" predecessor-id="16" type="FS"/>
+          </predecessors>
+        </task>
+      </task>
+      <task id="18" name="Pruebas" note="" work="403200" duration="403200" start="20061203T170000Z" end="20061217T170000Z" work-start="20061204T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+        <predecessors>
+          <predecessor id="1" predecessor-id="14" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="19" name="Resultados" note="" work="403200" duration="403200" start="20061217T170000Z" end="20061231T170000Z" work-start="20061218T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+      <predecessors>
+        <predecessor id="1" predecessor-id="5" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="20" name="Conclusiones y Recomendaciones" note="" work="403200" start="20061231T170000Z" end="20070114T170000Z" work-start="20070101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="19" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="21" name="Bibliografia" note="" work="0" duration="0" start="20070114T170000Z" end="20070114T170000Z" work-start="20070114T170000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-duration">
+      <predecessors>
+        <predecessor id="1" predecessor-id="20" type="FS"/>
+      </predecessors>
+    </task>
+  </tasks>
+  <resource-groups/>
+  <resources/>
+  <allocations/>
+</project>

@@ -1,0 +1,115 @@
+<h1>Casos de Uso</h1>
+
+<h3>Caso de Uso: Registrar Usuario<br/></h3>
+<div class="box">
+<p>
+	El programa debe permitir el registro de cualquier usuario anonimo permitiendole, una vez registrado, el ingreso al sistema
+</p>
+</div>
+
+<h3>Caso de Uso: Modificar Usuario<br/></h3>
+<div class="box">
+<p>
+	El programa debe permitir a cada usuario la modificacion de sus atributos, entre estos es posible eliminar el usuario por completo
+</p>
+</div>
+
+<h3>Caso de Uso: Administrar Proyectos<br/></h3>
+<div class="box">
+<p>
+	El programa debe permitir la creacion y eliminacion de proyectos, ademas de modificar sus propiedades que son:
+	<ol>
+	<li>Nombre</li>
+	<li>Tipo</li>
+	<li>Usuarios y permisos</li>
+	<li>Configuracion de modulos</li>
+	</ol>
+</p>
+</div>
+
+<h3>Caso de Uso: Control de Archivos<br/></h3>
+<div class="box">
+<p>
+	Gracias a la centralizacion que provee el IDE Web es posible integrar, de forma inteligente - incluso para algunas acciones se puede hacer de forma transparante al usuario - el sistema de control de versiones con la administracion de los archivos del proyecto, a pesar de esta integracion, la copia de trabajo de cada usuario debe estar separado del repositorio del proyecto<br/><br/>
+</p>
+</div>
+
+<h3>Caso de Uso: Control de Versiones<br/></h3>
+<div class="box">
+<p>
+	El programa debe tener una interfaz grafica que permita crear, acceder y actualizar repositorios de archivos a partir de las copias de trabajo de los usuarios, el manejo del repositorio se hara con una interfaz a un sistema manejador de versiones existente permitiendo aumentar la compatibilidad con otros sistemas, algunos de estos son:
+	
+	<ul>
+	<li><a href="http://subversion.tigris.org" target="">
+			<acronym title="Subversion">SVN</a></li>
+	<li><a href="http://cvshome.org" target="">
+			<acronym title="Control Version System">CVS</a></li>
+	<li><a href="http://git.kernel.org" target="">
+			<acronym title="Global Infomation Tracker">GIT</a></li>
+	</ul>
+</p>
+</div>
+
+<h3>Caso de Uso: Edicion de Codigo Fuente<br/></h3>
+<div class="box">
+<p>
+	El sistema debe tener una interfaz capaz de editar codigo fuente, opcionalmente incluir ayudas comunes pero muy utiles para un programador como son:
+	<ul>
+	<li>AutoIndentacion</li>
+	<li>Autocompletado de palabras</li>
+	<li>Opciones de Codificacion(<acronym title="Internacionalization">I18N</a>)</li>
+	<li>Resaltado de sintaxis</li>
+	</ul>
+</p>
+</div>
+
+<h3>Caso de Uso: Compilacion centralizada<br/></h3>
+<div class="box">
+<p>
+	El sistema debe ser capaz de compilar el codigo fuente de forma centralizada (en el servidor) utilizando herramientas que determinen automaticamente que piezas deben ser recompiladas para generar los archivos ejecutables
+</p>
+</div>
+
+<h3>Caso de Uso: Envio de Archivos<br/></h3>
+<div class="box">
+<p>
+	El servidor debe permitir al cliente diversas formas de acceder a sus archivos de forma local:
+	<ul>
+	<li><strong>Descarga:</strong>
+		Permite descargar el ejecutable y todos los archivos fuente por medio del browser
+	</li>
+	<br/>
+	<li><strong>Sistema de archivos de Red:</strong>
+		Utiliza un sistema de archivos de red para compartir los archivos ejecutables y de codigo fuente desde el servidor, algunos de los mas populares sistemas de archivos de red son:<br/>
+		<br/>-<a href="http://www.samba.org" target="">
+			<acronym title="Server Message Block / Common Internet File System">SMB/CIFS
+		</a>
+		<br/>-<a href="http://www.openafs.org/" target="">
+			<acronym title="Andrew File System">AFS</acronym>
+		</a>
+		<br/>-<a href="http://www.nfsv4.org/" target="">
+			<acronym title="Network File System">NFS</acronym>
+		</a>
+		<br/>-<a href="ftp://platan.vc.cvut.cz/pub/linux/ncpfs/" target="">
+			<acronym title="Netware Core Protocol">NCP</acronym>
+		</a>
+	</li>
+	</ul>
+</p>
+</div>
+
+<p>
+	El siguiente diagrama trata de mostrar de forma grafica como es la interaccion de la aplicacion con el usuario
+	<br/><br/>
+	Este diagrama se creo utilizando la herramienta de libre distribucion <a href="http://www.gnome.org/projects/dia/" target="">Dia</a>, puede ser visto en cualquier visor de imagenes<br/><br/>
+	Acualmente se encuentra en dos formatos:
+	
+	<ol>
+	<li>En formato dia:
+		<a href="diagramas/casosuso.dia">casosuso.dia</a>
+	</li>
+	<li>En formato <acronym title="Png is Not Gif">png</acronym>:
+		<a href="diagramas/casosuso.dia.png">casosuso.dia.png</a>
+	</li>
+	</ol>
+</p>

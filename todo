@@ -1,0 +1,65 @@
+Treeview:
+	*ok* Cargar de un .json estatico
+
+Editor:
+	*ok*Cargar contenido de .json estatico
+
+FS + SVN:
+	*ok* svnlib-ruby incluida totalmente en el modulo
+	*ok* terminar metodos de repos y wc
+	terminar svn repos
+	crear webservice (soap/restful)
+
+Treeview + FS:
+	integrar con FS Webservice
+	configurar click derecho
+	modificacion de gerarquia de fs (crear, mover, renombrar, borrar, actualizar, ver otra version, ...)
+
+Editor + FS:
+	load de fs webservice
+	save a fs webservice
+	optimizaciones
+
+Editor + Treeview:
+	Tabs por archivos abiertos
+	Load desde Treeview
+	click derecho(nuevo tab, cerrar tab, ...)
+
+Compilador:
+	seleccionar lenguaje
+	interfaz con el compilador (webservice)
+	resultado de la compilacion (webservice)
+
+Downloader:
+	descargar archivos empaquetados
+	descargar solo 1 binario
+
+Atajos:
+	atajos de teclado
+	atajos con iconos
+
+Configurador:
+	global
+	por cada modulo
+	load/save
+
+Usuarios:
+	usuario admin
+	manejo de cookies / auth
+	config de usuarios (add/delete)
+
+Permisos:
+	permiso para leer
+	permiso para escribir
+	permisos por archivos y proyectos
+
+Editor 2:
+	leer tecla <tab>
+	ver salto de linea para lineas largas
+	ver numero de linea
+	ver . en vez de <tab>
+	resaltar linea actual
+	resaltar sintaxis
+
+Diff:
+	visor de diferencias ?

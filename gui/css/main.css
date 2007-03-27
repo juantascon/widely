@@ -1,0 +1,6 @@
+body { font:normal 9pt verdana; margin:0; padding:0; border:0px none; overflow:hidden; }
+.ylayout-panel-north { border:0px none; background-color:#c3daf9; }
+.ylayout-panel-center p { margin:5px; }
+#center, #west, #east { padding:10px; }
+#north, #south{ font:normal 8pt arial, helvetica; padding:4px; }
+

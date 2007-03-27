@@ -1,0 +1,28 @@
+Widely Web IDE Acuerdo de Licencia:
+
+Copyright (C)2006-2007 Juan Diego Tascon
+
+Este programa es software libre; puede ser redistribuido y/o
+modificado bajo los terminos de la Licencia Publica General
+GNU version 2 publicada por la Free Software Foundation.
+
+Este programa es distribuido con la esperanza de que sea util,
+pero SIN NINGUNA GARANTIA; sin siquiera la garantia implicada
+de MERCABILIDAD o CONVENIENCIA PARA PROPOSITO PARTICULAR, para
+mas detalles consulte la Licencia Publica General GNU version
+2 incluida en este programa.
+
+Si no esta incluida una copia de la Licencia Publica General
+GNU version 2 escriba a la Free Software Foundation, Inc.,
+59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+Las siguientes son dependencias de este programa que no son
+GPL pero que tienen licencias compatibles:
+
+* Interprete Ruby: licencias/ruby.lic
+* Subversion: licencias/subversion.lic
+* Ext-1.0: licencias/ext-js.lic
+
+Contacto / soporte:
+Email: juantascon@gmail.com
+
