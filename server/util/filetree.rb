@@ -1,5 +1,5 @@
-module FS
-class FSTree
+module Util
+class FileTree
 	
 	class FileNode
 		attr_reader :parent, :id
