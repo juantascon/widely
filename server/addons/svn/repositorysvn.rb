@@ -1,5 +1,7 @@
 # Manejo de un repositorio con subversion(svn)
-# todo: status()
+# todo:
+# status()
+# ls(): crear un filetree
 
 module Svn
 class RepositorySvn < Repository::Base
@@ -31,12 +33,41 @@ class RepositorySvn < Repository::Base
 		return false
 	end
 	
+	
 	def checkout(wc_dir, version=versions.last)
 		w_info("#{@dir}@#{version.get} -> #{wc_dir}")
 		cmd = Command.exec("svn", "checkout", "file://#{@dir}@#{version.get}", wc_dir)
 		return true if cmd.status.success?
 		w_warn("Fail -- #{cmd.stderr}")
 		return false
+	end
+	
+	def cat(path, version=versions.last)
+		w_info("#{path}@#{version.get}")
+		realpath = Pathname.new(path).cleanpath
+		(w_warn("#{path} -> not an absolute path") ; return false ) if ! realpath.absolute?
+		
+		cmd = Command.exec("svn", "cat", "file://#{@dir}/#{realpath.to_s}@#{version.get}")
+		return cmd.stdout if cmd.status.success?
+		w_warn("Fail -- #{cmd.stderr}")
+		return false
+	end
+	
+	def ls(path, version = self.versions.last)
+		w_info("#{path}@#{version.get}")
+		realpath = Pathname.new(path).cleanpath
+		(w_warn("#{path} -> not an absolute path") ; return false ) if ! realpath.absolute?
+		
+		cmd = Command.exec("svn", "ls", "file://#{@dir}/#{realpath.to_s}@#{version.get}")
+		return cmd.stdout if cmd.status.success?
+		w_warn("Fail -- #{cmd.stderr}")
+		return false
+	end
+	
+	
+	def status(wc_dir)
+		w_info("#{wc_dir}")
+		@context.status(wc_dir)
 	end
 	
 	def commit(wc_dir, log)
@@ -47,10 +78,6 @@ class RepositorySvn < Repository::Base
 		return false
 	end
 	
-	def status(wc_dir)
-		w_info("#{wc_dir}")
-		@context.status(wc_dir)
-	end
 	
 	def add(wc_dir, path)
 		w_info("#{wc_dir}:#{path}")
@@ -87,27 +114,6 @@ class RepositorySvn < Repository::Base
 		return false
 	end
 	
-	def cat(path, version=versions.last)
-		w_info("#{path}@#{version.get}")
-		realpath = Pathname.new(path).cleanpath
-		(w_warn("#{path} -> not an absolute path") ; return false ) if ! realpath.absolute?
-		
-		cmd = Command.exec("svn", "cat", "file://#{@dir}/#{realpath.to_s}@#{version.get}")
-		return cmd.stdout if cmd.status.success?
-		w_warn("Fail -- #{cmd.stderr}")
-		return false
-	end
-	
-	def ls(path, version = self.versions.last)
-		w_info("#{path}@#{version.get}")
-		realpath = Pathname.new(path).cleanpath
-		(w_warn("#{path} -> not an absolute path") ; return false ) if ! realpath.absolute?
-		
-		cmd = Command.exec("svn", "ls", "file://#{@dir}/#{realpath.to_s}@#{version.get}")
-		return cmd.stdout if cmd.status.success?
-		w_warn("Fail -- #{cmd.stderr}")
-		return false
-	end
 	
 	def versions()
 		w_info("#{@dir}")

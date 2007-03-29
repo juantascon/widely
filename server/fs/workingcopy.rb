@@ -1,86 +1,97 @@
+#todo:
+#terminar: cat, ls, status y file_save
+
 module FS
 class WorkingCopy
-	attr_reader :repository, :user, :root_dir
+	include FileUtils
+	include FileTest
 	
-	def initialize(user, root_dir, repository)
-		@root_dir = "#{root_dir}"
+	attr_reader :repository, :user, :wc_dir
+	
+	def initialize(user, wc_dir, repository)
+		@wc_dir = wc_dir
 		@repository = repository
 	end
 	
-	def real_path(path)
-		"#{@root_dir}/#{path}"
+	def wc_path(path)
+		realpath = Pathname.new(path).cleanpath
+		if realpath.absolute?
+			return "#{@wc_dir}/#{realpath.to_s}"
+		else
+			w_warn("#{path} -> invalid path")
+			return false
+		end
+	end
+	private :wc_path
+	
+	
+	def checkout(version=versions.last)
+		mkdir @wc_dir if ! directory? @wc_dir
+		repository.checkout(@wc_dir, version)
 	end
 	
-	# Actualiza wc a partir de una version en el repositorio
-	def checkout(version=nil)
-		repository.checkout(@root_dir, version)
+	def cat(path, version=nil)
+		
 	end
 	
-	# Muestra las diferencias entre el repositorio y el wc
+	def ls(path, version=nil)
+	end
+	
+	
 	def status()
-		repository.status(@root_dir)
+		repository.status(@wc_dir)
 	end
 	
-	# Envia las diferencias al repositorio
-	def commit()
-		repository.commit(@root_dir)
+	def commit(log)
+		repository.commit(@wc_dir, log.to_s)
 	end
 	
-	def file_create(path, as_dir=false)
-		if ! File.exist?(real_path(path))
-			if as_dir
-				Dir.mkdir(real_path(path))
-				@repository.dir_create(@root_dir, path)
+	
+	def add(path, as_dir=false)
+		realpath = wc_path(path)
+		return false if ! realpath
+		
+		if ! exist?(realpath)
+			mkdir(realpath) if as_dir
+			touch(realpath)
+		end
+		
+		@repository.add(@wc_dir, realpath)
+	end
+	
+	def delete(path)
+		realpath = wc_path(path)
+		return false if ! realpath
+		
+		@repository.delete(@wc_dir, realpath) if exist?(realpath)
+		rm_rf(realpath) if exist?(realpath)	
+	end
+	
+	def move(path_from, path_to)
+		realpath_from = wc_path(path_from)
+		realpath_to = wc_path(path_to)
+		return false if ! ( realpath_from or realpath_to )
+		
+		if exist?(realpath_from)
+			if directory?(realpath_to) or
+				directory?(File.dirname(realpath_to))
+				
+				@repository.move(@wc_dir, realpath_from, realpath_to)
 			else
-				File.new(real_path(path))
-				@repository.file_add(@root_dir, path)
+				return false
 			end
 		end
+		
+		mv(realpath_from, realpath_to) if exist?(realpath_from)
 	end
 	
-	def file_delete(path)
-		if File.exist?(real_path(path))
-			FileUtils.rm_rf(real_path(path))
-			@repository.file_remove(@root_dir, path)
-		end
-	end
 	
-	def file_move(path_from, path_to)
-		if (
-			File.exist?(real_path(path_from)) and
-			! File.exist?(real_path(path_to)) and
-			File.directory?(real_path(path_to).dirname)
-		)
-			File.rename(real_path(path_from), real_path(path_to))
-			@repository.file_move(@root_dir, path)
-		end
+	def versions()
+		@repository.versions()
 	end
 	
 	def file_save(path, content)
 	end
 	
-	def file_cat(path, version=Version::WC)
-		case version
-			when Version::WC
-				if (File.exist?(real_path(path)))
-					return File.read(path)
-				end
-			else
-				@repository.file_cat(@root_dir, path, version)
-		end
-	end
-	
-	def dir_list(path, version=Version::WC)
-		case version
-			when Version::WC
-				if (File.directory?(real_path(path)))
-					return (Dir.entries(real_path(path)) - ["."] - [".."])
-				end
-			else
-				@repository.dir_list(@root_dir, path, version)
-		end
-	end
-	
-	private :real_path
 end
 end

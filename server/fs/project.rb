@@ -4,12 +4,12 @@
 
 module FS
 class Project
-	attr_reader :name, :repository, :wcs, :root_dir
+	attr_reader :name, :repository, :wc, :root_dir
 	
 	def initialize(name, repository)
 		@name = name
-		@wcs = Array.new
-		@repository = repository
+		@repositoy = repository
+		@wc = WorkingCopy(
 	end
 	
 	def create_workingcopy(user)
