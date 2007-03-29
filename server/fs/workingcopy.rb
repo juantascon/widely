@@ -1,5 +1,5 @@
 #todo:
-#terminar: cat, ls, status y file_save
+#terminar: ls, status
 
 module FS
 class WorkingCopy
@@ -31,10 +31,27 @@ class WorkingCopy
 	end
 	
 	def cat(path, version=nil)
+		realpath = wc_path(path)
+		return false if ! realpath
 		
+		if version
+			return @repository.cat(@wc_dir, path, version)
+		else
+			return false if ! file?(realpath)
+			return File.new(realpath).read
+		end
 	end
 	
 	def ls(path, version=nil)
+		realpath = wc_path(path)
+		return false if ! realpath
+		
+		if version
+			return @repository.cat(@wc_dir, path, version)
+		else
+			return false if ! file?(realpath)
+			return File.new(realpath).read
+		end
 	end
 	
 	
@@ -56,14 +73,14 @@ class WorkingCopy
 			touch(realpath)
 		end
 		
-		@repository.add(@wc_dir, realpath)
+		@repository.add(@wc_dir, path)
 	end
 	
 	def delete(path)
 		realpath = wc_path(path)
 		return false if ! realpath
 		
-		@repository.delete(@wc_dir, realpath) if exist?(realpath)
+		@repository.delete(@wc_dir, path) if exist?(realpath)
 		rm_rf(realpath) if exist?(realpath)	
 	end
 	
@@ -76,7 +93,7 @@ class WorkingCopy
 			if directory?(realpath_to) or
 				directory?(File.dirname(realpath_to))
 				
-				@repository.move(@wc_dir, realpath_from, realpath_to)
+				@repository.move(@wc_dir, path_from, path_to)
 			else
 				return false
 			end
@@ -90,7 +107,11 @@ class WorkingCopy
 		@repository.versions()
 	end
 	
-	def file_save(path, content)
+	def write(path, content="")
+		realpath = wc_path(path)
+		return false if ! realpath
+		
+		return File.new(realpath, "w").write(content.to_s)
 	end
 	
 end

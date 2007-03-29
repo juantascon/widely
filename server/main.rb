@@ -4,7 +4,8 @@ $: << $WIDELY_HOME
 $: << "#{$WIDELY_HOME}/lib"
 
 # Core
-require "core/ruby_extensions.rb"
+require "autoloads.rb"
+require "core/ruby-ext.rb"
 require "core/wdebug.rb"
 require "core/wmodule.rb"
 
