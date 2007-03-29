@@ -1,4 +1,5 @@
 # Manejo de un repositorio con subversion(svn)
+# todo: status()
 
 module Svn
 class RepositorySvn < Repository::Base

@@ -1,46 +1,50 @@
 module FS
-
 class FSTree
 	
-	module FTYPE
-		FILE = 1
-		DIR = 2
-	end
-	
-	class Node
-		attr_reader :parent, :id, :ftype, :childs
+	class FileNode
+		attr_reader :parent, :id
 		
-		def initialize(parent, id, ftype, childs)
+		def initialize(parent, id)
 			@parent = parent
 			@id = id
-			@ftype = ftype
-			@childs = childs
+		end
+		
+		def full_path()
+			path = Array.new
+			p = self
+			while p
+				path.push(p.id)
+				p = p.parent
+			end
+			return path.reverse.join("/")
 		end
 	end
 	
-	class FileNode < Node
+	class DirNode < FileNode
+		attr_reader :childs
+		
 		def initialize(parent, id)
-			super(parent, id, FTYPE::FILE, false)
-		end
-	end
-	
-	class DirNode < Node
-		def initialize(parent, id)
-			super(parent, id, FTYPE::FILE, Array.new)
+			super(parent, id)
+			@childs = Array.new
 		end
 		
 		def create_file(id)
-			childs.push(FileNode.new(self, id))
+			new_node = FileNode.new(self, id)
+			@childs.push(new_node)
+			return new_node
 		end
+		
 		def create_dir(id)
-			childs.push(DirNode.new(self, id))
+			new_node = DirNode.new(self, id)
+			@childs.push(new_node)
+			return new_node
 		end
 	end
-	
+		
 	attr_reader :root_node
 	
-	def initialize(root_node_id)
-		@root_node = DirNode.new(nil, root_node_id)
+	def initialize()
+		@root_node = DirNode.new(nil, "")
 	end
 	
 end

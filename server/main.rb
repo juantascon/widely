@@ -8,16 +8,8 @@ require "ruby_extensions.rb"
 require "wdebug.rb"
 require "wmodule.rb"
 
-["Util", "FS"].each { |m| require "#{m.downcase}/init.rb" }
+( ["Util", "FS"]+ Dir.glob("addons/*") ).each { |m| require "#{m.downcase}/init.rb" }
 
-begin
-	WModule.collection.each_value { |m| m.start; m.load }
-rescue WE
-	w_fatal("All core modules must be initialized")
-end
+WModule.collection.each_value { |m| m.start; m.load }
 
-Dir.glob("addons/*").each do |m|
-	require "#{m}/init.rb" if File.directory? m
-end
-
-WModule.collection.each_value { |m| ( m.start; m.load ) if m.status == WModule::CREATED }
+require "test.rb"

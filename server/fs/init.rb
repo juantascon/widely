@@ -3,6 +3,7 @@ WModule.new("FS") do |mod|
 	require "repository/base.rb"
 	require "repository/version.rb"
 	
+	require "fstree.rb"
 	require "workingcopy.rb"
 	require "project.rb"
 end
