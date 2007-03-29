@@ -1,10 +1,11 @@
+#Todo: mejorar el flujo de la carga de dependencias(load)
 # Este es un ejemplo clasico de flujo de trabajo con un WModule:
 # 
 #  ** = WModule lo hace automaticamente 
 #  * = lo hace un usuario
 # 
 # * Se crea una instancia de WModule
-# 	** Se crea un Module con el numbre del WModule
+# 	** Se crea un Module con el numbre del WModule y una lista de sus dependencias
 # 	** Se incluye de forma dinamica el Module en el WModule
 # * Se modifica el Module agregando constantes metodos o clases
 # 	** todos los cambios se reflejan automaticamente en el WModule (ya que este incluye el Module)
@@ -24,7 +25,9 @@
 # ------------------------
 #
 # --/dir/fs/init.rb-------
-# m = WModule.new("FS") { |mod| require "functions.rb" }
+# m = wmodule :FS => :Util do
+#   |mod| require "functions.rb"
+# end
 # ------------------------
 #
 # --/main.rb--------------
@@ -40,71 +43,88 @@
 # -------------------------
 
 class WModule < Module
-	
-	module STATUS
-		CREATED = 0
-		STARTED = 1
-		LOADED = 2
-	end
-	
-	include STATUS
-	
 	@@collection = Hash.new
-	@@last = nil
-	
 	def self.collection(); @@collection; end
-	def self.last(); @@last; end
 	
-	attr_reader :name, :init_block, :creator_file, :status, :_module_
+	attr_reader :name, :init_block, :creator_file, :loaded, :_module_, :depends
 	
-	def initialize(name, &init_block)
-		@name = name
+	def initialize(definition,  &init_block)
+		if definition.kind_of? Symbol
+			@name = definition
+			@depends = [ ]
+		elsif definition.kind_of? Hash
+			@name = definition.keys[0]
+			@depends = definition.values[0]
+			@depends = [@depends] if @depends.class != Array
+			(@depends + [@name]).each do |d|
+				raise we_error("WModule", "Argument error: #{d}") if d.class != Symbol
+			end
+		else
+			raise we_error("WModule", "Argument error: #{definition}")
+		end
+
 		raise we_error("#{name}", "module already exists") if @@collection[@name]
 		
 		@init_block = init_block
 		raise we_error("#{name}", "init block not found") if ! @init_block
 		
-		@creator_file = caller_file(1) # El archivo que invoca WModule.new()
+		@creator_file = caller_file(2) # El archivo que invoca WModule.new()
 		raise we_error("#{@name}", "cannot find the module file") if ! File.exist?(@creator_file)
 		
-		Object.module_eval("module #{@name}; end") # Crea un modulo vacio con el nombre del modulo
+		Object.module_eval("module #{@name.to_s}; end") # Crea un modulo vacio con el nombre del modulo
 		@_module_ = WModule.find_module_by_name(@name) # Busca el nuevo modulo creado
 		include @_module_ # Expande este modulo con el nuevo modulo
 		
 		@@collection[@name] = self
-		@@last = self
 		
-		@status = CREATED
+		@loaded = false
 		w_debug("#{@name} -- CREATED")
 	end
 	
-	def start()
-		w_info("#{name} -- START")
-		w_warn("#{name}: invalid status: #{@status}") if @status != CREATED
-			
+	def load()
+		w_info("#{name} -- LOAD")
+		(w_warn("#{name}: module already loaded") ; return false) if @loaded
+		
+		#Cargar las dependencias, en caso de error abortar
+		@depends.each do |m|
+			mod = @@collection[m]
+			if mod
+				if mod.loaded
+					next
+				else
+					if ! mod.load
+						w_warn("#{name}: dependency module load error: #{m}")
+						return false
+					end
+				end
+			else
+				w_warn("#{name}: dependency module not found: #{m}")
+				return false
+			end
+		end
+		
 		included = true if $:.include? File.dirname(@creator_file)
 		$: << (File.dirname(@creator_file))
 		@init_block.call(self)
 		$:.remove(File.dirname(@creator_file)) if included
 		
-		@status = STARTED
-		w_info("#{name} -- STARTED")
-	end
-	
-	# Hace un include desde el modulo Object de este modulo
-	# con esto Object(el namespace global) incluira este modulo
-	def load(force=false)
-		w_info("#{name} -- LOAD")
-		w_warn("#{name}: invalid status: #{@status}") if @status != STARTED
+		# Hace un include desde el modulo Object de este modulo
+		# con esto Object(el namespace global) incluira este modulo
+		Object.module_eval("include ObjectSpace._id2ref(#{self._module_.object_id})")
 		
-		Object.module_eval("include ObjectSpace._id2ref(#{self.object_id})")
-		
-		@status = LOADED
+		@loaded = true
 		w_info("#{name} -- LOADED")
+		return true
 	end
 	
 	def self.find_module_by_name(name)
-		ObjectSpace.each_object(Module){|m| return m if m.name == name and m.class == Module}
-		nil
+		ObjectSpace.each_object(Module){|m| return m if m.name == name.to_s and m.class == Module}
+		return nil
+	end
+end
+
+module Kernel
+	def wmodule(definition, &init_block)
+		WModule.new(definition, &init_block)
 	end
 end

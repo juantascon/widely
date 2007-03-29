@@ -1,3 +1,3 @@
-WModule.new("Svn") do |mod|
+wmodule :Svn => :FS do |mod|
 	require "repositorysvn.rb"
 end

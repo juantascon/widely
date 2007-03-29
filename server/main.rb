@@ -4,12 +4,12 @@ $: << $WIDELY_HOME
 $: << "#{$WIDELY_HOME}/lib"
 
 # Core
-require "ruby_extensions.rb"
-require "wdebug.rb"
-require "wmodule.rb"
+require "core/ruby_extensions.rb"
+require "core/wdebug.rb"
+require "core/wmodule.rb"
 
-( ["Util", "FS"]+ Dir.glob("addons/*") ).each { |m| require "#{m.downcase}/init.rb" }
+( ["Util", "FS"] + Dir.glob("addons/*") ).each { |m| require "#{m.downcase}/init.rb" }
 
-WModule.collection.each_value { |m| m.start; m.load }
+WModule.collection.each_value { |m| m.load }
 
 require "test.rb"
