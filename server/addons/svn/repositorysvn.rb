@@ -1,28 +1,24 @@
 # Manejo de un repositorio con subversion(svn)
 # todo:
 # status()
-# ls(): crear un filetree
 
 module Svn
 class RepositorySvn < Repository::Base
+	include FileUtils
+	include FileTest
+	
 	require "rexml/document.rb"
 	
-	attr_reader :dir_path, :dir
+	attr_reader :dir
 	
 	def initialize(dir)
 		@dir = dir
-		@dir_path = Pathname.new(@dir)
-		we_warn("#{@dir} -> not an absolute path") if ! @dir_path.absolute?
+		we_warn("#{@dir}: not an absolute path") if ! File.absolute?(@dir)
+		self.create if ! exists
 	end
 	
 	def exists()
-		if ( @dir_path.directory? \
-			and (@dir_path+"format").file? \
-			and (@dir_path+"README.txt").file? \
-			and (@dir_path+"db"+"fs-type").file? )
-			return true
-		end
-		return false
+		return (directory?(@dir) and file?(@dir+"format") and file?(@dir+"README.txt") and file?(@dir+"db"+"fs-type"))
 	end
 	
 	def create()
@@ -44,10 +40,11 @@ class RepositorySvn < Repository::Base
 	
 	def cat(path, version=versions.last)
 		w_info("#{path}@#{version.get}")
-		realpath = Pathname.new(path).cleanpath
-		(w_warn("#{path} -> not an absolute path") ; return false ) if ! realpath.absolute?
+		path = File.cleanpath(path)
+		(w_warn("#{path}: invalid path") ; return false) if ! File.absolute?(path)
 		
-		cmd = Command.exec("svn", "cat", "file://#{@dir}/#{realpath.to_s}@#{version.get}")
+		rpath = "#{@dir}/#{path}"
+		cmd = Command.exec("svn", "cat", "file://#{rpath}@#{version.get}")
 		return cmd.stdout if cmd.status.success?
 		w_warn("Fail -- #{cmd.stderr}")
 		return false
@@ -55,21 +52,24 @@ class RepositorySvn < Repository::Base
 	
 	def ls(path, version = self.versions.last)
 		w_info("#{path}@#{version.get}")
-		realpath = Pathname.new(path).cleanpath
-		(w_warn("#{path} -> not an absolute path") ; return false ) if ! realpath.absolute?
+		path = File.cleanpath(path)
+		(w_warn("#{path}: invalid path") ; return false) if ! File.absolute?(path)
 		
-		cmd = Command.exec("svn", "ls", "-R", "--xml", "file://#{@dir}/#{realpath.to_s}@#{version.get}")
+		rpath = "#{@dir}/#{path}"
+		cmd = Command.exec("svn", "ls", "-R", "--xml", "file://#{rpath}@#{version.get}")
 		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
-		p cmd.stdout
+
 		tree = FileTree.new
 		doc = REXML::Document.new(cmd.stdout)
 		doc.root.each_element do |list|
 			list.each_element do |entry|
 				ftype = entry.attribute("kind").to_s
-				p entry.get_text("name")
-				#version.get_text("msg"),
-				#version.get_text("date"),
-				#version.get_text("author")
+				id = entry.get_text("name").to_s
+				
+				as_dir = false
+				as_dir = true if ftype == "dir"
+				
+				tree.add_with_parents("/#{id}", as_dir)
 			end
 		end
 		
@@ -93,10 +93,11 @@ class RepositorySvn < Repository::Base
 	
 	def add(wc_dir, path)
 		w_info("#{wc_dir}:#{path}")
-		realpath = Pathname.new(path).cleanpath
-		(w_warn("#{path} -> not an absolute path") ; return false ) if ! realpath.absolute?
+		path = File.cleanpath(path)
+		(w_warn("#{path}: invalid path") ; return false) if (! File.absolute?(path)) or File.root?(path)
 		
-		cmd = Command.exec("svn", "add", "-N", "#{wc_dir}/#{realpath.to_s}")
+		rpath = "#{wc_dir}/#{path}"
+		cmd = Command.exec("svn", "add", "-N", rpath)
 		return true if cmd.status.success?
 		w_warn("Fail -- #{cmd.stderr}")
 		return false
@@ -104,10 +105,11 @@ class RepositorySvn < Repository::Base
 	
 	def delete(wc_dir, path)
 		w_info("#{wc_dir}:#{path}")
-		realpath = Pathname.new(path).cleanpath
-		(w_warn("#{path} -> not an absolute path") ; return false ) if ! realpath.absolute?
+		path = File.cleanpath(path)
+		(w_warn("#{path}: invalid path") ; return false) if (! File.absolute?(path)) or File.root?(path)
 		
-		cmd = Command.exec("svn", "delete", "#{wc_dir}/#{realpath.to_s}")
+		rpath = "#{wc_dir}/#{path}"
+		cmd = Command.exec("svn", "delete", rpath)
 		return true if cmd.status.success?
 		w_warn("Fail -- #{cmd.stderr}")
 		return false
@@ -115,12 +117,15 @@ class RepositorySvn < Repository::Base
 	
 	def move(wc_dir, path_from, path_to)
 		w_info("#{wc_dir}: #{path_from} -> #{path_to}")
-		realpath_from = Pathname.new(path_from).cleanpath
-		realpath_to = Pathname.new(path_to).cleanpath
-		(w_warn("#{path_from} -> not an absolute path") ; return false ) if ! realpath_from.absolute?
-		(w_warn("#{path_to} -> not an absolute path") ; return false ) if ! realpath_to.absolute?
+		path_from = File.cleanpath(path_from)
+		path_to = File.cleanpath(path_to)
+		(w_warn("#{path_from}: invalid path") ; return false) if (! File.absolute?(path_from)) or File.root?(path_from)
+		(w_warn("#{path_to}: invalid path") ; return false) if ! File.absolute?(path_to)
 		
-		cmd = Command.exec("svn", "move", "#{wc_dir}/#{realpath_from.to_s}", "#{wc_dir}/#{realpath_to.to_s}")
+		rpath_from = "#{wc_dir}/#{path_from}"
+		rpath_to = "#{wc_dir}/#{path_to}"
+		
+		cmd = Command.exec("svn", "move", rpath_from, rpath_to)
 		return true if cmd.status.success?
 		w_warn("Fail -- #{cmd.stderr}")
 		return false

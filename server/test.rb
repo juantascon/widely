@@ -1,29 +1,36 @@
 at_exit do
-        print "Limpiando\n"
-        Dir.glob("/tmp/{repos*,wc*}").each { |d| FileUtils.rm_rf d }
+	print "Limpiando\n"
+	Dir.glob("/tmp/{repos*,wc*}").each { |d| FileUtils.rm_rf d }
 end
 
-wc = "/tmp/wc"
 repos = Svn::RepositorySvn.new("/tmp/repos");
-repos.create
-repos.checkout(wc)
-f = File.new("#{wc}/testfile1", "w+"); f.print("hola\n"); f.close
-repos.add(wc, "/testfile1")
-repos.commit(wc, "version1")
-p repos.cat("/testfile1")
-f = File.new("#{wc}/testfile1", "w+"); f.print("bien?\n"); f.close
-repos.commit(wc, "version2")
-Dir.mkdir("#{wc}/dir1")
-repos.add(wc, "/dir1")
-Dir.mkdir("#{wc}/dir2")
-repos.add(wc, "/dir2")
-Dir.mkdir("#{wc}/dir1/dir1_1")
-repos.add(wc, "/dir1/dir1_1")
-Dir.mkdir("#{wc}/dir1/dir1_2")
-repos.add(wc, "/dir1/dir1_2")
-f = File.new("#{wc}/dir1/dir1_1/testfile2", "w+"); f.print("deep file\n"); f.close
-repos.add(wc, "/dir1/dir1_1/testfile2")
-repos.commit(wc, "version3")
+wc = WorkingCopy.new("/tmp/wc", repos)
+wc2 = WorkingCopy.new("/tmp/wc2", repos)
 
-p repos.ls("/")
+wc.checkout
+wc.add("/testfile1")
+wc.write("/testfile1", "hola ve")
+wc.commit("version1")
+
+wc.write("/testfile1", "bien o que ve")
+p wc.cat("/testfile1")
+p wc.cat("/testfile1", wc.versions.last)
+
+wc.add("/dir1", true)
+wc.add("/dir2", true)
+wc.add("/dir1/dir1_1", true)
+wc.add("/dir1/dir1_2", true)
+wc.add("/../../../../..", true)
+wc.delete("/../../../../..")
+
+wc.add("/dir1/dir1_1/testfile2")
+wc.write("/dir1/dir1_1/testfile2", "deepfile")
+wc.commit("version2")
+
+wc.move("/dir1/dir1_1/testfile2", "/dir1/dir1_2")
+wc.delete("/dir1/dir1_1")
+wc.commit("version3")
+p wc.versions
+p wc.ls("/dir1")
+
 gets

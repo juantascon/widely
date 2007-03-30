@@ -1,28 +1,18 @@
 #todo:
-#terminar: ls, status
+#terminar: status
+#fix: ls(no genera tree en version wc)
 
 module FS
 class WorkingCopy
 	include FileUtils
 	include FileTest
 	
-	attr_reader :repository, :user, :wc_dir
+	attr_reader :wc_dir, :repository
 	
-	def initialize(user, wc_dir, repository)
+	def initialize(wc_dir, repository)
 		@wc_dir = wc_dir
 		@repository = repository
 	end
-	
-	def wc_path(path)
-		realpath = Pathname.new(path).cleanpath
-		if realpath.absolute?
-			return "#{@wc_dir}/#{realpath.to_s}"
-		else
-			w_warn("#{path} -> invalid path")
-			return false
-		end
-	end
-	private :wc_path
 	
 	
 	def checkout(version=versions.last)
@@ -31,26 +21,34 @@ class WorkingCopy
 	end
 	
 	def cat(path, version=nil)
-		realpath = wc_path(path)
-		return false if ! realpath
+		path = File.cleanpath(path)
+		(w_warn("#{path}: invalid path") ; return false) if ! File.absolute?(path)
 		
+		rpath = "#{@wc_dir}/#{path}"
 		if version
-			return @repository.cat(@wc_dir, path, version)
+			return @repository.cat(path, version)
 		else
-			return false if ! file?(realpath)
-			return File.new(realpath).read
+			return false if ! file?(rpath)
+			return File.new(rpath).read
 		end
 	end
 	
 	def ls(path, version=nil)
-		realpath = wc_path(path)
-		return false if ! realpath
+		path = File.cleanpath(path)
+		(w_warn("#{path}: invalid path") ; return false) if ! File.absolute?(path)
 		
+		rpath = "#{@wc_dir}/#{path}"
 		if version
-			return @repository.cat(@wc_dir, path, version)
+			return @repository.ls(path, version)
 		else
-			return false if ! file?(realpath)
-			return File.new(realpath).read
+			tree = FileTree.new
+			Pathname.glob("#{rpath}/**", false) do |f|
+				as_dir = false
+				as_dir = true if f.directory?
+				
+				tree.add_with_parents("/#{f.to_s}", as_dir)
+			end
+			return tree
 		end
 	end
 	
@@ -65,33 +63,38 @@ class WorkingCopy
 	
 	
 	def add(path, as_dir=false)
-		realpath = wc_path(path)
-		return false if ! realpath
+		path = File.cleanpath(path)
+		(w_warn("#{path}: invalid path") ; return false) if (! File.absolute?(path)) or File.root?(path)
 		
-		if ! exist?(realpath)
-			mkdir(realpath) if as_dir
-			touch(realpath)
+		rpath = "#{@wc_dir}/#{path}"
+		if ! exist?(rpath)
+			mkdir(rpath) if as_dir
+			touch(rpath) if ! as_dir
 		end
 		
 		@repository.add(@wc_dir, path)
 	end
 	
 	def delete(path)
-		realpath = wc_path(path)
-		return false if ! realpath
+		path = File.cleanpath(path)
+		(w_warn("#{path}: invalid path") ; return false) if (! File.absolute?(path)) or File.root?(path)
 		
-		@repository.delete(@wc_dir, path) if exist?(realpath)
-		rm_rf(realpath) if exist?(realpath)	
+		rpath = "#{@wc_dir}/#{path}"
+		@repository.delete(@wc_dir, path) if exist?(rpath)
+		rm_rf(rpath) if exist?(rpath)	
 	end
 	
 	def move(path_from, path_to)
-		realpath_from = wc_path(path_from)
-		realpath_to = wc_path(path_to)
-		return false if ! ( realpath_from or realpath_to )
+		path_from = File.cleanpath(path_from)
+		path_to = File.cleanpath(path_to)
+		(w_warn("#{path_from}: invalid path") ; return false) if (! File.absolute?(path_from)) or File.root?(path_from)
+		(w_warn("#{path_to}: invalid path") ; return false) if ! File.absolute?(path_to)
 		
-		if exist?(realpath_from)
-			if directory?(realpath_to) or
-				directory?(File.dirname(realpath_to))
+		rpath_from = "#{@wc_dir}/#{path_from}"
+		rpath_to = "#{@wc_dir}/#{path_to}"
+		if exist?(rpath_from)
+			if directory?(rpath_to) or
+				directory?(File.dirname(rpath_to))
 				
 				@repository.move(@wc_dir, path_from, path_to)
 			else
@@ -99,7 +102,7 @@ class WorkingCopy
 			end
 		end
 		
-		mv(realpath_from, realpath_to) if exist?(realpath_from)
+		mv(rpath_from, rpath_to) if exist?(rpath_from)
 	end
 	
 	
@@ -108,10 +111,16 @@ class WorkingCopy
 	end
 	
 	def write(path, content="")
-		realpath = wc_path(path)
-		return false if ! realpath
+		path = File.cleanpath(path)
+		(w_warn("#{path}: invalid path") ; return false) if (! File.absolute?(path)) or File.root?(path)
 		
-		return File.new(realpath, "w").write(content.to_s)
+		rpath = "#{@wc_dir}/#{path}"
+		return false if ! file?(rpath)
+		
+		file = File.new(rpath, "w")
+		ret = file.write(content.to_s+"\n")
+		file.fsync
+		return ret
 	end
 	
 end
