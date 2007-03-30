@@ -1,1 +1,1 @@
-require "ruby-ext/kernel.rb"
+require "core/ruby-ext/kernel.rb"

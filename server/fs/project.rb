@@ -9,7 +9,6 @@ class Project
 	def initialize(name, repository)
 		@name = name
 		@repositoy = repository
-		@wc = WorkingCopy(
 	end
 	
 	def create_workingcopy(user)

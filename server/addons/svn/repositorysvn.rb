@@ -58,10 +58,22 @@ class RepositorySvn < Repository::Base
 		realpath = Pathname.new(path).cleanpath
 		(w_warn("#{path} -> not an absolute path") ; return false ) if ! realpath.absolute?
 		
-		cmd = Command.exec("svn", "ls", "file://#{@dir}/#{realpath.to_s}@#{version.get}")
-		return cmd.stdout if cmd.status.success?
-		w_warn("Fail -- #{cmd.stderr}")
-		return false
+		cmd = Command.exec("svn", "ls", "-R", "--xml", "file://#{@dir}/#{realpath.to_s}@#{version.get}")
+		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
+		p cmd.stdout
+		tree = FileTree.new
+		doc = REXML::Document.new(cmd.stdout)
+		doc.root.each_element do |list|
+			list.each_element do |entry|
+				ftype = entry.attribute("kind").to_s
+				p entry.get_text("name")
+				#version.get_text("msg"),
+				#version.get_text("date"),
+				#version.get_text("author")
+			end
+		end
+		
+		return tree
 	end
 	
 	
