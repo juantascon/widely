@@ -52,12 +52,12 @@ module WDebug
 		$WDEBUG_LOGGER_DEV.print("[%s] %s: %s\n" % [severity, from, m])
 	end
 	
-	def w_debug(m, &block); w_log(Sev::D, m, 2, &block); end
-	def w_info(m, &block); w_log(Sev::I, m, 2, &block); end
-	def w_warn(m, &block); w_log(Sev::W, m, 2, &block); end
-	def w_error(m, &block); w_log(Sev::E, m, 2, &block); end
-	def w_fatal(m, &block); w_log(Sev::F, m, 2, &block); end
-	def w_unknown(m, &block); w_log(Sev::U, m, 2, &block); end
+	def w_debug(m, back=0, &block); w_log(Sev::D, m, 2+back, &block); end
+	def w_info(m, back=0, &block); w_log(Sev::I, m, 2+back, &block); end
+	def w_warn(m, back=0, &block); w_log(Sev::W, m, 2+back, &block); end
+	def w_error(m, back=0, &block); w_log(Sev::E, m, 2+back, &block); end
+	def w_fatal(m, back=0, &block); w_log(Sev::F, m, 2+back, &block); end
+	def w_unknown(m, back=0, &block); w_log(Sev::U, m, 2+back, &block); end
 	
 	def we_debug(from, m); WE.new(Sev::D, from, m); end
 	def we_info(from, m); WE.new(Sev::I, from, m); end
