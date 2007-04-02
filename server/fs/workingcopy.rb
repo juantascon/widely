@@ -1,6 +1,5 @@
 #todo:
 #terminar: status
-#fix: ls(no genera tree en version wc)
 
 module FS
 class WorkingCopy
@@ -15,14 +14,40 @@ class WorkingCopy
 	end
 	
 	
+	def repository_file?(f)
+		f = File.cleanpath("%wc_dir%/#{f}")
+		
+		@repository.class::FILES.each do |exp|
+			return true if exp === f
+		end
+		return false
+	end
+	
+	
 	def checkout(version=versions.last)
 		mkdir @wc_dir if ! directory? @wc_dir
 		repository.checkout(@wc_dir, version)
 	end
 	
+	def status()
+		@repository.status(@wc_dir)
+	end
+	
+	def commit(log)
+		@repository.commit(@wc_dir, log.to_s)
+	end
+	
+	def versions()
+		@repository.versions()
+	end
+	
+	
 	def cat(path, version=nil)
 		path = File.cleanpath(path)
-		(w_warn("#{path}: invalid path") ; return false) if ! File.absolute?(path)
+		if ! File.absolute?(path) or repository_file?(path)
+			w_warn("#{path}: invalid path")
+			return false
+		end
 		
 		rpath = "#{@wc_dir}/#{path}"
 		if version
@@ -32,39 +57,36 @@ class WorkingCopy
 			return File.new(rpath).read
 		end
 	end
-	
+
 	def ls(path, version=nil)
 		path = File.cleanpath(path)
-		(w_warn("#{path}: invalid path") ; return false) if ! File.absolute?(path)
+		if ! File.absolute?(path) or repository_file?(path)
+			w_warn("#{path}: invalid path")
+			return false
+		end
 		
 		rpath = "#{@wc_dir}/#{path}"
 		if version
 			return @repository.ls(path, version)
 		else
 			tree = FileTree.new
-			Pathname.glob("#{rpath}/**", false) do |f|
-				as_dir = false
-				as_dir = true if f.directory?
-				
-				tree.add_with_parents("/#{f.to_s}", as_dir)
+			Find.find(rpath) do |f|
+				node_name = "#{Pathname.new(f).relative_path_from(Pathname.new(rpath)).to_s}"
+				next if node_name == "."
+				Find.prune if repository_file?(node_name)
+				tree.add_with_parents("/#{node_name}", directory?(f))
 			end
 			return tree
 		end
 	end
 	
 	
-	def status()
-		repository.status(@wc_dir)
-	end
-	
-	def commit(log)
-		repository.commit(@wc_dir, log.to_s)
-	end
-	
-	
 	def add(path, as_dir=false)
 		path = File.cleanpath(path)
-		(w_warn("#{path}: invalid path") ; return false) if (! File.absolute?(path)) or File.root?(path)
+		if (! File.absolute?(path)) or File.root?(path) or repository_file?(path)
+			w_warn("#{path}: invalid path")
+			return false
+		end
 		
 		rpath = "#{@wc_dir}/#{path}"
 		if ! exist?(rpath)
@@ -77,7 +99,10 @@ class WorkingCopy
 	
 	def delete(path)
 		path = File.cleanpath(path)
-		(w_warn("#{path}: invalid path") ; return false) if (! File.absolute?(path)) or File.root?(path)
+		if (! File.absolute?(path)) or File.root?(path) or repository_file?(path)
+			w_warn("#{path}: invalid path")
+			return false
+		end
 		
 		rpath = "#{@wc_dir}/#{path}"
 		@repository.delete(@wc_dir, path) if exist?(rpath)
@@ -87,8 +112,14 @@ class WorkingCopy
 	def move(path_from, path_to)
 		path_from = File.cleanpath(path_from)
 		path_to = File.cleanpath(path_to)
-		(w_warn("#{path_from}: invalid path") ; return false) if (! File.absolute?(path_from)) or File.root?(path_from)
-		(w_warn("#{path_to}: invalid path") ; return false) if ! File.absolute?(path_to)
+		if (! File.absolute?(path_from)) or File.root?(path_from) or repository_file?(path_from)
+			w_warn("#{path_from}: invalid path")
+			return false
+		end
+		if ! File.absolute?(path_to) or repository_file?(path_to)
+			w_warn("#{path_to}: invalid path")
+			return false
+		end
 		
 		rpath_from = "#{@wc_dir}/#{path_from}"
 		rpath_to = "#{@wc_dir}/#{path_to}"
@@ -106,13 +137,12 @@ class WorkingCopy
 	end
 	
 	
-	def versions()
-		@repository.versions()
-	end
-	
 	def write(path, content="")
 		path = File.cleanpath(path)
-		(w_warn("#{path}: invalid path") ; return false) if (! File.absolute?(path)) or File.root?(path)
+		if ! File.absolute?(path) or repository_file?(path)
+			w_warn("#{path}: invalid path")
+			return false
+		end
 		
 		rpath = "#{@wc_dir}/#{path}"
 		return false if ! file?(rpath)

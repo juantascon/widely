@@ -5,6 +5,7 @@
 module FS
 module Repository
 	class Base
+		FILES = Array.new
 		[:create, :delete, :checkout, :commit, :status,
 		:file_add, :file_delete, :file_move, :file_cat,
 		:dir_create, :dir_list, :version_list ].each do |m|

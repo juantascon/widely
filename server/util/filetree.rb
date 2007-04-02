@@ -26,6 +26,10 @@ class FileTree
 			end
 			return path.reverse.join("/")
 		end
+		
+		def to_s(tab="")
+			"#{tab}#{id.to_s}:file\n"
+		end
 	end
 	
 	class DirNode < FileNode
@@ -39,21 +43,35 @@ class FileTree
 		end
 		
 		def add(id, as_dir=false)
-			new_node = (as_dir ? DirNode.new(self, id) : FileNode.new(self, id))
-			@childs.push(new_node)
-			return new_node
+			if child(id)
+				if child(id).ftype != (as_dir ? FTYPE::DIR : FTYPE::FILE)
+					return false
+				else
+					return child(id)
+				end
+			else
+				new_node = (as_dir ? DirNode : FileNode).new(self, id)
+				@childs.push(new_node)
+				return new_node
+			end
 		end
 		
 		def child(id)
 			@childs.each {|c| return c if c.id == id }
 			return nil
 		end
+		
+		def to_s(tab="")
+			str = "#{tab}#{id.to_s}:dir\n"
+			@childs.each {|c| str+="#{c.to_s("#{tab}|-")}" }
+			return str
+		end
 	end
 		
 	attr_reader :root
 	
-	def initialize()
-		@root = DirNode.new(nil, "")
+	def initialize(root_dir="")
+		@root = DirNode.new(nil, root_dir)
 	end
 	
 	def add_with_parents(path, as_dir=false)
@@ -62,21 +80,16 @@ class FileTree
 		
 		#Primero se crean los directorios padres de forma iterativa
 		parent = @root
-		realpath.dirname.each_filename do |p|
-			if parent.child(p)
-				if parent.child(p).ftype != FTYPE::DIR
-					w_warn("#{path}:#{p} -> not a dir")
-					return false
-				else
-					parent = parent.child(p)
-				end
-			else
-				parent = parent.add(p, true)
-			end
+		realpath.dirname.each_filename do |id|
+			child = parent.add(id, true)
+			(w_warn ("#{path}(#{id}): not a directory"); return false) if ! child
+			parent = child
 		end
 		
 		#Luego se agrega el hijo
-		return parent.add(realpath.basename.to_s, as_dir)
+		ret = parent.add(realpath.basename.to_s, as_dir)
+		(w_warn ("#{path}: not a directory"); return false) if ! ret
+		return ret
 	end
 	
 end

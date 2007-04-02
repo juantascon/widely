@@ -31,6 +31,7 @@ wc.move("/dir1/dir1_1/testfile2", "/dir1/dir1_2")
 wc.delete("/dir1/dir1_1")
 wc.commit("version3")
 p wc.versions
-p wc.ls("/dir1")
+p wc.ls("/").root.to_s
+p wc.ls("/", wc.versions.last).root.to_s
 
 gets

@@ -11,11 +11,14 @@ class RepositorySvn < Repository::Base
 	
 	attr_reader :dir
 	
+	FILES = [ /^%wc_dir%(\/|\/.*\/).svn((\/+.*)*)/ ]
+	
 	def initialize(dir)
 		@dir = dir
 		we_warn("#{@dir}: not an absolute path") if ! File.absolute?(@dir)
 		self.create if ! exists
 	end
+	
 	
 	def exists()
 		return (directory?(@dir) and file?(@dir+"format") and file?(@dir+"README.txt") and file?(@dir+"db"+"fs-type"))
@@ -29,7 +32,6 @@ class RepositorySvn < Repository::Base
 		return false
 	end
 	
-	
 	def checkout(wc_dir, version=versions.last)
 		w_info("#{@dir}@#{version.get} -> #{wc_dir}")
 		cmd = Command.exec("svn", "checkout", "file://#{@dir}@#{version.get}", wc_dir)
@@ -37,6 +39,39 @@ class RepositorySvn < Repository::Base
 		w_warn("Fail -- #{cmd.stderr}")
 		return false
 	end
+	
+	def status(wc_dir)
+		w_info("#{wc_dir}")
+		@context.status(wc_dir)
+	end
+	
+	def commit(wc_dir, log)
+		w_info("#{wc_dir}(#{log}) -> #{@dir}:")
+		cmd = Command.exec("svn", "commit", "--non-interactive", "-m", log, wc_dir)
+		return true if cmd.status.success?
+		w_warn("Fail -- #{cmd.stderr}")
+		return false
+	end
+	
+	
+	def versions()
+		w_info("#{@dir}")
+		cmd = Command.exec("svn", "log", "--xml", "file://#{@dir}")
+		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
+		
+		ret = Array.new
+		doc = REXML::Document.new(cmd.stdout)
+		doc.root.each_element do |version|
+			ret.push( Repository::Version.new(
+				version.attribute("revision").to_s,
+				version.get_text("msg"),
+				version.get_text("date"),
+				version.get_text("author") ))
+		end
+		ret.push(Repository::Version.new(0))
+		return ret.reverse
+	end
+	
 	
 	def cat(path, version=versions.last)
 		w_info("#{path}@#{version.get}")
@@ -74,20 +109,6 @@ class RepositorySvn < Repository::Base
 		end
 		
 		return tree
-	end
-	
-	
-	def status(wc_dir)
-		w_info("#{wc_dir}")
-		@context.status(wc_dir)
-	end
-	
-	def commit(wc_dir, log)
-		w_info("#{wc_dir}(#{log}) -> #{@dir}:")
-		cmd = Command.exec("svn", "commit", "--non-interactive", "-m", log, wc_dir)
-		return true if cmd.status.success?
-		w_warn("Fail -- #{cmd.stderr}")
-		return false
 	end
 	
 	
@@ -131,23 +152,5 @@ class RepositorySvn < Repository::Base
 		return false
 	end
 	
-	
-	def versions()
-		w_info("#{@dir}")
-		cmd = Command.exec("svn", "log", "--xml", "file://#{@dir}")
-		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
-		
-		ret = Array.new
-		doc = REXML::Document.new(cmd.stdout)
-		doc.root.each_element do |version|
-			ret.push( Repository::Version.new(
-				version.attribute("revision").to_s,
-				version.get_text("msg"),
-				version.get_text("date"),
-				version.get_text("author") ))
-		end
-		ret.push(Repository::Version.new(0))
-		return ret.reverse
-	end
 end
 end
