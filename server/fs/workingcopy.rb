@@ -17,7 +17,7 @@ class WorkingCopy
 	def repository_file?(f)
 		f = File.cleanpath("%wc_dir%/#{f}")
 		
-		@repository.class::FILES.each do |exp|
+		@repository.files.each do |exp|
 			return true if exp === f
 		end
 		return false

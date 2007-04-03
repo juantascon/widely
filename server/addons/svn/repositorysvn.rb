@@ -7,11 +7,11 @@ class RepositorySvn < Repository::Base
 	include FileUtils
 	include FileTest
 	
-	require "rexml/document.rb"
-	
 	attr_reader :dir
 	
-	FILES = [ /^%wc_dir%(\/|\/.*\/).svn((\/+.*)*)/ ]
+	def files
+		[ /^%wc_dir%(\/|\/.*\/).svn((\/+.*)*)/ ]
+	end
 	
 	def initialize(dir)
 		@dir = dir

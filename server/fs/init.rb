@@ -4,5 +4,4 @@ wmodule :FS => :Util do |mod|
 	require "repository/version.rb"
 	
 	require "workingcopy.rb"
-	require "project.rb"
 end

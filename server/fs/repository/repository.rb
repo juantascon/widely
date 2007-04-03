@@ -1,9 +1,9 @@
 module FS
-module Repository
-	class Repository < SimpleDelegator
-		def initialize(type, *args)
-			__setobj__(type.new(args))
-		end
+class Repository < ForwardManager
+	
+	def initialize(manager_name=:default, *args)
+		forward(manager_name, *args)
 	end
+	
 end
 end

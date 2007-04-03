@@ -3,4 +3,5 @@ wmodule :Util do |mod|
 	require "storablehash.rb"
 	require "command.rb"
 	require "filetree.rb"
+	require "forwardmanager.rb"
 end

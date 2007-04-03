@@ -3,7 +3,7 @@ at_exit do
 	Dir.glob("/tmp/{repos*,wc*}").each { |d| FileUtils.rm_rf d }
 end
 
-repos = Svn::RepositorySvn.new("/tmp/repos");
+repos = Repository::Repository.new(:svn, "/tmp/repos");
 wc = WorkingCopy.new("/tmp/wc", repos)
 wc2 = WorkingCopy.new("/tmp/wc2", repos)
 

@@ -1,5 +1,5 @@
 module FS
-module Repository
+class Repository
 class Version
 	attr_reader :id, :description, :date, :author
 	
