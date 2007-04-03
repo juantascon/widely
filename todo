@@ -7,13 +7,13 @@ Editor:
 FS + SVN:
 	*ok* svnlib-ruby incluida totalmente en el modulo
 	*ok* terminar metodos de repos y wc
-	terminar svn repos
+	*ok* terminar svn repos
 	crear webservice (soap/restful)
 
 Treeview + FS:
 	integrar con FS Webservice
 	configurar click derecho
-	modificacion de gerarquia de fs (crear, mover, renombrar, borrar, actualizar, ver otra version, ...)
+	modificacion de jerarquia de fs (crear, mover, renombrar, borrar, actualizar, ver otra version, ...)
 
 Editor + FS:
 	load de fs webservice
@@ -27,12 +27,13 @@ Editor + Treeview:
 
 Compilador:
 	seleccionar lenguaje
-	interfaz con el compilador (webservice)
-	resultado de la compilacion (webservice)
+	interfaz con el compilador (webservice?)
+	resultado de la compilacion (webservice?)
 
 Downloader:
 	descargar archivos empaquetados
 	descargar solo 1 binario
+	webservice?
 
 Atajos:
 	atajos de teclado
