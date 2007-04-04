@@ -1,3 +1,4 @@
+=begin
 module API
 module FSAPI
 	
@@ -31,3 +32,4 @@ wc.commit("version3")
 p wc.versions
 p wc.ls("/").root.to_s
 p wc.ls("/", wc.versions.last).root.to_s
+=end

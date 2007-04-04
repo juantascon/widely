@@ -1,18 +1,18 @@
-module Util
+# Como IO.popen pero tambien redirecciona la salida de error y permite cambiar el
+# pwd del proceso
+# 
+# retorna una estructura con los siguientes campos:
+# stdout: idem pero con la salida de error
+# stderr: un string que contiene toda la salida de error del comando
+# status: una estructura Process::Status con el estado del proceso ejecutado
+# 
+# Ejemplo:
+# Command.exec("ls /") #> 
+
 class Command
-	# Como IO.popen pero tambien redirecciona la salida de error y permite cambiar el
-	# pwd del proceso
-	# 
-	# retorna una estructura con los siguientes campos:
-	# stdout: idem pero con la salida de error
-	# stderr: un string que contiene toda la salida de error del comando
-	# status: una estructura Process::Status con el estado del proceso ejecutado
-	# 
-	# Ejemplo:
-	# Util::Command.exec("ls /") #> 
 	
 	attr_reader :stdout, :stderr, :status
-		
+	
 	def initialize(stdout, stderr, status)
 		@stdout = stdout
 		@stderr = stderr
@@ -37,10 +37,9 @@ class Command
 		Process.wait
 		return new(r_out.read, r_err.read, $?.clone)
 	end
-
+	
 	def self.exec(cmd, *args)
 		exec_chpwd(Dir.pwd, cmd, *args)
 	end
-
-end
+	
 end

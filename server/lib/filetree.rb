@@ -1,12 +1,10 @@
-module Util
+# Abstraccion de un arbol de archivos
+
 class FileTree
-	
-	
 	module FTYPE
 		FILE = 0
 		DIR = 1
 	end
-	
 	
 	class FileNode
 		attr_reader :parent, :id, :ftype
@@ -67,7 +65,7 @@ class FileTree
 			return str
 		end
 	end
-		
+	
 	attr_reader :root
 	
 	def initialize(root_dir="")
@@ -92,5 +90,4 @@ class FileTree
 		return ret
 	end
 	
-end
 end

@@ -9,7 +9,7 @@ require "core/ruby-ext.rb"
 require "core/wdebug.rb"
 require "core/wmodule.rb"
 
-( [:Util, :Auth, :FS, :Api] + Dir.glob("addons/*") ).each { |m| require "#{m.to_s.downcase}/init.rb" }
+Dir.glob("{webservices,addons}/*").each { |m| require "#{m.to_s}/init.rb" }
 
 WModule.collection.each_value { |m| m.load }
 

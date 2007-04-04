@@ -1,4 +1,5 @@
-module Util
+# Hash que se puede almacenar y cargar desde un archivo
+
 class StorableHash < Hash
 	include Parser
 	

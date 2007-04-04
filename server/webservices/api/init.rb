@@ -1,4 +1,4 @@
-wmodule :API => :FS, :Auth do |mod|
+wmodule :API => [:FS, :Auth] do |mod|
 	require "fs.rb"
-	require "util.rb"
+	require "auth.rb"
 end

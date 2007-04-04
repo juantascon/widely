@@ -1,4 +1,4 @@
-module Util
+#Metodos de ayuda en el parsing de cadenas
 module Parser
 
 	def vars_to_values(str)
@@ -8,5 +8,4 @@ module Parser
 	end
 	module_function :vars_to_values
 
-end
 end

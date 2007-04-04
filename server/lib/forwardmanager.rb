@@ -1,4 +1,6 @@
-module Util
+# Ayuda a hacer forward de llamados a metodos utilizando
+# manejadores que deben registrar su servicio
+
 class ForwardManager
 	
 	@@managers = Hash.new
@@ -11,7 +13,7 @@ class ForwardManager
 			return false
 		end
 	end
-
+	
 	def self.set_default_manager(manager)
 		set_manager(:default, manager)
 	end
@@ -32,8 +34,6 @@ class ForwardManager
 		end
 		self.extend SingleForwardable
 		@@methods.each {|m| self.def_delegator :@instance, m}
-		
 	end
 	
-end
 end

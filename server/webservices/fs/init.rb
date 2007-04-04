@@ -1,4 +1,4 @@
-wmodule :FS => :Util do |mod|
+wmodule :FS do |mod|
 	require "repository.rb"
 	require "workingcopy.rb"
 end
