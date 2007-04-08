@@ -1,11 +1,8 @@
 module HTTP
-module Adater
-class WEBrickAdapter
-	
-	attr :server
+module Adapters
+class WEBrickAdapter < Base
 	
 	def initialize(port, &block)
-		
 		main_proc = proc do |rq, resp|
 			resp.body = block.call({
 				"method" => request_method,
@@ -18,10 +15,12 @@ class WEBrickAdapter
 	end
 	
 	def start()
+		w_info("starting")
 		@server.start
 	end
 	
 	def stop()
+		w_info("stoping")
 		@server.shutdown
 	end
 	

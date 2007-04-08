@@ -68,7 +68,7 @@ class WModule < Module
 		@init_block = init_block
 		raise we_error("#{name}", "init block not found") if ! @init_block
 		
-		@creator_file = caller_file(2) # El archivo que invoca WModule.new()
+		@creator_file = caller_file(3) # El archivo que invoca WModule.new()
 		raise we_error("#{@name}", "cannot find the module file") if ! File.exist?(@creator_file)
 		
 		Object.module_eval("module #{@name.to_s}; end") # Crea un modulo vacio con el nombre del modulo

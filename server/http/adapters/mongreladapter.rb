@@ -1,35 +1,35 @@
 module HTTP
-module Adater
-class MongrelAdapter
-	attr :server
-	
-	class ProcHandler < Mongrel::HttpHandler
-		attr :block
-		
-		def initialize(&block)
-			@block = block
-		end
-		
-		def process(rq, resp)
-			response.start() do |head,body|
-				body.write(@block.call({
-					"method" => rq.params["REQUEST_METHOD"],
-					"path" => rq.params["REQUEST_PATH"],
-					"body" => rq.body.read }).to_json)
-			end
-		end
-	end
+module Adapters
+class MongrelAdapter < Base
 	
 	def initialize(port, &block)
+		handler = Mongrel::HttpHandler.new()
+		class << handler
+			def set_block(block)
+				@block = block
+			end
+			def process(rq, resp)
+				resp.start() do |head,body|
+					body.write(@block.call({
+						"method" => rq.params["REQUEST_METHOD"],
+						"path" => rq.params["REQUEST_PATH"],
+						"body" => rq.body.read }).to_json)
+				end
+			end
+		end
+		handler.set_block(block)
+		
 		@server = Mongrel::HttpServer.new("0.0.0.0", port.to_s)
-		@server.register("/", ProcHandler.new(&block))
+		@server.register("/", handler)
 	end
 	
 	def start()
+		w_info("starting")
 		@server.run.join
 	end
 	
 	def stop()
+		w_info("stoping")
 		@server.stop
 	end
 	

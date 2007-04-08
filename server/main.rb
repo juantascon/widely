@@ -9,6 +9,9 @@ require "core/ruby-ext.rb"
 require "core/wdebug.rb"
 require "core/wmodule.rb"
 
-Dir.glob("{webservices,addons}/*").each { |m| require "#{m.to_s}/init.rb" }
+(Dir.glob("{webservices,addons}/*")+["http"]).each { |m| require "#{m.to_s}/init.rb" }
 
-WModule.collection.each_value { |m| m.load }
+WModule.collection.each_value { |m| m.load if ! m.loaded }
+
+Dispatch.start(3000)
+
