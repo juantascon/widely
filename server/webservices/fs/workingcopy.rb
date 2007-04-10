@@ -3,12 +3,19 @@
 
 module FS
 class WorkingCopy
+	
+	extend WebService
+	webservice_class("wc")
+	webservice_method :checkout, :status, :commit, :versions
+	webservice_method :cat, :ls, :add, :delete, :move, :write
+	
 	include FileUtils
 	include FileTest
-	
+
 	attr_reader :wc_dir, :repository
 	
 	def initialize(wc_dir, repository)
+		super("wc")
 		@wc_dir = wc_dir
 		@repository = repository
 	end
@@ -28,6 +35,7 @@ class WorkingCopy
 		mkdir @wc_dir if ! directory? @wc_dir
 		repository.checkout(@wc_dir, version)
 	end
+
 	
 	def status()
 		@repository.status(@wc_dir)
@@ -152,6 +160,5 @@ class WorkingCopy
 		file.fsync
 		return ret
 	end
-	
 end
 end

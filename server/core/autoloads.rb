@@ -10,10 +10,10 @@ autoload(:CGI, "cgi.rb")
 
 
 # lib Autoloads
-
 autoload(:Command, "command.rb")
 autoload(:FileTree, "filetree.rb")
 autoload(:ForwardManager, "forwardmanager.rb")
 autoload(:JSON, "json.rb")
 autoload(:Parser, "parser.rb")
 autoload(:StorableHash, "storablehash.rb")
+autoload(:WebService, "webservice.rb")
