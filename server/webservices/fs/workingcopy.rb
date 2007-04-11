@@ -1,9 +1,12 @@
-#todo:
-#terminar: status
+#
+# Manejador de Copia de Trabajo
+#
 
 module FS
 class WorkingCopy
-	
+	#
+	# Registra esta clase como WebService
+	#
 	extend WebService
 	webservice("wc")
 	webservice_module_method :new
@@ -16,22 +19,34 @@ class WorkingCopy
 	attr_reader :wc_dir, :repository
 	
 	def initialize(wc_dir, repository)
-		super("wc")
+		webservice_object
 		@wc_dir = wc_dir
 		@repository = repository
 	end
 	
-	
+	#
+	# Verifica si un archivo hace parte del manejador de
+	# versiones o si hace parte del sistema de archivos
+	#
 	def repository_file?(f)
 		f = File.cleanpath("%wc_dir%/#{f}")
 		
+		#
+		# Cada repositorio define files() como un metodo que
+		# retorna un array de expresiones regulares o simplemente
+		# strings.
+		# El string especial %wc_dir% se entiende como
+		# la ruta de la copia de trabajo
+		#
 		@repository.files.each do |exp|
 			return true if exp === f
 		end
 		return false
 	end
 	
-	
+	#
+	# Obtiene una copia de trabajo
+	#
 	def checkout(version=versions.last)
 		mkdir @wc_dir if ! directory? @wc_dir
 		repository.checkout(@wc_dir, version)
@@ -42,16 +57,35 @@ class WorkingCopy
 		@repository.status(@wc_dir)
 	end
 	
+	#
+	# Hace commit de los cambios hechos en la copia
+	# de trabajo al repositorio
+	# log = la descripcion de los cambios
+	#
 	def commit(log)
 		@repository.commit(@wc_dir, log.to_s)
 	end
 	
+	#
+	# Retorna un Array arr de Repository::Version
+	# siendo ar[0] -> la primera version
+	# arr.size -> la cantidad de versiones
+	# arr.last -> la ultima version
+	#
 	def versions()
 		@repository.versions()
 	end
 	
-	
+	#
+	# Retorna el contenido del archivo path
+	#
+	# si se especifica version se mostrara la version
+	# del repositorio, sino se mostrara la version
+	# de la copia de trabajo
+	#
 	def cat(path, version=nil)
+		
+		# path no puede ser una ruta relativa
 		path = File.cleanpath(path)
 		if ! File.absolute?(path) or repository_file?(path)
 			w_warn("#{path}: invalid path")
@@ -66,8 +100,18 @@ class WorkingCopy
 			return File.new(rpath).read
 		end
 	end
-
+	
+	#
+	# Retorna un FileTree recursivo con todas las entradas
+	# de archivos desde path
+	#
+	# si se especifica version se mostrara la version
+	# del repositorio, sino se mostrara la version
+	# de la copia de trabajo
+	#
 	def ls(path, version=nil)
+		
+		# path no puede ser una ruta relativa
 		path = File.cleanpath(path)
 		if ! File.absolute?(path) or repository_file?(path)
 			w_warn("#{path}: invalid path")
@@ -90,7 +134,17 @@ class WorkingCopy
 	end
 	
 	
+	#
+	# Agrega path a la copia de trabajo y
+	# lo marca para ser agregado al repositorio
+	# en el proximo commit
+	#
+	# si se especifica as_dir se creara como
+	# directorio, sino como archivo regular
+	#
 	def add(path, as_dir=false)
+		
+		# path no puede ser una ruta relativa
 		path = File.cleanpath(path)
 		if (! File.absolute?(path)) or File.root?(path) or repository_file?(path)
 			w_warn("#{path}: invalid path")
@@ -106,7 +160,17 @@ class WorkingCopy
 		@repository.add(@wc_dir, path)
 	end
 	
+	#
+	# Elimina path de la copia de trabajo y
+	# lo marca para ser eliminado del repositorio
+	# en el proximo commit
+	#
+	# Si path es un directorio sera eliminado de
+	# forma recursiva
+	#
 	def delete(path)
+		
+		# path no puede ser una ruta relativa
 		path = File.cleanpath(path)
 		if (! File.absolute?(path)) or File.root?(path) or repository_file?(path)
 			w_warn("#{path}: invalid path")
@@ -118,7 +182,14 @@ class WorkingCopy
 		rm_rf(rpath) if exist?(rpath)	
 	end
 	
+	#
+	# Mueve path_from a path_to en la copia de trabajo y
+	# lo marca para ser movido en el repositorio
+	# en el proximo commit
+	#
 	def move(path_from, path_to)
+		
+		# path_from y path_to no pueden ser rutas relativas
 		path_from = File.cleanpath(path_from)
 		path_to = File.cleanpath(path_to)
 		if (! File.absolute?(path_from)) or File.root?(path_from) or repository_file?(path_from)
@@ -145,8 +216,13 @@ class WorkingCopy
 		mv(rpath_from, rpath_to) if exist?(rpath_from)
 	end
 	
-	
+	#
+	# Sobreescribe el contenido del archivo path en
+	# la copia de trabajo
+	#
 	def write(path, content="")
+		
+		# path no puede ser una ruta relativa
 		path = File.cleanpath(path)
 		if ! File.absolute?(path) or repository_file?(path)
 			w_warn("#{path}: invalid path")
@@ -163,3 +239,4 @@ class WorkingCopy
 	end
 end
 end
+

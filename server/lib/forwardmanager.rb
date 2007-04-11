@@ -16,7 +16,7 @@ class ForwardManager
 	#
 	def self.set_manager(name, manager)
 		if name.kind_of? Symbol and manager.kind_of? Class
-			@@managers[name] = manager
+			@@forward_managers[name] = manager
 		else
 			w_warn("#{name}:#{manager} manager not added")
 			return false
@@ -35,7 +35,7 @@ class ForwardManager
 	#
 	def self.set_methods(methods)
 		methods.each do |m|
-			@@methods.push m.to_sym
+			@@forward_methods.push m.to_sym
 		end
 	end
 	
@@ -45,17 +45,17 @@ class ForwardManager
 	#
 	attr :instance
 	def forward(manager_name=:default, *args)
-		if @@managers[manager_name].kind_of? Class
+		if @@forward_managerss[manager_name].kind_of? Class
 			# Crea la instancia del manejador
-			@instance = @@managers[manager_name].new(*args)
+			@instance = @@forward_managers[manager_name].new(*args)
 		else
 			w_warn("#{manager_name}: manager not found, using default")
-			@instance = @@managers[:default].new(*args)
+			@instance = @@forward_managers[:default].new(*args)
 		end
 		
 		# Hace el forward de los metodos por medio de la biblioteca Forwardable
 		self.extend SingleForwardable
-		@@methods.each {|m| self.def_delegator :@instance, m}
+		@@forward_methods.each {|m| self.def_delegator :@instance, m}
 	end
 	
 end

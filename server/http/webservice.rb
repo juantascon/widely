@@ -17,7 +17,10 @@ module WebService
 	#
 	def webservice(name)
 		@name = name
-		Dispatch.set_webservice(self)
+		@method_list = Array.new
+		@module_method_list = Array.new
+		
+		Dispatcher.set_webservice(self)
 	end
 	
 	#
@@ -27,11 +30,8 @@ module WebService
 		@wso_id = @@webservice_objects.push(self).length - 1
 	end
 	
-	private :webservice_start, :webservice_object
+	private :webservice, :webservice_object
 	
-	
-	@method_list = Array.new
-	@module_method_list = Array.new	
 	
 	#
 	# Registra metodos de instancia(deben ser public)
