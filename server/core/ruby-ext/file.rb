@@ -1,3 +1,8 @@
+#
+# Extiende la clase File con metodos propios de la clase Pathname
+# (si estan en File es mas comodo)
+#
+
 class File
 	def self.cleanpath(path)
 		Pathname.new(path).cleanpath.to_s

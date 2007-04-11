@@ -5,7 +5,8 @@ module FS
 class WorkingCopy
 	
 	extend WebService
-	webservice_class("wc")
+	webservice("wc")
+	webservice_module_method :new
 	webservice_method :checkout, :status, :commit, :versions
 	webservice_method :cat, :ls, :add, :delete, :move, :write
 	

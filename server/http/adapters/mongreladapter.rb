@@ -9,11 +9,14 @@ class MongrelAdapter < Base
 				@block = block
 			end
 			def process(rq, resp)
-				resp.start() do |head,body|
-					body.write(@block.call({
-						"method" => rq.params["REQUEST_METHOD"],
-						"path" => rq.params["REQUEST_PATH"],
-						"body" => rq.body.read }).to_json)
+				real_resp = @block.call(RQ.new(
+					rq.params["REQUEST_METHOD"],
+					rq.params["REQUEST_PATH"],
+					rq.body.read))
+					
+				resp.start(real_resp.status) do |head,body|
+					head.write(real_resp.header)
+					body.write(real_resp.body)
 				end
 			end
 		end

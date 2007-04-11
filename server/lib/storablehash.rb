@@ -1,5 +1,14 @@
+#
 # Hash que se puede almacenar y cargar desde un archivo
-
+# Ej:
+# 
+# -------hashfile-------
+# nombre JuanDiego
+# edad 
+#    20
+# Apellido      Tascon
+# ------------------------
+#
 class StorableHash < Hash
 	include Parser
 	

@@ -1,6 +1,16 @@
 module FS
 class Repository < ForwardManager
 	
+	#
+	# Registra esta clase como WebService
+	#
+	extend WebService
+	webservice("repos")
+	webservice_module_method :new
+	
+	#
+	# Identifica una version dentro de un repositorio
+	#
 	class Version
 		attr_reader :id, :description, :date, :author
 		
@@ -16,9 +26,11 @@ class Repository < ForwardManager
 		end
 	end
 	
+	#
 	# Esta clase es solo una clase abstracta de las que los modulos
 	# de manejo de versiones (ej: cvs, svn, git, etc) deben heredar
 	# y redefinir estos metodos
+	#
 	class Base
 		METHODS = [ :files, :create, :checkout, :status, :commit, :versions, :cat, :ls, :add, :delete, :move ]
 		
@@ -29,12 +41,20 @@ class Repository < ForwardManager
 		end
 	end
 	
+	#
+	# Parametros de ForwardManager
+	#
 	Repository.set_default_manager(Base)
 	Repository.set_methods(Base::METHODS)
 	
+	#
+	# Crea un nuevo objeto dependiendo del manejador a utilizar
+	#
 	def initialize(manager_name=:default, *args)
+		webservice_object()
 		forward(manager_name, *args)
 	end
 	
 end
 end
+

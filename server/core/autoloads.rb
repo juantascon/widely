@@ -1,4 +1,6 @@
-# Ruby Autoloads
+#
+# Ruby StdLib Autoloads
+#
 autoload(:Singleton, "singleton.rb")
 autoload(:FileUtils, "fileutils.rb")
 autoload(:SimpleDelegator, "delegate.rb")
@@ -8,8 +10,9 @@ autoload(:Forwardable, "forwardable.rb")
 autoload(:SingleForwardable, "forwardable.rb")
 autoload(:CGI, "cgi.rb")
 
-
-# lib Autoloads
+#
+# Widely lib Autoloads
+#
 autoload(:Command, "command.rb")
 autoload(:FileTree, "filetree.rb")
 autoload(:ForwardManager, "forwardmanager.rb")

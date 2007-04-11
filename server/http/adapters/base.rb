@@ -1,5 +1,6 @@
 module HTTP
 module Adapters
+
 class Base
 	
 	attr :server, :port
@@ -13,6 +14,7 @@ class Base
 	def self.avaliable()
 		return false
 	end
+	
 end
 end
 end

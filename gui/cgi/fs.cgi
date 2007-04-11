@@ -31,6 +31,7 @@ end
 
 cgi = CGI.new()
 cgi.out do
-	file_list(cgi.params["node"][0]).to_json
+	#file_list(cgi.params["node"][0]).to_json
+	{"hola" => 3}.to_json
 end
 

@@ -1,4 +1,7 @@
-#Metodos de ayuda en el parsing de cadenas
+# 
+# Metodos de ayuda en el parsing de cadenas
+# (este modulo tal vez sera borrado)
+#
 module Parser
 
 	def vars_to_values(str)

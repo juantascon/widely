@@ -4,10 +4,14 @@ class WEBrickAdapter < Base
 	
 	def initialize(port, &block)
 		main_proc = proc do |rq, resp|
-			resp.body = block.call({
-				"method" => request_method,
-				"path" => rq.path,
-				"body" => rq.body }).to_json
+			real_resp = block.call(RQ.new(
+				request_method,
+				rq.path,
+				rq.body))
+			
+			resp.body = real_resp.body
+			resp.content_type = real_resp.header
+			resp.status = real_resp.status
 		end
 		
 		@server = WEBrick::HTTPServer.new :Port => port
@@ -33,6 +37,7 @@ class WEBrickAdapter < Base
 		
 		return false
 	end
+	
 end
 end
 end
