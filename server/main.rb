@@ -27,6 +27,5 @@ WModule.collection.each_value { |m| m.load if ! m.loaded }
 #
 # Inicia el servidor Web
 #
-#Dispatcher.new(2500)
-require "test.rb"
+Dispatcher.new(2500).start_server
 

@@ -1,4 +1,5 @@
 wmodule :HTTP do |mod|
+	require "json.rb"
 	
 	require "webservice.rb"
 	
@@ -8,6 +9,5 @@ wmodule :HTTP do |mod|
 	require "adapters/webrickadapter.rb"
 	
 	require "dispatcher.rb"
-		
 end
 

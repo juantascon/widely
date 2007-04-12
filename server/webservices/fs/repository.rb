@@ -1,11 +1,8 @@
 module FS
 class Repository < WebService
 	
-	#
 	# Registra esta clase como WebService
-	#
 	webservice("repos")
-	webservice_module_method :new
 	
 	#
 	# Identifica una version dentro de un repositorio
@@ -44,7 +41,6 @@ class Repository < WebService
 	# Esta clase realmente sirve para delegar los llamados
 	# a otras clases manejadoras de versiones
 	#
-	extend Forwardable
 	
 	# Lista de manejadores y metodos para delegar
 	@@forward_managers = Hash.new
@@ -70,6 +66,7 @@ class Repository < WebService
 	# Crea un nuevo objeto dependiendo del manejador a utilizar
 	# en caso de fallo utiliza el manejador por defecto
 	#
+	webservice_module_method :new
 	def initialize(manager_name=:default, *args)
 		webservice_object()
 		
@@ -84,7 +81,8 @@ class Repository < WebService
 		end
 		
 		# Hace el forward de los metodos por medio de la biblioteca Forwardable
-		@@forward_methods.each {|m| def_delegator :@instance, m}
+		self.extend SingleForwardable
+		@@forward_methods.each { |m| self.def_delegator :@instance, m }
 	end
 	
 end
