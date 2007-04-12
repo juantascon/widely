@@ -1,5 +1,7 @@
 FullLoader = function(url){
-	FullLoader.superclass.constructor.call(this, { dataUrl: url, baseParams: {myname: "juandiego", myid: "000001"} });
+	FullLoader.superclass.constructor.call(this, {
+		dataUrl: url,
+		baseParams: {myname: "1=ju \r&ao\t\n", myid: "0001"} });
 }
 
 Ext.extend ( FullLoader, Ext.tree.TreeLoader, {
