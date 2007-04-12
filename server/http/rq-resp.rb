@@ -21,11 +21,11 @@ end
 # HTTP Response
 #
 class Resp
-	attr_reader :status, :header, :body
+	attr_reader :status, :content_type, :body
 	
-	def initialize(status, header, body)
+	def initialize(status, content_type, body)
 		@status = status
-		@header = header
+		@content_type = content_type
 		@body = body
 	end
 	

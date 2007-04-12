@@ -15,7 +15,7 @@ class MongrelAdapter < Base
 					rq.body.read))
 					
 				resp.start(real_resp.status) do |head,body|
-					head.write(real_resp.header)
+					head["Content-Type"] = real_resp.content_type
 					body.write(real_resp.body)
 				end
 			end
