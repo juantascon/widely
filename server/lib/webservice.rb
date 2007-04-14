@@ -1,4 +1,3 @@
-module HTTP
 class WebService
 	
 	#
@@ -60,5 +59,4 @@ class WebService
 		end
 	end
 	
-end
 end
