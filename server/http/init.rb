@@ -1,8 +1,6 @@
 wmodule :HTTP do |mod|
 	require "json.rb"
 	
-	require "webservice.rb"
-	
 	require "rq-resp.rb"
 	require "adapters/base.rb"
 	require "adapters/mongreladapter.rb"
