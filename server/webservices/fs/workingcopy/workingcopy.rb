@@ -1,22 +1,17 @@
 #
 # Manejador de Copia de Trabajo
 # TODO:
-# new debe recibir un repository_id en lugar de un repository
-# terminar status
+# terminar status()
 #
 
 module FS
-class WorkingCopy < WebService
-	
-	# Registra esta clase como WebService
-	webservice("wc")
+class WorkingCopy
 	
 	include FileUtils
 	include FileTest
 
 	attr_reader :wc_dir, :repository
 	
-	webservice_module_method :new => [ :wc_dir, :repository ]
 	def initialize(wc_dir, repository)
 		webservice_object
 		@wc_dir = wc_dir
@@ -46,8 +41,9 @@ class WorkingCopy < WebService
 	#
 	# Obtiene una copia de trabajo
 	#
-	webservice_method :checkout
-	def checkout(version=versions.last)
+	def checkout(version=nil)
+		version=versions.last if ! version
+		
 		mkdir @wc_dir if ! directory? @wc_dir
 		repository.checkout(@wc_dir, version)
 	end
@@ -62,7 +58,6 @@ class WorkingCopy < WebService
 	# de trabajo al repositorio
 	# log = la descripcion de los cambios
 	#
-	webservice_method :commit => :log
 	def commit(log)
 		@repository.commit(@wc_dir, log.to_s)
 	end
@@ -73,7 +68,6 @@ class WorkingCopy < WebService
 	# arr.size -> la cantidad de versiones
 	# arr.last -> la ultima version
 	#
-	webservice_method :versions
 	def versions()
 		@repository.versions()
 	end
@@ -85,7 +79,6 @@ class WorkingCopy < WebService
 	# del repositorio, sino se mostrara la version
 	# de la copia de trabajo
 	#
-	webservice_method :cat => :path
 	def cat(path, version=nil)
 		
 		# path no puede ser una ruta relativa
@@ -112,7 +105,6 @@ class WorkingCopy < WebService
 	# del repositorio, sino se mostrara la version
 	# de la copia de trabajo
 	#
-	webservice_method :ls => :path
 	def ls(path, version=nil)
 		
 		# path no puede ser una ruta relativa
@@ -146,7 +138,6 @@ class WorkingCopy < WebService
 	# si se especifica as_dir se creara como
 	# directorio, sino como archivo regular
 	#
-	webservice_method :add => :path
 	def add(path, as_dir=false)
 		
 		# path no puede ser una ruta relativa
@@ -173,7 +164,6 @@ class WorkingCopy < WebService
 	# Si path es un directorio sera eliminado de
 	# forma recursiva
 	#
-	webservice_method :delete => :path
 	def delete(path)
 		
 		# path no puede ser una ruta relativa
@@ -193,7 +183,6 @@ class WorkingCopy < WebService
 	# lo marca para ser movido en el repositorio
 	# en el proximo commit
 	#
-	webservice_method :move => [ :path_from, :path_to ]
 	def move(path_from, path_to)
 		
 		# path_from y path_to no pueden ser rutas relativas
@@ -227,8 +216,7 @@ class WorkingCopy < WebService
 	# Sobreescribe el contenido del archivo path en
 	# la copia de trabajo
 	#
-	webservice_method :write => :path
-	def write(path, content="")
+	def write(path, content)
 		
 		# path no puede ser una ruta relativa
 		path = File.cleanpath(path)
@@ -245,5 +233,6 @@ class WorkingCopy < WebService
 		file.fsync
 		return ret
 	end
+	
 end
 end
