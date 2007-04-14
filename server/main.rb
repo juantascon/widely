@@ -1,5 +1,5 @@
 #
-# El directorio HOME donde reside Widely
+# El directorio donde reside Widely
 #
 $WIDELY_HOME = File.dirname($0)
 
