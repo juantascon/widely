@@ -15,23 +15,6 @@ module WDebug
 	end
 	
 	#
-	# Define una excepcion con el campo adicional from
-	# que facilita la lectura de los mensajes de depuracion
-	#
-	class WE < Exception
-		attr_reader :from, :severity, :message
-		
-		def initialize(severity, from, message)
-			@from, @severity, @message = from.upcase, severity, message
-			w_log(@severity, self.to_s)
-		end
-		
-		def to_s()
-			"[Exception][#{@from}]: #{@message}"
-		end
-	end
-	
-	#
 	# Define hacia donde se mandan los mensajes de depuracion
 	# y que tan severos son los mensajes a tener en cuenta
 	#
@@ -58,7 +41,7 @@ module WDebug
 		return true if severity < $WDEBUG_LEVEL
 		
 		m = if m.respond_to? :message; m.message; else m.to_s; end
-		m = yield if block_given?
+		m = block.call if block_given?
 		severity = Sev::SEVS[severity] || Sev::SEVS[Sev::UNKNOWN]
 		
 		if caller_method(back)
@@ -67,7 +50,7 @@ module WDebug
 			from = "#{self.class.name}"
 		end
 		
-		$WDEBUG_LOGGER_DEV.print("[%s] %s: %s\n" % [severity, from, m])
+		$WDEBUG_LOGGER_DEV.print("[%s] %s: %s\n" % [severity.to_s, from.to_s, m.to_s])
 	end
 	
 	#
@@ -80,15 +63,7 @@ module WDebug
 	def w_error(m, back=0, &block); w_log(Sev::E, m, 2+back, &block); end
 	def w_fatal(m, back=0, &block); w_log(Sev::F, m, 2+back, &block); end
 	def w_unknown(m, back=0, &block); w_log(Sev::U, m, 2+back, &block); end
-	
-	# Para excepciones:
-	def we_debug(from, m); WE.new(Sev::D, from, m); end
-	def we_info(from, m); WE.new(Sev::I, from, m); end
-	def we_warn(from, m); WE.new(Sev::W, from, m); end
-	def we_error(from, m); WE.new(Sev::E, from, m); end
-	def we_fatal(from, m); WE.new(Sev::F, from, m); end
-	def we_unknown(from, m); WE.new(Sev::U, from, m); end
-	
+		
 end
 
 #

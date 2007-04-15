@@ -70,21 +70,21 @@ class WModule < Module
 			@depends = definition.values[0]
 			@depends = [@depends] if @depends.class != Array
 			(@depends + [@name]).each do |d|
-				raise we_error("WModule", "Argument error: #{d}") if d.class != Symbol
+				raise ArgumentError.new("#{d}: invalid") if d.class != Symbol
 			end
 		else
-			raise we_error("WModule", "Argument error: #{definition}")
+			raise ArgumentError.new("#{definition}: invalid")
 		end
 
-		raise we_error("#{name}", "module already exists") if @@collection[@name]
+		raise StandardError.new("WModule[#{@name}]: already exists") if @@collection[@name]
 		
 		# El bloque con la definicion del module
 		@init_block = init_block
-		raise we_error("#{name}", "init block not found") if ! @init_block
+		raise ArgumentError.new("WModule[#{@name}]: init block not found") if ! @init_block
 		
 		# La ruta del archivo que creo el WModule(WModule.new) para localizar el resto de archivos
 		@creator_file = caller_file(3)
-		raise we_error("#{@name}", "cannot find the module file") if ! File.exist?(@creator_file)
+		raise StandardError.new("WModule[#{@name}]: module file not found") if ! File.exist?(@creator_file)
 		
 		# Crea un Module vacio con el mismo nombre del WModule
 		Object.module_eval("module #{@name.to_s}; end")

@@ -13,10 +13,13 @@ class RepositorySvn < Repository::Base
 		[ /^%wc_dir%(\/|\/.*\/).svn((\/+.*)*)/ ]
 	end
 	
-	def initialize(dir)
+	def initialize(dir=nil)
+		raise ArgumentError.new("dir[#{dir}]: invalid") if ! dir.kind_of? String
+		raise ArgumentError.new("dir[#{dir}]: not an absolute path") if ! File.absolute?(dir)
+		
 		@dir = dir
-		we_warn("#{@dir}: not an absolute path") if ! File.absolute?(@dir)
-		self.create if ! exists
+		create_ok = self.create if ! exists
+		raise StandardError.new("create: invalid") if ! create_ok
 	end
 	
 	
@@ -27,17 +30,15 @@ class RepositorySvn < Repository::Base
 	def create()
 		w_info("#{@dir}")
 		cmd = Command.exec("svnadmin", "create", @dir)
-		return true if cmd.status.success?
-		w_warn("Fail -- #{cmd.stderr}")
-		return false
+		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
+		return true
 	end
 	
 	def checkout(wc_dir, version=versions.last)
 		w_info("#{@dir}@#{version.get} -> #{wc_dir}")
 		cmd = Command.exec("svn", "checkout", "file://#{@dir}@#{version.get}", wc_dir)
-		return true if cmd.status.success?
-		w_warn("Fail -- #{cmd.stderr}")
-		return false
+		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
+		return true
 	end
 	
 	def status(wc_dir)
@@ -48,9 +49,8 @@ class RepositorySvn < Repository::Base
 	def commit(wc_dir, log)
 		w_info("#{wc_dir}(#{log}) -> #{@dir}:")
 		cmd = Command.exec("svn", "commit", "--non-interactive", "-m", log, wc_dir)
-		return true if cmd.status.success?
-		w_warn("Fail -- #{cmd.stderr}")
-		return false
+		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
+		return true
 	end
 	
 	
@@ -80,9 +80,8 @@ class RepositorySvn < Repository::Base
 		
 		rpath = "#{@dir}/#{path}"
 		cmd = Command.exec("svn", "cat", "file://#{rpath}@#{version.get}")
-		return cmd.stdout if cmd.status.success?
-		w_warn("Fail -- #{cmd.stderr}")
-		return false
+		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
+		return true
 	end
 	
 	def ls(path, version = self.versions.last)
@@ -119,9 +118,8 @@ class RepositorySvn < Repository::Base
 		
 		rpath = "#{wc_dir}/#{path}"
 		cmd = Command.exec("svn", "add", "-N", rpath)
-		return true if cmd.status.success?
-		w_warn("Fail -- #{cmd.stderr}")
-		return false
+		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
+		return true
 	end
 	
 	def delete(wc_dir, path)
@@ -131,9 +129,8 @@ class RepositorySvn < Repository::Base
 		
 		rpath = "#{wc_dir}/#{path}"
 		cmd = Command.exec("svn", "delete", rpath)
-		return true if cmd.status.success?
-		w_warn("Fail -- #{cmd.stderr}")
-		return false
+		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
+		return true
 	end
 	
 	def move(wc_dir, path_from, path_to)
@@ -147,9 +144,8 @@ class RepositorySvn < Repository::Base
 		rpath_to = "#{wc_dir}/#{path_to}"
 		
 		cmd = Command.exec("svn", "move", rpath_from, rpath_to)
-		return true if cmd.status.success?
-		w_warn("Fail -- #{cmd.stderr}")
-		return false
+		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
+		return true
 	end
 	
 end
