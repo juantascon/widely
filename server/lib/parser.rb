@@ -21,11 +21,11 @@ module Parser
 	#
 	def url_encoded_args_to_hash(str)
 		ret = Hash.new
-		
+		return ret if ! str.kind_of? String
 		str.split("&").each do |arg|
 			key = arg.split("=", 2)[0]
 			value = arg.split("=", 2)[1]
-			ret[URI.decode(key).to_sym] = URI.decode(value)
+			ret[URI.decode(key)] = URI.decode(value) if (key and value)
 		end
 		
 		return ret

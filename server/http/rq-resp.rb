@@ -33,7 +33,7 @@ class Resp
 		new(200, "text/json", obj.to_json)
 	end
 	
-	def self.new_json_error(message)
+	def self.new_error_json(message)
 		new(200, "text/json", {"error" => message}.to_json)
 	end
 end

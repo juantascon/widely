@@ -12,14 +12,13 @@ class Dispatcher
 	#
 	@@webservices = Hash.new
 	
-	def self.set_webservice(webservice)
-		w_info("WebService[#{webservice.webservice_name}]: #{webservice}")
-		@@webservices[webservice.webservice_name] = webservice
+	def self.set_webservice(id, webservice)
+		w_info("WebService[#{id}]: #{webservice}")
+		@@webservices[id] = webservice
 	end
 	
 	def process_request(rq)
 		# Limpia la ruta y revisa si es una ruta Absoluta
-		w_debug("#{rq}")
 		path = File.cleanpath(rq.path)
 		return Resp.new_json_error("#{rq.path}: invalid request") if ! File.absolute?(path)
 		
@@ -35,7 +34,7 @@ class Dispatcher
 			
 			when "api"
 				# Para el API solo se aceptan peticiones POST
-				return Resp.new_json_error("try with POST instead of #{rq.method}") if rq.method != "POST"
+				return Resp.new_error_json("try with POST instead of #{rq.method}") if rq.method != "POST"
 				
 				#
 				# El segundo directorio indica que webservice utilizar
@@ -46,7 +45,7 @@ class Dispatcher
 				#
 				webservice_name = path.split("/")[1]
 				webservice = @@webservices[webservice_name]
-				return Resp.new_json_error("#{webservice_name}: webservice not found") if ! webservice
+				return Resp.new_error_json("webservice[#{webservice_name}]:  not found") if ! webservice
 				
 				#
 				# El tercer directorio indica que metodo ejecutar en
@@ -62,14 +61,13 @@ class Dispatcher
 				# sacados de hacer parsing del request (rq.body)
 				#
 				begin
-					webservice.call(method_name, Parser.url_encoded_args_to_hash(rq.body))
-				rescue NameError, NoMethodError => ex
-					w_debug("#{ex.to_str}\n#{ex.backtrace}")
-					return Resp.new_json_error("#{ex.message}")
+					ret = webservice.call(method_name, Parser.url_encoded_args_to_hash(rq.body))
 				rescue Exception => ex
 					w_debug("#{ex.to_str}\n#{ex.backtrace}")
-					return Resp.new_json_error("#{method_name} [Exception]: #{ex.message}")
+					return Resp.new_error_json("#{method_name} [Exception]: #{ex.message}")
 				end
+				
+				return Resp.new_json(ret)
 				
 			when "gui"
 				return
@@ -94,7 +92,7 @@ class Dispatcher
 	def initialize(port)
 		@port = port
 		
-		[Adapters::MongrelAdapter, Adapters::WEBrickAdapter].each do |adapter|
+		[Adapters::WEBrickAdapter, Adapters::MongrelAdapter].each do |adapter|
 			next if ! adapter.avaliable
 			break if @server
 			
