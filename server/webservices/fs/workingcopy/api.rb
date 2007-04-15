@@ -5,11 +5,17 @@
 module FS
 class WorkingCopy
 
-class API < WebService
+class API
+	
+	extend WebService
 	
 	def API.create(args)
 		args_check(args, "wc_dir", "repository_wso_id")
-		obj = WorkingCopy.new(args["wc_dir"], args["repository_wso_id"])
+		
+		repository = find_wso(args["repository_wso_id"].to_i)
+		raise ArgumentError.new("repository[#{args["repository_wso_id"]}]: invalid") if ! repository
+		
+		obj = WorkingCopy.new(args["wc_dir"], repository)
 		
 		return wso(obj)
 	end
@@ -79,6 +85,9 @@ class API < WebService
 		return obj.cat(args["path"], args["content"])
 	end
 end
+
+Dispatcher.set_webservice("wc", API)
+
 
 end
 end

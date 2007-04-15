@@ -13,7 +13,6 @@ class WorkingCopy
 	attr_reader :wc_dir, :repository
 	
 	def initialize(wc_dir, repository)
-		webservice_object
 		@wc_dir = wc_dir
 		@repository = repository
 	end

@@ -25,14 +25,13 @@ class Repository
 	# Crea un nuevo objeto dependiendo del manejador a utilizar
 	# en caso de fallo utiliza el manejador por defecto
 	#
-	def initialize(manager, *args)
+	def initialize(manager, dir)
 		# Crea la instancia del manejador
 		begin
-			@instance = @@forward_managers[manager_name].new(*args)
-		rescue
-			# Si no se puede crear el manejar utiliza uno por defecto
-			w_warn("#{manager_name}: manager not found, using default")
-			@instance = @@forward_managers[:default].new()
+			@instance = @@forward_managers[manager].new(dir)
+		rescue NoMethodError => e
+			p e.message, e.backtrace
+			raise ArgumentError.new("manager[#{manager}]: invalid")
 		end
 		
 		# Hace el forward de los metodos por medio de la biblioteca Forwardable

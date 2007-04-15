@@ -1,22 +1,20 @@
 module FS
 class Repository
 
-class API < WebService
+class API
+	extend WebService
 	
 	def API.create(args)
-		args_check(args, "manager")
-		
-		#
-		# Todos los valores ordenados por el nombre de su
-		# llave excepto el valor con llave "manager"
-		#
-		extra_args = Array.new
-		args.keys.sort.each { |key| extra_args.push(args[key]) if key != "manager" }
-		
-		obj = Repository.new(args["manager"], extra_args)
+		args_check(args, "manager", "dir")
+		obj = Repository.new(args["manager"].to_sym, args["dir"])
 		
 		return wso(obj)
 	end
 	
+end
+
+Dispatcher.set_webservice("repos", API)
+
+
 end
 end
