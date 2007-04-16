@@ -5,7 +5,7 @@ namespace("pack") do
 	task :pack => ["check:in_project_dir?"] do
 		t = Time.now
 		date = "#{t.year}#{t.month.to_s.rjust(2, '0')}#{t.day.to_s.rjust(2, '0')}"
-		secs = ((t.hour*360) + (t.min*60) + (t.sec)).to_s
+		secs = ((t.hour*3600) + (t.min*60) + (t.sec)).to_s
 		from = "../#{project}"
 		to = "../#{project}-#{date}-#{secs}.tar.bz2"
 		print "Packing: #{to} ... "
