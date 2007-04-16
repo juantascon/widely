@@ -8,10 +8,10 @@ FS + SVN:
 	*ok* svnlib-ruby incluida totalmente en el modulo
 	*ok* terminar metodos de repos y wc
 	*ok* terminar svn repos
-	crear webservice (soap/restful)
+	*ok*crear webservice (soap/restful)
 
 Treeview + FS:
-	integrar con FS Webservice
+	integrar con FS Webservice **INIT(2007-04-16)
 	configurar click derecho
 	modificacion de jerarquia de fs (crear, mover, renombrar, borrar, actualizar, ver otra version, ...)
 
