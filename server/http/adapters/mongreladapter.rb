@@ -2,7 +2,11 @@ module HTTP
 module Adapters
 class MongrelAdapter < Base
 	
-	def initialize(port, &block)
+	def initialize(port)
+		@server = Mongrel::HttpServer.new("0.0.0.0", port.to_s)
+	end
+	
+	def set_proc_handler(mount_point, &block)
 		handler = Mongrel::HttpHandler.new()
 		class << handler
 			def set_block(block)
@@ -21,9 +25,11 @@ class MongrelAdapter < Base
 			end
 		end
 		handler.set_block(block)
-		
-		@server = Mongrel::HttpServer.new("0.0.0.0", port.to_s)
-		@server.register("/", handler)
+		@server.register(mount_point, handler)
+	end
+	
+	def set_file_handler(mount_point, fs_path, dir_listing=false)
+		@server.register(mount_point, Mongrel::DirHandler.new(fs_path))
 	end
 	
 	def start()

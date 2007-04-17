@@ -17,72 +17,49 @@ class Dispatcher
 		@@webservices[id] = webservice
 	end
 	
-	def process_request(rq)
-		# Limpia la ruta y revisa si es una ruta Absoluta
-		path = File.cleanpath(rq.path)
-		return Resp.new_json_error("#{rq.path}: invalid request") if ! File.absolute?(path)
+	#
+	# Procesa las peticiones del API dependiendo del webservice
+	# y del metodo
+	#
+	def api_servlet(rq)
+		# La ruta real es sin "/api"
+		path = rq.path.gsub(/^\/api/, "")
+		
+		# En el API solo se aceptan peticiones POST
+		return Resp.new_method_not_allowed() if rq.method != "POST"
 		
 		#
-		# El primer directorio indica que tipo de peticion es
-		# /api: peticion de webservice
-		# /gui: peticion de archivos estaticos de gui
-		# /doc: la documentacion
+		# El primer directorio indica que webservice utilizar
 		#
-		path[0] = ""
-		rqtype = path.split("/")[0]
-		case rqtype
-			
-			when "api"
-				# Para el API solo se aceptan peticiones POST
-				return Resp.new_error_json("try with POST instead of #{rq.method}") if rq.method != "POST"
-				
-				#
-				# El segundo directorio indica que webservice utilizar
-				#
-				# /api/wc: api de copia de trabajo
-				# /api/repos: api de repositorio
-				# /api/auth: api de autenticacion
-				#
-				webservice_name = path.split("/")[1]
-				webservice = @@webservices[webservice_name]
-				return Resp.new_error_json("webservice[#{webservice_name}]:  not found") if ! webservice
-				
-				#
-				# El tercer directorio indica que metodo ejecutar en
-				# el webservice
-				#
-				# /api/wc/status: metodo status de la copia de trabajo
-				# /api/auth/login: metodo login del webservice auth
-				#
-				method_name = path.split("/")[2]
-				
-				#
-				# El ultimo paso es ejecutar el metodo del webservice con los parametros
-				# sacados de hacer parsing del request (rq.body)
-				#
-				begin
-					ret = webservice.call(method_name, Parser.url_encoded_args_to_hash(rq.body))
-				rescue Exception => ex
-					w_debug("#{ex.to_str}\n#{ex.backtrace}")
-					return Resp.new_error_json("#{method_name} [Exception]: #{ex.message}")
-				end
-				
-				return Resp.new_json(ret)
-				
-			when "gui"
-				return
-				
-				#
-				# Aqui deberia haber un manejo simple para los archivos gui(estaticos)
-				#
-			when "doc"
-				return 
-				#
-				# Aqui deberia haber un manejo simple para los archivos doc(estaticos?)
-				#
-			else
-				return Resp.new_json_error("Path not found")
+		# /api/wc: api de copia de trabajo
+		# /api/auth: api de autenticacion
+		# ...
+		#
+		webservice_name = path.split("/")[0]
+		webservice = @@webservices[webservice_name]
+		return Resp.new_not_found() if ! webservice
+		
+		#
+		# El segundo directorio indica que metodo ejecutar en
+		# el webservice
+		#
+		# /api/wc/status: metodo status de la copia de trabajo
+		# /api/auth/login: metodo login del webservice auth
+		#
+		method_name = path.split("/")[1]
+		
+		#
+		# El ultimo paso es ejecutar el metodo del webservice con los parametros
+		# sacados de hacer parsing del request (rq.body)
+		#
+		begin
+			ret = webservice.call(method_name, Parser.url_encoded_args_to_hash(rq.body))
+		rescue Exception => ex
+			w_debug("#{ex.to_str}\n#{ex.backtrace}")
+			return Resp.new_error_json("#{method_name} [Exception]: #{ex.message}")
 		end
+		
+		return Resp.new_json(ret)
 	end
 	
 	#
@@ -92,13 +69,14 @@ class Dispatcher
 	def initialize(port)
 		@port = port
 		
-		[Adapters::WEBrickAdapter, Adapters::MongrelAdapter].each do |adapter|
+		[Adapters::MongrelAdapter, Adapters::WEBrickAdapter].each do |adapter|
 			next if ! adapter.avaliable
 			break if @server
 			
-			@server = adapter.new(@port) do |rq|
-				process_request(rq)
-			end
+			@server = adapter.new(@port)
+			@server.set_file_handler("/gui", "../gui")
+			@server.set_file_handler("/doc", "../doc")
+			@server.set_proc_handler("/api") { |rq| api_servlet(rq) }
 		end
 	end
 	

@@ -2,7 +2,11 @@ module HTTP
 module Adapters
 class WEBrickAdapter < Base
 	
-	def initialize(port, &block)
+	def initialize(port)
+		@server = WEBrick::HTTPServer.new :Port => port
+	end
+	
+	def set_proc_handler(mount_point, &block)
 		main_proc = proc do |rq, resp|
 			real_resp = block.call(RQ.new(
 				rq.request_method,
@@ -13,9 +17,12 @@ class WEBrickAdapter < Base
 			resp.content_type = real_resp.content_type
 			resp.status = real_resp.status
 		end
+		@server.mount(mount_point, WEBrick::HTTPServlet::ProcHandler.new(main_proc))
+	end
 		
-		@server = WEBrick::HTTPServer.new :Port => port
-		@server.mount("/", WEBrick::HTTPServlet::ProcHandler.new(main_proc))
+	
+	def set_file_handler(mount_point, fs_path, dir_listing=false)
+		@server.mount(mount_point, WEBRick::HTTPServlet::FileHandler, fs_path, dir_listing)
 	end
 	
 	def start()

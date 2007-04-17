@@ -12,6 +12,18 @@ class Resp
 		@body = body
 	end
 	
+	def self.new_not_found()
+		new(404, "", "NOT FOUND")
+	end
+	
+	def self.new_method_not_allowed()
+		new(405, "", "METHOD NOT ALLOWED")
+	end
+	
+	def self.new_html(data)
+		new(200, "text/html", data)
+	end
+	
 	def self.new_json(obj)
 		new(200, "text/json", obj.to_json)
 	end

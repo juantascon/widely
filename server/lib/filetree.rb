@@ -14,6 +14,9 @@
 #             |-> archivo2 (DirNode)
 #     |-> bin (DirNode)
 #
+
+require "json"
+
 class FileTree
 	#
 	# Define el tipo de archivo(directorio, regular, especial, socket unix, etc)
@@ -50,8 +53,13 @@ class FileTree
 			return path.reverse.join("/")
 		end
 		
-		def to_s(tab="")
-			"#{tab}#{id.to_s}:file\n"
+		def to_h
+			return {
+				"text" => id,
+				"id" => fullpath,
+				"childs" => false,
+				"cls" => "file"
+			}
 		end
 	end
 	
@@ -97,10 +105,22 @@ class FileTree
 			return nil
 		end
 		
-		def to_s(tab="")
-			str = "#{tab}#{id.to_s}:dir\n"
-			@childs.each {|c| str+="#{c.to_s("#{tab}|-")}" }
-			return str
+		def to_h
+			childs_h = Array.new
+			@childs.each{ |c| childs_h.push(c.to_h) }
+			
+			return {
+				"text" => id,
+				"id" => fullpath,
+				"childs" => childs_h,
+				"cls" => "folder"
+			}
+		end
+		
+		def to_a
+			list = Array.new
+			@childs.each { |c| list.push(c.to_h) }
+			return list
 		end
 	end
 	
@@ -132,4 +152,7 @@ class FileTree
 		return ret
 	end
 	
+	def to_json
+		@root.to_a.to_json
+	end
 end
