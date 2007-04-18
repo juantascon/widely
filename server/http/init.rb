@@ -9,4 +9,3 @@ wmodule :HTTP do |mod|
 	
 	require "dispatcher.rb"
 end
-

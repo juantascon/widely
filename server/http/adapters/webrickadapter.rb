@@ -22,7 +22,7 @@ class WEBrickAdapter < Base
 		
 	
 	def set_file_handler(mount_point, fs_path, dir_listing=false)
-		@server.mount(mount_point, WEBRick::HTTPServlet::FileHandler, fs_path, dir_listing)
+		@server.mount(mount_point, WEBrick::HTTPServlet::FileHandler, fs_path, dir_listing)
 	end
 	
 	def start()
