@@ -28,4 +28,3 @@ WModule.collection.each_value { |m| m.load if ! m.loaded }
 # Inicia el servidor Web
 #
 Dispatcher.new(7777).start_server
-

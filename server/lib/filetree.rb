@@ -58,7 +58,7 @@ class FileTree
 				"text" => id,
 				"id" => fullpath,
 				"childs" => false,
-				"cls" => "file"
+				"type" => "file"
 			}
 		end
 	end
@@ -113,7 +113,7 @@ class FileTree
 				"text" => id,
 				"id" => fullpath,
 				"childs" => childs_h,
-				"cls" => "folder"
+				"type" => "dir"
 			}
 		end
 		

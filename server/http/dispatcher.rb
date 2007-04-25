@@ -22,8 +22,8 @@ class Dispatcher
 	# y del metodo
 	#
 	def api_servlet(rq)
-		# La ruta real es sin "/api"
-		path = rq.path.gsub(/^\/api/, "")
+		# La ruta real es sin "/api/"
+		path = rq.path.gsub(/^\/api\//, "")
 		
 		# En el API solo se aceptan peticiones POST
 		return Resp.new_method_not_allowed() if rq.method != "POST"
@@ -36,6 +36,7 @@ class Dispatcher
 		# ...
 		#
 		webservice_name = path.split("/")[0]
+		w_debug("path: #{path}");
 		webservice = @@webservices[webservice_name]
 		return Resp.new_not_found() if ! webservice
 		
