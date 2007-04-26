@@ -77,7 +77,7 @@ class Dispatcher
 			@server = adapter.new(@port)
 
 			@server.set_file_handler("/gui/", "../gui/")
-			@server.set_file_handler("/qooxdoo/", "../../qooxdoo-0.6.6/")
+			@server.set_file_handler("/qooxdoo-sdk/", "../../qooxdoo-0.6.6-sdk/")
 			@server.set_file_handler("/doc/", "../doc")
 			@server.set_proc_handler("/api/") { |rq| api_servlet(rq) }
 		end

@@ -3,7 +3,7 @@ function () {
 	qx.ui.pageview.tabview.TabView.call(this);
 	
 	this.set({ left: 0, top: 0, right: 0, bottom: 0 });
-	this.add_tab(new tree.File("file1"));
+	this.add_tab(new tree.File("file1", "/file1"));
 	this.add_tab(new tree.File("file2"));
 	this.add_tab(new tree.File("file3"));
 	this.add_tab(new tree.File("file4"));

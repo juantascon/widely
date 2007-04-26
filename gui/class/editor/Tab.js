@@ -8,9 +8,11 @@ function (file) {
 	this.button.setChecked(true);
 	this.button.setShowCloseButton(true);
 	
-	this.area = new qx.ui.form.TextArea("contenido");
+	this.area = new qx.ui.form.TextArea(file.content);
 	this.area.set({ height: "100%", width: "100%" });
 	this.area.setOverflow("scrollY");
+	
+	this.file.load_content(this.area);
 	
 	this.page = new qx.ui.pageview.tabview.Page(this.button);
 	this.page.add(this.area);
@@ -20,4 +22,3 @@ qx.Proto.file = null;
 qx.Proto.button = null;
 qx.Proto.page = null;
 qx.Proto.textarea = null;
-

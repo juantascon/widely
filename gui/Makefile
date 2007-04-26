@@ -11,7 +11,7 @@
 # you can use the following relative path:
 # QOOXDOO_PATH = ../qooxdoo-0.6.5-sdk
 #
-QOOXDOO_PATH = ../../qooxdoo-0.6.6/sdk/
+QOOXDOO_PATH = ../../qooxdoo-0.6.6-sdk/
 
 #
 # Similar to above, but from the webserver point of view.
@@ -20,7 +20,7 @@ QOOXDOO_PATH = ../../qooxdoo-0.6.6/sdk/
 # QOOXDOO_PATH from above.
 # Example: QOOXDOO_URI = ../../qooxdoo-0.6.5-sdk
 #
-QOOXDOO_URI = /qooxdoo/sdk
+QOOXDOO_URI = /qooxdoo-sdk
 
 
 
