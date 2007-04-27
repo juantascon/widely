@@ -1,81 +1,68 @@
 ################################################################################
-# REQUIRED SETTINGS
+#
+#  qooxdoo - the new era of web development
+#
+#  http://qooxdoo.org
+#
+#  Copyright:
+#    2006-2007 1&1 Internet AG, Germany, http://www.1and1.org
+#
+#  License:
+#    LGPL: http://www.gnu.org/licenses/lgpl.html
+#    EPL: http://www.eclipse.org/org/documents/epl-v10.php
+#    See the LICENSE file in the project's top-level directory for details.
+#
+#  Authors:
+#    * Sebastian Werner (wpbasti)
+#    * Andreas Ecker (ecker)
+#    * Fabian Jakobs (fjakobs)
+#
+################################################################################
+
+################################################################################
+# SETTINGS
 ################################################################################
 
 #
 # Path to the folder of your qooxdoo distribution.
 # Can either be
-# a) a path relative to the location of this Makefile (preferred) or
+# a) a relative path to the location of this Makefile (preferred) or
 # b) an absolute path starting at the root of your file system
 # Example: If you put the skeleton folder next to the qooxdoo SDK folder,
 # you can use the following relative path:
-# QOOXDOO_PATH = ../qooxdoo-0.6.5-sdk
+# QOOXDOO_PATH = ../../qooxdoo-0.7-sdk
+# Please note that Windows users should always use relative paths.
+# It should end with the last directory. Please omit a trailing slash.
 #
-QOOXDOO_PATH = ../../qooxdoo-0.6.6-sdk/
-
-#
-# Similar to above, but from the webserver point of view.
-# Starting point is now the application HTML file of the source folder
-# (source/index.html by default). In most cases just prepend a "../" to
-# QOOXDOO_PATH from above.
-# Example: QOOXDOO_URI = ../../qooxdoo-0.6.5-sdk
-#
-QOOXDOO_URI = /qooxdoo-sdk
-
-
-
-
-
-
-################################################################################
-# BASIC SETTINGS
-################################################################################
+QOOXDOO_PATH = ../../qooxdoo-0.7-alpha2-sdk
+QOOXDOO_URI = /qooxdoo-sdk/
 
 #
-# Full namespace of your application
+# Namespace of your application e.g. custom
+# Even complexer stuff is possible like: net.sf.custom
 #
-APPLICATION_NAMESPACE = Widely
+APPLICATION_NAMESPACE = main
+APPLICATION_CLASSNAME = Widely
+APPLICATION_SOURCE_PATH = ./
 
 #
-# Titles used in your API viewer and during the build process
-#
-APPLICATION_MAKE_TITLE = WIDELY
-APPLICATION_API_TITLE = Widely
-
-#
-# Additional static files of your application (space separated list)
+# Files that will be copied from the source directory into the build
+# directory (space separated list). The default list is empty.
 #
 APPLICATION_FILES = index.html
 
-#
-# Locales to build (space separated list)
-# To set a specific locale like "en_US" the generic locale "en" has to be added as well
-# Example: APPLICATION_LOCALES = en en_US de de_DE es
-#
-APPLICATION_LOCALES = C
-
-
-
-
-
-
-################################################################################
-# ADVANCED SETTINGS
-################################################################################
-
-#
-# Please take a look at $(QOOXDOO_PATH)/frontend/framework/tool/make/application.mk
-# for an overview of available options
-#
-
-
-APPLICATION_SOURCE_PATH = $(APPLICATION_PATH)
+#-------------------------------------------------------------------------------
+# For a full list and description of available application settings, please 
+# see the APPLICATION variables in file 
+# $(QOOXDOO_PATH)/frontend/framework/tool/make/application.mk
+# Add any of those variables for your custom configuration here:
+#-------------------------------------------------------------------------------
 
 
 
 
 ################################################################################
-# INCLUDE CORE
+# INTERNALS (PLEASE DO NOT CHANGE)
 ################################################################################
 
 ifneq ($(QOOXDOO_PATH),PLEASE_DEFINE_QOOXDOO_PATH)
