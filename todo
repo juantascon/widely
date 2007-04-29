@@ -1,39 +1,105 @@
-Treeview + FS:
-	configurar click derecho
-	modificacion de jerarquia de fs (crear, mover, renombrar, borrar, actualizar, commit, ver otra version, ...)
+semanas:
+	Inicio: Lunes
+	Fin: Domingo
+	
+	        Inicio - Fin
+	      -------------------
+	1(17) | Abr 30 - May 06 |
+	-------------------------
+	2(18) | May 07 - May 13 |
+	-------------------------
+	3(19) | May 14 - May 20 |
+	-------------------------
+	4(20) | May 21 - May 27 |
+	-------------------------
+	5(21) | May 28 - Jun 03 |
+	-------------------------
+	6(22) | Jun 04 - Jun 10 |
+	-------------------------
+	7(23) | Jun 11 - Jun 17 |
+	-------------------------
 
-Editor + FS:
-	save a fs webservice
+Total Tiempo: 34
+Total Dias: 49
+Total Semanas: 7
+
+Dificultad/Semana: 5
+
+
+
+
+************************************
+*********** PROGRAMACION ***********
+************************************
+
+Atajos de teclado [1]
+Atajos con iconos [1]
+Save a fs webservice: [1]
+Modificacion de fs (click derecho / toolbar) [3]
+		crear
+		mover
+		renombrar
+		borrar
+		actualizar
+		commit
+		ver otra version
+		etc
+
+**********************
+**** Fin semana 1 ****
+**********************
 
 Compilador:
-	seleccionar lenguaje
-	interfaz con el compilador (webservice?)
-	resultado de la compilacion
+	seleccionar lenguaje [1]
+	interfaz con el compilador (webservice?) [3]
+	resultado de la compilacion (gui) [2]
+	
+**********************
+**** Fin semana 2 ****
+**********************
 
 Downloader:
-	descargar archivos empaquetados (webservice?)
-	samba? / webdav?
+	descargar archivos empaquetados (targz, zip):
+		webservice? [2]
+		gui [1]
+	samba
+		webservice [3]
+		gui [2]
+	webdav?
+		webservice
+		gui
 
-Atajos:
-	atajos de teclado
-	atajos con iconos
+**********************
+**** Fin semana 3 ****
+**********************
 
-Configurador:
+Configurador: [6]
 	global
 	por cada modulo
 	load/save config
+	webservice
+	gui
 
-Usuarios:
-	usuario admin
-	manejo de cookies/auth (webservice)
-	config de usuarios (add/delete)
+**********************
+**** Fin semana 4 ****
+**********************
 
-Permisos:
-	permiso para leer
-	permiso para escribir
-	permisos por archivos y proyectos ?
+Usuarios y projectos: [4]
+	usuario admin (add/delete usuarios y projectos)
+	manejo de cookies/auth: webservice
 
-Editor 2:
+Permisos: [4]
+	permiso para leer/escribir
+	permisos por proyectos
+	permisos por archivos ?
+
+**********************
+**** Fin semana 5 ****
+**********************
+
+
+
+Editor mejorado:
 	ver salto de linea para lineas largas
 	ver numero de linea
 	ver . en vez de <tab>
@@ -42,4 +108,3 @@ Editor 2:
 
 Diff:
 	visor de diferencias ?
-
