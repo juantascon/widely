@@ -1,6 +1,5 @@
 qx.Class.define("editor.FileToolBar",
 {
-	type: "singleton",
 	extend: qx.ui.layout.HorizontalBoxLayout,
 	construct: function () {
 		qx.ui.layout.HorizontalBoxLayout.call(this);

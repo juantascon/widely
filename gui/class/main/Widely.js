@@ -16,12 +16,8 @@ qx.Class.define("main.Widely",
 			main_box.set({left: 0, right: 0, top: 0, bottom: 0});
 			main_box.setEdge(0);
 			
-			var edit_box = new qx.ui.layout.VerticalBoxLayout;
-			edit_box.add(editor.FileToolBar.getInstance());
-			edit_box.add(editor.EditorView.getInstance());
-			
 			main_box.addLeft(tree.TreeView.getInstance());
-			main_box.addRight(edit_box);
+			main_box.addRight(editor.EditorView.getInstance());
 			
 			with(main_box.getFirstArea())
 			{

@@ -10,7 +10,7 @@ qx.Class.define("tree.File",
 		this.setPath(path);
 		
 		this.addEventListener("click", function(e){
-			editor.EditorView.getInstance().add_tab(_this);
+			editor.EditorView.getInstance().tabview.add_tab(_this);
 		});
 	},
 	
