@@ -11,36 +11,41 @@ qx.Class.define("main.Widely",
 		},
 		
 		main: function(e) {
-			var frame = new qx.ui.layout.CanvasLayout;
-			var left_box = new qx.ui.splitpane.VerticalSplitPane("1*", "1*");
-			left_box.setEdge(0);
-			var main_box = new qx.ui.splitpane.HorizontalSplitPane("1*", "3*");
+			var frame = qx.ui.core.ClientDocument.getInstance();
+			var main_box = new qx.ui.splitpane.HorizontalSplitPane("1*", "4*");
+			main_box.set({left: 0, right: 0, top: 0, bottom: 0});
 			main_box.setEdge(0);
 			
-			left_box.addTop(tree.TreeView.getInstance());
-			//left_box.addBottom(ctags);
+			var edit_box = new qx.ui.layout.VerticalBoxLayout;
+			edit_box.add(editor.FileToolBar.getInstance());
+			edit_box.add(editor.EditorView.getInstance());
 			
-			main_box.addLeft(left_box);
-			main_box.addRight(editor.EditorView.getInstance());
+			main_box.addLeft(tree.TreeView.getInstance());
+			main_box.addRight(edit_box);
 			
-			with(frame)
+			with(main_box.getFirstArea())
 			{
 				setLocation(0, 0);
 				setBottom(0);
 				setRight(0);
 				setPadding(2);
-				add(main_box);
-				addToDocument();
 			}
+			with(main_box.getSecondArea())
+			{
+				setLocation(0, 0);
+				setBottom(0);
+				setTop(0);
+				setPadding(2);
+			}
+			frame.add(main_box);
 		},
 		
 		finalize: function(e) {},
 		
-		close: function(e){},
+		close: function(e) {},
 		
 		terminate: function(e) {}
 	},
-		
+	
 	settings: { "main.resourceUri": "./resource" }
 });
-

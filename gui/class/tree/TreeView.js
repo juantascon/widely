@@ -4,16 +4,15 @@ qx.Class.define("tree.TreeView",
 	extend: qx.ui.layout.BoxLayout,
 	construct: function () {
 		qx.ui.layout.BoxLayout.call(this, "vertical");
-		this.set({ left: 0, top: 0, right: 0, bottom: 0 });
+		this.set({left: 0, right: 0, top: 0, bottom: 0});
 		
 		this.tree = new qx.ui.tree.Tree("/");
-		with(this.tree)
-		{
+		with(this.tree) {
 			setBackgroundColor(255);
 			setOverflow("auto");
-			//setHideNode(true);
 			setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
-			set({minHeight: 200, height: "100%"});
+			setHeight("100%");
+			setWidth("100%");
 		}
 		
 		this.load_tree();
