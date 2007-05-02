@@ -10,34 +10,22 @@ qx.Class.define("tree.File",
 		this.setPath(path);
 		
 		this.addEventListener("click", function(e){
-			editor.EditorView.getInstance().tabview.add_tab(_this);
+			editor.EditorView.getInstance().getTabview().add_tab(_this);
 		});
 	},
 	
 	properties:
 	{
-		name:
-		{
-			check: "String",
-			init: ""
-		},
-		
-		path:
-		{
-			check: "String",
-			init: ""
-		},
-		
-		content:
-		{
-			check: "String",
-			init: ""
-		}
+		name: { check: "String", init: "" },
+		path: { check: "String", init: ""},
+		textarea: { check: "qx.ui.form.TextArea" }
 	},
 	
 	members:
 	{
-		load_content: function(text_area){
+		load: function(){
+			var _this = this;
+			
 			var rq = new qx.io.remote.Request("/api/wc/cat", "POST", qx.util.Mime.JSON);
 			rq.setData("wc_id=0&path="+encodeURI(this.getPath()));
 			
@@ -46,7 +34,24 @@ qx.Class.define("tree.File",
 				if (resp.getStatusCode() == 200){ // Status: OK
 					data = resp.getContent();
 					if (data){
-						text_area.setValue(""+data);
+						_this.getTextarea().setValue(""+data);
+					}
+				}
+			});
+			
+			rq.send();
+		},
+		
+		save: function(){
+			var rq = new qx.io.remote.Request("/api/wc/write", "POST", qx.util.Mime.JSON);
+			rq.setData("wc_id=0&path="+encodeURI(this.getPath())+"&content="+"contenido");
+			
+			rq.addEventListener("completed", function(e){
+				resp = e.getData();
+				if (resp.getStatusCode() == 200){ // Status: OK
+					data = resp.getContent();
+					if (data){
+						this.getTextarea().setValue(""+data);
 					}
 				}
 			});

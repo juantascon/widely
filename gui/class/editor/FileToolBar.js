@@ -7,9 +7,19 @@ qx.Class.define("editor.FileToolBar",
 		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
 		this.setMinHeight("auto");
 		
-		var b = new qx.ui.toolbar.Button("Save", "icon/22/actions/document-save.png");
-		var c = new qx.ui.toolbar.Button("Reload", "icon/22/actions/view-refresh.png");
-		this.add(b);
-		this.add(c);
+		this.add_button("Save", "actions/document-save", function(e){
+			
+		});
+	},
+	
+	members:
+	{
+		add_button: function(label, icon, execute){
+			var b = new qx.ui.toolbar.Button("Save", "icon/22/"+icon+".png");
+			b.addEventListener("execute", execute);
+			b.setToolTip(new qx.ui.popup.ToolTip(label));
+			b.setShow("icon");
+			this.add(b);
+		}
 	}
 });

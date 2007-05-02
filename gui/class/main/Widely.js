@@ -19,21 +19,8 @@ qx.Class.define("main.Widely",
 			main_box.addLeft(tree.TreeView.getInstance());
 			main_box.addRight(editor.EditorView.getInstance());
 			
-			with(main_box.getFirstArea())
-			{
-				setLocation(0, 0);
-				setBottom(0);
-				setRight(0);
-				setPadding(2);
-			}
-			with(main_box.getSecondArea())
-			{
-				setLocation(0, 0);
-				setBottom(0);
-				setTop(0);
-				setPadding(2);
-			}
 			frame.add(main_box);
+			//frame.debug("HOLA: "+qx.io.JSON.stringify({data: "hola; bien&?", path: "/etc/init.d"}));
 		},
 		
 		finalize: function(e) {},

@@ -6,15 +6,18 @@ qx.Class.define("editor.TabView",
 		this.set({left: 0, right: 0, top: 0, bottom: 0});
 	},
 	
+	properties:
+	{
+		tabs: { check: "lang.List", init: new lang.List() }
+	},
+	
 	members:
 	{
-		tabs: new lang.List,
-		
 		selected_tab: function(){
 			var b = this.getBar().getManager().getSelected();
-			for (var i = 0; i < this.tabs.length(); i++){
-				if (this.tabs.get(i).button == b){
-					return this.tabs.get(i);
+			for (var i = 0; i < this.getTabs.length(); i++){
+				if (this.getTabs().get(i).button == b){
+					return this.getTabs().get(i);
 				}
 			}
 			return null;
@@ -23,45 +26,35 @@ qx.Class.define("editor.TabView",
 		add_tab: function(file){
 			var _this = this;
 			
-			for (var i = 0; i < this.tabs.length(); i++){
-				if (this.tabs.get(i).file == file){
-					this.tabs.get(i).button.setChecked(true);
+			for (var i = 0; i < this.getTabs().length(); i++){
+				if (this.getTabs().get(i).getFile() == file){
+					this.getTabs().get(i).getButton().setChecked(true);
 					return;
 				}
 			}
 			
 			var tab = new editor.Tab(file);
-			with(this) {
-				getBar().add(tab.button);
-				getPane().add(tab.page);
-				set({minHeight: "auto", minWidth: "auto"});
-			}
+			this.getBar().add(tab.getButton());
+			this.getPane().add(tab.getPage());
+			this.set({minHeight: "auto", minWidth: "auto"});
 			
-			tab.button.addEventListener("closetab", function(e) {
+			tab.getButton().addEventListener("closetab", function(e) {
 				var b = e.getData();
-				var tabs = _this.tabs;
+				var tabs = _this.getTabs();
 				
 				if (tabs.length() <= 1){
 					return;
 				}
 				for (var i = 0; i < tabs.length(); i++) {
-					if (tabs.get(i).button == b){
-						tab = tabs.get(i);
-						
-						tabs.remove(i).button.setChecked(true);
-						
-						_this.getBar().remove(tab.button);
-						_this.getPane().remove(tab.page);
-						tab.button.dispose();
-						tab.page.dispose();
-						
+					if (tabs.get(i).getButton() == b) {
+						tabs.get(i).dispose();
+						tabs.remove(i).getButton().setChecked(true);
 						break;
 					}
 				}
-				e.stopPropagation();
 			});
 			
-			this.tabs.add(tab);
+			this.getTabs().add(tab);
 		}
 	}
 });

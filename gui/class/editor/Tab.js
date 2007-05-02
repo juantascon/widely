@@ -5,47 +5,66 @@ qx.Class.define("editor.Tab",
 		var _this = this;
 		qx.core.Object.call(this);
 		
-		this.file = file;
+		this.setFile(file);
 		
-		this.button = new qx.ui.pageview.tabview.Button(file.getName());
-		this.button.setChecked(true);
-		this.button.setShowCloseButton(true);
-		
-		this.area = new qx.ui.form.TextArea(file.content);
-		with(this.area) {
+		var textarea = new qx.ui.form.TextArea("");
+		with(textarea){
 			setHeight("100%");
 			setWidth("100%");
 			setOverflow("scrollY");
 			
-			this.area.addEventListener("appear", function(e){
-				_this.area.set({left: 0, right: 0, top: 0, bottom: 0});
+			addEventListener("appear", function(e){
+				textarea.set({left: 0, right: 0, top: 0, bottom: 0});
 			});
 			
 			addEventListener("keypress", function(e){
 				if (e.getKeyIdentifier() == "Tab"){
-					var text = _this.area.getComputedValue();
-					var position = _this.area.getSelectionStart();
+					var text = textarea.getComputedValue();
+					var position = textarea.getSelectionStart();
 					
-					_this.area.setValue(text.substr(0,position) + "\t" + text.substr(position, text.length));
-					_this.area.setSelectionStart(position+1);
-					_this.area.setSelectionLength(0);
+					textarea.setValue(
+						text.substr(0,position) +
+						"\t" +
+						text.substr(position, text.length)
+					);
+					
+					textarea.setSelectionStart(position+1);
+					textarea.setSelectionLength(0);
 					e.stopPropagation();
 				}
 			});
 		}
 		
+		this.setButton(new qx.ui.pageview.tabview.Button(this.getFile().getName()));
+		with(this.getButton()) {
+			setChecked(true);
+			setShowCloseButton(true);
+		}
 		
-		this.file.load_content(this.area);
+		this.setPage(new qx.ui.pageview.tabview.Page(this.getButton()));
+		this.getPage().add(textarea);
 		
-		this.page = new qx.ui.pageview.tabview.Page(this.button);
-		this.page.add(this.area);
+		this.getFile().setTextarea(textarea);
+		this.getFile().load();
 	},
 	
 	members:
 	{
-		file: null,
-		button: null,
-		page: null,
-		area: null
+		dispose: function() {
+			b = this.getButton();
+			p = this.getPage();
+			
+			b.getParent().remove(b);
+			p.getParent().remove(p);
+			b.dispose();
+			p.dispose();
+		}
+	},
+	
+	properties:
+	{
+		file: { check: "tree.File" },
+		button: { check: "qx.ui.pageview.tabview.Button" },
+		page: { check: "qx.ui.pageview.tabview.Page" }
 	}
 });

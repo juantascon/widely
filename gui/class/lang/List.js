@@ -18,7 +18,6 @@ qx.Class.define("lang.List",
 		
 		this.end.prev = this.begin;
 		this.end.next = this.end;
-		
 	},
 	
 	members:

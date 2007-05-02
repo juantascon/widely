@@ -6,8 +6,8 @@ qx.Class.define("tree.TreeView",
 		qx.ui.layout.BoxLayout.call(this, "vertical");
 		this.set({left: 0, right: 0, top: 0, bottom: 0});
 		
-		this.tree = new qx.ui.tree.Tree("/");
-		with(this.tree) {
+		this.setTree(new qx.ui.tree.Tree("/"));
+		with(this.getTree()) {
 			setBackgroundColor(255);
 			setOverflow("auto");
 			setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
@@ -16,14 +16,18 @@ qx.Class.define("tree.TreeView",
 		}
 		
 		this.load_tree();
-		this.add(this.tree);
+		this.add(this.getTree());
+	},
+	
+	properties:
+	{
+		tree: { check: "qx.ui.tree.Tree" }
 	},
 	
 	members:
 	{
-		tree: null,
-		
 		load_tree: function(){
+			var _this = this;
 			var rq = new qx.io.remote.Request("/api/wc/ls", "POST", qx.util.Mime.JSON);
 			rq.setData("wc_id=0&path=/");
 			
@@ -33,10 +37,10 @@ qx.Class.define("tree.TreeView",
 					data = resp.getContent();
 					for (var i in data){
 						if (data[i]["type"] == "dir"){
-							tree.TreeView.getInstance().tree.addToFolder(tree.Dir.new_from_hash(data[i]));
+							_this.getTree().addToFolder(tree.Dir.new_from_hash(data[i]));
 						}
 						if (data[i]["type"] == "file"){
-							tree.TreeView.getInstance().tree.addToFolder(tree.File.new_from_hash(data[i]));
+							_this.getTree().addToFolder(tree.File.new_from_hash(data[i]));
 						}
 					}
 				}

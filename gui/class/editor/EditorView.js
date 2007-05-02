@@ -11,17 +11,17 @@ qx.Class.define("editor.EditorView",
 		this.setHeights("100%");
 		this.setWidths("100%");
 		
-		this.tabview = new editor.TabView();
-		this.tabview.add_tab(new tree.File("file1", "/file1"));
-		this.filetoolbar = new editor.FileToolBar();
+		this.setTabview(new editor.TabView());
+		this.getTabview().add_tab(new tree.File("file1", "/file1"));
+		this.setFiletoolbar(new editor.FileToolBar());
 		
-		this.add(this.filetoolbar);
-		this.add(this.tabview);
+		this.add(this.getFiletoolbar());
+		this.add(this.getTabview());
 	},
 	
-	members:
+	properties:
 	{
-		tabview: null,
-		filetoolbar: null
+		tabview: { check: "editor.TabView" },
+		filetoolbar: { check: "editor.FileToolBar" }
 	}
 });
