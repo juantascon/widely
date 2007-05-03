@@ -99,7 +99,7 @@ class WModule < Module
 		@@collection[@name] = self
 		
 		@loaded = false
-		w_debug("#{@name} -- CREATED")
+		w_info("#{@name} -- CREATED")
 	end
 	
 	#

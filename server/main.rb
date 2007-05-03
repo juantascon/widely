@@ -14,14 +14,23 @@ $: << "#{$WIDELY_HOME}/lib"
 # Carga el Core
 #
 require "core/autoloads.rb"
-require "core/ruby-ext.rb"
+require "core/lang/file.rb"
+require "core/lang/kernel.rb"
 require "core/wdebug.rb"
 require "core/wmodule.rb"
+
+
+#
+# Carga el sistema HTTP
+#
+require "http/init.rb"
+WModule.collection[:HTTP].load
+
 
 #
 # Localiza y carga todos los modulos
 #
-(Dir.glob("{webservices,addons}/*")+["http"]).each { |m| require "#{m.to_s}/init.rb" }
+(Dir.glob("#{$WIDELY_HOME}/{webservices,addons}/*")).each { |m| require "#{m.to_s}/init.rb" }
 WModule.collection.each_value { |m| m.load if ! m.loaded }
 
 #
