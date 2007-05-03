@@ -25,7 +25,19 @@ qx.Class.define("tree.File",
 	{
 		load: function(){
 			var _this = this;
+			var rq = new widely.RQ(
+				"wc", "cat",
+				{
+					wc_id: 0,
+					path: this.getPath()
+				},
+				function(data){
+					_this.getTextarea().setValue(""+data);
+				}
+			);
+			rq.send();
 			
+			/*
 			var rq = new qx.io.remote.Request("/api/wc/cat", "POST", qx.util.Mime.JSON);
 			rq.setData("wc_id=0&path="+encodeURI(this.getPath()));
 			
@@ -40,22 +52,22 @@ qx.Class.define("tree.File",
 			});
 			
 			rq.send();
+			*/
 		},
 		
 		save: function(){
-			var rq = new qx.io.remote.Request("/api/wc/write", "POST", qx.util.Mime.JSON);
-			rq.setData("wc_id=0&path="+encodeURI(this.getPath())+"&content="+"contenido");
-			
-			rq.addEventListener("completed", function(e){
-				resp = e.getData();
-				if (resp.getStatusCode() == 200){ // Status: OK
-					data = resp.getContent();
-					if (data){
-						this.getTextarea().setValue(""+data);
-					}
+			var _this = this;
+			var rq = new widely.RQ(
+				"wc", "write",
+				{
+					wc_id: 0,
+					path: this.getPath(),
+					content: this.getTextarea().getComputedValue()
+				},
+				function(data){
+					_this.debug("save: "+data);
 				}
-			});
-			
+			);
 			rq.send();
 		}
 	},

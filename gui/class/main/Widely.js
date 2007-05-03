@@ -20,7 +20,6 @@ qx.Class.define("main.Widely",
 			main_box.addRight(editor.EditorView.getInstance());
 			
 			frame.add(main_box);
-			//frame.debug("HOLA: "+qx.io.JSON.stringify({data: "hola; bien&?", path: "/etc/init.d"}));
 		},
 		
 		finalize: function(e) {},

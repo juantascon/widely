@@ -174,6 +174,8 @@ if(!window.qxvariants)qxvariants={};\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/io/remote/IframeTransport.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/html/Iframe.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/io/remote/ScriptTransport.js"></script>\
+<script type="text/javascript" src="./class/widely/RQ.js"></script>\
+<script type="text/javascript" src="./class/lang/Encode.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/table/TableModel.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/table/AbstractTableModel.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/table/SimpleTableModel.js"></script>\

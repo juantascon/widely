@@ -29,7 +29,7 @@ qx.Class.define("tree.TreeView",
 		load_tree: function(){
 			var _this = this;
 			var rq = new qx.io.remote.Request("/api/wc/ls", "POST", qx.util.Mime.JSON);
-			rq.setData("wc_id=0&path=/");
+			rq.setData(lang.Encode.encodeObj({wc_id: 0, path: "/"}));
 			
 			rq.addEventListener("completed", function(e){
 				resp = e.getData();
