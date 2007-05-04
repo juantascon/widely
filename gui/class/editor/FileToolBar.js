@@ -8,7 +8,11 @@ qx.Class.define("editor.FileToolBar",
 		this.setMinHeight("auto");
 		
 		this.add_button("Save", "actions/document-save", function(e){
-			
+			editor.EditorView.getInstance().getTabview().selected_tab().getFile().save();
+		});
+		
+		this.add_button("Reload", "actions/view-refresh", function(e){
+			editor.EditorView.getInstance().getTabview().selected_tab().getFile().load();
 		});
 	},
 	

@@ -21,7 +21,7 @@ class Dispatcher
 	# Procesa las peticiones del API dependiendo del webservice
 	# y del metodo
 	#
-	def api_servlet(rq)
+	def api_handler(rq)
 		# La ruta real es sin "/api/"
 		path = rq.path.gsub(/^\/api\//, "")
 		
@@ -76,10 +76,10 @@ class Dispatcher
 			
 			@server = adapter.new(@port)
 
-			@server.set_file_handler("/gui/", "../gui/")
-			@server.set_file_handler("/qooxdoo-sdk/", "../../qooxdoo-0.7-alpha2-sdk/")
-			@server.set_file_handler("/doc/", "../doc")
-			@server.set_proc_handler("/api/") { |rq| api_servlet(rq) }
+			@server.set_file_handler("/gui/", "#{$WIDELY_HOME}/gui/")
+			@server.set_file_handler("/qooxdoo-sdk/", "#{$WIDELY_HOME}/../qooxdoo-0.7-alpha2-sdk/")
+			@server.set_file_handler("/doc/", "#{$WIDELY_HOME}/doc")
+			@server.set_proc_handler("/api/") { |rq| api_handler(rq) }
 		end
 	end
 	

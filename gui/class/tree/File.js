@@ -4,14 +4,12 @@ qx.Class.define("tree.File",
 	
 	construct: function (name, path) {
 		qx.ui.tree.TreeFile.call(this, name);
-		var _this = this;
-		
 		this.setName(name);
 		this.setPath(path);
 		
 		this.addEventListener("click", function(e){
-			editor.EditorView.getInstance().getTabview().add_tab(_this);
-		});
+			editor.EditorView.getInstance().getTabview().add_tab(this);
+		}, this);
 	},
 	
 	properties:
@@ -24,39 +22,18 @@ qx.Class.define("tree.File",
 	members:
 	{
 		load: function(){
-			var _this = this;
 			var rq = new widely.RQ(
 				"wc", "cat",
-				{
-					wc_id: 0,
-					path: this.getPath()
-				},
+				{ wc_id: 0, path: this.getPath() },
 				function(data){
-					_this.getTextarea().setValue(""+data);
-				}
+					this.getTextarea().setValue(""+data);
+				},
+				this
 			);
 			rq.send();
-			
-			/*
-			var rq = new qx.io.remote.Request("/api/wc/cat", "POST", qx.util.Mime.JSON);
-			rq.setData("wc_id=0&path="+encodeURI(this.getPath()));
-			
-			rq.addEventListener("completed", function(e){
-				resp = e.getData();
-				if (resp.getStatusCode() == 200){ // Status: OK
-					data = resp.getContent();
-					if (data){
-						_this.getTextarea().setValue(""+data);
-					}
-				}
-			});
-			
-			rq.send();
-			*/
 		},
 		
 		save: function(){
-			var _this = this;
 			var rq = new widely.RQ(
 				"wc", "write",
 				{
@@ -65,8 +42,9 @@ qx.Class.define("tree.File",
 					content: this.getTextarea().getComputedValue()
 				},
 				function(data){
-					_this.debug("save: "+data);
-				}
+					this.debug("save: "+data);
+				},
+				this
 			);
 			rq.send();
 		}

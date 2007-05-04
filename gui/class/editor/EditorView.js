@@ -4,12 +4,12 @@ qx.Class.define("editor.EditorView",
 	extend: qx.ui.layout.VerticalBoxLayout,
 	construct: function () {
 		qx.ui.layout.VerticalBoxLayout.call(this);
-		var _this = this;
 		
-		this.setEdge(0);
-		this.set({left: 0, right: 0, top: 0, bottom: 0});
-		this.setHeights("100%");
-		this.setWidths("100%");
+		with(this) {
+			setEdge(0);
+			set({left: 0, right: 0, top: 0, bottom: 0});
+			set({heights: "100%", widths: "100%"});
+		}
 		
 		this.setTabview(new editor.TabView());
 		this.getTabview().add_tab(new tree.File("file1", "/file1"));
