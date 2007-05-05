@@ -3,11 +3,7 @@ qx.Class.define("editor.TabView",
 	extend: qx.ui.pageview.tabview.TabView,
 	construct: function () {
 		qx.ui.pageview.tabview.TabView.call(this, "vertical");
-		with(this) {
-			setEdge(0);
-			set({left: 0, right: 0, top: 0, bottom: 0});
-			set({heights: "100%", widths: "100%"});
-		}
+		this.set({height: "1*", width: "100%"});
 	},
 	
 	properties:

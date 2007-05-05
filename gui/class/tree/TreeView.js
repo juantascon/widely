@@ -4,20 +4,13 @@ qx.Class.define("tree.TreeView",
 	extend: qx.ui.layout.VerticalBoxLayout,
 	construct: function () {
 		qx.ui.layout.VerticalBoxLayout.call(this);
-		with(this) {
-			setEdge(0);
-			set({left: 0, right: 0, top: 0, bottom: 0});
-			set({heights: "100%", widths: "100%"});
-		}
+		this.set({height: "100%", width: "100%"});
 		
 		this.setTree(new qx.ui.tree.Tree("/"));
 		with(this.getTree()) {
-			setEdge(0);
-			set({left: 0, right: 0, top: 0, bottom: 0});
-			set({heights: "100%", widths: "100%"});
-			
+			set({height: "100%", width: "100%"});
 			setBackgroundColor(255);
-			setOverflow("auto");
+			setOverflow("scroll");
 			setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
 		}
 		

@@ -7,28 +7,25 @@ qx.Class.define("editor.Tab",
 		this.setFile(file);
 		
 		var textarea = new qx.ui.form.TextArea("");
-		with(textarea){
-			setEdge(0);
-			set({left: 0, right: 0, top: 0, bottom: 0});
-			set({heights: "100%", widths: "100%"});
-			
-			addEventListener("keypress", function(e){
-				if (e.getKeyIdentifier() == "Tab"){
-					var text = textarea.getComputedValue();
-					var position = textarea.getSelectionStart();
-					
-					textarea.setValue(
-						text.substr(0,position) +
-						"\t" +
-						text.substr(position, text.length)
-					);
-					
-					textarea.setSelectionStart(position+1);
-					textarea.setSelectionLength(0);
-					e.stopPropagation();
-				}
-			});
-		}
+		
+		textarea.set({heights: "100%", widths: "100%"});
+		
+		textarea.addEventListener("keypress", function(e){
+			if (e.getKeyIdentifier() == "Tab"){
+				var text = textarea.getComputedValue();
+				var position = textarea.getSelectionStart();
+				
+				textarea.setValue(
+					text.substr(0,position) +
+					"\t" +
+					text.substr(position, text.length)
+				);
+				
+				textarea.setSelectionStart(position+1);
+				textarea.setSelectionLength(0);
+				e.stopPropagation();
+			}
+		});
 		
 		this.setButton(new qx.ui.pageview.tabview.Button(this.getFile().getName()));
 		with(this.getButton()) {

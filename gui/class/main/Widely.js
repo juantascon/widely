@@ -12,24 +12,25 @@ qx.Class.define("main.Widely",
 		
 		main: function(e) {
 			var frame = new qx.ui.layout.DockLayout();
+			frame.setEdge(0);
 			
-			var main_box = new qx.ui.splitpane.HorizontalSplitPane("1*", "4*");
+			var main_box = new qx.ui.splitpane.HorizontalSplitPane(200, "1*");
 			with(main_box) {
-				//setEdge(0);
-				//set({left: 0, right: 0, top: 0, bottom: 0});
-				//set({heights: "98%", widths: "auto"});
+				//main_box.setHeight("1*");
 				addLeft(tree.TreeView.getInstance());
 				addRight(editor.EditorView.getInstance());
 			}
 			
 			var l = new qx.ui.basic.Label("hola", "h1");
-			/*with(l) {
-				//setEdge(0);
-				//set({left: 0, right: 0, top: 0, bottom: 0});
-				//set({heights: "100%", widths: "100%"});
-			}*/
-			frame.addLeft(main_box);
-			frame.addBottom(l);
+			l.setMinHeight("auto");
+			
+			var lc = new qx.ui.layout.CanvasLayout();
+			lc.setHeight("auto");
+			lc.add(l);
+			
+			frame.add(main_box);
+			frame.addBottom(lc);
+			
 			frame.addToDocument();
 		},
 		
