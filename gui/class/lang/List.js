@@ -7,6 +7,7 @@
 qx.Class.define("lang.List",
 {
 	extend: qx.core.Object,
+	
 	construct: function () {
 		qx.core.Object.call(this);
 		

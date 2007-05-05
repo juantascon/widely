@@ -1,6 +1,7 @@
-qx.Class.define("editor.TabView",
+qx.Class.define("ui.editor.TabView",
 {
 	extend: qx.ui.pageview.tabview.TabView,
+	
 	construct: function () {
 		qx.ui.pageview.tabview.TabView.call(this, "vertical");
 		this.set({height: "1*", width: "100%"});
@@ -31,7 +32,7 @@ qx.Class.define("editor.TabView",
 				}
 			}
 			
-			var tab = new editor.Tab(file);
+			var tab = new ui.editor.Tab(file);
 			this.getBar().add(tab.getButton());
 			this.getPane().add(tab.getPage());
 			

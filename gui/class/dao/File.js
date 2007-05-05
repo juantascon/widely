@@ -1,17 +1,5 @@
-qx.Class.define("tree.File",
+qx.Mixin.define("dao.File",
 {
-	extend: qx.ui.tree.TreeFile,
-	
-	construct: function (name, path) {
-		qx.ui.tree.TreeFile.call(this, name);
-		this.setName(name);
-		this.setPath(path);
-		
-		this.addEventListener("click", function(e){
-			editor.EditorView.getInstance().getTabview().add_tab(this);
-		}, this);
-	},
-	
 	properties:
 	{
 		name: { check: "String", init: "" },
@@ -22,7 +10,7 @@ qx.Class.define("tree.File",
 	members:
 	{
 		load: function(){
-			var rq = new widely.RQ(
+			var rq = new lang.WRequest(
 				"wc", "cat",
 				{ wc_id: 0, path: this.getPath() },
 				function(data){
@@ -34,7 +22,7 @@ qx.Class.define("tree.File",
 		},
 		
 		save: function(){
-			var rq = new widely.RQ(
+			var rq = new lang.WRequest(
 				"wc", "write",
 				{
 					wc_id: 0,
@@ -47,13 +35,6 @@ qx.Class.define("tree.File",
 				this
 			);
 			rq.send();
-		}
-	},
-	
-	statics:
-	{
-		new_from_hash: function(h){
-			return new tree.File(h["text"], h["id"]);
 		}
 	}
 });

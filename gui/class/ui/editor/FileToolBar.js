@@ -1,6 +1,7 @@
-qx.Class.define("editor.FileToolBar",
+qx.Class.define("ui.editor.FileToolBar",
 {
 	extend: qx.ui.layout.HorizontalBoxLayout,
+	
 	construct: function () {
 		qx.ui.layout.HorizontalBoxLayout.call(this);
 		
@@ -8,11 +9,11 @@ qx.Class.define("editor.FileToolBar",
 		this.setMinHeight("auto");
 		
 		this.add_button("Save", "actions/document-save", function(e){
-			editor.EditorView.getInstance().getTabview().selected_tab().getFile().save();
+			ui.editor.EditorView.getInstance().getTabview().selected_tab().getFile().save();
 		});
 		
 		this.add_button("Reload", "actions/view-refresh", function(e){
-			editor.EditorView.getInstance().getTabview().selected_tab().getFile().load();
+			ui.editor.EditorView.getInstance().getTabview().selected_tab().getFile().load();
 		});
 	},
 	
@@ -20,9 +21,11 @@ qx.Class.define("editor.FileToolBar",
 	{
 		add_button: function(label, icon, execute){
 			var b = new qx.ui.toolbar.Button("Save", "icon/22/"+icon+".png");
+			
 			b.addEventListener("execute", execute);
 			b.setToolTip(new qx.ui.popup.ToolTip(label));
 			b.setShow("icon");
+			
 			this.add(b);
 		}
 	}
