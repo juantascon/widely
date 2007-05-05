@@ -5,7 +5,7 @@ qx.Class.define("ui.editor.EditorView",
 	extend: qx.ui.layout.VerticalBoxLayout,
 	
 	construct: function () {
-		qx.ui.layout.VerticalBoxLayout.call(this);
+		this.base(arguments);
 		
 		this.set({height: "100%", width: "100%"});
 		

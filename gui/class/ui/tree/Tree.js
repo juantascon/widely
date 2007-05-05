@@ -5,7 +5,7 @@ qx.Class.define("ui.tree.Tree",
 	include: dao.Tree,
 	
 	construct: function (name) {
-		qx.ui.tree.Tree.call(this, name);
+		this.base(arguments, name);
 		
 		this.set({height: "1*", width: "100%"});
 		this.setBackgroundColor(255);

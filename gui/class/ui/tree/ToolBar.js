@@ -3,7 +3,7 @@ qx.Class.define("ui.tree.ToolBar",
 	extend: qx.ui.layout.HorizontalBoxLayout,
 	
 	construct: function () {
-		qx.ui.layout.HorizontalBoxLayout.call(this);
+		this.base(arguments);
 		
 		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
 		this.setMinHeight("auto");

@@ -5,7 +5,8 @@ qx.Class.define("ui.tree.File",
 	include: dao.File,
 	
 	construct: function (name, path) {
-		qx.ui.tree.TreeFile.call(this, name);
+		this.base(arguments, name);
+		
 		this.setName(name);
 		this.setPath(path);
 		

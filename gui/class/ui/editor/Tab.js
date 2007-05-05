@@ -3,7 +3,7 @@ qx.Class.define("ui.editor.Tab",
 	extend: qx.core.Object,
 	
 	construct: function (file) {
-		qx.core.Object.call(this);
+		this.base(arguments);
 		
 		this.setFile(file);
 		

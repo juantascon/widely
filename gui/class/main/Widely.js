@@ -3,7 +3,7 @@ qx.Class.define("main.Widely",
 	extend: qx.component.AbstractApplication,
 	
 	construct : function() {
-		qx.component.AbstractApplication.call(this);
+		this.base(arguments);
 	},
 	
 	members:

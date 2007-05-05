@@ -5,7 +5,7 @@ qx.Class.define("ui.tree.Dir",
 	include: dao.Dir,
 	
 	construct: function (name) {
-		qx.ui.tree.TreeFolder.call(this, name);
+		this.base(arguments, name);
 	},
 	
 	statics:

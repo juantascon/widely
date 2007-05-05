@@ -5,7 +5,8 @@ qx.Class.define("ui.tree.TreeView",
 	extend: qx.ui.layout.VerticalBoxLayout,
 	
 	construct: function () {
-		qx.ui.layout.VerticalBoxLayout.call(this);
+		this.base(arguments);
+		
 		this.set({height: "100%", width: "100%"});
 		
 		this.setToolbar(new ui.tree.ToolBar());

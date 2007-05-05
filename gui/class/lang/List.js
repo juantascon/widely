@@ -9,7 +9,7 @@ qx.Class.define("lang.List",
 	extend: qx.core.Object,
 	
 	construct: function () {
-		qx.core.Object.call(this);
+		this.base(arguments);
 		
 		this.begin = this.new_node(null, null, null);
 		this.end = this.new_node(null, null, null);

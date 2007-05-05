@@ -3,7 +3,7 @@ qx.Class.define("lang.WRequest",
 	extend: qx.io.remote.Request,
 	
 	construct: function (webservice, method, params, validator, _this) {
-		qx.io.remote.Request.call(this, "/api/"+webservice+"/"+method, "POST", qx.util.Mime.JSON);
+		this.base(arguments, "/api/"+webservice+"/"+method, "POST", qx.util.Mime.JSON);
 		
 		this.setData(lang.Encode.encodeObj(params));
 		

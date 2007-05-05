@@ -5,7 +5,7 @@ qx.Class.define("ui.StatusBar",
 	extend: qx.ui.layout.CanvasLayout,
 	
 	construct: function () {
-		qx.ui.layout.CanvasLayout.call(this);
+		this.base(arguments);
 		
 		this.setHeight("auto");
 		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
