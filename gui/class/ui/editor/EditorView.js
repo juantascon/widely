@@ -11,15 +11,15 @@ qx.Class.define("ui.editor.EditorView",
 		
 		this.setTabview(new ui.editor.TabView());
 		this.getTabview().add_tab(new ui.tree.File("file1", "/file1"));
-		this.setFiletoolbar(new ui.editor.FileToolBar());
+		this.setToolbar(new ui.editor.ToolBar());
 		
-		this.add(this.getFiletoolbar());
+		this.add(this.getToolbar());
 		this.add(this.getTabview());
 	},
 	
 	properties:
 	{
 		tabview: { check: "ui.editor.TabView" },
-		filetoolbar: { check: "ui.editor.FileToolBar" }
+		toolbar: { check: "ui.editor.ToolBar" }
 	}
 });

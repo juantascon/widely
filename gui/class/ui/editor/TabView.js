@@ -26,7 +26,7 @@ qx.Class.define("ui.editor.TabView",
 		
 		add_tab: function(file){
 			for (var i = 0; i < this.getTabs().length(); i++){
-				if (this.getTabs().get(i).getFile() == file){
+				if (this.getTabs().get(i).getFile().getPath() == file.getPath()){
 					this.getTabs().get(i).getButton().setChecked(true);
 					return;
 				}

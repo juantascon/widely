@@ -14,7 +14,7 @@ qx.Mixin.define("dao.File",
 				"wc", "cat",
 				{ wc_id: 0, path: this.getPath() },
 				function(data){
-					ui.StatusBar.getInstance().ok("Loaded");
+					ui.StatusBar.getInstance().ok("Loaded: "+this.getPath());
 					this.getTextarea().setValue(""+data);
 				},
 				this
@@ -32,11 +32,11 @@ qx.Mixin.define("dao.File",
 					content: this.getTextarea().getComputedValue()
 				},
 				function(data){
-					ui.StatusBar.getInstance().ok("Saved: "+data+" bytes");
+					ui.StatusBar.getInstance().ok("Saved: "+this.getPath()+" "+data+" bytes");
 				},
 				this
 			);
-			ui.StatusBar.getInstance().process("Saving");
+			ui.StatusBar.getInstance().process("Saving: "+this.getPath());
 			rq.send();
 		}
 	}

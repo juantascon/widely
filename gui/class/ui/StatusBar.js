@@ -25,7 +25,7 @@ qx.Class.define("ui.StatusBar",
 	{
 		log: function(text, icon){
 			this.getAtom().setLabel(text);
-			this.getAtom().setIcon("icon/22/"+icon+".png");
+			this.getAtom().setIcon("icon/16/"+icon+".png");
 		},
 		
 		ok: function(text){ this.log(text, "actions/dialog-ok"); },
