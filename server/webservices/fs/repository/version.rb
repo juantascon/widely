@@ -17,6 +17,19 @@ class Version
 	def get
 		id.to_s
 	end
+	
+	def to_h
+		return {
+			"id" => @id,
+			"description" => @description,
+			"date" => @date,
+			"author" => @author
+		}
+	end
+	
+	def to_json
+		to_h.to_json
+	end
 end
 
 end
