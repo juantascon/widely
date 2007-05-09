@@ -37,12 +37,6 @@ class Resp
 	# Status: OK
 	#
 	def self.new_json(obj)
-		if obj.class == Array
-			a = Array.new
-			obj.each {|o| a.push(o.to_json)}
-			obj = a
-		end
-		
 		new(200, "application/json", obj.to_json)
 	end
 	

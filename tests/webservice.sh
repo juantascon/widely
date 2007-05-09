@@ -22,3 +22,6 @@ curl $host/api/wc/write -d "wc_id=0&path=/dir1/dir1_1/file1_1_1&content=soy-otro
 curl $host/api/wc/commit -d "wc_id=0&log=version1"
 curl $host/api/wc/ls -d "wc_id=0&path=/"
 
+
+curl $host/api/wc/versions -d "wc_id=0"
+
