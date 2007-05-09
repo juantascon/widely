@@ -28,8 +28,9 @@ class API < Collection
 	def checkout(args)
 		args_check(args, "wc_id")
 		obj = get_o(args["wc_id"].to_i)
+		version = Repository::Version.new(args["version"])
 		
-		return obj.checkout(args["version"])
+		return obj.checkout(version)
 	end
 
 	def commit(args)
@@ -49,15 +50,17 @@ class API < Collection
 	def cat(args)
 		args_check(args, "wc_id", "path")
 		obj = get_o(args["wc_id"])
+		version = Repository::Version.new(args["version"])
 		
-		return obj.cat(args["path"], args["version"])
+		return obj.cat(args["path"], version)
 	end
 	
 	def ls(args)
 		args_check(args, "wc_id", "path")
 		obj = get_o(args["wc_id"])
+		version = Repository::Version.new(args["version"])
 		
-		return obj.ls(args["path"], args["version"])
+		return obj.ls(args["path"], version)
 	end
 	
 	def add(args)

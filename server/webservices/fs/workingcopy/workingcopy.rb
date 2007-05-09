@@ -10,7 +10,7 @@ class WorkingCopy
 	include FileUtils
 	include FileTest
 	
-	@@WC = -1
+	@@WC = Repository::Version.new("-1")
 	def self.WC; @@WC; end
 
 	attr_reader :wc_dir, :repository
@@ -44,7 +44,7 @@ class WorkingCopy
 	# Obtiene una copia de trabajo
 	#
 	def checkout(version=@@WC)
-		version=versions.last if (! version || version == @@WC)
+		version=versions.last if (! version || version.get == @@WC.get)
 		
 		mkdir @wc_dir if ! directory? @wc_dir
 		repository.checkout(@wc_dir, version)
@@ -91,7 +91,7 @@ class WorkingCopy
 		end
 		
 		rpath = "#{@wc_dir}/#{path}"
-		if ! version || version == @@WC
+		if ! version || version.get == @@WC.get
 			return false if ! file?(rpath)
 			return File.new(rpath).read
 		else
@@ -117,7 +117,7 @@ class WorkingCopy
 		end
 		
 		rpath = "#{@wc_dir}/#{path}"
-		if ! version || version.to_i == @@WC
+		if ! version || version.get == @@WC.get
 			tree = FileTree.new
 			Find.find(rpath) do |f|
 				node_name = "#{Pathname.new(f).relative_path_from(Pathname.new(rpath)).to_s}"
@@ -127,7 +127,6 @@ class WorkingCopy
 			end
 			return tree
 		else
-			w_debug("version: #{version} WC: #{@@WC} test: #{(version.to_i == @@WC)}");
 			return @repository.ls(path, version)
 		end
 	end
