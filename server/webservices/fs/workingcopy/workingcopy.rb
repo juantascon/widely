@@ -9,6 +9,9 @@ class WorkingCopy
 	
 	include FileUtils
 	include FileTest
+	
+	@@WC = -1
+	def self.WC; @@WC; end
 
 	attr_reader :wc_dir, :repository
 	
@@ -40,8 +43,8 @@ class WorkingCopy
 	#
 	# Obtiene una copia de trabajo
 	#
-	def checkout(version=nil)
-		version=versions.last if ! version
+	def checkout(version=@@WC)
+		version=versions.last if (! version || version == @@WC)
 		
 		mkdir @wc_dir if ! directory? @wc_dir
 		repository.checkout(@wc_dir, version)
@@ -78,7 +81,7 @@ class WorkingCopy
 	# del repositorio, sino se mostrara la version
 	# de la copia de trabajo
 	#
-	def cat(path, version=nil)
+	def cat(path, version=@@WC)
 		
 		# path no puede ser una ruta relativa
 		path = File.cleanpath(path)
@@ -88,11 +91,11 @@ class WorkingCopy
 		end
 		
 		rpath = "#{@wc_dir}/#{path}"
-		if version
-			return @repository.cat(path, version)
-		else
+		if ! version || version == @@WC
 			return false if ! file?(rpath)
 			return File.new(rpath).read
+		else
+			return @repository.cat(path, version)
 		end
 	end
 	
@@ -104,7 +107,7 @@ class WorkingCopy
 	# del repositorio, sino se mostrara la version
 	# de la copia de trabajo
 	#
-	def ls(path, version=nil)
+	def ls(path, version=@@WC)
 		
 		# path no puede ser una ruta relativa
 		path = File.cleanpath(path)
@@ -114,9 +117,7 @@ class WorkingCopy
 		end
 		
 		rpath = "#{@wc_dir}/#{path}"
-		if version
-			return @repository.ls(path, version)
-		else
+		if ! version || version.to_i == @@WC
 			tree = FileTree.new
 			Find.find(rpath) do |f|
 				node_name = "#{Pathname.new(f).relative_path_from(Pathname.new(rpath)).to_s}"
@@ -125,6 +126,9 @@ class WorkingCopy
 				tree.add_with_parents("/#{node_name}", directory?(f))
 			end
 			return tree
+		else
+			w_debug("version: #{version} WC: #{@@WC} test: #{(version.to_i == @@WC)}");
+			return @repository.ls(path, version)
 		end
 	end
 	
