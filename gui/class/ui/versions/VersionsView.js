@@ -9,8 +9,8 @@ qx.Class.define("ui.versions.VersionsView",
 		
 		this.set({height: "100%", width: "100%"});
 		
-		//this.setToolbar(new ui.versions.ToolBar());
-		//this.add(this.getToolbar());
+		this.setToolbar(new ui.versions.ToolBar());
+		this.add(this.getToolbar());
 		
 		this.setVtable(new ui.versions.VTable());
 		this.add(this.getVtable());

@@ -119,16 +119,18 @@ if(!window.qxvariants)qxvariants={};\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/io/remote/ScriptTransport.js"></script>\
 <script type="text/javascript" src="./class/lang/WRequest.js"></script>\
 <script type="text/javascript" src="./class/lang/Encode.js"></script>\
+<script type="text/javascript" src="./class/ui/StatusBar.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/layout/BoxLayout.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/renderer/layout/VerticalBoxLayoutImpl.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/renderer/layout/HorizontalBoxLayoutImpl.js"></script>\
-<script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/layout/HorizontalBoxLayout.js"></script>\
-<script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/menu/Button.js"></script>\
-<script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/basic/Image.js"></script>\
+<script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/basic/Atom.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/basic/Label.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/locale/LocalizedString.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/locale/Manager.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/dom/Element.js"></script>\
+<script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/basic/Image.js"></script>\
+<script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/layout/HorizontalBoxLayout.js"></script>\
+<script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/menu/Button.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/popup/Popup.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/manager/object/PopupManager.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/util/Compare.js"></script>\
@@ -139,7 +141,6 @@ if(!window.qxvariants)qxvariants={};\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/renderer/layout/MenuLayoutImpl.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/manager/object/MenuManager.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/menu/Separator.js"></script>\
-<script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/basic/Atom.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/form/Button.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/toolbar/Button.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/toolbar/MenuButton.js"></script>\
@@ -253,7 +254,6 @@ if(!window.qxvariants)qxvariants={};\
 <script type="text/javascript" src="./class/dao/Dir.js"></script>\
 <script type="text/javascript" src="./class/ui/tree/Dir.js"></script>\
 <script type="text/javascript" src="./class/dao/File.js"></script>\
-<script type="text/javascript" src="./class/ui/StatusBar.js"></script>\
 <script type="text/javascript" src="./class/ui/tree/File.js"></script>\
 <script type="text/javascript" src="./class/ui/editor/EditorView.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/pageview/AbstractPageView.js"></script>\

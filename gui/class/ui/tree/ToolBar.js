@@ -11,6 +11,10 @@ qx.Class.define("ui.tree.ToolBar",
 		this.add_button("Reload", "actions/view-refresh", function(e){
 			ui.tree.TreeView.getInstance().getTree().load();
 		});
+		
+		this.add_button("Commit", "actions/go-down", function(e){
+			ui.tree.TreeView.getInstance().getTree().commit();
+		});
 	},
 	
 	members:

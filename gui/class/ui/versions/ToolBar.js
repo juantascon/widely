@@ -9,7 +9,12 @@ qx.Class.define("ui.versions.ToolBar",
 		this.setMinHeight("auto");
 		
 		this.add_button("Reload", "actions/view-refresh", function(e){
-			ui.tree.TreeView.getInstance().getTree().load();
+			ui.versions.VersionsView.getInstance().getVtable().load();
+		});
+		
+		this.add_button("Load Tree", "actions/go-up", function(e){
+			var selected_row_id = ui.versions.VersionsView.getInstance().getVtable().selected_row_id();
+			ui.tree.TreeView.getInstance().change_tree_version(selected_row_id);
 		});
 	},
 	

@@ -4,13 +4,22 @@ qx.Class.define("ui.tree.Tree",
 	
 	include: dao.Tree,
 	
-	construct: function (name) {
-		this.base(arguments, name);
+	construct: function (version) {
+		if (version) { this.setVersion(eval(version)); }
+		
+		if ( this.getVersion() == this.self(arguments).WC ){
+			this.base(arguments, "WorkingCopy");
+		}
+		else {
+			this.base(arguments, "Version: "+this.getVersion());
+		}
 		
 		this.set({height: "1*", width: "100%"});
 		this.setBackgroundColor(255);
 		this.setOverflow("auto");
 		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
+		
+		this.load();
 	},
 	
 	members:
@@ -26,5 +35,10 @@ qx.Class.define("ui.tree.Tree",
 				}
 			}
 		}
+	},
+	
+	statics:
+	{
+		WC: -1
 	}
 });
