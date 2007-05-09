@@ -26,14 +26,5 @@ qx.Class.define("ui.tree.Tree",
 				}
 			}
 		}
-	},
-	
-	statics:
-	{
-		new_from_hash: function(name, data) {
-			var tree = new ui.tree.Tree(name);
-			tree.load_from_hash(data);
-			return tree;
-		}
 	}
 });

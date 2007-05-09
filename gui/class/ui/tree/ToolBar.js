@@ -16,7 +16,7 @@ qx.Class.define("ui.tree.ToolBar",
 	members:
 	{
 		add_button: function(label, icon, execute){
-			var b = new qx.ui.toolbar.Button("Save", "icon/16/"+icon+".png");
+			var b = new qx.ui.toolbar.Button(label, "icon/16/"+icon+".png");
 			
 			b.addEventListener("execute", execute);
 			b.setToolTip(new qx.ui.popup.ToolTip(label));

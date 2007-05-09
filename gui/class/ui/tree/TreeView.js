@@ -13,23 +13,12 @@ qx.Class.define("ui.tree.TreeView",
 		this.add(this.getToolbar());
 		
 		this.setTree(new ui.tree.Tree("/"));
+		this.add(this.getTree());
 	},
 	
 	properties:
 	{
-		tree: { check: "qx.ui.tree.Tree", apply: "change_tree" },
+		tree: { check: "qx.ui.tree.Tree" },
 		toolbar: { check: "ui.tree.ToolBar" }
-	},
-	
-	members:
-	{
-		change_tree: function(newValue, oldValue) {
-			if (oldValue) {
-				oldValue.destroyContent();
-				oldValue.dispose();
-				this.remove(oldValue);
-			}
-			this.add(newValue);
-		}
 	}
 });

@@ -14,8 +14,13 @@ qx.Class.define("main.Widely",
 			var frame = new qx.ui.layout.DockLayout();
 			frame.setEdge(0);
 			
-			var split_box = new qx.ui.splitpane.HorizontalSplitPane(200, "1*");
-			split_box.addLeft(ui.tree.TreeView.getInstance());
+			var split_tree = new qx.ui.splitpane.VerticalSplitPane("3*", "2*");
+			split_tree.setEdge(0);
+			split_tree.addTop(ui.tree.TreeView.getInstance());
+			split_tree.addBottom(ui.versions.VersionsView.getInstance());
+			
+			var split_box = new qx.ui.splitpane.HorizontalSplitPane(300, "1*");
+			split_box.addLeft(split_tree);
 			split_box.addRight(ui.editor.EditorView.getInstance());
 			
 			frame.add(split_box);
