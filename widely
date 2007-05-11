@@ -1,0 +1,8 @@
+#! /bin/bash
+
+WIDELY_HOME="$(dirname $0)"
+
+if [ ! -z "$(which ruby)" ]; then
+	eval "$(which ruby) $WIDELY_HOME/server/main.rb"
+fi
+
