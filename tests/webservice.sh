@@ -11,17 +11,14 @@ curl $host/api/wc/add -d "wc_id=0&path=/file1"
 curl $host/api/wc/write -d "wc_id=0&path=/file1&content=quemasbien"
 curl $host/api/wc/add -d "wc_id=0&path=/file2"
 curl $host/api/wc/write -d "wc_id=0&path=/file2&content=hola-soy-un-archivo"
+curl $host/api/wc/commit -d "wc_id=0&log=version1"
 
 curl $host/api/wc/add -d "wc_id=0&path=/dir1&as_dir=true"
 curl $host/api/wc/add -d "wc_id=0&path=/dir1/dir1_1&as_dir=true"
-
-
 curl $host/api/wc/add -d "wc_id=0&path=/dir1/dir1_1/file1_1_1"
 curl $host/api/wc/write -d "wc_id=0&path=/dir1/dir1_1/file1_1_1&content=soy-otro-archivo"
+curl $host/api/wc/commit -d "wc_id=0&log=version2"
 
-curl $host/api/wc/commit -d "wc_id=0&log=version1"
 curl $host/api/wc/ls -d "wc_id=0&path=/"
-
-
 curl $host/api/wc/versions -d "wc_id=0"
 

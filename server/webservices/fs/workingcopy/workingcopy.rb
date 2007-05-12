@@ -47,7 +47,7 @@ class WorkingCopy
 		version=versions.last if (! version || version.get == @@WC.get)
 		
 		mkdir @wc_dir if ! directory? @wc_dir
-		repository.checkout(@wc_dir, version)
+		return repository.checkout(@wc_dir, version)
 	end
 
 	
@@ -155,7 +155,7 @@ class WorkingCopy
 			touch(rpath) if ! as_dir
 		end
 		
-		@repository.add(@wc_dir, path)
+		return @repository.add(@wc_dir, path)
 	end
 	
 	#
@@ -176,8 +176,10 @@ class WorkingCopy
 		end
 		
 		rpath = "#{@wc_dir}/#{path}"
-		@repository.delete(@wc_dir, path) if exist?(rpath)
-		rm_rf(rpath) if exist?(rpath)	
+		(ret = @repository.delete(@wc_dir, path)) if exist?(rpath)
+		rm_rf(rpath) if exist?(rpath)
+		
+		return ret
 	end
 	
 	#
@@ -211,7 +213,7 @@ class WorkingCopy
 			end
 		end
 		
-		mv(rpath_from, rpath_to) if exist?(rpath_from)
+		return mv(rpath_from, rpath_to) if exist?(rpath_from)
 	end
 	
 	#

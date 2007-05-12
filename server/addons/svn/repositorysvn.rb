@@ -81,7 +81,7 @@ class RepositorySvn < Repository::Base
 		rpath = "#{@dir}/#{path}"
 		cmd = Command.exec("svn", "cat", "file://#{rpath}@#{version.get}")
 		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
-		return true
+		return cmd.stdout
 	end
 	
 	def ls(path, version = self.versions.last)
