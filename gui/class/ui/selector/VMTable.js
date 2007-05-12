@@ -1,4 +1,4 @@
-qx.Class.define("ui.versions.VTable",
+qx.Class.define("ui.selector.VMTable",
 {
 	extend: qx.ui.table.Table,
 	
@@ -9,7 +9,7 @@ qx.Class.define("ui.versions.VTable",
 		tm.setColumns(["ID", "Description", "Date", "Author"]);
 		
 		this.base(arguments, tm);
-		this.set({height: "1*", width: "100%"});
+		this.set({height: "100%", width: "100%"});
 		
 		this.setColumnWidth(0, 20);
 		this.setColumnWidth(1, 120);
@@ -22,6 +22,10 @@ qx.Class.define("ui.versions.VTable",
 		
 		this.setBackgroundColor(255);
 		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
+		
+		this.getSelectionModel().addEventListener("changeSelection", function(e){
+			ui.selector.View.getInstance().set_version(this.selected_row_id());
+		}, this);
 		
 		this.load();
 	},
@@ -44,7 +48,7 @@ qx.Class.define("ui.versions.VTable",
 		selected_row_id: function(){
 			var row = this.getSelectionModel().getSelectedRanges()[0]["maxIndex"];
 			var id = ""+this.getTableModel().getData()[row][0];
-			if (id == "WC") { id = ""+ui.tree.Tree.WC }
+			if (id == "WC") { id = ""+main.Cons.WC }
 			return id;
 		}
 	}

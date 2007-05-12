@@ -12,18 +12,23 @@ qx.Mixin.define("dao.File",
 		load: function(){
 			var rq = new lang.WRequest(
 				"wc", "cat",
-				{ wc_id: 0, path: this.getPath() },
+				{ wc_id: 0, path: this.getPath(), version: this.getTree().getVersion() },
 				function(data){
-					ui.StatusBar.getInstance().ok("Loaded: "+this.getPath());
+					main.Obj.statusbar.ok("Loaded: "+this.getPath());
 					this.getTextarea().setValue(""+data);
 				},
 				this
 			);
-			ui.StatusBar.getInstance().process("Loading: "+this.getPath());
+			main.Obj.statusbar.process("Loading: "+this.getPath());
 			rq.send();
 		},
 		
 		save: function(){
+			if (this.getTree().is_read_only()) {
+				main.Obj.statusbar.fail("Save: readonly file");
+				return;
+			}
+			
 			var rq = new lang.WRequest(
 				"wc", "write",
 				{
@@ -32,11 +37,32 @@ qx.Mixin.define("dao.File",
 					content: this.getTextarea().getComputedValue()
 				},
 				function(data){
-					ui.StatusBar.getInstance().ok("Saved: "+this.getPath()+" "+data+" bytes");
+					main.Obj.statusbar.ok("Saved: "+this.getPath()+" "+data+" bytes");
 				},
 				this
 			);
-			ui.StatusBar.getInstance().process("Saving: "+this.getPath());
+			main.Obj.statusbar.process("Saving: "+this.getPath());
+			rq.send();
+		},
+		
+		delete_: function(){
+			if (this.getTree().is_read_only()) {
+				main.Obj.statusbar.fail("Delete: readonly file");
+				return;
+			}
+			
+			var rq = new lang.WRequest(
+				"wc", "delete",
+				{
+					wc_id: 0,
+					path: this.getPath()
+				},
+				function(data){
+					main.Obj.statusbar.ok("Deleted: "+data);
+				},
+				this
+			);
+			main.Obj.statusbar.process("Deleting: "+this.getPath());
 			rq.send();
 		}
 	}

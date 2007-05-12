@@ -6,6 +6,7 @@ qx.Class.define("ui.StatusBar",
 	
 	construct: function () {
 		this.base(arguments);
+		main.Obj.statusbar = this;
 		
 		this.setHeight("auto");
 		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
@@ -29,7 +30,7 @@ qx.Class.define("ui.StatusBar",
 		},
 		
 		ok: function(text){ this.log(text, "actions/dialog-ok"); },
-		error: function(text){ this.log(text, "actions/dialog-cancel"); },
-		process: function(text){ this.log(text, "actions/dialog-finish"); }
+		fail: function(text){ this.log(text, "actions/dialog-no"); },
+		process: function(text){ this.log(text, "actions/go-next"); }
 	}
 });

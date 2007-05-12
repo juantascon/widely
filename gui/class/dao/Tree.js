@@ -2,22 +2,26 @@ qx.Mixin.define("dao.Tree",
 {
 	properties:
 	{
-		version: { check: "Number", init: -1 }
+		version: { check: "Number", init: main.Cons.WC }
 	},
 	
 	members:
 	{
+		is_read_only: function() {
+			return (this.getVersion() != main.Cons.WC);
+		},
+		
 		load: function(){
 			var rq = new lang.WRequest(
 				"wc", "ls",
 				{ wc_id: 0, path: "/", version: this.getVersion() },
 				function(data){
 					this.load_from_hash(data);
-					ui.StatusBar.getInstance().ok("Loaded: Tree");
+					main.Obj.statusbar.ok("Loaded: Tree");
 				},
 				this
 			);
-			ui.StatusBar.getInstance().process("Loading: Tree");
+			main.Obj.statusbar.process("Loading: Tree");
 			rq.send();
 		},
 		
@@ -26,11 +30,30 @@ qx.Mixin.define("dao.Tree",
 				"wc", "commit",
 				{ wc_id: 0, log: "version_automatica" },
 				function(data){
-					ui.StatusBar.getInstance().ok("Commit: "+data);
+					main.Obj.statusbar.ok("Commit: "+data);
+					main.Obj.selector.getVmtable().load();
 				},
 				this
 			);
-			ui.StatusBar.getInstance().process("Commiting");
+			main.Obj.statusbar.process("Commiting");
+			rq.send();
+		},
+		
+		add_: function(_path){
+			if (this.is_read_only()) {
+				main.Obj.statusbar.fail("Add: readonly tree");
+				return;
+			}
+			
+			var rq = new lang.WRequest(
+				"wc", "add",
+				{ wc_id: 0, path: _path },
+				function(data){
+					main.Obj.statusbar.ok("Added: "+data);
+				},
+				this
+			);
+			main.Obj.statusbar.process("Adding: "+_path);
 			rq.send();
 		}
 	}

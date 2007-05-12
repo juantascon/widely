@@ -1,4 +1,4 @@
-qx.Class.define("ui.versions.ToolBar",
+qx.Class.define("ui.selector.ToolBar",
 {
 	extend: qx.ui.layout.HorizontalBoxLayout,
 	
@@ -8,13 +8,18 @@ qx.Class.define("ui.versions.ToolBar",
 		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
 		this.setMinHeight("auto");
 		
-		this.add_button("Reload", "actions/view-refresh", function(e){
-			ui.versions.VersionsView.getInstance().getVtable().load();
+		this.add_button("Delete", "actions/edit-delete", function(e){
+			var selected = ui.selector.View.getInstance().getFiletree().getSelectedElement();
+			selected.destroy();
+			selected.delete_();
 		});
 		
-		this.add_button("Load Tree", "actions/go-up", function(e){
-			var selected_row_id = ui.versions.VersionsView.getInstance().getVtable().selected_row_id();
-			ui.tree.TreeView.getInstance().change_tree_version(selected_row_id);
+		this.add_button("Reload", "actions/view-refresh", function(e){
+			ui.selector.View.getInstance().getFiletree().load();
+		});
+		
+		this.add_button("Commit", "actions/go-down", function(e){
+			ui.selector.View.getInstance().getFiletree().commit();
 		});
 	},
 	

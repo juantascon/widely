@@ -27,9 +27,13 @@ qx.Class.define("ui.editor.TabView",
 		
 		add_tab: function(file){
 			for (var i = 0; i < this.getTabs().length(); i++){
-				if (this.getTabs().get(i).getFile().getPath() == file.getPath()){
-					this.getTabs().get(i).getButton().setChecked(true);
-					return;
+				var tab = this.getTabs().get(i);
+				
+				if (tab.getFile().getPath() == file.getPath() &&
+					tab.getVersion() == file.getTree().getVersion()) {
+					
+					tab.getButton().setChecked(true);
+					return tab;
 				}
 			}
 			
@@ -54,6 +58,8 @@ qx.Class.define("ui.editor.TabView",
 			}, this);
 			
 			this.getTabs().add(tab);
+			
+			return tab;
 		}
 	}
 });

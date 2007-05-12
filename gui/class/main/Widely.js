@@ -14,17 +14,12 @@ qx.Class.define("main.Widely",
 			var frame = new qx.ui.layout.DockLayout();
 			frame.setEdge(0);
 			
-			var split_tree = new qx.ui.splitpane.VerticalSplitPane("3*", "2*");
-			split_tree.setEdge(0);
-			split_tree.addTop(ui.tree.TreeView.getInstance());
-			split_tree.addBottom(ui.versions.VersionsView.getInstance());
+			frame.addBottom(ui.StatusBar.getInstance());
 			
 			var split_box = new qx.ui.splitpane.HorizontalSplitPane(300, "1*");
-			split_box.addLeft(split_tree);
 			split_box.addRight(ui.editor.EditorView.getInstance());
-			
+			split_box.addLeft(ui.selector.View.getInstance());
 			frame.add(split_box);
-			frame.addBottom(ui.StatusBar.getInstance());
 			
 			frame.addToDocument();
 		},
