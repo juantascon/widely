@@ -13,7 +13,6 @@ qx.Class.define("ui.selector.FileTree",
 		else {
 			this.base(arguments, "Version: "+this.getVersion());
 		}
-		
 		this.set({height: "100%", width: "100%"});
 		this.setBackgroundColor(255);
 		this.setOverflow("auto");
@@ -35,6 +34,7 @@ qx.Class.define("ui.selector.FileTree",
 					this.addToFolder(ui.selector.File.new_from_hash(data[i]));
 				}
 			}
+			this.setSelectedElement(this);
 		}
 	}
 });

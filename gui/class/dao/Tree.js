@@ -16,7 +16,7 @@ qx.Mixin.define("dao.Tree",
 				"wc", "ls",
 				{ wc_id: 0, path: "/", version: this.getVersion() },
 				function(data){
-					this.load_from_hash(data);
+					this.load_from_hash(data, false);
 					main.Obj.statusbar.ok("Loaded: Tree");
 				},
 				this

@@ -10,8 +10,11 @@ qx.Class.define("ui.selector.ToolBar",
 		
 		this.add_button("Delete", "actions/edit-delete", function(e){
 			var selected = ui.selector.View.getInstance().getFiletree().getSelectedElement();
-			selected.destroy();
-			selected.delete_();
+			d = new ui.component.YesNoDialog("Delete", "Are you sure want to delele: "+selected.getPath());
+			d.addEventListener("ok", function(e) {
+				selected.delete_();
+				selected.destroy();
+			});
 		});
 		
 		this.add_button("Reload", "actions/view-refresh", function(e){

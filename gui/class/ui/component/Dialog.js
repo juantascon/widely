@@ -17,12 +17,12 @@ qx.Class.define("ui.component.Dialog",
 		this.setCANCEL(new qx.ui.form.Button("Cancel", "icon/16/actions/dialog-cancel.png"));
 		
 		this.getOK().addEventListener("execute", function(e) {
-			this.stop();
 			this.createDispatchEvent("ok");
+			this.stop();
 		}, this);
 		this.getCANCEL().addEventListener("execute", function(e) {
+			this.createDispatchEvent("cancel");
 			this.stop();
-			this.createDispatchDataEvent("cancel");
 		}, this);
 		
 		var buttons = new qx.ui.layout.HorizontalBoxLayout();
@@ -52,6 +52,7 @@ qx.Class.define("ui.component.Dialog",
 		frame.add(buttons);
 		
 		this.add(frame);
+		this.start();
 	},
 	
 	properties:
