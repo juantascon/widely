@@ -13,7 +13,7 @@ qx.Class.define("ui.selector.File",
 		this.setTextarea(this.create_textarea());
 		
 		this.addEventListener("click", function(e){
-			ui.editor.EditorView.getInstance().getTabview().add_tab(this);
+			main.Obj.editor.getTabview().add_tab(this);
 		}, this);
 	},
 	

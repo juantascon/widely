@@ -9,11 +9,11 @@ qx.Class.define("ui.editor.ToolBar",
 		this.setMinHeight("auto");
 		
 		this.add_button("Save", "actions/document-save", function(e){
-			ui.editor.EditorView.getInstance().getTabview().selected_tab().getFile().save();
+			main.Obj.editor.getTabview().selected_tab().getFile().save();
 		});
 		
 		this.add_button("Reload", "actions/view-refresh", function(e){
-			ui.editor.EditorView.getInstance().getTabview().selected_tab().getFile().load();
+			main.Obj.editor.getTabview().selected_tab().getFile().load();
 		});
 	},
 	

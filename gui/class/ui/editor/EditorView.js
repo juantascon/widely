@@ -6,7 +6,6 @@ qx.Class.define("ui.editor.EditorView",
 	
 	construct: function () {
 		this.base(arguments);
-		main.Obj.editor = this;
 		
 		this.set({height: "100%", width: "100%"});
 		

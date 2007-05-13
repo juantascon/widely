@@ -40,11 +40,6 @@ qx.Mixin.define("dao.Tree",
 		},
 		
 		add_: function(_path){
-			if (this.is_read_only()) {
-				main.Obj.statusbar.fail("Add: readonly tree");
-				return;
-			}
-			
 			var rq = new lang.WRequest(
 				"wc", "add",
 				{ wc_id: 0, path: _path },

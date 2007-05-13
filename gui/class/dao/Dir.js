@@ -9,11 +9,6 @@ qx.Mixin.define("dao.Dir",
 	members:
 	{
 		delete_: function(){
-			if (this.getTree().is_read_only()) {
-				main.Obj.statusbar.fail("Delete: readonly dir");
-				return;
-			}
-			
 			var rq = new lang.WRequest(
 				"wc", "delete",
 				{

@@ -18,7 +18,13 @@ qx.Class.define("ui.selector.FileTree",
 		this.setOverflow("auto");
 		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
 		
-		this.load();
+		this.setSelectedElement(this);
+	},
+	
+	properties:
+	{
+		name: { check: "String", init: "/" },
+		path: { check: "String", init: "/"}
 	},
 	
 	members:
@@ -34,7 +40,16 @@ qx.Class.define("ui.selector.FileTree",
 					this.addToFolder(ui.selector.File.new_from_hash(data[i]));
 				}
 			}
-			this.setSelectedElement(this);
+		},
+		
+		find_child_by_path: function(path) {
+			var items = this.getItems(true, true);
+			
+			for (var i in items) {
+				if (items[i].getPath() == path) { return items[i]; }
+			}
+			
+			return null;
 		}
 	}
 });

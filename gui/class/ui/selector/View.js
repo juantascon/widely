@@ -6,7 +6,6 @@ qx.Class.define("ui.selector.View",
 	
 	construct: function () {
 		this.base(arguments);
-		main.Obj.selector = this;
 		
 		this.setEdge(0);
 		this.set({height: "100%", width: "100%"});
@@ -15,6 +14,8 @@ qx.Class.define("ui.selector.View",
 		this.setSplitbox(new qx.ui.splitpane.VerticalSplitPane("3*", "2*"));
 		this.setFiletree(new ui.selector.FileTree(-1));
 		this.setVmtable(new ui.selector.VMTable());
+		
+		this.getFiletree().load();
 		
 		with(this.getSplitbox()) {
 			set({height: "100%", width: "100%"});
@@ -40,6 +41,7 @@ qx.Class.define("ui.selector.View",
 			this.getSplitbox().getTopArea().remove(this.getFiletree());
 			//this.getFiletree().dispose();
 			this.setFiletree(new ui.selector.FileTree(version));
+			this.getFiletree().load();
 			this.getSplitbox().addTop(this.getFiletree());
 		}
 	}

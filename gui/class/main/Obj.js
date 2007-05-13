@@ -5,7 +5,7 @@ qx.Class.define("main.Obj",
 	statics:
 	{
 		statusbar: null,
-		selector: null,
-		editor: null
+		editor: null,
+		selector: null
 	}
 });

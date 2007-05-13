@@ -24,7 +24,7 @@ qx.Class.define("ui.selector.VMTable",
 		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
 		
 		this.getSelectionModel().addEventListener("changeSelection", function(e){
-			ui.selector.View.getInstance().set_version(this.selected_row_id());
+			main.Obj.selector.set_version(this.selected_row_id());
 		}, this);
 		
 		this.load();

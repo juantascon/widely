@@ -18,7 +18,7 @@ qx.Class.define("ui.component.InputDialog",
 	members:
 	{
 		get_text: function() {
-			this.getField().getComputedValue();
+			return this.getField().getComputedValue();
 		}
 	}
 });
