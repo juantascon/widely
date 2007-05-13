@@ -235,9 +235,10 @@ if(!window.qxvariants)qxvariants={};\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/table/DefaultResizeBehavior.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/table/ResizeBehaviorColumnData.js"></script>\
 <script type="text/javascript" src="./class/ui/component/Dialog.js"></script>\
+<script type="text/javascript" src="./class/ui/component/WCDirDialog.js"></script>\
 <script type="text/javascript" src="./class/main/Cons.js"></script>\
 <script type="text/javascript" src="./class/dao/Tree.js"></script>\
-<script type="text/javascript" src="./class/ui/component/WCDirDialog.js"></script>\
+<script type="text/javascript" src="./class/ui/selector/FileTree.js"></script>\
 <script type="text/javascript" src="./class/dao/Dir.js"></script>\
 <script type="text/javascript" src="./class/ui/selector/Dir.js"></script>\
 <script type="text/javascript" src="./class/dao/File.js"></script>\
@@ -284,9 +285,10 @@ if(!window.qxvariants)qxvariants={};\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/table/IconHeaderCellRenderer.js"></script>\
 <script type="text/javascript" src="./class/ui/selector/View.js"></script>\
 <script type="text/javascript" src="./class/ui/selector/ToolBar.js"></script>\
+<script type="text/javascript" src="./class/ui/cmd/FileTree.js"></script>\
+<script type="text/javascript" src="./class/ui/component/InputDialog.js"></script>\
 <script type="text/javascript" src="./class/ui/component/YesNoDialog.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/splitpane/VerticalSplitPane.js"></script>\
-<script type="text/javascript" src="./class/ui/selector/FileTree.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/table/Table.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/table/DefaultDataRowRenderer.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/table/TablePaneHeader.js"></script>\
@@ -339,7 +341,6 @@ if(!window.qxvariants)qxvariants={};\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/treevirtual/TreeVirtual.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/treevirtual/DefaultDataCellRenderer.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/treevirtual/SimpleTreeDataRowRenderer.js"></script>\
-<script type="text/javascript" src="./class/ui/component/InputDialog.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/renderer/layout/FlowLayoutImpl.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/theme/color/WindowsRoyale.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/xml/Namespace.js"></script>\

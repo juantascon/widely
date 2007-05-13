@@ -8,7 +8,7 @@ qx.Mixin.define("dao.Dir",
 	
 	members:
 	{
-		delete_: function(){
+		dao_delete: function(){
 			var rq = new lang.WRequest(
 				"wc", "delete",
 				{

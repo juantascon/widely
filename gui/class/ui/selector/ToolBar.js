@@ -9,36 +9,19 @@ qx.Class.define("ui.selector.ToolBar",
 		this.setMinHeight("auto");
 		
 		this.add_button("New File", "actions/document-new", function(e){
-			var dir_d = new ui.component.WCDirDialog("New File", "Where?");
-			dir_d.addEventListener("ok", function(e) {
-				
-				var selected = main.Obj.selector.getFiletree().find_child_by_path(dir_d.selected_dir().getPath());
-				
-				var name_d = new ui.component.InputDialog("New File", "New file name:");
-				name_d.addEventListener("ok", function(e) {
-					selected.add(new ui.selector.File(name_d.get_text(), selected.getPath()));
-					main.Obj.selector.getFiletree().add_(selected.getPath()+name_d.get_text());
-					
-				});
-				
-			});
+			ui.cmd.FileTree.new_file();
 		});
 		
 		this.add_button("Delete", "actions/edit-delete", function(e){
-			var selected = main.Obj.selector.getFiletree().getSelectedElement();
-			var d = new ui.component.YesNoDialog("Delete", "Are you sure want to delele: "+selected.getPath());
-			d.addEventListener("ok", function(e) {
-				selected.delete_();
-				selected.destroy();
-			});
+			ui.cmd.FileTree.delete_selected();
 		});
 		
 		this.add_button("Reload", "actions/view-refresh", function(e){
-			main.Obj.selector.getFiletree().load();
+			main.Obj.selector.getFiletree().dao_load();
 		});
 		
 		this.add_button("Commit", "actions/go-down", function(e){
-			main.Obj.selector.getFiletree().commit();
+			ui.cmd.FileTree.commit();
 		});
 	},
 	

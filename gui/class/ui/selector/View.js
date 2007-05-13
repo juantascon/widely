@@ -12,10 +12,10 @@ qx.Class.define("ui.selector.View",
 		
 		this.setToolbar(new ui.selector.ToolBar());
 		this.setSplitbox(new qx.ui.splitpane.VerticalSplitPane("3*", "2*"));
-		this.setFiletree(new ui.selector.FileTree(-1));
+		this.setFiletree(new ui.selector.FileTree());
 		this.setVmtable(new ui.selector.VMTable());
 		
-		this.getFiletree().load();
+		this.getFiletree().dao_load();
 		
 		with(this.getSplitbox()) {
 			set({height: "100%", width: "100%"});
@@ -39,9 +39,14 @@ qx.Class.define("ui.selector.View",
 	{
 		set_version: function(version){
 			this.getSplitbox().getTopArea().remove(this.getFiletree());
-			//this.getFiletree().dispose();
+			/*
+			 * TODO: se deben borrar los FileTree del view?
+			 *
+			 * this.getFiletree().dispose();
+			 * 
+			 */
 			this.setFiletree(new ui.selector.FileTree(version));
-			this.getFiletree().load();
+			this.getFiletree().dao_load();
 			this.getSplitbox().addTop(this.getFiletree());
 		}
 	}

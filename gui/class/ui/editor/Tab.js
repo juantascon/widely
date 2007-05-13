@@ -22,7 +22,7 @@ qx.Class.define("ui.editor.Tab",
 		this.setPage(new qx.ui.pageview.tabview.Page(this.getButton()));
 		this.getPage().add(this.getFile().getTextarea());
 		
-		this.getFile().load();
+		this.getFile().dao_load();
 	},
 	
 	properties:

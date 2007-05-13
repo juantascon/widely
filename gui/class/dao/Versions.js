@@ -2,7 +2,7 @@ qx.Mixin.define("dao.Versions",
 {
 	members:
 	{
-		load: function(){
+		dao_load: function(){
 			var rq = new lang.WRequest(
 				"wc", "versions",
 				{ wc_id: 0 },

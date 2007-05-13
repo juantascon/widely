@@ -9,7 +9,7 @@ qx.Mixin.define("dao.File",
 	
 	members:
 	{
-		load: function(){
+		dao_load: function(){
 			var rq = new lang.WRequest(
 				"wc", "cat",
 				{ wc_id: 0, path: this.getPath(), version: this.getTree().getVersion() },
@@ -23,7 +23,7 @@ qx.Mixin.define("dao.File",
 			rq.send();
 		},
 		
-		save: function(){
+		dao_save: function(){
 			if (this.getTree().is_read_only()) {
 				main.Obj.statusbar.fail("Save: readonly file");
 				return;
@@ -45,7 +45,7 @@ qx.Mixin.define("dao.File",
 			rq.send();
 		},
 		
-		delete_: function(){
+		dao_delete: function(){
 			var rq = new lang.WRequest(
 				"wc", "delete",
 				{

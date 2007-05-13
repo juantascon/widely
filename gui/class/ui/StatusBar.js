@@ -6,7 +6,6 @@ qx.Class.define("ui.StatusBar",
 	
 	construct: function () {
 		this.base(arguments);
-		main.Obj.statusbar = this;
 		
 		this.setHeight("auto");
 		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));

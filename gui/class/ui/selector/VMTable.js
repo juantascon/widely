@@ -27,7 +27,7 @@ qx.Class.define("ui.selector.VMTable",
 			main.Obj.selector.set_version(this.selected_row_id());
 		}, this);
 		
-		this.load();
+		this.dao_load();
 	},
 	
 	members:

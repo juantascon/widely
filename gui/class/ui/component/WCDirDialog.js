@@ -16,7 +16,7 @@ qx.Class.define("ui.component.WCDirDialog",
 			}
 		};
 		
-		this.getTree().load();
+		this.getTree().dao_load();
 		this.base(arguments, title, message, this.getTree());
 	},
 	
