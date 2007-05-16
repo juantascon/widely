@@ -20,7 +20,7 @@ qx.Class.define("ui.selector.VMTable",
 		this.getDataRowRenderer().setVisualizeFocusedState(false);
 		this.getSelectionModel().setSelectionMode(qx.ui.table.SelectionModel.SINGLE_SELECTION);
 		
-		this.setBackgroundColor(255);
+		this.setBackgroundColor("white");
 		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
 		
 		this.getSelectionModel().addEventListener("changeSelection", function(e){

@@ -12,16 +12,38 @@ qx.Class.define("ui.selector.File",
 		
 		this.setTextarea(this.create_textarea());
 		
+		
 		this.addEventListener("click", function(e){
 			main.Obj.editor.getTabview().add_tab(this);
 		}, this);
+		
+		/* TODO: terminar el drag and drop de mover y copiar archivos
+		function printEvent(e) {
+			return "TARGET:" + (e.getTarget() ? e.getTarget().toHashCode() : "null") + " [ORIG:" + (e.getOriginalTarget() ? e.getOriginalTarget().toHashCode() : "null") + "]  [REL:" + (e.getRelatedTarget() ? e.getRelatedTarget().toHashCode() : "null") + "]";
+		};
+		
+		this.addEventListener("dragstart", function(e){
+			var feedbackWidget = new qx.ui.basic.Atom("Some HTML", "icon/16/file-new.png");
+			feedbackWidget.set({ border:new qx.renderer.border.Border(1, "dashed", "gray"), opacity:0.7 });
+			feedbackWidget.setPadding(2);
+			
+			e.setFeedbackWidget(feedbackWidget, 15, 0, true);
+			//e.setCursorPosition(15, 25);
+			this.debug("Fire DragStart: " + printEvent(e));
+		});
+		
+		this.addEventListener("dragend", function(e){
+			this.debug("Fire DragEnd: " + printEvent(e));
+		});*/
 	},
 	
 	members:
 	{
 		create_textarea: function() {
 			var textarea = new qx.ui.form.TextArea("");
-			textarea.set({heights: "100%", widths: "100%"});
+			
+			textarea.set({height: "100%", width: "100%"});
+			
 			textarea.setReadOnly(false);
 			
 			textarea.addEventListener("keypress", function(e){

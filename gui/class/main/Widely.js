@@ -1,6 +1,6 @@
 qx.Class.define("main.Widely",
 {
-	extend: qx.component.AbstractApplication,
+	extend : qx.application.Gui,
 	
 	construct : function() {
 		this.base(arguments);
@@ -8,9 +8,9 @@ qx.Class.define("main.Widely",
 	
 	members:
 	{
-		initialize: function(e) {},
-		
 		main: function(e) {
+			this.base(arguments);
+			
 			main.Obj.statusbar = ui.StatusBar.getInstance();
 			main.Obj.editor = ui.editor.EditorView.getInstance();
 			main.Obj.selector = ui.selector.View.getInstance();
@@ -25,14 +25,12 @@ qx.Class.define("main.Widely",
 			split_box.addLeft(main.Obj.selector);
 			frame.add(split_box);
 			
-			frame.addToDocument();
+			qx.ui.core.ClientDocument.getInstance().add(frame);
 		},
 		
-		finalize: function(e) {},
+		close: function(e) { this.base(arguments); },
 		
-		close: function(e) {},
-		
-		terminate: function(e) {}
+		terminate: function(e) { this.base(arguments); }
 	},
 	
 	settings:

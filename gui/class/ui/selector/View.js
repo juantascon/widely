@@ -15,7 +15,7 @@ qx.Class.define("ui.selector.View",
 		this.setFiletree(new ui.selector.FileTree());
 		this.setVmtable(new ui.selector.VMTable());
 		
-		this.getFiletree().dao_load();
+		//this.getFiletree().dao_load();
 		
 		with(this.getSplitbox()) {
 			set({height: "100%", width: "100%"});

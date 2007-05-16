@@ -14,7 +14,7 @@ qx.Class.define("ui.selector.FileTree",
 			this.base(arguments, "Version: "+this.getVersion());
 		}
 		this.set({height: "100%", width: "100%"});
-		this.setBackgroundColor(255);
+		this.setBackgroundColor("white");
 		this.setOverflow("auto");
 		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
 		
@@ -29,15 +29,17 @@ qx.Class.define("ui.selector.FileTree",
 	
 	members:
 	{
-		load_from_hash: function(data) {
+		load_from_hash: function(data, exclude_files) {
 			this.destroyContent();
 			
 			for (var i in data){
 				if (data[i]["type"] == "dir"){
-					this.addToFolder(ui.selector.Dir.new_from_hash(data[i]));
+					this.addToFolder(ui.selector.Dir.new_from_hash(data[i], exclude_files));
 				}
-				if (data[i]["type"] == "file"){
-					this.addToFolder(ui.selector.File.new_from_hash(data[i]));
+				if (! exclude_files) {
+					if (data[i]["type"] == "file"){
+						this.addToFolder(ui.selector.File.new_from_hash(data[i]));
+					}
 				}
 			}
 		},
