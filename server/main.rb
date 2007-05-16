@@ -1,15 +1,18 @@
 #
 # El directorio donde reside Widely
 #
-$WIDELY_SERVER_HOME = File.dirname($0)
-$WIDELY_HOME = "#{$WIDELY_SERVER_HOME}/.."
+$WIDELY_HOME = "#{File.dirname($0)}/.."
+$WIDELY_HOME_SERVER = "#{$WIDELY_HOME}/server"
+$WIDELY_HOME_GUI = "#{$WIDELY_HOME}/gui"
+$WIDELY_HOME_DOC = "#{$WIDELY_HOME}/doc"
+
 
 #
 # Estos directorios deben estar en el entorno de
 # busqueda de archivos
 #
-$: << $WIDELY_SERVER_HOME
-$: << "#{$WIDELY_SERVER_HOME}/lib"
+$: << $WIDELY_HOME_SERVER
+$: << "#{$WIDELY_HOME_SERVER}/lib"
 
 #
 # Carga el Core
@@ -31,7 +34,7 @@ WModule.collection[:HTTP].load
 #
 # Localiza y carga todos los modulos
 #
-(Dir.glob("#{$WIDELY_SERVER_HOME}/{webservices,addons}/*")).each { |m| require "#{m.to_s}/init.rb" }
+(Dir.glob("#{$WIDELY_HOME_SERVER}/{webservices,addons}/*")).each { |m| require "#{m.to_s}/init.rb" }
 WModule.collection.each_value { |m| m.load if ! m.loaded }
 
 #

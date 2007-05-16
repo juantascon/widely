@@ -1,5 +1,5 @@
 #
-# Modulo de manejo de versiones con SubVersion(Svn)
+# Modulo de manejo de versiones: SubVersion (Svn)
 #
 wmodule :Svn => :FS do |mod|
 	require "rexml/document.rb"
