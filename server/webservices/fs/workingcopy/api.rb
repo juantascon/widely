@@ -94,7 +94,7 @@ class API < Collection
 	end
 end
 
-Dispatcher.set_webservice("wc", API.instance)
+HTTP::Dispatcher.set_webservice("wc", API.instance)
 
 end
 end

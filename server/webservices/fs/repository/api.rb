@@ -18,7 +18,7 @@ class API < Collection
 	
 end
 
-Dispatcher.set_webservice("repos", API.instance)
+HTTP::Dispatcher.set_webservice("repos", API.instance)
 
 end
 end

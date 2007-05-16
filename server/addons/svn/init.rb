@@ -3,6 +3,6 @@
 #
 wmodule :Svn => :FS do |mod|
 	require "rexml/document.rb"
-	require "repositorysvn.rb"
-	Repository.set_manager(:svn, mod._module_::RepositorySvn)
+	require "repository.rb"
+	FS::Repository.set_manager(:svn, mod._module_::Repository)
 end

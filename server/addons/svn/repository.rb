@@ -3,7 +3,7 @@
 # status()
 
 module Svn
-class RepositorySvn < Repository::Base
+class Repository < FS::Repository::Base
 	include FileUtils
 	include FileTest
 	
@@ -62,13 +62,13 @@ class RepositorySvn < Repository::Base
 		ret = Array.new
 		doc = REXML::Document.new(cmd.stdout)
 		doc.root.each_element do |version|
-			ret.push( Repository::Version.new(
+			ret.push( FS::Repository::Version.new(
 				version.attribute("revision").to_s,
 				version.get_text("msg"),
 				version.get_text("date"),
 				version.get_text("author") ))
 		end
-		ret.push(Repository::Version.new(0))
+		ret.push(FS::Repository::Version.new(0))
 		return ret.reverse
 	end
 	

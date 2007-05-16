@@ -145,7 +145,7 @@ class WModule < Module
 		#
 		# Hace un include de este modulo desde el entorno principal (Object)
 		#
-		Object.module_eval("include ObjectSpace._id2ref(#{self._module_.object_id})")
+		#Object.module_eval("include ObjectSpace._id2ref(#{self._module_.object_id})")
 		
 		@loaded = true
 		w_info("#{name} -- LOADED")
