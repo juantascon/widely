@@ -16,21 +16,10 @@ module WDebug
 	
 	#
 	# Define hacia donde se mandan los mensajes de depuracion
-	# y que tan severos son los mensajes a tener en cuenta
+	# Por defecto hacia STDERR
 	#
-	$WDEBUG_LOGGER_DEV = STDERR
-	$WDEBUG_LEVEL = Sev::DEBUG
-	
-	def WDebug.initialize(logger_dev, level)
-		if logger_dev.kind_of? IO
-			$WDEBUG_LOGGER_DEV = logger_dev
-		end
-		
-		if Sev::SEVS[level]
-			$WDEBUG_LEVEL = level
-		end
-	end
-	
+	WDEBUG_LOGGER = STDERR
+	WDEBUG_LEVEL = Sev::DEBUG
 	
 	#
 	# El metodo principal
@@ -38,7 +27,7 @@ module WDebug
 	# severidad y del dispositivo de salida
 	#
 	def w_log(severity, m, back=1, &block)
-		return true if severity < $WDEBUG_LEVEL
+		return true if severity < WDEBUG_LEVEL
 		
 		m = if m.respond_to? :message; m.message; else m.to_s; end
 		m = block.call if block_given?
@@ -50,7 +39,7 @@ module WDebug
 			from = "#{self.class.name}"
 		end
 		
-		$WDEBUG_LOGGER_DEV.print("[%s] %s: %s\n" % [severity.to_s, from.to_s, m.to_s])
+		WDEBUG_LOGGER.print("[%s] %s: %s\n" % [severity.to_s, from.to_s, m.to_s])
 	end
 	
 	#

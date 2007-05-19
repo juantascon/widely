@@ -15,20 +15,35 @@ module WebService
 		
 		# El metodo debe recibir un solo parametros (un hash con los valores de entrada)
 		raise ArgumentError.new("method[#{method}]: invalid definition") if real_method.arity != 1
-		real_method.call(args)
+		real_method.call(Args.new(args))
 	end
 	
-	#
-	# Verifica que existan los argumentos dentro del hash
-	# de argumentos
-	# Ej:
-	#
-	# arg_check(args, "wso_id", "path")
-	#
-	def args_check(args, *arg_names)
-		w_debug(args)
-		arg_names.each do |arg_name|
-			raise ArgumentError.new("args[#{arg_name}]: not included") if ! args.include? arg_name
+	class Args < Hash
+		def initialize(hash=nil)
+			self.replace(hash)
+		end
+		
+		#
+		# Verifica que existan los argumentos dentro del hash
+		# de argumentos
+		# Ej:
+		#
+		# arg_check(args, "wso_id", "path")
+		#
+		def check(*arg_names)
+			arg_names.each do |arg_name|
+				raise ArgumentError.new("args[#{arg_name}]: not included") if ! self.include? arg_name
+			end
+		end
+		
+		def collection_get(collection, *args)
+			real_args = Array.new
+			args.each { |arg| real_args.push(self[arg]) }
+			
+			obj = collection.get_o(*real_args)
+			raise ArgumentError.new("#{real_args}: #{collection.class.name} not found") if ! obj
+			
+			return obj
 		end
 	end
 end

@@ -5,7 +5,8 @@
 module FS
 class WorkingCopy
 
-class API < Collection
+class API
+	
 	include Singleton
 	include WebService
 	
@@ -14,87 +15,88 @@ class API < Collection
 	end
 	
 	def create(args)
-		args_check(args, "wc_dir", "repository_id")
+		args.check("session_id", "repository_id", "name")
 		
-		repository = Repository::API.instance.get_o(args["repository_id"].to_i)
-		raise ArgumentError.new("repository[#{args["repository_id"]}]: invalid") if ! repository
-		p repository
+		session = args.collection_get(Auth::Sessions.instance, "session_id")
+		repository = args.collection_get(session.user.repos, "repository_id")
 		
-		obj = WorkingCopy.new(args["wc_dir"], repository)
+		if session.user.wcs.get_o(args["name"])
+			raise ArgumentError.new("#{args["name"]}: workingcopy already exists")
+		end
 		
-		return save_o(obj)
+		obj = WorkingCopy.new(session.user, repository, args["name"])
+		return session.user.wcs.save_o(obj)
 	end
 	
 	def checkout(args)
-		args_check(args, "wc_id")
-		obj = get_o(args["wc_id"].to_i)
+		args.check("session_id")
+		session = args.collection_get(Auth::Sessions.instance, "session_id")
 		version = Repository::Version.new(args["version"]) if args["version"]
 		
-		return obj.checkout(version)
+		return session.wc.checkout(version)
 	end
 
 	def commit(args)
-		args_check(args, "wc_id", "log")
-		obj = get_o(args["wc_id"])
+		args.check("session_id", "log")
+		session = args.collection_get(Auth::Sessions.instance, "session_id")
 		
-		return obj.commit(args["log"])
+		return session.wc.commit(args["log"])
 	end
 	
 	def versions(args)
-		args_check(args, "wc_id")
-		obj = get_o(args["wc_id"])
+		args.check("session_id")
+		session = args.collection_get(Auth::Sessions.instance, "session_id")
 		
-		return obj.versions()
+		return session.wc.versions()
 	end
 	
 	def cat(args)
-		args_check(args, "wc_id", "path")
-		obj = get_o(args["wc_id"])
+		args.check("session_id", "path")
+		session = args.collection_get(Auth::Sessions.instance, "session_id")
 		version = Repository::Version.new(args["version"]) if args["version"]
 		
-		return obj.cat(args["path"], version)
+		return session.wc.cat(args["path"], version)
 	end
 	
 	def ls(args)
-		args_check(args, "wc_id", "path")
-		obj = get_o(args["wc_id"])
+		args.check("session_id", "path")
+		session = args.collection_get(Auth::Sessions.instance, "session_id")
 		version = Repository::Version.new(args["version"]) if args["version"]
 		
-		return obj.ls(args["path"], version)
+		return session.wc.ls(args["path"], version)
 	end
 	
 	def add(args)
-		args_check(args, "wc_id", "path")
-		obj = get_o(args["wc_id"])
+		args.check("session_id", "path")
+		session = args.collection_get(Auth::Sessions.instance, "session_id")
+		as_dir = ( args["as_dir"] == "true" )
 		
-		as_dir = args["as_dir"] == "true"
-		
-		return obj.add(args["path"], as_dir)
+		return session.wc.add(args["path"], as_dir)
 	end
 	
 	def delete(args)
-		args_check(args, "wc_id", "path")
-		obj = get_o(args["wc_id"])
+		args.check("session_id", "path")
+		session = args.collection_get(Auth::Sessions.instance, "session_id")
 		
-		return obj.delete(args["path"])
+		return session.wc.delete(args["path"])
 	end
 	
-	def move(path_from, path_to)
-		args_check(args, "wc_id", "path_from", "path_to")
-		obj = get_o(args["wc_id"])
+	def move(args)
+		args.check("session_id", "path_from", "path_to")
+		session = args.collection_get(Auth::Sessions.instance, "session_id")
 		
-		return obj.move(args["path_from"], args["path_to"])
+		return session.wc.move(args["path_from"], args["path_to"])
 	end
 	
 	def write(args)
-		args_check(args, "wc_id", "path", "content")
-		obj = get_o(args["wc_id"])
+		args.check("session_id", "path", "content")
+		session = args.collection_get(Auth::Sessions.instance, "session_id")
 		
-		return obj.write(args["path"], args["content"])
+		return session.wc.write(args["path"], args["content"])
 	end
 end
 
-HTTP::Dispatcher.set_webservice("wc", API.instance)
+HTTP::Dispatcher.set_webservice("wc", FS::WorkingCopy::API.instance)
 
 end
 end

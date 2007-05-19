@@ -17,7 +17,7 @@ end
 
 #define el manejador por defecto y los metodos a delegar
 set_manager(:default, Base)
-Base::METHODS.each { |m| @@forward_methods.push m.to_sym }
+set_methods(Base::METHODS)
 
 end
 end

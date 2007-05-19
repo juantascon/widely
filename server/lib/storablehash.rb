@@ -10,9 +10,9 @@
 # ------------------------
 #
 class StorableHash < Hash
-	include Parser
 	
-	def initialize()
+	def initialize(*args, &block)
+		super(*args, &block)
 	end
 	
 	def load(filename)
@@ -47,5 +47,5 @@ class StorableHash < Hash
 			return false
 		end
 	end
-end
+	
 end

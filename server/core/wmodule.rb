@@ -138,7 +138,7 @@ class WModule < Module
 		# del entorno de busqueda de archivos
 		#
 		included = true if $:.include? File.dirname(@creator_file)
-		$: << (File.dirname(@creator_file))
+		$:.unshift(File.dirname(@creator_file))
 		@init_block.call(self)
 		$:.remove(File.dirname(@creator_file)) if included
 		

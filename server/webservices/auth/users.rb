@@ -1,36 +1,46 @@
 module Auth
-class Users
+class Users < Collection
+	
 	include Singleton
-
-	def initialize
-		@content = StorableHash.new
-		@sessions = Hash.new
-	end
 	
-	def add(user, password)
-		@content[user] = Auth.crypt(password)
-	end
-	
-	def remove(user)
-		@content.delete(user)
-	end
-	
-	def authenticate(user, password)
-		return true if @content[user] == Auth.crypt(password)
-		return false
-	end
-	
-	def login(user, password)
-		if Users.instance.authenticate(user, password)
-			# Si no existe una session la crea y retorna el id
-			@sessions[user] = new_session(user) if (! @sessions[user] or @sessions[user].venced?)
-			return @sessions[user].id
+	class User
+		
+		include Collectable
+		
+		attr_reader :name, :password, :wcs, :repos
+		
+		def initialize(name, password)
+			w_info("Username: #{name}")
+			@name = name
+			@password = Auth::Crypt.crypt(password)
+			
+			@wcs = Collection.new
+			@repos = Collection.new
 		end
-		return nil
+		
+		def data_dir
+			"#{$CONFIG.get(:CORE_DATA_DIR)}/#{@name}"
+		end
+		
+		def collectable_id
+			@name
+		end
 	end
 	
-	def logout(user)
-		@sessions.delete(user)
+	def create(user, password)
+		save_o(User.new(user, password))
 	end
+	
+	def get_o(user, password="")
+		user = @__objects__[user]
+		return nil if ! user
+		
+		return user if user.password == Auth::Crypt.crypt(password)
+	end
+	
+	alias_method :authenticate, :get_o
+	
+	instance.create($CONFIG.get(:AUTH_ADMIN_NAME), $CONFIG.get(:AUTH_ADMIN_PASSWORD))
+	
 end
 end

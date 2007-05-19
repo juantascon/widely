@@ -1,42 +1,41 @@
 module FS
 class Repository
-	#
-	# Esta clase realmente sirve para delegar los llamados
-	# a otras clases manejadoras de versiones
-	#
 	
-	# Lista de manejadores y metodos a delegar
-	@@forward_managers = Hash.new
-	@@forward_methods = Array.new
+	include Collectable
+	include DynamicDelegator
 	
-	#
-	# define un manejador para un indentificador dado
-	#
-	def self.set_manager(name, manager)
-		if name.kind_of? Symbol and manager.kind_of? Class
-			@@forward_managers[name] = manager
-		else
-			w_warn("#{name}:#{manager} manager not added")
-			return false
-		end
-	end
+	attr_reader :user, :name
 	
 	#
 	# Crea un nuevo objeto dependiendo del manejador a utilizar
 	# en caso de fallo utiliza el manejador por defecto
 	#
-	def initialize(manager, dir)
-		# Crea la instancia del manejador
-		begin
-			@instance = @@forward_managers[manager].new(dir)
-		rescue NoMethodError => e
-			p e.message, e.backtrace
-			raise ArgumentError.new("manager[#{manager}]: invalid")
+	def initialize(user, manager_id, name)
+		w_debug("user: #{user} manager_id: #{manager_id} name: #{name} c_id: #{collectable_id}")
+		
+		@user = user
+		@name = name
+		
+		if File.basename(File.cleanpath(self.dir)) != @name
+			raise ArgumentError.new("#{@name}: invalid name:)") 
 		end
 		
-		# Hace el forward de los metodos por medio de la biblioteca Forwardable
-		self.extend SingleForwardable
-		@@forward_methods.each { |m| self.def_delegator :@instance, m }
+		# Crea la instancia del manejador
+		begin
+			@manager = self.class.get_manager(manager_id).new(self)
+		rescue NoMethodError
+			raise ArgumentError.new("#{manager_id}: invalid manager_id")
+		end
+		
+		start_forward()
+	end
+	
+	def dir
+		"#{@user.data_dir}/#{$CONFIG.get(:FS_REPOS_DIR)}/#{@name}"
+	end
+	
+	def collectable_id
+		@name
 	end
 	
 end

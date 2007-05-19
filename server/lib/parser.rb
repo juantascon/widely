@@ -4,14 +4,6 @@
 module Parser
 	require "uri"
 	
-	def vars_to_values(str)
-		str.gsub(/%[a-zA-Z0-9\.]+%/) do |m|
-			self[m.gsub("%", "")]
-		end
-	end
-	module_function :vars_to_values
-	
-	#
 	# La cadena debe tener un patron de la forma "var1=value1&var2=value2 ... "
 	# var y value deben estar en la forma url codificado
 	# Ej:

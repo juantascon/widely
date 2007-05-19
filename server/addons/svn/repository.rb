@@ -4,20 +4,23 @@
 
 module Svn
 class Repository < FS::Repository::Base
+	
 	include FileUtils
 	include FileTest
 	
-	attr_reader :dir
+	attr_reader :dir, :_self
 	
 	def files
 		[ /^%wc_dir%(\/|\/.*\/).svn((\/+.*)*)/ ]
 	end
 	
-	def initialize(dir=nil)
-		raise ArgumentError.new("dir[#{dir}]: invalid") if ! dir.kind_of? String
-		raise ArgumentError.new("dir[#{dir}]: not an absolute path") if ! File.absolute?(dir)
+	def initialize(_self)
+		@_self = _self
+		@dir = @_self.dir
 		
-		@dir = dir
+		raise ArgumentError.new("dir[#{@dir}]: invalid") if ! @dir.kind_of? String
+		raise ArgumentError.new("dir[#{@dir}]: not an absolute path") if ! File.absolute?(@dir)
+		
 		create_ok = self.create if ! exists
 		raise StandardError.new("create: invalid") if ! create_ok
 	end
@@ -29,6 +32,7 @@ class Repository < FS::Repository::Base
 	
 	def create()
 		w_info("#{@dir}")
+		mkdir_p(@dir)
 		cmd = Command.exec("svnadmin", "create", @dir)
 		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
 		return true

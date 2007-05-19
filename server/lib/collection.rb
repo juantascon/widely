@@ -4,26 +4,29 @@ class Collection
 	# Inicia la coleccion de objetos
 	#
 	def initialize
-		@__objects__ = Array.new
+		@__objects__ = Hash.new
 	end
 	
 	#
-	# Registra un objeto dentro del array de objetos
+	# Registra un objeto en la coleccion
 	#
-	def save_o(instance)
-		id = @__objects__.push(instance).length - 1
-		return id
+	def save_o(obj)
+		@__objects__[obj.collectable_id.to_s] = obj
+		return obj.collectable_id.to_s
 	end
 	
 	#
-	# Obtiene un objeto del array de objetos
+	# Obtiene un objeto de la coleccion(nil si no lo encuentra)
 	#
 	def get_o(id)
-		begin
-			return @__objects__[id.to_i] if @__objects__[id.to_i]
-		rescue
-			return nil
-		end
-		return nil
+		@__objects__[id.to_s]
 	end
+	
+	#
+	# Borra un objeto de la coleccion
+	#
+	def delete_o(id)
+		@@__objects__.delete(id.to_s)
+	end
+	
 end

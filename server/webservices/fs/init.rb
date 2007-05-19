@@ -5,5 +5,6 @@ wmodule :FS => :HTTP do |mod|
 	require "repository/api.rb"
 	
 	require "workingcopy/workingcopy.rb"
+	require "workingcopy/base.rb"
 	require "workingcopy/api.rb"
 end

@@ -70,7 +70,8 @@ class Dispatcher
 	def initialize(port)
 		@port = port
 		
-		[Adapters::MongrelAdapter, Adapters::WEBrickAdapter].each do |adapter|
+		#[Adapters::MongrelAdapter, Adapters::WEBrickAdapter].each do |adapter|
+		[Adapters::WEBrickAdapter, Adapters::MongrelAdapter].each do |adapter|
 			next if ! adapter.avaliable
 			break if @server
 			
