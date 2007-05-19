@@ -52,7 +52,7 @@ class WModule < Module
 	def self.collection(); @@collection; end
 	
 	
-	attr_reader :name, :init_block, :creator_file, :loaded, :_module_, :depends
+	attr_reader :name, :init_block, :creator_file, :loaded, :_module_, :depends, :base_dir
 
 	#
 	# :definition puede ser de la siguiente forma:
@@ -84,6 +84,7 @@ class WModule < Module
 		
 		# La ruta del archivo que creo el WModule(WModule.new) para localizar el resto de archivos
 		@creator_file = caller_file(3)
+		@base_dir = File.dirname(@creator_file)
 		raise StandardError.new("WModule[#{@name}]: module file not found") if ! File.exist?(@creator_file)
 		
 		# Crea un Module vacio con el mismo nombre del WModule
@@ -137,10 +138,10 @@ class WModule < Module
 		# Ejecuta el bloque del WModule y vuelve a quitar el directorio
 		# del entorno de busqueda de archivos
 		#
-		included = true if $:.include? File.dirname(@creator_file)
-		$:.unshift(File.dirname(@creator_file))
+		included = true if $:.include? @base_dir
+		$:.unshift(@base_dir) if ! included
 		@init_block.call(self)
-		$:.remove(File.dirname(@creator_file)) if included
+		$:.delete(@base_dir)
 		
 		#
 		# Hace un include de este modulo desde el entorno principal (Object)
@@ -151,6 +152,15 @@ class WModule < Module
 		w_info("#{name} -- LOADED")
 		return true
 	end
+	
+	def require(source)
+		if File.exists? "#{self.base_dir}/#{source}"
+			Kernel.require("#{self.base_dir}/#{source}")
+		else
+			Kernel.require(source)
+		end
+	end
+		
 	
 	#
 	# funcion auxiliar que se encarga de buscar un Module en el

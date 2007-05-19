@@ -4,8 +4,7 @@
 # terminar status()
 #
 
-module FS
-class WorkingCopy
+module WC
 class Base
 	
 	METHODS = [:"repository_file?", :checkout, :status, :commit, :versions, :cat, :ls, :add, :delete, :move, :write]
@@ -14,7 +13,7 @@ class Base
 	include FileUtils
 	include FileTest
 	
-	@@WC = Repository::Version.new("-1")
+	@@WC = Repos::Version.new("-1")
 	def self.WC; @@WC; end
 	
 	attr_reader :_self
@@ -254,8 +253,7 @@ class Base
 end
 
 #define el manejador por defecto y los metodos a delegar
-set_manager(:default, Base)
-set_methods(Base::METHODS)
+WorkingCopy.set_manager(:default, Base)
+WorkingCopy.set_methods(Base::METHODS)
 
-end
 end

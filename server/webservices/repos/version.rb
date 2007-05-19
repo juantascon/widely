@@ -1,5 +1,4 @@
-module FS
-class Repository
+module Repos
 
 #
 # Identifica una version dentro de un repositorio
@@ -32,5 +31,4 @@ class Version
 	end
 end
 
-end
 end

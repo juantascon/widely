@@ -2,8 +2,7 @@
 # API de WorkingCopy
 #
 
-module FS
-class WorkingCopy
+module WC
 
 class API
 	
@@ -96,7 +95,6 @@ class API
 	end
 end
 
-HTTP::Dispatcher.set_webservice("wc", FS::WorkingCopy::API.instance)
+HTTP::Dispatcher.set_webservice("wc", WC::API.instance)
 
-end
 end

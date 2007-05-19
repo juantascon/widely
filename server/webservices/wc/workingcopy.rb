@@ -4,7 +4,7 @@
 # terminar status()
 #
 
-module FS
+module WC
 class WorkingCopy
 	
 	include Collectable

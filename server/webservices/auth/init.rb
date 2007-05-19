@@ -1,8 +1,8 @@
 wmodule :Auth => :HTTP do |mod|
-	require "crypt.rb"
-	require "rand.rb"
+	mod.require "crypt.rb"
+	mod.require "rand.rb"
 	
-	require "users.rb"
-	require "sessions.rb"
-	require "api.rb"
+	mod.require "users.rb"
+	mod.require "sessions.rb"
+	mod.require "api.rb"
 end

@@ -1,4 +1,4 @@
-module FS
+module Repos
 class Repository
 	
 	include Collectable

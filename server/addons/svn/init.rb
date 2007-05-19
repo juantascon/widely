@@ -1,8 +1,9 @@
 #
 # Modulo de manejo de versiones: SubVersion (Svn)
 #
-wmodule :Svn => :FS do |mod|
+wmodule :Svn => :Repos do |mod|
 	require "rexml/document.rb"
-	require "repository.rb"
-	FS::Repository.set_manager(:svn, mod._module_::Repository)
+	mod.require "repository.rb"
+	
+	Repos::Repository.set_manager(:svn, mod._module_::Repository)
 end

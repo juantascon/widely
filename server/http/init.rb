@@ -1,11 +1,11 @@
 wmodule :HTTP do |mod|
 	require "json.rb"
 	
-	require "rq.rb"
-	require "resp.rb"
-	require "adapters/base.rb"
-	require "adapters/mongreladapter.rb"
-	require "adapters/webrickadapter.rb"
+	mod.require "rq.rb"
+	mod.require "resp.rb"
+	mod.require "adapters/base.rb"
+	mod.require "adapters/mongreladapter.rb"
+	mod.require "adapters/webrickadapter.rb"
 	
-	require "dispatcher.rb"
+	mod.require "dispatcher.rb"
 end

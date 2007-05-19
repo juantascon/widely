@@ -1,5 +1,4 @@
-module FS
-class Repository
+module Repos
 
 class API
 	
@@ -24,7 +23,6 @@ class API
 	end
 end
 
-HTTP::Dispatcher.set_webservice("repos", FS::Repository::API.instance)
+HTTP::Dispatcher.set_webservice("repos", Repos::API.instance)
 
-end
 end
