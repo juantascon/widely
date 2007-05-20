@@ -3,12 +3,14 @@ qx.Mixin.define("dao.Versions",
 	members:
 	{
 		dao_load: function(){
-			var rq = new lang.WRequest(
+			var rq = new main.WRequest(
 				"wc", "versions",
-				{ wc_id: 0 },
+				{
+					session_id: main.Obj.session.getID()
+				},
 				function(data){
 					this.load_from_hash(data);
-					main.Obj.statusbar.process("Loaded: Versions");
+					main.Obj.statusbar.ok("Loaded: Versions");
 				},
 				this
 			);

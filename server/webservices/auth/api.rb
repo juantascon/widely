@@ -26,7 +26,7 @@ class API
 		return Sessions.delete_o(args["session_id"])
 	end
 	
-	def session_set_wc(args)
+	def set_wc(args)
 		args.check("session_id", "wc_id")
 		session = args.collection_get(Sessions.instance, "session_id")
 		wc = args.collection_get(session.user.wcs, "wc_id")

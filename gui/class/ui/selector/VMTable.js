@@ -26,8 +26,6 @@ qx.Class.define("ui.selector.VMTable",
 		this.getSelectionModel().addEventListener("changeSelection", function(e){
 			main.Obj.selector.set_version(this.selected_row_id());
 		}, this);
-		
-		this.dao_load();
 	},
 	
 	members:

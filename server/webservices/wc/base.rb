@@ -58,7 +58,6 @@ class Base
 	def checkout(version=@@WC)
 		version=versions.last if (! version || version.get == @@WC.get)
 		
-		
 		return repository.checkout(@_self.dir, version)
 	end
 

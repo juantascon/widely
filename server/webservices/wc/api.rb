@@ -30,7 +30,7 @@ class API
 	def checkout(args)
 		args.check("session_id")
 		session = args.collection_get(Auth::Sessions.instance, "session_id")
-		version = Repository::Version.new(args["version"]) if args["version"]
+		version = Repos::Version.new(args["version"]) if args["version"]
 		
 		return session.wc.checkout(version)
 	end
@@ -52,7 +52,7 @@ class API
 	def cat(args)
 		args.check("session_id", "path")
 		session = args.collection_get(Auth::Sessions.instance, "session_id")
-		version = Repository::Version.new(args["version"]) if args["version"]
+		version = Repos::Version.new(args["version"]) if args["version"]
 		
 		return session.wc.cat(args["path"], version)
 	end
@@ -60,7 +60,7 @@ class API
 	def ls(args)
 		args.check("session_id", "path")
 		session = args.collection_get(Auth::Sessions.instance, "session_id")
-		version = Repository::Version.new(args["version"]) if args["version"]
+		version = Repos::Version.new(args["version"]) if args["version"]
 		
 		return session.wc.ls(args["path"], version)
 	end

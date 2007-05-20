@@ -27,7 +27,7 @@
 #
 # --/dir/fs/init.rb-------
 # m = wmodule :FS => :Util do |mod|
-#   require "functions.rb"
+#   mod.require "functions.rb"
 # end
 # ------------------------
 #

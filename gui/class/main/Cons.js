@@ -4,6 +4,7 @@ qx.Class.define("main.Cons",
 	
 	statics:
 	{
-		WC: -1
+		WC: -1,
+		session_id: 0
 	}
 });

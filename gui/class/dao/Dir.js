@@ -9,10 +9,10 @@ qx.Mixin.define("dao.Dir",
 	members:
 	{
 		dao_delete: function(){
-			var rq = new lang.WRequest(
+			var rq = new main.WRequest(
 				"wc", "delete",
 				{
-					wc_id: 0,
+					session_id: main.Obj.session.getID(),
 					path: this.getPath()
 				},
 				function(data){

@@ -115,7 +115,7 @@ if(!window.qxvariants)qxvariants={};\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/io/remote/IframeTransport.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/html/Iframe.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/io/remote/ScriptTransport.js"></script>\
-<script type="text/javascript" src="./class/lang/WRequest.js"></script>\
+<script type="text/javascript" src="./class/main/WRequest.js"></script>\
 <script type="text/javascript" src="./class/lang/Encode.js"></script>\
 <script type="text/javascript" src="./class/main/Obj.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/layout/BoxLayout.js"></script>\
@@ -253,6 +253,10 @@ if(!window.qxvariants)qxvariants={};\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/treefullcontrol/Tree.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/manager/selection/TreeFullControlSelectionManager.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/treefullcontrol/TreeFile.js"></script>\
+<script type="text/javascript" src="./class/dao/Session.js"></script>\
+<script type="text/javascript" src="./class/main/Login.js"></script>\
+<script type="text/javascript" src="./class/ui/component/LoginDialog.js"></script>\
+<script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/form/PasswordField.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/table/IconDataCellRenderer.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/table/ImageDataCellRenderer.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/table/SelectionModel.js"></script>\
@@ -408,6 +412,5 @@ if(!window.qxvariants)qxvariants={};\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/io/local/CookieTransport.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/log/AlertAppender.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/dev/Debug.js"></script>\
-<script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/ui/form/PasswordField.js"></script>\
 <script type="text/javascript" src="/qooxdoo-sdk//frontend/framework/source/class/qx/log/RingBufferAppender.js"></script>\
 ');

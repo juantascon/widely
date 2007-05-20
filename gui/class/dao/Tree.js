@@ -12,9 +12,13 @@ qx.Mixin.define("dao.Tree",
 		},
 		
 		dao_load: function(){
-			var rq = new lang.WRequest(
+			var rq = new main.WRequest(
 				"wc", "ls",
-				{ wc_id: 0, path: "/", version: this.getVersion() },
+				{
+					session_id: main.Obj.session.getID(),
+					path: "/",
+					version: this.getVersion()
+				},
 				function(data){
 					this.load_from_hash(data, false);
 					main.Obj.statusbar.ok("Loaded: Tree");
@@ -26,9 +30,12 @@ qx.Mixin.define("dao.Tree",
 		},
 		
 		dao_commit: function(_log){
-			var rq = new lang.WRequest(
+			var rq = new main.WRequest(
 				"wc", "commit",
-				{ wc_id: 0, log: _log },
+				{
+					session_id: main.Obj.session.getID(),
+					log: _log
+				},
 				function(data){
 					main.Obj.statusbar.ok("Commit: "+data);
 					main.Obj.selector.getVmtable().dao_load();
@@ -40,9 +47,12 @@ qx.Mixin.define("dao.Tree",
 		},
 		
 		dao_add: function(_path){
-			var rq = new lang.WRequest(
+			var rq = new main.WRequest(
 				"wc", "add",
-				{ wc_id: 0, path: _path },
+				{
+					session_id: main.Obj.session.getID(),
+					path: _path
+				},
 				function(data){
 					main.Obj.statusbar.ok("Added: "+data);
 				},

@@ -6,6 +6,11 @@ qx.Class.define("main.Widely",
 		this.base(arguments);
 	},
 	
+	properties:
+	{
+		frame: { check: "qx.ui.layout.DockLayout" }
+	},
+	
 	members:
 	{
 		main: function(e) {
@@ -15,18 +20,22 @@ qx.Class.define("main.Widely",
 			main.Obj.editor = ui.editor.EditorView.getInstance();
 			main.Obj.selector = ui.selector.View.getInstance();
 			
-			var frame = new qx.ui.layout.DockLayout();
-			frame.setEdge(0);
+			this.setFrame(new qx.ui.layout.DockLayout());
+			this.getFrame().setEdge(0);
 			
-			frame.addBottom(main.Obj.statusbar);
+			this.getFrame().addBottom(main.Obj.statusbar);
 			
 			var split_box = new qx.ui.splitpane.HorizontalSplitPane(300, "1*");
 			split_box.addRight(main.Obj.editor);
 			split_box.addLeft(main.Obj.selector);
-			frame.add(split_box);
+			this.getFrame().add(split_box);
 			
-			qx.ui.core.ClientDocument.getInstance().add(frame);
+			qx.ui.core.ClientDocument.getInstance().add(this.getFrame());
+			
+			var login = new main.Login();
+			login.start();
 		},
+		
 		
 		close: function(e) { this.base(arguments); },
 		

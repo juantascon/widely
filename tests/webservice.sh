@@ -24,7 +24,7 @@ echo $id_w
 id=$(exec_test auth/login "user_id=admin&password=admin")
 echo $id
 
-exec_test auth/session_set_wc "session_id=$id&wc_id=$id_w"
+exec_test auth/set_wc "session_id=$id&wc_id=$id_w"
 
 exec_test wc/checkout "session_id=$id"
 

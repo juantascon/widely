@@ -10,9 +10,13 @@ qx.Mixin.define("dao.File",
 	members:
 	{
 		dao_load: function(){
-			var rq = new lang.WRequest(
+			var rq = new main.WRequest(
 				"wc", "cat",
-				{ wc_id: 0, path: this.getPath(), version: this.getTree().getVersion() },
+				{
+					session_id: main.Obj.session.getID(),
+					path: this.getPath(),
+					version: this.getTree().getVersion()
+				},
 				function(data){
 					main.Obj.statusbar.ok("Loaded: "+this.getPath());
 					this.getTextarea().setValue(""+data);
@@ -29,10 +33,10 @@ qx.Mixin.define("dao.File",
 				return;
 			}
 			
-			var rq = new lang.WRequest(
+			var rq = new main.WRequest(
 				"wc", "write",
 				{
-					wc_id: 0,
+					session_id: main.Obj.session.getID(),
 					path: this.getPath(),
 					content: this.getTextarea().getComputedValue()
 				},
@@ -46,10 +50,10 @@ qx.Mixin.define("dao.File",
 		},
 		
 		dao_delete: function(){
-			var rq = new lang.WRequest(
+			var rq = new main.WRequest(
 				"wc", "delete",
 				{
-					wc_id: 0,
+					session_id: main.Obj.session.getID(),
 					path: this.getPath()
 				},
 				function(data){
