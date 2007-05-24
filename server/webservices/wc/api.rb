@@ -9,21 +9,20 @@ class API
 	include Singleton
 	include WebService
 	
-	def initialize
-		super()
-	end
-	
 	def create(args)
-		args.check("session_id", "repository_id", "name")
+		args.check("session_id", "repos_id", "name")
+		
+		name = args["name"]
 		
 		session = args.collection_get(Auth::Sessions.instance, "session_id")
-		repository = args.collection_get(session.user.repos, "repository_id")
+		raise ArgumentError.new("#{name}: workingcopy already exists") if session.user.wcs.get_o(name)
 		
-		if session.user.wcs.get_o(args["name"])
-			raise ArgumentError.new("#{args["name"]}: workingcopy already exists")
-		end
+		repository = args.collection_get(session.user.repos, "repos_id")
 		
-		obj = WorkingCopy.new(session.user, repository, args["name"])
+		manager_id = args["manager_id"].to_sym if args["manager_id"]
+		
+		obj = WorkingCopy.new(session.user, repository, name, manager_id)
+		
 		return session.user.wcs.save_o(obj)
 	end
 	
@@ -95,6 +94,6 @@ class API
 	end
 end
 
-HTTP::Dispatcher.set_webservice("wc", WC::API.instance)
+HTTP::APIHandler.set_webservice("wc", WC::API.instance)
 
 end

@@ -9,6 +9,7 @@ autoload(:Find, "find.rb")
 autoload(:Forwardable, "forwardable.rb")
 autoload(:SingleForwardable, "forwardable.rb")
 autoload(:CGI, "cgi.rb")
+autoload(:Thread, "thread.rb")
 
 #
 # Widely lib Autoloads

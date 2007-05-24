@@ -19,7 +19,7 @@ class Users < Collection
 		end
 		
 		def data_dir
-			"#{$CONFIG.get(:CORE_DATA_DIR)}/#{@name}"
+			File.cleanpath("#{$CONFIG.get(:CORE_DATA_DIR)}/#{@name}")
 		end
 		
 		def collectable_id

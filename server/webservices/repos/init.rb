@@ -1,6 +1,15 @@
 wmodule :Repos => :HTTP do |mod|
-	mod.require "repository.rb"
-	mod.require "base.rb"
-	mod.require "version.rb"
-	mod.require "api.rb"
+	begin
+		mod.require "repository.rb"
+		mod.require "base.rb"
+		mod.require "version.rb"
+		mod.require "api.rb"
+		
+		true
+	rescue Exception => ex
+		w_debug("Exception: #{ex.message}")
+		w_debug(ex.backtrace.join("\n\t"))
+		false
+	end
+	
 end

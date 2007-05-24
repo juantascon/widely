@@ -140,7 +140,7 @@ class WModule < Module
 		#
 		included = true if $:.include? @base_dir
 		$:.unshift(@base_dir) if ! included
-		@init_block.call(self)
+		@loaded = @init_block.call(self)
 		$:.delete(@base_dir)
 		
 		#
@@ -148,9 +148,8 @@ class WModule < Module
 		#
 		#Object.module_eval("include ObjectSpace._id2ref(#{self._module_.object_id})")
 		
-		@loaded = true
-		w_info("#{name} -- LOADED")
-		return true
+		@loaded ? w_info("#{name} -- LOADED") : w_info("#{name} -- ERROR LOADING")
+		return @loaded
 	end
 	
 	def require(source)

@@ -1,10 +1,5 @@
 module HTTP
-class Dispatcher
-	#
-	# TODO: agregar soporte para Adapters como addons
-	#
-	
-	attr_reader :server, :port
+class APIHandler
 	
 	#
 	# La coleccion de WebServices para saber hacia donde redirigir
@@ -21,7 +16,7 @@ class Dispatcher
 	# Procesa las peticiones del API dependiendo del webservice
 	# y del metodo
 	#
-	def api_handler(rq)
+	def self.process_rq(rq)
 		# La ruta real es sin "/api/"
 		path = rq.path.gsub(/^\/api\//, "")
 		
@@ -56,45 +51,12 @@ class Dispatcher
 		begin
 			ret = webservice.call(method_name, Parser.url_encoded_args_to_hash(rq.body))
 		rescue Exception => ex
-			w_debug("#{ex.to_str}\n#{ex.backtrace}")
+			w_debug("Exception: #{ex.message}")
+			w_debug(ex.backtrace.join("\n\t"))
 			return Resp.new_error_json("#{method_name} [Exception]: #{ex.message}")
 		end
 		
 		return Resp.new_json(ret)
-	end
-	
-	#
-	# Busca entre los adaptadores disponibles para iniciarlo
-	# y ponerlo a escuchar en @port
-	#
-	def initialize(port)
-		@port = port
-		
-		#[Adapters::MongrelAdapter, Adapters::WEBrickAdapter].each do |adapter|
-		[Adapters::WEBrickAdapter, Adapters::MongrelAdapter].each do |adapter|
-			next if ! adapter.avaliable
-			break if @server
-			
-			@server = adapter.new(@port)
-
-			@server.set_file_handler("/gui/", $WIDELY_HOME_GUI)
-			@server.set_file_handler("/qooxdoo-sdk/", "#{$WIDELY_HOME}/../qooxdoo-0.7-beta1-sdk/")
-			@server.set_file_handler("/doc/", $WIDELY_HOME_DOC)
-			@server.set_proc_handler("/api/") { |rq| api_handler(rq) }
-		end
-	end
-	
-	#
-	# Inicia el servidor Web
-	#
-	def start_server()
-		# Atrapa las señales para que sean manejadas correctamente
-		["INT", "TERM" ].each { |signal| trap(signal) { @server.stop } }
-		
-		w_info "=> Escuchando en http://127.0.0.1:#{port}"
-		w_info "=> Ctrl-C para terminar"
-		
-		@server.start
 	end
 	
 end

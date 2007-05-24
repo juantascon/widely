@@ -37,6 +37,6 @@ class API
 	
 end
 
-HTTP::Dispatcher.set_webservice("auth", Auth::API.instance)
+HTTP::APIHandler.set_webservice("auth", Auth::API.instance)
 
 end

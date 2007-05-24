@@ -16,6 +16,11 @@ $: << $WIDELY_HOME_SERVER
 $: << "#{$WIDELY_HOME_SERVER}/lib"
 
 #
+# Carga las rubygems utilizadas por varios modulos
+#
+require "rubygems"
+
+#
 # Carga el Core
 #
 require "core/autoloads.rb"
@@ -31,18 +36,32 @@ require "core/wmodule.rb"
 $CONFIG = WConfig.new_default
 
 #
-# Carga el sistema HTTP
-#
-require "http/init.rb"
-WModule.collection[:HTTP].load
-
-#
 # Localiza y carga todos los modulos
 #
-(Dir.glob("#{$WIDELY_HOME_SERVER}/{webservices,addons}/*")).each { |m| require "#{m.to_s}/init.rb" }
+(Dir.glob("#{$WIDELY_HOME_SERVER}/{listeners,webservices,addons}/*")).each { |m| require "#{m.to_s}/init.rb" }
 WModule.collection.each_value { |m| m.load if ! m.loaded }
 
 #
-# Inicia el servidor Web
+# Inicia los servidores cada uno en un hilo
 #
-HTTP::Dispatcher.new(7777).start_server
+servers_group = Array.new
+threads_group = Array.new
+[ HTTP::Dispatcher.new(7777), WebDav::Dispatcher.new(7778) ].each do |s|
+	servers_group.push(s)
+	threads_group.push(s.start)
+end
+
+#
+# Atrapa las señales para que sean manejadas correctamente
+#
+["INT", "TERM" ].each { |signal| trap(signal) { servers_group.each { |server| server.stop } } }
+w_info " ========================================= "
+w_info " => Ctrl-C para terminar los servidores <= "
+w_info " ========================================= "
+
+
+#
+# Hace que el hilo principal espere a que
+# los otros hilos terminen
+#
+threads_group.each { |t| t.join }

@@ -3,7 +3,10 @@ module Adapters
 class WEBrickAdapter < Base
 	
 	def initialize(port)
-		@server = WEBrick::HTTPServer.new :Port => port
+		logger = WEBrick::Log.new
+		logger.level = WDEBUG_LEVEL
+		
+		@server = WEBrick::HTTPServer.new({:Port => port, :Logger => logger})
 	end
 	
 	def set_proc_handler(mount_point, &block)

@@ -13,10 +13,10 @@ exec_test()
 id=$(exec_test auth/login "user_id=admin&password=admin")
 echo $id
 
-id_r=$(exec_test repos/create "session_id=$id&manager_id=svn&name=project-repos1")
+id_r=$(exec_test repos/create "session_id=$id&manager_id=svn&name=project1")
 echo $id_r
 
-id_w=$(exec_test wc/create "session_id=$id&repository_id=$id_r&name=project-wc1")
+id_w=$(exec_test wc/create "session_id=$id&repos_id=$id_r&name=project1-wc1")
 echo $id_w
 
 

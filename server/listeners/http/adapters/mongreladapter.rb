@@ -56,4 +56,3 @@ class MongrelAdapter < Base
 end
 end
 end
-

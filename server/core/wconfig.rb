@@ -40,8 +40,8 @@ class WConfig
 		ret = new()
 		
 		ret.set(:CORE_DATA_DIR, "/tmp")
-		ret.set(:FS_WC_BASE, "wcs")
-		ret.set(:FS_REPOS_BASE, "repos")
+		ret.set(:WC_BASE_DIRNAME, "wcs")
+		ret.set(:REPOS_BASE_DIRNAME, "repos")
 		
 		ret.set(:AUTH_KEY_SIZE, 256)
 		ret.set(:AUTH_ADMIN_NAME, "admin")

@@ -12,7 +12,7 @@ class WorkingCopy
 	
 	attr_reader :user, :name, :repository
 	
-	def initialize(user, repository, name)
+	def initialize(user, repository, name, manager_id=:default)
 		w_debug("user: #{user} repository: #{repository} name: #{name} c_id: #{collectable_id}")
 		
 		@user = user
@@ -23,14 +23,11 @@ class WorkingCopy
 			raise ArgumentError.new("#{@name}: invalid name:)")
 		end
 		
-		# Crea la instancia del manejador
-		@manager = self.class.get_manager(:default).new(self)
-		
-		start_forward()
+		start_forward(manager_id)
 	end
 	
 	def dir
-		"#{@user.data_dir}/#{$CONFIG.get(:FS_WC_DIR)}/#{@name}"
+		"#{@user.data_dir}/#{$CONFIG.get(:WC_BASE_DIRNAME)}/#{@name}"
 	end
 	
 	def collectable_id

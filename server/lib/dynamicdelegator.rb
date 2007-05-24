@@ -44,7 +44,16 @@ module DynamicDelegator
 	# El manejador para la instancia actual
 	attr_reader :manager
 	
-	def start_forward()
+	def start_forward(manager_id)
+		manager_class = self.class.get_manager(manager_id) || self.class.get_manager(:default)
+		
+		# Crea la instancia del manejador
+		begin
+			@manager = manager_class.new(self)
+		rescue NoMethodError
+			raise ArgumentError.new("#{manager_id}: invalid manager_id")
+		end
+		
 		# Hace el forward de los metodos por medio de la biblioteca Forwardable
 		self.extend SingleForwardable
 		self.class.__forward_methods.each { |m| self.def_delegator :@manager, m }

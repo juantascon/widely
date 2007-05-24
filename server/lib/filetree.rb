@@ -33,6 +33,7 @@ class FileTree
 	#
 	class FileNode
 		attr_reader :parent, :id, :ftype
+		attr_writer :content
 		
 		def initialize(parent, id)
 			@parent = parent
@@ -103,6 +104,14 @@ class FileTree
 		def child(id)
 			@childs.each {|c| return c if c.id == id }
 			return nil
+		end
+		
+		
+		def each(&block)
+			@childs.each do |c|
+				block.call(c) if block_given?
+				c.each(&block) if c.ftype == FTYPE::DIR
+			end
 		end
 		
 		def to_h
