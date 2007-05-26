@@ -1,7 +1,0 @@
-* no desactiva el tab o avisa de un archivo eliminado del WC cuando el archivo esta abierto en el editor
-* no hace checkeo de:
-	selector:
-		* delete: borrar /
-		* new_file: archivo que ya existe
-		* InputDialog con textos vacios
-		* new_file: nombres de archivos con chars invalidos
