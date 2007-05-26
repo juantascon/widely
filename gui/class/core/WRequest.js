@@ -1,4 +1,4 @@
-qx.Class.define("main.WRequest",
+qx.Class.define("core.WRequest",
 {
 	extend: qx.io.remote.Request,
 	

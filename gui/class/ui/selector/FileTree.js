@@ -7,7 +7,7 @@ qx.Class.define("ui.selector.FileTree",
 	construct: function (version) {
 		if (version) { this.setVersion(eval(version)); }
 		
-		if ( this.getVersion() == main.Cons.WC ) {
+		if ( this.getVersion() == core.Cons.WC ) {
 			this.base(arguments, "WorkingCopy");
 		}
 		else {

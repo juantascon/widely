@@ -9,18 +9,18 @@ qx.Mixin.define("dao.Dir",
 	members:
 	{
 		dao_delete: function(){
-			var rq = new main.WRequest(
+			var rq = new core.WRequest(
 				"wc", "delete",
 				{
-					session_id: main.Obj.session.getID(),
+					session_id: core.Obj.session.getID(),
 					path: this.getPath()
 				},
 				function(data){
-					main.Obj.statusbar.ok("Deleted: "+data);
+					core.Obj.statusbar.ok("Deleted: "+data);
 				},
 				this
 			);
-			main.Obj.statusbar.process("Deleting: "+this.getPath());
+			core.Obj.statusbar.process("Deleting: "+this.getPath());
 			rq.send();
 		}
 	}

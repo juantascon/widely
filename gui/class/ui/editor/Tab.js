@@ -30,7 +30,7 @@ qx.Class.define("ui.editor.Tab",
 		file: { check: "ui.selector.File" },
 		button: { check: "qx.ui.pageview.tabview.Button" },
 		page: { check: "qx.ui.pageview.tabview.Page" },
-		version: { check: "Number", init: main.Cons.WC }
+		version: { check: "Number", init: core.Cons.WC }
 	},
 	
 	members:

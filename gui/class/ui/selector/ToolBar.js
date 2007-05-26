@@ -17,7 +17,7 @@ qx.Class.define("ui.selector.ToolBar",
 		});
 		
 		this.add_button("Reload", "actions/view-refresh", function(e){
-			main.Obj.selector.getFiletree().dao_load();
+			core.Obj.selector.getFiletree().dao_load();
 		});
 		
 		this.add_button("Commit", "actions/go-down", function(e){

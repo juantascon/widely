@@ -24,7 +24,7 @@ qx.Class.define("ui.selector.VMTable",
 		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
 		
 		this.getSelectionModel().addEventListener("changeSelection", function(e){
-			main.Obj.selector.set_version(this.selected_row_id());
+			core.Obj.selector.set_version(this.selected_row_id());
 		}, this);
 	},
 	
@@ -46,7 +46,7 @@ qx.Class.define("ui.selector.VMTable",
 		selected_row_id: function(){
 			var row = this.getSelectionModel().getSelectedRanges()[0]["maxIndex"];
 			var id = ""+this.getTableModel().getData()[row][0];
-			if (id == "WC") { id = ""+main.Cons.WC }
+			if (id == "WC") { id = ""+core.Cons.WC }
 			return id;
 		}
 	}

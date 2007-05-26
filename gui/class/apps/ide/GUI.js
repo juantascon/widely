@@ -1,4 +1,4 @@
-qx.Class.define("main.Widely",
+qx.Class.define("apps.ide.GUI",
 {
 	extend : qx.application.Gui,
 	
@@ -16,23 +16,23 @@ qx.Class.define("main.Widely",
 		main: function(e) {
 			this.base(arguments);
 			
-			main.Obj.statusbar = ui.StatusBar.getInstance();
-			main.Obj.editor = ui.editor.EditorView.getInstance();
-			main.Obj.selector = ui.selector.View.getInstance();
+			core.Obj.statusbar = ui.StatusBar.getInstance();
+			core.Obj.editor = ui.editor.EditorView.getInstance();
+			core.Obj.selector = ui.selector.View.getInstance();
 			
 			this.setFrame(new qx.ui.layout.DockLayout());
 			this.getFrame().setEdge(0);
 			
-			this.getFrame().addBottom(main.Obj.statusbar);
+			this.getFrame().addBottom(core.Obj.statusbar);
 			
 			var split_box = new qx.ui.splitpane.HorizontalSplitPane(300, "1*");
-			split_box.addRight(main.Obj.editor);
-			split_box.addLeft(main.Obj.selector);
+			split_box.addRight(core.Obj.editor);
+			split_box.addLeft(core.Obj.selector);
 			this.getFrame().add(split_box);
 			
 			qx.ui.core.ClientDocument.getInstance().add(this.getFrame());
 			
-			var login = new main.Login();
+			var login = new core.Login();
 			login.start();
 		},
 		
@@ -44,6 +44,6 @@ qx.Class.define("main.Widely",
 	
 	settings:
 	{
-		"main.resourceUri": "./resource"
+		"apps.ide.resourceUri": "./resource"
 	}
 });

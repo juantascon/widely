@@ -41,15 +41,19 @@ QOOXDOO_URI = /qooxdoo-sdk/
 # Namespace of your application e.g. custom
 # Even complexer stuff is possible like: net.sf.custom
 #
-APPLICATION_NAMESPACE = main
-APPLICATION_CLASSNAME = Widely
+
+#APPLICATION_NAMESPACE = apps.config
+#APPLICATION_NAMESPACE = apps.login
+APPLICATION_NAMESPACE = apps.ide
+
+APPLICATION_CLASSNAME = GUI
 APPLICATION_SOURCE_PATH = ./
 
 #
 # Files that will be copied from the source directory into the build
 # directory (space separated list). The default list is empty.
 #
-APPLICATION_FILES = index.html
+APPLICATION_FILES = html/*
 
 #-------------------------------------------------------------------------------
 # For a full list and description of available application settings, please 
@@ -58,6 +62,7 @@ APPLICATION_FILES = index.html
 # Add any of those variables for your custom configuration here:
 #-------------------------------------------------------------------------------
 
+APPLICATION_HTML_TO_ROOT_URI = ..
 
 
 

@@ -1,4 +1,4 @@
-qx.Class.define("main.Obj",
+qx.Class.define("core.Obj",
 {
 	type: "static",
 	

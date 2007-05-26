@@ -1,4 +1,4 @@
-qx.Class.define("main.Login",
+qx.Class.define("core.Login",
 {
 	extend: qx.core.Object,
 	
@@ -20,8 +20,8 @@ qx.Class.define("main.Login",
 				this.dao_login(user, password, function(e) {
 					this.dao_set_wc(
 						"project-wc1",
-						main.Obj.selector.getVmtable().dao_load,
-						main.Obj.selector.getVmtable()
+						core.Obj.selector.getVmtable().dao_load,
+						core.Obj.selector.getVmtable()
 					);
 				}, this);
 			}, this);

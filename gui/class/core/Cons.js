@@ -1,4 +1,4 @@
-qx.Class.define("main.Cons",
+qx.Class.define("core.Cons",
 {
 	type: "static",
 	

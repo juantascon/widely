@@ -10,58 +10,58 @@ qx.Mixin.define("dao.File",
 	members:
 	{
 		dao_load: function(){
-			var rq = new main.WRequest(
+			var rq = new core.WRequest(
 				"wc", "cat",
 				{
-					session_id: main.Obj.session.getID(),
+					session_id: core.Obj.session.getID(),
 					path: this.getPath(),
 					version: this.getTree().getVersion()
 				},
 				function(data){
-					main.Obj.statusbar.ok("Loaded: "+this.getPath());
+					core.Obj.statusbar.ok("Loaded: "+this.getPath());
 					this.getTextarea().setValue(""+data);
 				},
 				this
 			);
-			main.Obj.statusbar.process("Loading: "+this.getPath());
+			core.Obj.statusbar.process("Loading: "+this.getPath());
 			rq.send();
 		},
 		
 		dao_save: function(){
 			if (this.getTree().is_read_only()) {
-				main.Obj.statusbar.fail("Save: readonly file");
+				core.Obj.statusbar.fail("Save: readonly file");
 				return;
 			}
 			
-			var rq = new main.WRequest(
+			var rq = new core.WRequest(
 				"wc", "write",
 				{
-					session_id: main.Obj.session.getID(),
+					session_id: core.Obj.session.getID(),
 					path: this.getPath(),
 					content: this.getTextarea().getComputedValue()
 				},
 				function(data){
-					main.Obj.statusbar.ok("Saved: "+this.getPath()+" "+data+" bytes");
+					core.Obj.statusbar.ok("Saved: "+this.getPath()+" "+data+" bytes");
 				},
 				this
 			);
-			main.Obj.statusbar.process("Saving: "+this.getPath());
+			core.Obj.statusbar.process("Saving: "+this.getPath());
 			rq.send();
 		},
 		
 		dao_delete: function(){
-			var rq = new main.WRequest(
+			var rq = new core.WRequest(
 				"wc", "delete",
 				{
-					session_id: main.Obj.session.getID(),
+					session_id: core.Obj.session.getID(),
 					path: this.getPath()
 				},
 				function(data){
-					main.Obj.statusbar.ok("Deleted: "+data);
+					core.Obj.statusbar.ok("Deleted: "+data);
 				},
 				this
 			);
-			main.Obj.statusbar.process("Deleting: "+this.getPath());
+			core.Obj.statusbar.process("Deleting: "+this.getPath());
 			rq.send();
 		}
 	}

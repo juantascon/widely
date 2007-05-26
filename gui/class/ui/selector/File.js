@@ -14,7 +14,7 @@ qx.Class.define("ui.selector.File",
 		
 		
 		this.addEventListener("click", function(e){
-			main.Obj.editor.getTabview().add_tab(this);
+			core.Obj.editor.getTabview().add_tab(this);
 		}, this);
 		
 		/* TODO: terminar el drag and drop de mover y copiar archivos
