@@ -1,13 +1,13 @@
 module WDebug
 	
-	$WDebug_last_object
+	$WDEBUG_LAST_OBJECT
 	
 	#
 	# Este modulo define la severidad de los mensajes y
 	# las excepciones
 	#
 	module Sev
-		SEVS = %w(DEBUG INFO WARN ERROR FATAL UNKNOWN)
+		SEVS = %w(Debug Info Warn Error Fatal Unknown)
 		DEBUG = D = 0
 		INFO = I = 1
 		WARN = W = 2
@@ -40,12 +40,13 @@ module WDebug
 		else
 			from = "#{self.class.name}"
 		end
-		from = ""
-		if $WDebug_last_object != self
-			WDEBUG_LOGGER.print("#{self.class.name}[#{self.object_id}]:\n")
-			$WDebug_last_object = self
+		
+		if $WDEBUG_LAST_OBJECT != self
+			WDEBUG_LOGGER.print(">> #{self.class.name} (#{self.object_id}):\n")
+			$WDEBUG_LAST_OBJECT = self
 		end
-		WDEBUG_LOGGER.print("  [%s] %s: %s\n" % [severity.to_s, from.to_s, m.to_s])
+		#WDEBUG_LOGGER.print("[%s] %s: %s\n" % [severity.to_s, from.to_s, m.to_s])
+		WDEBUG_LOGGER.print(" [%s] %s\n" % [severity.to_s, m.to_s])
 	end
 	
 	#
