@@ -10,30 +10,21 @@ exec_test()
 }
 
 
-id=$(exec_test auth/login "user_id=admin&password=admin")
-echo $id
-
-id_r=$(exec_test repos/create "session_id=$id&manager_id=svn&name=project1")
-echo $id_r
-
-id_w=$(exec_test wc/create "session_id=$id&repos_id=$id_r&name=project1-wc1")
-echo $id_w
+id=$(exec_test auth/login "user_id=admin&password=admin") ; echo $id
+id_r=$(exec_test repos/create "session_id=$id&manager_id=svn&name=project1") ; echo $id_r
+id_w=$(exec_test wc/create "session_id=$id&repos_id=$id_r&name=project1-wc1") ; echo $id_w
 
 
-
-id=$(exec_test auth/login "user_id=admin&password=admin")
-echo $id
-
+id=$(exec_test auth/login "user_id=admin&password=admin") ; echo $id
 exec_test auth/set_wc "session_id=$id&wc_id=$id_w"
-
 exec_test wc/checkout "session_id=$id"
+
 
 exec_test wc/add "session_id=$id&path=/file1"
 exec_test wc/write "session_id=$id&path=/file1&content=quemasbien"
 exec_test wc/add "session_id=$id&path=/file2"
 exec_test wc/write "session_id=$id&path=/file2&content=hola-soy-un-archivo"
 exec_test wc/commit "session_id=$id&log=version1"
-
 
 
 exec_test wc/add "session_id=$id&path=/dir1&as_dir=true"

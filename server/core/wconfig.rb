@@ -1,54 +1,74 @@
-class WConfig
+module WConfig
+
+class ConfigSet < Collection
+	def initialize
+		super
+	end
+end
+
+class Property
 	
-	SET_PREFIX = "set_"
-	GET_PREFIX = "get_"
+	attr_reader :collectable, :name, :init_value, :value
 	
-	def initialize(*args, &block)
-		@data = StorableHash.new(*args, &block)
+	def initialize(name, init_value)
+		@name = name
+		@collectable = Collectable.new(self, @name)
+		
+		self.set_value(init_value)
+		@init_value = init_value
 	end
 	
-	def get_raw(name)
-		@data[name]
+	def set_value(value)
+		@value = value
 	end
 	
-	def get(name)
-		str = @data[name]
-		return str if ! str.kind_of? String
-		
-		return str.gsub(/%[a-zA-Z0-9_\.]+%/) { |s| @data[s.gsub("%", "").to_sym] }
+	def get_raw_value()
+		@value
 	end
 	
-	def set(name, value)
-		@data[name] = value
-	end
-	
-	def method_missing(name, *args)
-		name = name.to_s
-		
-		if (name.index(SET_PREFIX) == 0) && (name.size > SET_PREFIX.size)
-			set(name[SET_PREFIX.size..name.size].to_sym, args[0])
-		end
-		
-		if (name.index(GET_PREFIX) == 0) && (name.size > GET_PREFIX.size)
-			get(name[GET_PREFIX.size..name.size].to_sym)
-		end
-		
-		raise NoMethodError.new("undefined method `#{name}' for \"#{self}\":#{self.class}", name.to_sym, args)
-	end
-	
-	def self.new_default
-		ret = new()
-		
-		ret.set(:CORE_DATA_DIR, "/tmp")
-		ret.set(:WC_BASE_DIRNAME, "wcs")
-		ret.set(:REPOS_BASE_DIRNAME, "repos")
-		
-		ret.set(:AUTH_KEY_SIZE, 256)
-		ret.set(:AUTH_ADMIN_NAME, "admin")
-		ret.set(:AUTH_ADMIN_PASSWORD, "admin")
-		
-		return ret
+	def get_value()
+		get_raw_value()
 	end
 	
 end
 
+
+class StringProperty < Property
+	
+	def set_value(value)
+		raise ArgumentError, "#{value}: invalid value" if ! value.respond_to? :to_s
+		super(value.to_s)
+	end
+	
+	def get_value()
+		super().gsub(/%[a-zA-Z0-9_\.]+%/) { |s| @collectable.collection.get([s.gsub("%", "")]) }
+	end
+	
+end
+
+
+class NumericProperty < Property
+	
+	def set_value(value)
+		raise ArgumentError, "#{value}: invalid value" if ! value.respond_to? :to_i
+		super(value.to_i)
+	end
+	
+end
+
+
+class BooleanProperty < Property
+	
+	def set_value(value)
+		super(true) if value
+		super(false) if ! value
+	end
+	
+end
+
+end
+
+#
+# Inicia la configuracion Global
+#
+$CONFIG = WConfig::ConfigSet.new

@@ -1,46 +1,47 @@
 module Auth
-class Users < Collection
+
+class UserSet < Collection
 	
 	include Singleton
 	
-	class User
-		
-		include Collectable
-		
-		attr_reader :name, :password, :wcs, :repos
-		
-		def initialize(name, password)
-			w_info("Username: #{name}")
-			@name = name
-			@password = Auth::Crypt.crypt(password)
-			
-			@wcs = Collection.new
-			@repos = Collection.new
-		end
-		
-		def data_dir
-			File.cleanpath("#{$CONFIG.get(:CORE_DATA_DIR)}/#{@name}")
-		end
-		
-		def collectable_id
-			@name
-		end
+	def initialize
+		super
+		add(User.new($CONFIG.get("AUTH_ADMIN_NAME").get_value, $CONFIG.get("AUTH_ADMIN_PASSWORD").get_value))
 	end
 	
-	def create(user, password)
-		save_o(User.new(user, password))
-	end
-	
-	def get_o(user, password="")
-		user = @__objects__[user]
-		return nil if ! user
+	def get(name, password)
+		user = super(name)
 		
-		return user if user.password == Auth::Crypt.crypt(password)
+		return user if ( user ) and ( user.authenticate(password) )
+		return nil
 	end
-	
-	alias_method :authenticate, :get_o
-	
-	instance.create($CONFIG.get(:AUTH_ADMIN_NAME), $CONFIG.get(:AUTH_ADMIN_PASSWORD))
 	
 end
+
+class User
+	
+	attr_reader :uid, :config, :wcs, :repos
+	attr_reader :collectable
+	
+	def initialize(uid, password)
+		@uid = uid
+		@password = Auth::Crypt.crypt(password)
+		@wcs = Collection.new
+		@repos = Collection.new
+		
+		@collectable = Collectable.new(self, @uid)
+		w_debug("new: #{@collectable.to_s}")
+	end
+	
+	def authenticate(password)
+		( Auth::Crypt.crypt(password) == @password )
+	end
+		
+	
+	def data_dir
+		File.cleanpath("#{$CONFIG.get("CORE_DATA_DIR").get_value}/#{@uid}")
+	end
+	
+end
+
 end

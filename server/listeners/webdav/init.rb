@@ -1,3 +1,6 @@
+#
+# Modulo de manejo de conecciones http.webdav
+#
 wmodule :WebDav do |mod|
 	begin
 		require "webrick"
@@ -12,6 +15,7 @@ wmodule :WebDav do |mod|
 	rescue Exception => ex
 		w_debug("Exception: #{ex.message}")
 		w_debug(ex.backtrace.join("\n\t"))
+		
 		false
 	end
 end

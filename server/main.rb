@@ -24,22 +24,25 @@ require "rubygems"
 # Carga el Core
 #
 require "core/autoloads.rb"
+
 require "core/lang/file.rb"
 require "core/lang/kernel.rb"
-require "core/wconfig.rb"
+require "core/lang/collection.rb"
+
 require "core/wdebug.rb"
+require "core/wconfig.rb"
 require "core/wmodule.rb"
 
 #
-# Inicia la configuracion global
+# El directorio de datos por defecto
 #
-$CONFIG = WConfig.new_default
+$CONFIG.add(WConfig::StringProperty.new("CORE_DATA_DIR", "/tmp"))
 
 #
 # Localiza y carga todos los modulos
 #
 (Dir.glob("#{$WIDELY_HOME_SERVER}/{listeners,webservices,addons}/*")).each { |m| require "#{m.to_s}/init.rb" }
-WModule.collection.each_value { |m| m.load if ! m.loaded }
+WModule.each_wmodule { |name, m| m.load if ! m.loaded }
 
 #
 # Inicia los servidores cada uno en un hilo

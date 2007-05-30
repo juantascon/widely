@@ -1,3 +1,7 @@
+#
+# API de Repos
+#
+
 module Repos
 
 class API
@@ -10,14 +14,12 @@ class API
 		
 		name = args["name"]
 		
-		session = args.collection_get(Auth::Sessions.instance, "session_id")
-		raise ArgumentError.new("#{name}: repository already exists") if session.user.repos.get_o(name)
+		user = Auth::SessionSet.instance.get(args["session_id"]).user
+		raise ArgumentError.new("#{name}: repository already exists") if user.repos.get(name)
 		
 		manager_id = args["manager_id"].to_sym if args["manager_id"]
 		
-		obj = Repository.new(session.user, name, manager_id)
-		
-		return session.user.repos.save_o(obj)
+		return user.repos.add(Repository.new(user, name, manager_id))
 	end
 end
 

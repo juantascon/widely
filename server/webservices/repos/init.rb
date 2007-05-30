@@ -1,3 +1,7 @@
+#
+# Modulo de manejo de repòsitorios
+#
+
 wmodule :Repos => :HTTP do |mod|
 	begin
 		mod.require "repository.rb"
@@ -9,6 +13,7 @@ wmodule :Repos => :HTTP do |mod|
 	rescue Exception => ex
 		w_debug("Exception: #{ex.message}")
 		w_debug(ex.backtrace.join("\n\t"))
+		
 		false
 	end
 	

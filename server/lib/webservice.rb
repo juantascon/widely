@@ -24,26 +24,16 @@ module WebService
 		end
 		
 		#
-		# Verifica que existan los argumentos dentro del hash
-		# de argumentos
+		# Verifica que existan los argumentos para los nombres
+		# dados
 		# Ej:
 		#
-		# arg_check(args, "wso_id", "path")
+		# args.check("wso_id", "path")
 		#
 		def check(*arg_names)
 			arg_names.each do |arg_name|
 				raise ArgumentError.new("args[#{arg_name}]: not included") if ! self.include? arg_name
 			end
-		end
-		
-		def collection_get(collection, *args)
-			real_args = Array.new
-			args.each { |arg| real_args.push(self[arg]) }
-			
-			obj = collection.get_o(*real_args)
-			raise ArgumentError.new("#{real_args}: #{collection.class.name} not found") if ! obj
-			
-			return obj
 		end
 	end
 end

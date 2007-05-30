@@ -48,11 +48,12 @@ class WModule < Module
 	#
 	# La coleccion de los modulos es util para cargar varios modulos al tiempo
 	#
-	@@collection = Hash.new
-	def self.collection(); @@collection; end
+	@@collection = Collection.new
+	def self.each_wmodule(*args, &block); @@collection.each(*args, &block); end
 	
-	
-	attr_reader :name, :init_block, :creator_file, :loaded, :_module_, :depends, :base_dir
+	attr_reader :name, :init_block, :creator_file, :loaded, :depends, :base_dir
+	attr_reader :collectable
+	attr_reader :MODULE
 
 	#
 	# :definition puede ser de la siguiente forma:
@@ -69,14 +70,14 @@ class WModule < Module
 			@name = definition.keys[0]
 			@depends = definition.values[0]
 			@depends = [@depends] if @depends.class != Array
-			(@depends + [@name]).each do |d|
-				raise ArgumentError.new("#{d}: invalid") if d.class != Symbol
-			end
+			#(@depends + [@name]).each do |d|
+			#	raise ArgumentError.new("#{d}: invalid") if d.class != Symbol
+			#end
 		else
 			raise ArgumentError.new("#{definition}: invalid")
 		end
-
-		raise StandardError.new("WModule[#{@name}]: already exists") if @@collection[@name]
+		
+		raise StandardError.new("WModule[#{@name}]: already exists") if @@collection.get(@name)
 		
 		# El bloque con la definicion del module
 		@init_block = init_block
@@ -87,17 +88,22 @@ class WModule < Module
 		@base_dir = File.dirname(@creator_file)
 		raise StandardError.new("WModule[#{@name}]: module file not found") if ! File.exist?(@creator_file)
 		
+		#
 		# Crea un Module vacio con el mismo nombre del WModule
-		Object.module_eval("module #{@name.to_s}; end")
+		#
+		Object.module_eval("module #{@name.to_s} ; end")
 		
 		# Localiza el modulo que se acaba de crear
-		@_module_ = WModule.find_module_by_name(@name)
+		@MODULE = WModule.find_module_by_name(@name)
 		
 		# Incluye el nuevo Module en este WModule
-		include @_module_
+		include @MODULE
 		
-		# Incluye el nuevo Module en este WModule
-		@@collection[@name] = self
+		# Define el id de identificacion en la coleccion de modulos
+		@collectable = Collectable.new(self, @name)
+		
+		# Incluye este modulo en la coleccion de modulos
+		@@collection.add(self)
 		
 		@loaded = false
 		w_info("#{@name} -- CREATED")
@@ -116,7 +122,7 @@ class WModule < Module
 		# las dependencias deben estar creadas ya
 		#
 		@depends.each do |m|
-			mod = @@collection[m]
+			mod = @@collection.get(m)
 			if mod # El modulo existe
 				# Si ya se ha cargado no hay que volverlo a hacer
 				next if mod.loaded
@@ -146,7 +152,7 @@ class WModule < Module
 		#
 		# Hace un include de este modulo desde el entorno principal (Object)
 		#
-		#Object.module_eval("include ObjectSpace._id2ref(#{self._module_.object_id})")
+		#Object.module_eval("include ObjectSpace._id2ref(#{self.MODULE.object_id})")
 		
 		@loaded ? w_info("#{name} -- LOADED") : w_info("#{name} -- ERROR LOADING")
 		return @loaded

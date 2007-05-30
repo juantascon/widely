@@ -9,12 +9,13 @@ wmodule :ZipFile => :Download do |mod|
 		
 		#mod.require "packer.rb"
 		
-		#Download::Download.set_manager(:zipfile, mod._module_::Packer)
+		#Download::Download.set_manager(:zipfile, mod.MODULE::Packer)
 		
 		true
 	rescue Exception => ex
 		w_debug("Exception: #{ex.message}")
 		w_debug(ex.backtrace.join("\n\t"))
+		
 		false
 	end
 end

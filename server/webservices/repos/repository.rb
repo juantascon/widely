@@ -1,20 +1,22 @@
 module Repos
 class Repository
 	
-	include Collectable
+	REPOS_BASE_DIRNAME = "repos"
+	
 	include DynamicDelegator
 	
-	attr_reader :user, :name
+	attr_reader :user, :name, :collectable
 	
 	#
 	# Crea un nuevo objeto dependiendo del manejador a utilizar
 	# en caso de fallo utiliza el manejador por defecto
 	#
 	def initialize(user, name, manager_id=:default)
-		w_debug("user: #{user} name: #{name} manager_id: #{manager_id} c_id: #{collectable_id}")
-		
 		@user = user
 		@name = name
+		
+		@collectable = Collectable.new(self, @name)
+		w_debug("new: #{@collectable.to_s}")
 		
 		if File.basename(File.cleanpath(self.dir)) != @name
 			raise ArgumentError.new("#{@name}: invalid name:)") 
@@ -24,11 +26,7 @@ class Repository
 	end
 	
 	def dir
-		"#{@user.data_dir}/#{$CONFIG.get(:REPOS_BASE_DIRNAME)}/#{@name}"
-	end
-	
-	def collectable_id
-		@name
+		"#{@user.data_dir}/#{REPOS_BASE_DIRNAME}/#{@name}"
 	end
 	
 end

@@ -7,17 +7,20 @@
 module WC
 class WorkingCopy
 	
-	include Collectable
+	WC_BASE_DIRNAME = "wcs"
+	
 	include DynamicDelegator
 	
 	attr_reader :user, :name, :repository
+	attr_reader :collectable
 	
 	def initialize(user, repository, name, manager_id=:default)
-		w_debug("user: #{user} repository: #{repository} name: #{name} c_id: #{collectable_id}")
-		
 		@user = user
 		@name = name
 		@repository = repository
+		
+		@collectable = Collectable.new(self, @name)
+		w_debug("new: #{@collectable.to_s}")
 		
 		if File.basename(File.cleanpath(self.dir)) != @name
 			raise ArgumentError.new("#{@name}: invalid name:)")
@@ -27,11 +30,7 @@ class WorkingCopy
 	end
 	
 	def dir
-		"#{@user.data_dir}/#{$CONFIG.get(:WC_BASE_DIRNAME)}/#{@name}"
-	end
-	
-	def collectable_id
-		@name
+		"#{@user.data_dir}/#{WC_BASE_DIRNAME}/#{@name}"
 	end
 	
 end

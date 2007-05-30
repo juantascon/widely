@@ -1,3 +1,7 @@
+#
+# Modulo de manejo de descargas de archivos
+#
+
 wmodule :Download => [ :WC, :Repos ] do |mod|
 	begin
 		mod.require "download.rb"
@@ -8,6 +12,7 @@ wmodule :Download => [ :WC, :Repos ] do |mod|
 	rescue Exception => ex
 		w_debug("Exception: #{ex.message}")
 		w_debug(ex.backtrace.join("\n\t"))
+		
 		false
 	end
 end

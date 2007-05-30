@@ -1,3 +1,6 @@
+#
+# Modulo de manejo de conecciones http
+#
 wmodule :HTTP do |mod|
 	begin
 		require "json.rb"
@@ -16,6 +19,7 @@ wmodule :HTTP do |mod|
 	rescue Exception => ex
 		w_debug("Exception: #{ex.message}")
 		w_debug(ex.backtrace.join("\n\t"))
+		
 		false
 	end
 end
