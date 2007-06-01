@@ -31,22 +31,31 @@ module WDebug
 	def w_log(severity, m, back=1, &block)
 		return true if severity < WDEBUG_LEVEL
 		
-		m = if m.respond_to? :message; m.message; else m.to_s; end
-		m = block.call if block_given?
-		severity = Sev::SEVS[severity] || Sev::SEVS[Sev::UNKNOWN]
-		
-		if caller_method(back)
-			from = "#{self.class.name}.#{caller_method(back)}()"
-		else
-			from = "#{self.class.name}"
-		end
-		
 		if $WDEBUG_LAST_OBJECT != self
-			WDEBUG_LOGGER.print(">> #{self.class.name} (#{self.object_id}):\n")
+			WDEBUG_LOGGER.print(">> #{self.class.name} (#{sprintf("0x%x", self.object_id.abs)}):\n")
 			$WDEBUG_LAST_OBJECT = self
 		end
-		#WDEBUG_LOGGER.print("[%s] %s: %s\n" % [severity.to_s, from.to_s, m.to_s])
-		WDEBUG_LOGGER.print(" [%s] %s\n" % [severity.to_s, m.to_s])
+		
+		from = "#{self.class.name}"
+		from = "#{from}.#{caller_method(back)}()" if caller_method(back)
+		severity = Sev::SEVS[severity] || Sev::SEVS[Sev::UNKNOWN]
+		
+		begin
+			m = block.call if block_given?
+		rescue Exception => block_ex
+			m = block_ex
+		end
+		
+		case m
+			when Exception
+				WDEBUG_LOGGER.print " [#{m.class.name}]: #{m.message}"
+				WDEBUG_LOGGER.print " [BACKTRACE]: BEGIN\n"
+				WDEBUG_LOGGER.print " \t#{m.backtrace.join("\n\t")}\n"
+				WDEBUG_LOGGER.print " [BACKTRACE]: END\n"
+			else
+				#WDEBUG_LOGGER.print "[#{severity}] #{from}: #{m}\n"
+				WDEBUG_LOGGER.print " [#{severity}] #{m}\n"
+		end
 	end
 	
 	#

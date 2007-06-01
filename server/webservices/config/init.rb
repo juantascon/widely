@@ -6,8 +6,7 @@ wmodule :Config => [ :Auth, :HTTPAPI ] do |mod|
 	begin
 		true
 	rescue Exception => ex
-		w_debug("Exception: #{ex.message}")
-		w_debug(ex.backtrace.join("\n\t"))
+		w_debug(ex)
 		
 		false
 	end
