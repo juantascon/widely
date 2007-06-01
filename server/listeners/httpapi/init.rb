@@ -6,6 +6,7 @@ wmodule :HTTPAPI do |mod|
 	begin
 		require "webrick.rb"
 		require "json.rb"
+		require "uri"
 		
 		mod.require "rq.rb"
 		mod.require "resp.rb"

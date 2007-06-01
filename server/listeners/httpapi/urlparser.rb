@@ -1,8 +1,8 @@
-# 
-# Metodos de ayuda en el parsing de cadenas
 #
-module Parser
-	require "uri"
+# Metodos de ayuda en el parsing de urls
+#
+
+module URLParser
 	
 	# La cadena debe tener un patron de la forma "var1=value1&var2=value2 ... "
 	# var y value deben estar en la forma url codificado
@@ -24,5 +24,5 @@ module Parser
 	end
 	
 	module_function :url_encoded_args_to_hash
-
+	
 end

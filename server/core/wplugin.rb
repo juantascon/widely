@@ -1,4 +1,4 @@
-class Plugin
+class WPlugin
 	
 	attr_reader :name, :definition, :instance
 	
@@ -27,7 +27,7 @@ class Plugin
 end
 
 
-class Pluginable
+class WPluginable
 	
 	class_inheritable_accessor :plugins
 	self.plugins = Hash.new

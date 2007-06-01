@@ -49,7 +49,7 @@ class WebServiceHandler
 		# sacados de hacer parsing del request (rq.body)
 		#
 		begin
-			ret = webservice.call(method_name, Parser.url_encoded_args_to_hash(rq.body))
+			ret = webservice.call(method_name, URLParser.url_encoded_args_to_hash(rq.body))
 		rescue Exception => ex
 			w_debug("Exception: #{ex.message}")
 			w_debug(ex.backtrace.join("\n\t"))
