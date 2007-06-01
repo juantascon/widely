@@ -35,6 +35,6 @@ module Default
 	
 end
 
-Dispatcher.register_plugin(Plugin.new("default", Default))
+Dispatcher.register_wplugin(WPlugin.new("default", Default))
 
 end

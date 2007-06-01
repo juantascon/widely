@@ -1,5 +1,5 @@
 module Download
-class Download < Pluginable
+class Download < WPluginable
 	
 	attr_reader :file_tree
 	
@@ -8,7 +8,7 @@ class Download < Pluginable
 		@file_tree.root.each { |f| f.content = @wc.cat(f.fullpath, @version) if f.type == FileTree::FTYPE::FILE }
 		
 		super()
-		activate_plugin(manager)
+		activate_wplugin(manager)
 	end
 	
 end

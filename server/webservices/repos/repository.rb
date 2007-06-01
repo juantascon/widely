@@ -1,5 +1,5 @@
 module Repos
-class Repository < Pluginable
+class Repository < WPluginable
 	
 	REPOS_BASE_DIRNAME = "repos"
 	
@@ -21,7 +21,7 @@ class Repository < Pluginable
 		end
 		
 		super()
-		activate_plugin(manager)
+		activate_wplugin(manager)
 	end
 	
 	def dir

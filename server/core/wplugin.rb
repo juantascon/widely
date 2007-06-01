@@ -7,18 +7,18 @@ class WPlugin
 		@definition = definition
 	end
 	
-	def activate(pluginable, *args, &block)
+	def activate(wpluginable, *args, &block)
 		case @definition.class.name
 			when "Class"
-				pluginable.extend SingleForwardable
-				@instance = @definition.new(pluginable, *args, &block)
+				wpluginable.extend SingleForwardable
+				@instance = @definition.new(wpluginable, *args, &block)
 				
 				methods = ( @definition.instance_methods - Object.instance_methods )
 				methods.each do |m|
-					pluginable.def_delegator("@instance", m.to_sym, m.to_sym)
+					wpluginable.def_delegator("@instance", m.to_sym, m.to_sym)
 				end
 			when "Module"
-				pluginable.extend @definition
+				wpluginable.extend @definition
 			else
 				raise StandardError, "#{@definition}: invalid definition"
 		end
@@ -29,20 +29,20 @@ end
 
 class WPluginable
 	
-	class_inheritable_accessor :plugins
-	self.plugins = Hash.new
+	class_inheritable_accessor :wplugins
+	self.wplugins = Hash.new
 	
-	def self.register_plugin(plugin)
-		return false if self.plugins[plugin.name]
-		self.plugins[plugin.name] = plugin
+	def self.register_wplugin(wplugin)
+		return false if self.wplugins[wplugin.name]
+		self.wplugins[wplugin.name] = wplugin
 		return true
 	end
 	
-	def activate_plugin(plugin_name)
-		plugin = self.class.plugins[plugin_name]
-		raise ArgumentError, "#{plugin_name}: Plugin not found" if ! plugin
+	def activate_wplugin(wplugin_name)
+		wplugin = self.class.wplugins[wplugin_name]
+		raise ArgumentError, "#{wplugin_name}: WPlugin not found" if ! wplugin
 		
-		plugin.activate(self)
+		wplugin.activate(self)
 	end
 	
 end

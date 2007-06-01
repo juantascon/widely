@@ -1,5 +1,5 @@
 module WebDav
-class Dispatcher < Pluginable
+class Dispatcher < WPluginable
 	
 	attr_reader :port, :server
 	
@@ -7,7 +7,7 @@ class Dispatcher < Pluginable
 		@port = port
 		
 		super()
-		activate_plugin("default")
+		activate_wplugin("default")
 		
 		init_server()
 		mount("/data/", $CONFIG.get("CORE_DATA_DIR").get_value)

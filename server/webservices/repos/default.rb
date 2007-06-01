@@ -10,6 +10,6 @@ class Default
 	end
 end
 
-Repository.register_plugin(Plugin.new("default", Default))
+Repository.register_wplugin(WPlugin.new("default", Default))
 
 end

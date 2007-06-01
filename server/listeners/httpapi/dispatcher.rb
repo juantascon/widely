@@ -1,5 +1,5 @@
 module HTTPAPI
-class Dispatcher < Pluginable
+class Dispatcher < WPluginable
 	
 	attr_reader :port
 	
@@ -7,7 +7,7 @@ class Dispatcher < Pluginable
 		@port = port
 		
 		super()
-		activate_plugin("default")
+		activate_wplugin("default")
 		init_server()
 		mount("/api/") { |rq| WebServiceHandler.process_rq(rq) }
 	end

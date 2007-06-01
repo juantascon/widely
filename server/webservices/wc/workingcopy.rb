@@ -5,7 +5,7 @@
 #
 
 module WC
-class WorkingCopy < Pluginable
+class WorkingCopy < WPluginable
 	
 	WC_BASE_DIRNAME = "wcs"
 	
@@ -25,7 +25,7 @@ class WorkingCopy < Pluginable
 		end
 		
 		super()
-		activate_plugin(manager)
+		activate_wplugin(manager)
 	end
 	
 	def dir

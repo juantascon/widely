@@ -11,6 +11,6 @@ class Default
 end
 
 #define el manejador por defecto
-Download.register_plugin(Plugin.new("default", Default))
+Download.register_wplugin(WPlugin.new("default", Default))
 
 end

@@ -248,6 +248,6 @@ class Default
 	
 end
 
-WorkingCopy.register_plugin(Plugin.new("default", Default))
+WorkingCopy.register_wplugin(WPlugin.new("default", Default))
 
 end
