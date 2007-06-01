@@ -1,7 +1,7 @@
 module WebDav
 class Dispatcher < Pluginable
 	
-	attr_reader :port
+	attr_reader :port, :server
 	
 	def initialize(port)
 		@port = port
@@ -9,6 +9,7 @@ class Dispatcher < Pluginable
 		super()
 		activate_plugin("default")
 		
+		init_server()
 		mount("/data/", $CONFIG.get("CORE_DATA_DIR").get_value)
 	end
 	

@@ -8,6 +8,7 @@ class Dispatcher < Pluginable
 		
 		super()
 		activate_plugin("default")
+		init_server()
 		mount("/api/") { |rq| WebServiceHandler.process_rq(rq) }
 	end
 	

@@ -1,14 +1,10 @@
 module HTTPStatic
 
-class Default
+module Default
 	
-	def initialize(_self)
-		@_self = _self
-		@port = @_self.port
-		
+	def init_server()
 		logger = WEBrick::Log.new
 		logger.level = WDEBUG_LEVEL
-		
 		@server = WEBrick::HTTPServer.new({:Port => @port, :Logger => logger})
 	end
 	
@@ -16,13 +12,13 @@ class Default
 		@server.mount(mount_point, WEBrick::HTTPServlet::FileHandler, fs_path, dir_listing)
 	end
 	
-	def start_server()
-		w_info "start: [#{self.class.name}] => http://127.0.0.1:#{@port}"
+	def run()
+		w_info "run => http://127.0.0.1:#{@port}"
 		return Thread.new { @server.start }
 	end
 	
-	def stop_server()
-		w_info "stop: [#{self.class.name}]"
+	def stop()
+		w_info "stop => http://127.0.0.1:#{@port}"
 		return @server.shutdown
 	end
 end

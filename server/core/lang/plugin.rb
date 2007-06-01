@@ -1,18 +1,27 @@
 class Plugin
 	
-	attr_reader :name, :klass
+	attr_reader :name, :definition, :instance
 	
-	def initialize(name, klass)
+	def initialize(name, definition)
 		@name = name
-		@klass = klass
+		@definition = definition
 	end
 	
-	def make_instance(_self, *args, &block)
-		@klass.new(_self, *args, &block)
-	end
-	
-	def methods
-		@klass.instance_methods - Object.instance_methods
+	def activate(pluginable, *args, &block)
+		case @definition.class.name
+			when "Class"
+				pluginable.extend SingleForwardable
+				@instance = @definition.new(pluginable, *args, &block)
+				
+				methods = ( @definition.instance_methods - Object.instance_methods )
+				methods.each do |m|
+					pluginable.def_delegator("@instance", m.to_sym, m.to_sym)
+				end
+			when "Module"
+				pluginable.extend @definition
+			else
+				raise StandardError, "#{@definition}: invalid definition"
+		end
 	end
 	
 end
@@ -29,21 +38,11 @@ class Pluginable
 		return true
 	end
 	
-	
-	attr_reader :current
-	
-	def initialize
-		self.extend SingleForwardable
-	end
-	
 	def activate_plugin(plugin_name)
 		plugin = self.class.plugins[plugin_name]
-		raise Expcetion, "Errorsito" if ! plugin
+		raise ArgumentError, "#{plugin_name}: Plugin not found" if ! plugin
 		
-		@current = plugin.make_instance(self)
-		
-		plugin.methods.each do |m|
-			self.def_delegator("@current", m.to_sym, m.to_sym)
-		end
+		plugin.activate(self)
 	end
+	
 end
