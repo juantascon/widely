@@ -2,7 +2,7 @@
 # Modulo de manejo de autenticacion (usuarios y sessiones)
 #
 
-wmodule :Auth => :HTTP do |mod|
+wmodule :Auth => :HTTPAPI do |mod|
 	begin
 		#
 		# Agrega las propiedades del modulo

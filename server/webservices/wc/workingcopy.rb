@@ -5,16 +5,14 @@
 #
 
 module WC
-class WorkingCopy
+class WorkingCopy < Pluginable
 	
 	WC_BASE_DIRNAME = "wcs"
-	
-	include DynamicDelegator
 	
 	attr_reader :user, :name, :repository
 	attr_reader :collectable
 	
-	def initialize(user, repository, name, manager_id=:default)
+	def initialize(user, repository, name, manager)
 		@user = user
 		@name = name
 		@repository = repository
@@ -26,7 +24,8 @@ class WorkingCopy
 			raise ArgumentError.new("#{@name}: invalid name:)")
 		end
 		
-		start_forward(manager_id)
+		super()
+		activate_plugin(manager)
 	end
 	
 	def dir

@@ -6,7 +6,7 @@ wmodule :Svn => :Repos do |mod|
 		require "rexml/document.rb"
 		mod.require "repository.rb"
 		
-		Repos::Repository.set_manager(:svn, mod.MODULE::Repository)
+		Repos::Repository.register_plugin(Plugin.new("svn", mod.MODULE::Repository))
 		
 		true
 	rescue Exception => ex

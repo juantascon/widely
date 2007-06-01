@@ -1,6 +1,6 @@
 module Download
 
-class Base
+class Default
 	METHODS = [ :pack ]
 	
 	METHODS.each do |m|
@@ -10,8 +10,7 @@ class Base
 	end
 end
 
-#define el manejador por defecto y los metodos a delegar
-Download.set_manager(:default, Base)
-Download.set_methods(Base::METHODS)
+#define el manejador por defecto
+Download.register_plugin(Plugin.new("default", Default))
 
 end

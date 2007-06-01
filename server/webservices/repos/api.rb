@@ -10,19 +10,18 @@ class API
 	include WebService
 	
 	def create(args)
-		args.check("session_id", "name")
+		args.check("session_id", "name", "manager")
 		
 		name = args["name"]
+		manager = args["manager"]
 		
-		user = Auth::SessionSet.instance.get(args["session_id"]).user
+		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
 		raise ArgumentError.new("#{name}: repository already exists") if user.repos.get(name)
 		
-		manager_id = args["manager_id"].to_sym if args["manager_id"]
-		
-		return user.repos.add(Repository.new(user, name, manager_id))
+		return user.repos.add(Repository.new(user, name, manager))
 	end
 end
 
-HTTP::APIHandler.set_webservice("repos", Repos::API.instance)
+HTTPAPI::WebServiceHandler.set_webservice("repos", Repos::API.instance)
 
 end

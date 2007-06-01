@@ -10,23 +10,22 @@ class API
 	include WebService
 	
 	def create(args)
-		args.check("session_id", "repos_id", "name")
+		args.check("session_id", "repos_id", "name", "manager")
 		
 		name = args["name"]
+		manager = args["manager"]
 		
-		user = Auth::SessionSet.instance.get(args["session_id"]).user
+		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
 		raise ArgumentError.new("#{name}: workingcopy already exists") if user.wcs.get(name)
 		
-		repository = user.repos.get(args["repos_id"])
+		repository = user.repos.get_ex(args["repos_id"])
 		
-		manager_id = args["manager_id"].to_sym if args["manager_id"]
-		
-		return user.wcs.add(WorkingCopy.new(user, repository, name, manager_id))
+		return user.wcs.add(WorkingCopy.new(user, repository, name, manager))
 	end
 	
 	def checkout(args)
 		args.check("session_id")
-		wc = Auth::SessionSet.instance.get(args["session_id"]).wc
+		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
 		version = Repos::Version.new(args["version"]) if args["version"]
 		
 		return wc.checkout(version)
@@ -34,21 +33,21 @@ class API
 
 	def commit(args)
 		args.check("session_id", "log")
-		wc = Auth::SessionSet.instance.get(args["session_id"]).wc
+		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
 		
 		return wc.commit(args["log"])
 	end
 	
 	def versions(args)
 		args.check("session_id")
-		wc = Auth::SessionSet.instance.get(args["session_id"]).wc
+		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
 		
 		return wc.versions()
 	end
 	
 	def cat(args)
 		args.check("session_id", "path")
-		wc = Auth::SessionSet.instance.get(args["session_id"]).wc
+		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
 		version = Repos::Version.new(args["version"]) if args["version"]
 		
 		return wc.cat(args["path"], version)
@@ -56,7 +55,7 @@ class API
 	
 	def ls(args)
 		args.check("session_id", "path")
-		wc = Auth::SessionSet.instance.get(args["session_id"]).wc
+		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
 		version = Repos::Version.new(args["version"]) if args["version"]
 		
 		return wc.ls(args["path"], version)
@@ -64,7 +63,7 @@ class API
 	
 	def add(args)
 		args.check("session_id", "path")
-		wc = Auth::SessionSet.instance.get(args["session_id"]).wc
+		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
 		as_dir = ( args["as_dir"] == "true" )
 		
 		return wc.add(args["path"], as_dir)
@@ -72,26 +71,26 @@ class API
 	
 	def delete(args)
 		args.check("session_id", "path")
-		wc = Auth::SessionSet.instance.get(args["session_id"]).wc
+		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
 		
 		return wc.delete(args["path"])
 	end
 	
 	def move(args)
 		args.check("session_id", "path_from", "path_to")
-		wc = Auth::SessionSet.instance.get(args["session_id"]).wc
+		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
 		
 		return wc.move(args["path_from"], args["path_to"])
 	end
 	
 	def write(args)
 		args.check("session_id", "path", "content")
-		wc = Auth::SessionSet.instance.get(args["session_id"]).wc
+		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
 		
 		return wc.write(args["path"], args["content"])
 	end
 end
 
-HTTP::APIHandler.set_webservice("wc", WC::API.instance)
+HTTPAPI::WebServiceHandler.set_webservice("wc", WC::API.instance)
 
 end

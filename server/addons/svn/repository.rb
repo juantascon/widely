@@ -3,12 +3,12 @@
 # status()
 
 module Svn
-class Repository < Repos::Base
+class Repository
 	
 	include FileUtils
 	include FileTest
 	
-	attr_reader :dir, :_self
+	attr_reader :dir
 	
 	def files
 		[ /^%wc_dir%(\/|\/.*\/).svn((\/+.*)*)/ ]

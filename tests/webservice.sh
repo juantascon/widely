@@ -9,10 +9,9 @@ exec_test()
 	echo $val
 }
 
-
 id=$(exec_test auth/login "user_id=admin&password=admin") ; echo $id
-id_r=$(exec_test repos/create "session_id=$id&manager_id=svn&name=project1") ; echo $id_r
-id_w=$(exec_test wc/create "session_id=$id&repos_id=$id_r&name=project1-wc1") ; echo $id_w
+id_r=$(exec_test repos/create "session_id=$id&name=project1&manager=svn") ; echo $id_r
+id_w=$(exec_test wc/create "session_id=$id&repos_id=$id_r&name=project1-wc1&manager=default") ; echo $id_w
 
 
 id=$(exec_test auth/login "user_id=admin&password=admin") ; echo $id

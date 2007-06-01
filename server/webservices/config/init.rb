@@ -2,7 +2,7 @@
 # Modulo de manejo de Configuraciones
 #
 
-wmodule :Config => :Auth do |mod|
+wmodule :Config => [ :Auth, :HTTPAPI ] do |mod|
 	begin
 		true
 	rescue Exception => ex

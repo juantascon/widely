@@ -1,13 +1,13 @@
 #
-# Modulo de manejo de repòsitorios
+# Modulo de manejo de conecciones http
 #
 
-wmodule :Repos => :HTTPAPI do |mod|
+wmodule :HTTPStatic do |mod|
 	begin
-		mod.require "version.rb"
-		mod.require "repository.rb"
+		require "webrick"
+		
+		mod.require "dispatcher.rb"
 		mod.require "default.rb"
-		mod.require "api.rb"
 		
 		true
 	rescue Exception => ex
@@ -16,5 +16,4 @@ wmodule :Repos => :HTTPAPI do |mod|
 		
 		false
 	end
-	
 end

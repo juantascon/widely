@@ -5,10 +5,7 @@
 #
 
 module WC
-class Base
-	
-	METHODS = [:"repository_file?", :checkout, :status, :commit, :versions, :cat, :ls, :add, :delete, :move, :write]
-	
+class Default
 	
 	include FileUtils
 	include FileTest
@@ -251,8 +248,6 @@ class Base
 	
 end
 
-#define el manejador por defecto y los metodos a delegar
-WorkingCopy.set_manager(:default, Base)
-WorkingCopy.set_methods(Base::METHODS)
+WorkingCopy.register_plugin(Plugin.new("default", Default))
 
 end

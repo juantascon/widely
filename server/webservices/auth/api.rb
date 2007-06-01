@@ -17,7 +17,7 @@ class API
 	def login(args)
 		args.check("user_id", "password")
 		
-		user = UserSet.instance.get(args["user_id"], args["password"])
+		user = UserSet.instance.get_ex(args["user_id"], args["password"])
 		return SessionSet.instance.add(Session.new(user))
 	end
 	
@@ -29,8 +29,8 @@ class API
 	
 	def set_wc(args)
 		args.check("session_id", "wc_id")
-		session = SessionSet.instance.get(args["session_id"])
-		wc = session.user.wcs.get(args["wc_id"])
+		session = SessionSet.instance.get_ex(args["session_id"])
+		wc = session.user.wcs.get_ex(args["wc_id"])
 		
 		session.wc = wc
 		return true
@@ -38,6 +38,6 @@ class API
 	
 end
 
-HTTP::APIHandler.set_webservice("auth", Auth::API.instance)
+HTTPAPI::WebServiceHandler.set_webservice("auth", Auth::API.instance)
 
 end

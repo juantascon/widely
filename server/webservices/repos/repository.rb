@@ -1,9 +1,7 @@
 module Repos
-class Repository
+class Repository < Pluginable
 	
 	REPOS_BASE_DIRNAME = "repos"
-	
-	include DynamicDelegator
 	
 	attr_reader :user, :name, :collectable
 	
@@ -11,7 +9,7 @@ class Repository
 	# Crea un nuevo objeto dependiendo del manejador a utilizar
 	# en caso de fallo utiliza el manejador por defecto
 	#
-	def initialize(user, name, manager_id=:default)
+	def initialize(user, name, manager)
 		@user = user
 		@name = name
 		
@@ -22,7 +20,8 @@ class Repository
 			raise ArgumentError.new("#{@name}: invalid name:)") 
 		end
 		
-		start_forward(manager_id)
+		super()
+		activate_plugin(manager)
 	end
 	
 	def dir

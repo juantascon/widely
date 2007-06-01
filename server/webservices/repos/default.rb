@@ -1,6 +1,6 @@
 module Repos
 
-class Base
+class Default
 	METHODS = [ :files, :create, :checkout, :status, :commit, :versions, :cat, :ls, :add, :delete, :move ]
 	
 	METHODS.each do |m|
@@ -10,8 +10,6 @@ class Base
 	end
 end
 
-#define el manejador por defecto y los metodos a delegar
-Repository.set_manager(:default, Base)
-Repository.set_methods(Base::METHODS)
+Repository.register_plugin(Plugin.new("default", Default))
 
 end

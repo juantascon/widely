@@ -18,6 +18,6 @@ class API
 	
 end
 
-HTTP::APIHandler.set_webservice("config", Config::API.instance)
+HTTPAPI::WebServiceHandler.set_webservice("config", Config::API.instance)
 
 end

@@ -1,4 +1,4 @@
-module HTTP
+module HTTPAPI
 
 #
 # HTTP Request

@@ -1,5 +1,5 @@
-module HTTP
-class APIHandler
+module HTTPAPI
+class WebServiceHandler
 	
 	#
 	# La coleccion de WebServices para saber hacia donde redirigir

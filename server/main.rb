@@ -27,7 +27,9 @@ require "core/autoloads.rb"
 
 require "core/lang/file.rb"
 require "core/lang/kernel.rb"
+require "core/lang/class.rb"
 require "core/lang/collection.rb"
+require "core/lang/plugin.rb"
 
 require "core/wdebug.rb"
 require "core/wconfig.rb"
@@ -49,15 +51,15 @@ WModule.each_wmodule { |name, m| m.load if ! m.loaded }
 #
 servers_group = Array.new
 threads_group = Array.new
-[ HTTP::Dispatcher.new(7777), WebDav::Dispatcher.new(7778) ].each do |s|
+[ HTTPAPI::Dispatcher.new(7777), HTTPStatic::Dispatcher.new(7778), WebDav::Dispatcher.new(7779) ].each do |s|
 	servers_group.push(s)
-	threads_group.push(s.start)
+	threads_group.push(s.start_server)
 end
 
 #
 # Atrapa las señales para que sean manejadas correctamente
 #
-["INT", "TERM" ].each { |signal| trap(signal) { servers_group.each { |server| server.stop } } }
+["INT", "TERM" ].each { |signal| trap(signal) { servers_group.each { |server| server.stop_server } } }
 w_info " ========================================= "
 w_info " => Ctrl-C para terminar los servidores <= "
 w_info " ========================================= "

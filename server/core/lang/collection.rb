@@ -41,6 +41,12 @@ class Collection
 		return nil
 	end
 	
+	def get_ex(name, *args, &block)
+		object = get(name, *args, &block)
+		raise ArgumentError, "#{name}: collectable not found  #{@collection}" if object == nil
+		return object
+	end
+	
 	def each(*args, &block)
 		@collection.each(*args, &block)
 	end

@@ -1,4 +1,4 @@
-module WebDav
+module HTTPAPI
 class Dispatcher < Pluginable
 	
 	attr_reader :port
@@ -8,8 +8,7 @@ class Dispatcher < Pluginable
 		
 		super()
 		activate_plugin("default")
-		
-		mount("/data/", $CONFIG.get("CORE_DATA_DIR").get_value)
+		mount("/api/") { |rq| WebServiceHandler.process_rq(rq) }
 	end
 	
 end
