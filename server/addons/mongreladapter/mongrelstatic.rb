@@ -10,12 +10,12 @@ module MongrelStatic
 	end
 	
 	def run()
-		w_info "run => http://127.0.0.1:#{@port}"
+		w_info "run(mongrel) => http://127.0.0.1:#{@port}"
 		return @server.run
 	end
 	
 	def stop()
-		w_info "stop => http://127.0.0.1:#{@port}"
+		w_info "stop(mongrel) => http://127.0.0.1:#{@port}"
 		return @server.stop
 	end
 	

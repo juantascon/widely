@@ -13,12 +13,12 @@ module Default
 	end
 	
 	def run()
-		w_info "run => http://127.0.0.1:#{@port}"
+		w_info "run(webrick) => http://127.0.0.1:#{@port}"
 		return Thread.new { @server.start }
 	end
 	
 	def stop()
-		w_info "stop => http://127.0.0.1:#{@port}"
+		w_info "stop(webrick) => http://127.0.0.1:#{@port}"
 		return @server.shutdown
 	end
 end

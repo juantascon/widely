@@ -22,7 +22,7 @@ require "core/wmodule.rb"
 require "core/wplugin.rb"
 
 #
-# El directorio de datos por defecto
+# El directorio de datos por defecto ( TODO: esto deberia ir en otro lado, en AUTH talvez? )
 #
 
 $CONFIG.add(WConfig::StringProperty.new("CORE_DATA_DIR", "/tmp"))

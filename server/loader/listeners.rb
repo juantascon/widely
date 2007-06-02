@@ -1,9 +1,9 @@
 #
 # Carga los listeners por defecto
 #
-$WIDELY_LISTENERS.push HTTPAPI::Dispatcher.new(7777)
-$WIDELY_LISTENERS.push HTTPStatic::Dispatcher.new(7778)
-$WIDELY_LISTENERS.push WebDav::Dispatcher.new(7779)
+$WIDELY_LISTENERS.push HTTPAPI::Dispatcher.new(7777, "mongrel")
+$WIDELY_LISTENERS.push HTTPStatic::Dispatcher.new(7778, "mongrel")
+$WIDELY_LISTENERS.push WebDav::Dispatcher.new(7779, "default_auth")
 
 #
 # Ejecuta cada listener en un hilo

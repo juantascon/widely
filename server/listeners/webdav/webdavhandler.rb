@@ -15,7 +15,6 @@ require 'time'
 require 'fileutils.rb'
 require 'rexml/document'
 require 'webrick'
-require "base64"
 require 'iconv'
 
 module WEBrick
@@ -194,34 +193,6 @@ class WebDAVHandler < FileHandler
 	#
 	def service(req, resp)
 		codeconv_req!(req)
-		
-		begin
-			
-			auth_header = req.header.fetch('authorization') do
-				raise WEBrick::HTTPStatus::Unauthorized
-			end.first
-			
-			method, auth_data = auth_header.split(' ')
-			username, password = Base64.decode64(auth_data).split(':')
-			
-			user = Auth::Users.instance.authenticate(username, password)
-			raise WEBrick::HTTPStatus::Unauthorized if ! user
-			
-			# Si la ruta solicitada es permitida por ese usuario
-			if File.cleanpath("#{@root}#{req.path_info}").index(user.data_dir) != 0
-				raise WEBrick::HTTPStatus::Unauthorized
-			end
-			# Si llega a este punto es por que se ha autenticado con exito
-			
-		rescue Exception => ex
-			w_debug(ex.message)
-			w_debug(ex.backtrace.join("\n\t"))
-			
-			resp.header['WWW-Authenticate'] = 'Basic realm="Widely"'
-			raise WEBrick::HTTPStatus::Unauthorized
-			return #Aqui nunca deberia llegar
-		end
-		
 		super
 	end
 	

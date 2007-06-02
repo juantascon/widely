@@ -3,11 +3,11 @@ class Dispatcher < WPluginable
 	
 	attr_reader :port
 	
-	def initialize(port)
+	def initialize(port, manager)
 		@port = port
 		
 		super()
-		activate_wplugin("default")
+		activate_wplugin(manager)
 		init_server()
 		mount("/api/") { |rq| WebServiceHandler.process_rq(rq) }
 	end
