@@ -3,23 +3,18 @@
 # status()
 
 module Svn
-class Repository
+module Repository
 	
 	include FileUtils
 	include FileTest
-	
-	attr_reader :dir
 	
 	def files
 		[ /^%wc_dir%(\/|\/.*\/).svn((\/+.*)*)/ ]
 	end
 	
-	def initialize(_self)
-		@_self = _self
-		@dir = @_self.dir
-		
-		raise ArgumentError.new("dir[#{@dir}]: invalid") if ! @dir.kind_of? String
-		raise ArgumentError.new("dir[#{@dir}]: not an absolute path") if ! File.absolute?(@dir)
+	def init_repos()
+		raise ArgumentError.new("dir[#{@data_dir}]: invalid") if ! @data_dir.kind_of? String
+		raise ArgumentError.new("dir[#{@data_dir}]: not an absolute path") if ! File.absolute?(@data_dir)
 		
 		create_ok = self.create if ! exists
 		raise StandardError.new("create: invalid") if ! create_ok
@@ -27,20 +22,20 @@ class Repository
 	
 	
 	def exists()
-		return (directory?(@dir) and file?(@dir+"format") and file?(@dir+"README.txt") and file?(@dir+"db"+"fs-type"))
+		return (directory?(@data_dir) and file?(@data_dir+"format") and file?(@data_dir+"README.txt") and file?(@data_dir+"db"+"fs-type"))
 	end
 	
 	def create()
-		w_info("#{@dir}")
-		mkdir_p(@dir)
-		cmd = Command.exec("svnadmin", "create", @dir)
+		w_info("#{@data_dir}")
+		mkdir_p(@data_dir)
+		cmd = Command.exec("svnadmin", "create", @data_dir)
 		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
 		return true
 	end
 	
 	def checkout(wc_dir, version=versions.last)
-		w_info("#{@dir}@#{version.get} -> #{wc_dir}")
-		cmd = Command.exec("svn", "checkout", "file://#{@dir}@#{version.get}", wc_dir)
+		w_info("#{@data_dir}@#{version.get} -> #{wc_dir}")
+		cmd = Command.exec("svn", "checkout", "file://#{@data_dir}@#{version.get}", wc_dir)
 		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
 		return true
 	end
@@ -51,7 +46,7 @@ class Repository
 	end
 	
 	def commit(wc_dir, log)
-		w_info("#{wc_dir}(#{log}) -> #{@dir}:")
+		w_info("#{wc_dir}(#{log}) -> #{@data_dir}:")
 		cmd = Command.exec("svn", "commit", "--non-interactive", "-m", log, wc_dir)
 		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
 		return true
@@ -59,8 +54,8 @@ class Repository
 	
 	
 	def versions()
-		w_info("#{@dir}")
-		cmd = Command.exec("svn", "log", "--xml", "file://#{@dir}")
+		w_info("#{@data_dir}")
+		cmd = Command.exec("svn", "log", "--xml", "file://#{@data_dir}")
 		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
 		
 		ret = Array.new
@@ -82,7 +77,7 @@ class Repository
 		path = File.cleanpath(path)
 		(w_warn("#{path}: invalid path") ; return false) if ! File.absolute?(path)
 		
-		rpath = "#{@dir}/#{path}"
+		rpath = "#{@data_dir}/#{path}"
 		cmd = Command.exec("svn", "cat", "file://#{rpath}@#{version.get}")
 		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
 		return cmd.stdout
@@ -93,7 +88,7 @@ class Repository
 		path = File.cleanpath(path)
 		(w_warn("#{path}: invalid path") ; return false) if ! File.absolute?(path)
 		
-		rpath = "#{@dir}/#{path}"
+		rpath = "#{@data_dir}/#{path}"
 		cmd = Command.exec("svn", "ls", "-R", "--xml", "file://#{rpath}@#{version.get}")
 		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
 

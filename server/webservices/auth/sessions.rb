@@ -22,16 +22,15 @@ class Session
 		end
 	end
 	
-	attr_reader :id, :user, :collectable
+	attr_reader :id, :user
 	attr_accessor :wc
+	alias :collectable_key :id
 	
 	def initialize(user)
 		@id = Auth::Rand.rand_key
 		@user = user
 		@wc = InvalidWC.new(@id)
-		
-		@collectable = Collectable.new(self, @id)
-		w_debug("new: #{@collectable.to_s}")
+		w_debug("new: #{@id} #{@user}")
 	end
 	
 end

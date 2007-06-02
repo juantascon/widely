@@ -1,7 +1,9 @@
 module Repos
 
 class Default
-	METHODS = [ :files, :create, :checkout, :status, :commit, :versions, :cat, :ls, :add, :delete, :move ]
+	METHODS = [ :init_repos, :files, :create,
+		:checkout, :status, :commit, :versions,
+		:cat, :ls, :add, :delete, :move ]
 	
 	METHODS.each do |m|
 		define_method(m) do |*args|

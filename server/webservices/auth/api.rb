@@ -24,7 +24,7 @@ class API
 	def logout(args)
 		args.check("session_id")
 		
-		return SessionSet.instance.delete(args["session_id"])
+		return SessionSet.instance.delete_by_key(args["session_id"])
 	end
 	
 	def set_wc(args)

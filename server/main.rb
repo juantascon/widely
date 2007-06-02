@@ -7,6 +7,11 @@ $WIDELY_HOME_SERVER = "#{$WIDELY_HOME}/server"
 $WIDELY_HOME_GUI = "#{$WIDELY_HOME}/gui"
 $WIDELY_HOME_DOC = "#{$WIDELY_HOME}/doc"
 
+#
+# Define el espacio de listeners y threads
+#
+$WIDELY_LISTENERS = Array.new
+$WIDELY_THREADS = Array.new
 
 #
 # Estos directorios deben estar en el entorno de
@@ -16,9 +21,6 @@ $: << $WIDELY_HOME_SERVER
 $: << "#{$WIDELY_HOME_SERVER}/lib"
 
 
-#
-# Carga el resto
-#
 require "loader/autoloads.rb"
 require "loader/core.rb"
 require "loader/wmodules.rb"

@@ -3,7 +3,8 @@ class Repository < WPluginable
 	
 	REPOS_BASE_DIRNAME = "repos"
 	
-	attr_reader :user, :name, :collectable
+	attr_reader :user, :name
+	alias :collectable_key :name
 	
 	#
 	# Crea un nuevo objeto dependiendo del manejador a utilizar
@@ -12,20 +13,17 @@ class Repository < WPluginable
 	def initialize(user, name, manager)
 		@user = user
 		@name = name
+		@data_dir = "#{@user.data_dir}/#{REPOS_BASE_DIRNAME}/#{@name}"
 		
-		@collectable = Collectable.new(self, @name)
-		w_debug("new: #{@collectable.to_s}")
+		w_debug("new: #{@name} #{@user}")
 		
-		if File.basename(File.cleanpath(self.dir)) != @name
+		if File.basename(File.cleanpath(@data_dir)) != @name
 			raise ArgumentError.new("#{@name}: invalid name:)") 
 		end
 		
 		super()
 		activate_wplugin(manager)
-	end
-	
-	def dir
-		"#{@user.data_dir}/#{REPOS_BASE_DIRNAME}/#{@name}"
+		init_repos()
 	end
 	
 end

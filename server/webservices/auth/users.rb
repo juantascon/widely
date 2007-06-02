@@ -5,7 +5,7 @@ class UserSet < Collection
 	include Singleton
 	
 	def initialize
-		super
+		super()
 		add(User.new($CONFIG.get("AUTH_ADMIN_NAME").get_value, $CONFIG.get("AUTH_ADMIN_PASSWORD").get_value))
 	end
 	
@@ -20,26 +20,21 @@ end
 
 class User
 	
-	attr_reader :uid, :config, :wcs, :repos
-	attr_reader :collectable
+	attr_reader :uid, :config, :wcs, :repos, :data_dir
+	alias :collectable_key :uid
 	
 	def initialize(uid, password)
 		@uid = uid
 		@password = Auth::Crypt.crypt(password)
 		@wcs = Collection.new
 		@repos = Collection.new
+		@data_dir = File.cleanpath("#{$CONFIG.get("CORE_DATA_DIR").get_value}/#{@uid}")
 		
-		@collectable = Collectable.new(self, @uid)
-		w_debug("new: #{@collectable.to_s}")
+		w_debug("new: #{@uid}")
 	end
 	
 	def authenticate(password)
 		( Auth::Crypt.crypt(password) == @password )
-	end
-		
-	
-	def data_dir
-		File.cleanpath("#{$CONFIG.get("CORE_DATA_DIR").get_value}/#{@uid}")
 	end
 	
 end

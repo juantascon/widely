@@ -25,7 +25,8 @@ class API
 	
 	def checkout(args)
 		args.check("session_id")
-		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
+		session = Auth::SessionSet.instance.get_ex(args["session_id"])
+		wc = session.wc
 		version = Repos::Version.new(args["version"]) if args["version"]
 		
 		return wc.checkout(version)

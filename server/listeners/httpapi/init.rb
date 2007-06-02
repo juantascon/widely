@@ -10,6 +10,7 @@ wmodule :HTTPAPI do |mod|
 		
 		mod.require "rq.rb"
 		mod.require "resp.rb"
+		mod.require "urlparser.rb"
 		mod.require "webservicehandler.rb"
 		
 		mod.require "dispatcher.rb"

@@ -37,7 +37,7 @@
 # m.X #> 3
 # m.x1 #> produce error por que es un metodo de instancia(necesita un objeto)
 #      # y no de modulo(static)
-# 
+#
 # m.load
 # X #> 3
 # x1 #> "hola"
@@ -46,15 +46,28 @@
 class WModule < Module
 	
 	#
-	# La coleccion de los modulos es util para cargar varios modulos al tiempo
+	# Las coleccion de modulos:
+	#  all: todos los modulos
+	#  created: los modulos que no han sido cargados
+	#  load_ok: los modulos cargados correctamente
+	#  load_fal: los modulos cargados incorrectamente
 	#
-	@@collection = Collection.new
-	def self.each_wmodule(*args, &block); @@collection.each(*args, &block); end
+	@@collection_all = Collection.new
+	@@collection_created = Collection.new
+	@@collection_load_ok = Collection.new
+	@@collection_load_fail = Collection.new
+	
+	def self.load_missing()
+		@@collection_created.each do |name, m|
+			m.load()
+		end
+	end
 	
 	attr_reader :name, :init_block, :creator_file, :loaded, :depends, :base_dir
-	attr_reader :collectable
 	attr_reader :MODULE
-
+	
+	alias :collectable_key :name
+	
 	#
 	# :definition puede ser de la siguiente forma:
 	#
@@ -77,7 +90,7 @@ class WModule < Module
 			raise ArgumentError.new("#{definition}: invalid")
 		end
 		
-		raise StandardError.new("WModule[#{@name}]: already exists") if @@collection.get(@name)
+		raise StandardError.new("WModule[#{@name}]: already exists") if @@collection_all.get(@name)
 		
 		# El bloque con la definicion del module
 		@init_block = init_block
@@ -99,11 +112,12 @@ class WModule < Module
 		# Incluye el nuevo Module en este WModule
 		include @MODULE
 		
-		# Define el id de identificacion en la coleccion de modulos
-		@collectable = Collectable.new(self, @name)
-		
-		# Incluye este modulo en la coleccion de modulos
-		@@collection.add(self)
+		#
+		# Incluye este modulo en la coleccion de modulos creados
+		# y de todos los modulos
+		#
+		@@collection_created.add(self)
+		@@collection_all.add(self)
 		
 		@loaded = false
 		w_info("#{@name} -- CREATED")
@@ -114,26 +128,24 @@ class WModule < Module
 	# y de cargar este Module en el entorno principal(Object)
 	#
 	def load()
-		w_info("#{name} -- LOAD")
-		(w_warn("#{name}: module already loaded") ; return false) if @loaded
+		w_info("#{@name} -- LOAD")
+		(w_warn("#{@name}: module already loaded") ; return false) if @loaded
 		
 		#
 		# Cargar las dependencias, en caso de error aborta
 		# las dependencias deben estar creadas ya
 		#
 		@depends.each do |m|
-			mod = @@collection.get(m)
-			if mod # El modulo existe
-				# Si ya se ha cargado no hay que volverlo a hacer
+			begin
+				mod = @@collection_all.get(m)
+				raise Exception.new("not found") if ! mod
 				next if mod.loaded
+				raise Exception.new("load error") if ! mod.load
+			rescue Exception => ex
+				w_warn("#{@name}: dependency module #{ex.message}: #{m}")
 				
-				# Carga el modulo y verifica que todo salga bien
-				if ! mod.load
-					w_warn("#{name}: dependency module load error: #{m}")
-					return false
-				end
-			else
-				w_warn("#{name}: dependency module not found: #{m}")
+				@@collection_load_fail.add(self)
+				@@collection_created.delete_by_key(@name)
 				return false
 			end
 		end
@@ -154,7 +166,15 @@ class WModule < Module
 		#
 		#Object.module_eval("include ObjectSpace._id2ref(#{self.MODULE.object_id})")
 		
-		@loaded ? w_info("#{name} -- LOADED") : w_info("#{name} -- ERROR LOADING")
+		if @loaded
+			w_info("#{@name} -- LOAD |OK|")
+			@@collection_load_ok.add(self)
+		else
+			w_info("#{@name} -- LOAD |FAIL|")
+			@@collection_load_fail.add(self)
+		end
+		
+		@@collection_created.delete_by_key(@name)
 		return @loaded
 	end
 	

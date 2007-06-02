@@ -1,29 +1,3 @@
-class Collectable
-	
-	attr_reader :object, :name, :collection
-	
-	def initialize(object, name)
-		@object = object
-		@name = name
-	end
-	
-	def collect(collection)
-		@collection = collection
-		@name
-	end
-	
-	def uncollect(collection)
-		@collection = nil
-		@name
-	end
-	
-	def to_s
-		return "#{@object.class.name} ( #{@name} )"
-	end
-	
-end
-
-
 class Collection
 	
 	include Enumerable
@@ -35,32 +9,40 @@ class Collection
 		@parent = parent
 	end
 	
-	def get(name)
-		return @collection[name] if @collection.include? name
-		return @parent.get(name) if @parent
+	def get(key)
+		return @collection[key] if @collection.include? key
+		return @parent.get(key) if @parent
 		return nil
 	end
 	
-	def get_ex(name, *args, &block)
-		object = get(name, *args, &block)
-		raise ArgumentError, "#{name}: collectable not found  #{@collection}" if object == nil
+	def get_ex(key, *args, &block)
+		object = get(key, *args, &block)
+		raise ArgumentError, "#{key}: collectable not found  #{@collection}" if object == nil
 		return object
 	end
 	
 	def each(*args, &block)
 		@collection.each(*args, &block)
+		@parent.each(*args, &block) if @parent
+	end
+	
+	def add_at(key, object)
+		@collection[key] = object
+		return key
 	end
 	
 	def add(object)
-		name = object.collectable.collect(self)
-		@collection[name] = object
-		return name
+		add_at(object.collectable_key, object)
 	end
-		
-	def delete(name)
-		object = @collection.delete(name)
-		object.collectable.uncollect(self)
-		return object
+	
+	def delete_by_key(key)
+		@collection.delete(key)
+		@parent.delete_by_key(key) if @parent
+	end
+	
+	def delete_by_object(object)
+		@collection.delete(@collection.index(object))
+		@parent.delete_by_object(object) if @parent
 	end
 	
 end

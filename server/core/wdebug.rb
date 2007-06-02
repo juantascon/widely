@@ -68,6 +68,13 @@ module WDebug
 	def w_error(m, back=0, &block); w_log(Sev::E, m, 2+back, &block); end
 	def w_fatal(m, back=0, &block); w_log(Sev::F, m, 2+back, &block); end
 	def w_unknown(m, back=0, &block); w_log(Sev::U, m, 2+back, &block); end
+	
+	def w_debugx(m, back=0, &block)
+		w_debug("X"*70)
+		w_debug(m, back, &block)
+		w_debug("X"*70)
+		sleep(2)
+	end
 end
 
 #

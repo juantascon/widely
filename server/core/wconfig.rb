@@ -8,13 +8,13 @@ end
 
 class Property
 	
-	attr_reader :collectable, :name, :init_value, :value
+	attr_reader :name, :init_value, :value
+	alias :collectable_key :name
 	
 	def initialize(name, init_value)
-		@name = name
-		@collectable = Collectable.new(self, @name)
-		
 		self.set_value(init_value)
+		
+		@name = name
 		@init_value = init_value
 	end
 	
@@ -29,7 +29,6 @@ class Property
 	def get_value()
 		get_raw_value()
 	end
-	
 end
 
 
@@ -41,7 +40,7 @@ class StringProperty < Property
 	end
 	
 	def get_value()
-		super().gsub(/%[a-zA-Z0-9_\.]+%/) { |s| @collectable.collection.get([s.gsub("%", "")]) }
+		super().gsub(/%[a-zA-Z0-9_\.]+%/) { |s| $CONFIG.get([s.gsub("%", "")]) }
 	end
 	
 end
@@ -60,8 +59,7 @@ end
 class BooleanProperty < Property
 	
 	def set_value(value)
-		super(true) if value
-		super(false) if ! value
+		value ? super(true) : super(false)
 	end
 	
 end

@@ -5,28 +5,17 @@
 #
 
 module WC
-class Default
+module Default
 	
 	include FileUtils
 	include FileTest
 	
-	@@WC = Repos::Version.new("-1")
-	def self.WC; @@WC; end
-	
-	attr_reader :_self
-	attr_reader :user, :name, :repository
-	
-	def initialize(_self)
-		@_self = _self
-		@user = @_self.user
-		@name = @_self.name
-		@repository = @_self.repository
-		
-		if File.basename(File.cleanpath(_self.dir)) != @name
+	def init_wc()
+		if File.basename(File.cleanpath(@data_dir)) != @name
 			raise ArgumentError.new("#{@name}: invalid name:)")
 		end
 		
-		mkdir_p @_self.dir if ! directory? @_self.dir
+		mkdir_p @data_dir if ! directory? @data_dir
 	end
 	
 	#
@@ -55,12 +44,12 @@ class Default
 	def checkout(version=@@WC)
 		version=versions.last if (! version || version.get == @@WC.get)
 		
-		return repository.checkout(@_self.dir, version)
+		return repository.checkout(@data_dir, version)
 	end
 
 	
 	def status()
-		@repository.status(@_self.dir)
+		@repository.status(@data_dir)
 	end
 	
 	#
@@ -69,7 +58,7 @@ class Default
 	# log = la descripcion de los cambios
 	#
 	def commit(log)
-		@repository.commit(@_self.dir, log.to_s)
+		@repository.commit(@data_dir, log.to_s)
 	end
 	
 	#
@@ -98,7 +87,7 @@ class Default
 			return false
 		end
 		
-		rpath = "#{@_self.dir}/#{path}"
+		rpath = "#{@data_dir}/#{path}"
 		if ! version || version.get == @@WC.get
 			return false if ! file?(rpath)
 			return File.new(rpath).read
@@ -124,7 +113,7 @@ class Default
 			return false
 		end
 		
-		rpath = "#{@_self.dir}/#{path}"
+		rpath = "#{@data_dir}/#{path}"
 		if ! version || version.get == @@WC.get
 			tree = FileTree.new
 			Find.find(rpath) do |f|
@@ -157,13 +146,13 @@ class Default
 			return false
 		end
 		
-		rpath = "#{@_self.dir}/#{path}"
+		rpath = "#{@data_dir}/#{path}"
 		if ! exist?(rpath)
 			mkdir(rpath) if as_dir
 			touch(rpath) if ! as_dir
 		end
 		
-		return @repository.add(@_self.dir, path)
+		return @repository.add(@data_dir, path)
 	end
 	
 	#
@@ -183,8 +172,8 @@ class Default
 			return false
 		end
 		
-		rpath = "#{@_self.dir}/#{path}"
-		(ret = @repository.delete(@_self.dir, path)) if exist?(rpath)
+		rpath = "#{@data_dir}/#{path}"
+		(ret = @repository.delete(@data_dir, path)) if exist?(rpath)
 		rm_rf(rpath) if exist?(rpath)
 		
 		return ret
@@ -209,13 +198,13 @@ class Default
 			return false
 		end
 		
-		rpath_from = "#{@_self.dir}/#{path_from}"
-		rpath_to = "#{@_self.dir}/#{path_to}"
+		rpath_from = "#{@data_dir}/#{path_from}"
+		rpath_to = "#{@data_dir}/#{path_to}"
 		if exist?(rpath_from)
 			if directory?(rpath_to) or
 				directory?(File.dirname(rpath_to))
 				
-				@repository.move(@_self.dir, path_from, path_to)
+				@repository.move(@data_dir, path_from, path_to)
 			else
 				return false
 			end
@@ -237,7 +226,7 @@ class Default
 			return false
 		end
 		
-		rpath = "#{@_self.dir}/#{path}"
+		rpath = "#{@data_dir}/#{path}"
 		return false if ! file?(rpath)
 		
 		file = File.new(rpath, "w")
