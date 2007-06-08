@@ -18,7 +18,9 @@ class API
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
 		raise ArgumentError.new("#{name}: repository already exists") if user.repos.get(name)
 		
-		return user.repos.add(Repository.new(user, name, manager))
+		root_dir = user.data_dir
+		
+		return user.repos.add(Repository.new(root_dir, name, manager))
 	end
 end
 
