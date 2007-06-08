@@ -20,15 +20,19 @@ end
 
 class User
 	
-	attr_reader :uid, :config, :wcs, :repos, :data_dir
+	attr_reader :uid, :data_dir
+	attr_reader :wcset, :reposet, :dataset
 	alias :collectable_key :uid
 	
 	def initialize(uid, password)
 		@uid = uid
-		@password = Auth::Crypt.crypt(password)
-		@wcs = Collection.new
-		@repos = Collection.new
 		@data_dir = File.cleanpath("#{$CONFIG.get("CORE_DATA_DIR").get_value}/#{@uid}")
+		
+		@password = Auth::Crypt.crypt(password)
+		
+		@wcset = Collection.new
+		@reposet = Collection.new
+		@dataset = Collection.new
 		
 		w_debug("new: #{@uid}")
 	end

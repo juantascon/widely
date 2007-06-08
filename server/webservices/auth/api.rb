@@ -11,9 +11,6 @@ class API
 	
 	attr_reader :users, :sessions
 	
-	def initialize
-	end
-	
 	def login(args)
 		args.check("user_id", "password")
 		
@@ -27,10 +24,11 @@ class API
 		return SessionSet.instance.delete_by_key(args["session_id"])
 	end
 	
+	#TODO: esto deberia ir en otro lado (depronto en users)
 	def set_wc(args)
 		args.check("session_id", "wc_id")
 		session = SessionSet.instance.get_ex(args["session_id"])
-		wc = session.user.wcs.get_ex(args["wc_id"])
+		wc = session.user.wcset.get_ex(args["wc_id"])
 		
 		session.wc = wc
 		return true

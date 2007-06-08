@@ -17,7 +17,7 @@ class Collection
 	
 	def get_ex(key, *args, &block)
 		object = get(key, *args, &block)
-		raise ArgumentError, "#{key}: collectable not found  #{@collection}" if object == nil
+		raise ArgumentError, "#{@collection.class.name}[#{key}]: collectable object not found" if object == nil
 		return object
 	end
 	
@@ -33,6 +33,10 @@ class Collection
 	
 	def add(object)
 		add_at(object.collectable_key, object)
+	end
+	
+	def add_new(klass, *args)
+		add(klass.new(*args))
 	end
 	
 	def delete_by_key(key)

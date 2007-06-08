@@ -4,12 +4,6 @@
 # Author: Tatsuki Sugiura <sugi@nemui.org>
 # License: Ruby's
 #
-# Adaptado para el sistema de autenticacion de Widely
-#
-# Los cambios son basados en codigo visto en:
-# http://jps.kni.pk.edu.pl/2007/1/15/webrick-webdav-and-basic-authentication
-# Por: Jan Szumiec
-#
 
 require 'time'
 require 'fileutils.rb'

@@ -1,5 +1,10 @@
 module Auth
 
+#
+# El codigo de esta clase esta basado en codigo visto en:
+# http://jps.kni.pk.edu.pl/2007/1/15/webrick-webdav-and-basic-authentication
+# Por: Jan Szumiec
+#
 class WebDavHandlerAuth < WEBrick::HTTPServlet::WebDAVHandler
 	
 	def service(req, resp)

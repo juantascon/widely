@@ -22,6 +22,7 @@ class Session
 		end
 	end
 	
+	
 	attr_reader :id, :user
 	attr_accessor :wc
 	alias :collectable_key :id

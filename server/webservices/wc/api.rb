@@ -16,12 +16,12 @@ class API
 		manager = args["manager"]
 		
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
-		raise ArgumentError.new("#{name}: workingcopy already exists") if user.wcs.get(name)
+		raise ArgumentError.new("#{name}: workingcopy already exists") if user.wcset.get(name)
 		
-		repository = user.repos.get_ex(args["repos_id"])
+		repository = user.reposet.get_ex(args["repos_id"])
 		root_dir = user.data_dir
 		
-		return user.wcs.add(WorkingCopy.new(repository, root_dir, name, manager))
+		return user.wcset.add(WorkingCopy.new(repository, root_dir, name, manager))
 	end
 	
 	def checkout(args)

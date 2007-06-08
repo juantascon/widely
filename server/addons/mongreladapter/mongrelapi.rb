@@ -12,7 +12,7 @@ module MongrelAPI
 				@block = block
 			end
 			def process(rq, resp)
-				real_resp = @block.call(RQ.new(
+				real_resp = @block.call(HTTPAPI::RQ.new(
 					rq.params["REQUEST_METHOD"],
 					rq.params["REQUEST_PATH"],
 					rq.body.read))
