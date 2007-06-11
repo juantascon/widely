@@ -1,0 +1,55 @@
+#
+# Aqui se definen los listeners
+#
+
+listeners:
+
+  listener0:
+    type: httpapi
+    manager: mongrel
+    port: 3401
+
+  listener1:
+    type: httpstatic
+    manager: mongrel
+    port: 3402
+
+  listener2:
+    type: webdav 
+    manager: default_auth
+    port: 3403
+
+#
+#
+# Se deben definir los siguientes backends:
+#
+# * api: donde se encuentran los webservices solo debe ser asignada a
+#        un listener tipo httpapi
+#
+# * data: donde se accedera a los archivos por medio de webdav, solo puede
+#         ser asignado a un listener tipo webdav
+#
+# * doc: contenido estatico de la documentacion, solo puede ser asignado a un
+#        listener tipo httpstatic
+#
+# * gui: contenido estatico de la interfaz web, solo puede ser asignado a un
+#        listener tipo httpstatic
+#
+# * qooxdoo: contenido estatico de la biblioteca qooxdoo(sdk), solo puede ser
+#        asignado a un listener tipo httpstatic
+#
+#
+backends:
+  api: listener0
+  data: listener2
+  doc: listener1
+  gui: listener1
+  qooxdoo: listener1
+
+#
+# El listener principal, el que los abarca a todos
+#
+main:
+  port: 7777
+  manager: default
+

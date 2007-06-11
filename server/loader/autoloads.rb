@@ -10,6 +10,7 @@ autoload(:Forwardable, "forwardable.rb")
 autoload(:SingleForwardable, "forwardable.rb")
 autoload(:CGI, "cgi.rb")
 autoload(:Thread, "thread.rb")
+autoload(:Tempfile, "tempfile.rb")
 
 #
 # Widely lib Autoloads
