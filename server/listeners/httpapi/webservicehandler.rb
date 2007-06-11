@@ -17,6 +17,7 @@ class WebServiceHandler
 	# y del metodo
 	#
 	def self.process_rq(rq)
+		w_debug(rq.path)
 		# La ruta real es sin "/api/"
 		path = rq.path.gsub(/^\/api\//, "")
 		

@@ -16,7 +16,7 @@ class Resp
 	# Status: Not Found
 	#
 	def self.new_not_found()
-		new(404, "", "NOT FOUND")
+		new(404, "", "NOT FOUND A")
 	end
 	
 	#

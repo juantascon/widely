@@ -6,10 +6,15 @@ class Dispatcher < WPluginable
 	def initialize(port, manager)
 		@port = port
 		
-		super()
 		activate_wplugin(manager)
 		init_server()
-		mount("/api/") { |rq| WebServiceHandler.process_rq(rq) }
+	end
+	
+	def mount_backend(backend_name)
+		case backend_name
+			when "api" then mount("/api/") { |rq| WebServiceHandler.process_rq(rq) }
+			else raise Exception, "invalid backend: #{backend_name}"
+		end
 	end
 	
 end
