@@ -19,9 +19,18 @@ class API
 		raise ArgumentError.new("#{name}: workingcopy already exists") if user.wcset.get(name)
 		
 		repository = user.reposet.get_ex(args["repos_id"])
-		root_dir = user.data_dir
 		
-		return user.wcset.add(WorkingCopy.new(repository, root_dir, name, manager))
+		return user.wcset.add(WorkingCopy.new(user, repository, name, manager))
+	end
+	
+	def list(args)
+		args.check("session_id")
+		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
+		
+		ret = Array.new
+		user.wcset.each { |key, object| ret.push object.to_h }
+		
+		return ret
 	end
 	
 	def checkout(args)

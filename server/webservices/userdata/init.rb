@@ -4,6 +4,7 @@
 
 wmodule :UserData => [ :Auth, :HTTPAPI ] do |mod|
 	begin
+		mod.require "userdata.rb"
 		mod.require "api.rb"
 		
 		true

@@ -12,23 +12,42 @@ class WorkingCopy < WPluginable
 	@@WC = Repos::Version.new("-1")
 	def self.WC; @@WC; end
 	
-	attr_reader :repository, :name, :data_dir
+	attr_reader :owner, :repository, :name, :data_dir
 	alias :collectable_key :name
 	
-	def initialize(repository, root_dir, name, manager)
+	def initialize(owner, repository, name, manager)
+		@owner = owner
 		@repository = repository
 		@name = name
-		@data_dir = "#{root_dir}/#{WC_BASE_DIRNAME}/#{@name}"
+		@manager = manager
+		
+		initialize2
+		
+		w_debug("new: #{@name} #{@manager} #{@data_dir}")
+	end
+	
+	def initialize2
+		@data_dir = "#{@owner.data_dir}/#{WC_BASE_DIRNAME}/#{@name}"
 		
 		if File.basename(File.cleanpath(@data_dir)) != @name
 			raise ArgumentError.new("#{@name}: invalid name (what are you playing?)")
 		end
 		
-		super()
-		activate_wplugin(manager)
+		activate_wplugin(@manager)
 		init_wc()
+	end
+	
+	def to_h()
+		{ "repository" => @repository.name, "owner" => @owner.user_id, "name" => @name, "manager" => @manager }
+	end
+	
+	def load(data)
+		@owner = UserSet.instance.get(data["owner"])
+		@repository = @owner.repos.get(data["repository"])
+		@name = data["name"]
+		@manager = data["manager"]
 		
-		w_debug("new: #{@name} #{@data_dir}")
+		initialize2
 	end
 	
 end

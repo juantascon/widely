@@ -15,13 +15,31 @@ class API
 		args.check("user_id", "password")
 		
 		user = UserSet.instance.get_ex(args["user_id"], args["password"])
-		return SessionSet.instance.add(Session.new(user))
+		return SessionSet.instance.add(UserSession.new(user))
+	end
+	
+	def login_admin(args)
+		args.check("password")
+		
+		password = args["password"]
+		
+		return SessionSet.instance.add(AdminSession.new(password))
 	end
 	
 	def logout(args)
 		args.check("session_id")
 		
 		return SessionSet.instance.delete_by_key(args["session_id"])
+	end
+	
+	def user_session(args)
+		args.check("session_id", "user_id")
+		
+		session = SessionSet.instance.get_ex(args["session_id"])
+		raise ArgumentError, "session is not admin" if ! session.kind_of? AdminSession
+		user = UserSet.instance.get_ex(args["user_id"])
+		
+		return SessionSet.instance.add(UserSession.new(user))
 	end
 	
 	#TODO: esto deberia ir en otro lado (depronto en users)
@@ -33,7 +51,6 @@ class API
 		session.wc = wc
 		return true
 	end
-	
 end
 
 HTTPAPI::WebServiceHandler.set_webservice("auth", Auth::API.instance)

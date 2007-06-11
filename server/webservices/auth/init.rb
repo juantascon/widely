@@ -8,8 +8,7 @@ wmodule :Auth => :HTTPAPI do |mod|
 		# Agrega las propiedades del modulo
 		#
 		$CONFIG.add(WConfig::NumericProperty.new("AUTH_KEY_SIZE", 256))
-		$CONFIG.add(WConfig::StringProperty.new("AUTH_ADMIN_NAME", "admin"))
-		$CONFIG.add(WConfig::StringProperty.new("AUTH_ADMIN_PASSWORD", "admin"))
+		$CONFIG.add(WConfig::StringProperty.new("AUTH_ADMIN_PASSWORD", "sa1aY64JOY94w")) #admin
 		
 		require "base64"
 		

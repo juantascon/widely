@@ -10,7 +10,7 @@ $WIDELY_HOME_DOC = "#{$WIDELY_HOME}/doc"
 #
 # Define el espacio de listeners y threads
 #
-$WIDELY_LISTENERS = Array.new
+$WIDELY_LISTENERS = Hash.new
 $WIDELY_THREADS = Array.new
 
 #

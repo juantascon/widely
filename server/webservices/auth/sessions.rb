@@ -4,11 +4,23 @@ class SessionSet < Collection
 	include Singleton
 	
 	def initialize
-		super
+		super(Session)
 	end
 end
 
 class Session
+	
+	attr_reader :id
+	alias :collectable_key :id
+	
+	def initialize
+		@id = Auth::Rand.rand_key
+	end
+	
+end
+
+
+class UserSession < Session
 	
 	class InvalidWC
 		attr_reader :session_id
@@ -23,15 +35,29 @@ class Session
 	end
 	
 	
-	attr_reader :id, :user
+	attr_reader :user
 	attr_accessor :wc
-	alias :collectable_key :id
 	
 	def initialize(user)
-		@id = Auth::Rand.rand_key
+		super()
 		@user = user
 		@wc = InvalidWC.new(@id)
 		w_debug("new: #{@id} #{@user}")
+	end
+end
+
+
+class AdminSession < Session
+	
+	def initialize(password)
+		super()
+		
+		password = Auth::Crypt.crypt(password)
+		sys_password = $CONFIG.get("AUTH_ADMIN_PASSWORD").get_value
+		
+		if (password != sys_password)
+			raise ArgumentError, "Invalid password"
+		end
 	end
 	
 end

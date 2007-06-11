@@ -18,10 +18,19 @@ class API
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
 		raise ArgumentError.new("#{name}: repository already exists") if user.reposet.get(name)
 		
-		root_dir = user.data_dir
-		
-		return user.reposet.add(Repository.new(root_dir, name, manager))
+		return user.reposet.add(Repository.new(user, name, manager))
 	end
+	
+	def list(args)
+		args.check("session_id")
+		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
+		
+		ret = Array.new
+		user.reposet.each { |key, object| ret.push object.to_h }
+		
+		return ret
+	end
+	
 end
 
 HTTPAPI::WebServiceHandler.set_webservice("repos", Repos::API.instance)
