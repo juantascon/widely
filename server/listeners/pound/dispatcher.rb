@@ -6,8 +6,8 @@ class Dispatcher < WPluginable
 	def initialize(port, manager)
 		@port = port
 		
-		activate_wplugin(manager)
-		init_server()
+		wplugin_activate(manager)
+		wplugin_init()
 	end
 	
 end

@@ -6,13 +6,13 @@ class Dispatcher < WPluginable
 	def initialize(port, manager)
 		@port = port
 		
-		activate_wplugin(manager)
-		init_server()
+		wplugin_activate(manager)
+		wplugin_init()
 	end
 	
 	def mount_backend(backend_name)
 		case backend_name
-			when "data" then mount("/data/", $CONFIG.get("CORE_DATA_DIR").get_value)
+			when "data" then mount("/data/", "#{$WIDELY_DATA_DIR}/users")
 			else raise Exception, "invalid backend: #{backend_name}"
 		end
 	end

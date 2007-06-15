@@ -17,16 +17,8 @@ require "core/lang/file.rb"
 #
 
 require "core/wdebug.rb"
+require "core/wcollection.rb"
+require "core/wstorage.rb"
 require "core/wconfig.rb"
 require "core/wmodule.rb"
 require "core/wplugin.rb"
-
-#
-# El directorio de datos por defecto ( TODO: esto deberia ir en otro lado, en AUTH muy probablemente )
-#
-$CONFIG.add(WConfig::StringProperty.new("CORE_DATA_DIR", "/tmp/widely"))
-
-#
-# El directorio de datos por defecto ( TODO: esto deberia ir en otro lado, en Listeners muy probablemente )
-#
-$CONFIG.add(WConfig::StringProperty.new("CORE_LISTENERS_CONFIG_FILE", "#{$WIDELY_HOME}/listeners.yml"))

@@ -2,7 +2,7 @@ module WebDav
 
 module Default
 	
-	def init_server()
+	def wplugin_init()
 		logger = WEBrick::Log.new
 		logger.level = WDEBUG_LEVEL
 		@server = WEBrick::HTTPServer.new({:Port => @port, :Logger => logger})

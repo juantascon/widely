@@ -1,7 +1,5 @@
 #
 # Manejador de Copia de Trabajo
-# TODO:
-# terminar status()
 #
 
 module WC
@@ -10,11 +8,7 @@ module Default
 	include FileUtils
 	include FileTest
 	
-	def init_wc()
-		if File.basename(File.cleanpath(@data_dir)) != @name
-			raise ArgumentError.new("#{@name}: invalid name:)")
-		end
-		
+	def wplugin_init()
 		mkdir_p @data_dir if ! directory? @data_dir
 	end
 	

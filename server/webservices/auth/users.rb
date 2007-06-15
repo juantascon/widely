@@ -1,11 +1,11 @@
 module Auth
 
-class UserSet < Collection
+class UserSet < WStorage::DistributedStorager
 	
 	include Singleton
 	
 	def initialize
-		super(User, File.cleanpath("#{$CONFIG.get("CORE_DATA_DIR").get_value}/users.yml"))
+		super(User, "#{$WIDELY_DATA_DIR}/users/%s/user.conf")
 		add(User.new("test", "test"))
 	end
 	
@@ -19,43 +19,48 @@ end
 
 class User
 	
-	USER_BASE_DIRNAME = "users"
+	include WStorage::Storable
 	
 	attr_reader :user_id, :data_dir
-	attr_reader :reposet, :wcset, :dataset
 	alias :collectable_key :user_id
 	
-	def initialize(user_id, password)
-		@user_id = user_id
-		@password = Auth::Crypt.crypt(password)
+	@@attrs = Hash.new
+	@@attrs_constructors = Hash.new
+	
+	def self.new_attr(attr_name, &constructor_block)
+		raise Exception, "constructor block not given" if ! block_given?
+		@@attrs_constructors[attr_name.to_sym] = constructor_block
+	end
+	
+	def method_missing(method_name, *args)
+		return @@attrs[method_name] if @@attrs[method_name]
+		raise NoMethodError, "undefined method `#{method_name}' for #{self}"
+	end
+	
+	def initialize(user_id, password, from_storage=false)
+		password = Auth::Crypt.crypt(password) if ! from_storage
 		
-		initialize2
+		@user_id = user_id
+		@password = password
+		
+		@data_dir = "#{$WIDELY_DATA_DIR}/users/#{@user_id}/data_dir" if ! @data_dir
+		
+		@@attrs_constructors.each do |attr_name, constructor_block|
+			@@attrs[attr_name] = constructor_block.call(self, from_storage)
+		end
 		
 		w_debug("new: #{@user_id}")
 	end
 	
-	def initialize2()
-		@data_dir = File.cleanpath(
-			"#{$CONFIG.get("CORE_DATA_DIR").get_value}/#{USER_BASE_DIRNAME}/#{@user_id}")
+	def initialize_from_storage(data)
+		user_id = data["user_id"]
+		password = data["password"]
 		
-		@reposet = Collection.new(Repos::Repository, "#{@data_dir}/repos.yml")
-		@wcset = Collection.new(WC::WorkingCopy, "#{@data_dir}/wcs.yml")
-		@dataset = Collection.new(UserData::UserData, "#{@data_dir}/userdata.yml")
+		initialize(user_id, password, true)
 	end
 	
 	def to_h()
 		{ "user_id" => @user_id, "password" => @password }
-	end
-	
-	def load(data)
-		@user_id = data["user_id"]
-		@password = data["password"]
-		
-		initialize2
-		
-		@dataset.load
-		@reposet.load
-		@wcset.load
 	end
 	
 	def authenticate(password)

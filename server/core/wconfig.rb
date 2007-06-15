@@ -1,93 +1,61 @@
-module WConfig
-
-class ConfigSet < Collection
-	def initialize
-		super
-	end
-end
-
-class Property
+class WConfig < WStorage::CentralizedStorager
 	
-	attr_reader :name, :default_value, :value
-	alias :collectable_key :name
-	
-	def initialize(name, default_value)
-		self.set_value(default_value)
+	class Property
 		
-		@name = name
-		@default_value = default_value
+		include WStorage::Storable
+		
+		attr_reader :name, :default_value
+		attr_accessor :value
+		alias :collectable_key :name
+		
+		def initialize(name, default_value, from_storage=false)
+			@name = name
+			@default_value = default_value
+			
+			set_to_default
+		end
+		
+		def initialize_from_storage(data)
+			name = data["name"]
+			default_value = data["default_value"]
+			value = data["value"]
+			
+			initialize(name, default_value, false)
+			self.value = value
+		end
+		
+		def set_to_default()
+			self.value = @default_value
+		end
+		
+		def to_h()
+			default_value = @default_value
+			value = @value
+			
+			default_value = @default_value.to_h if @default_value.respond_to? :to_h
+			value = @value.to_h if @value.respond_to? :to_h
+			
+			return { "name" => @name, "default_value" => default_value, "value" => value }
+		end
 	end
 	
-	def set_value(value)
-		@value = value
+	def initialize(config_file, *properties)
+		super(Property, config_file)
+		
+		properties.each{ |p| self.add(p) }
 	end
 	
-	def get_raw_value()
-		@value
+	def restore_to_default
+		self.each{|p| p.restore_to_default}
 	end
 	
-	def get_value()
-		get_raw_value()
-	end
-end
-
-class EnumProperty < Property
-	
-	attr_reader :options
-	
-	def initialize(name, default_value, options=nil)
-		options = Array.new if ! options.kind_of? Array
-		@options = options
-		super(name, default_value)
+	def add_property(name, default_value)
+		self.add(Property.new(name, default_value))
 	end
 	
-	def set_value(value)
-		raise ArgumentError, "#{value}: invalid value" if ! @options.include? value
-		super(value)
-	end
-	
-end
-
-
-class StringProperty < Property
-	
-	def set_value(value)
-		super(value.to_s)
-	end
-	
-	def get_value()
-		super().gsub(/%[a-zA-Z0-9_\.]+%/) { |s| $CONFIG.get([s.gsub("%", "")]) }
-	end
-	
-end
-
-
-class NumericProperty < Property
-	
-	attr_reader :range_begin, :range_end
-	
-	def set_value(value, range_begin=0, range_end=(2**16)-1)
-		@range_begin = range_begin
-		@range_end = range_end
-		raise ArgumentError, "#{value}: invalid value" if ! value.respond_to? :to_i
-		raise ArgumentError, "#{value}: invalid value" if ! value.between?(@range_begin, @range_end)
-		super(value.to_i)
-	end
-	
-end
-
-
-class BooleanProperty < Property
-	
-	def set_value(value)
-		value ? super(true) : super(false)
-	end
-	
-end
-
 end
 
 #
 # Inicia la configuracion Global
 #
-$CONFIG = WConfig::ConfigSet.new
+$CONF = WConfig.new("#{$WIDELY_DATA_DIR}/widely.conf")

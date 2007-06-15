@@ -1,7 +1,7 @@
 module Repos
 
 class Default
-	METHODS = [ :init_repos, :files, :create,
+	METHODS = [ :wplugin_init, :files, :create,
 		:checkout, :status, :commit, :versions,
 		:cat, :ls, :add, :delete, :move ]
 	

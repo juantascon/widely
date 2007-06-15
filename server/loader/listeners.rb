@@ -3,16 +3,39 @@
 # en cuenta al montarlo en Pound
 #
 
-#
-# Carga los listeners definidos en el archivo de configuracion
-#
-listeners_file = $CONFIG.get("CORE_LISTENERS_CONFIG_FILE").get_value
 
+#
+# Inicia la configuracion de los listeners
+#
+$CONF_LISTENERS = WConfig.new("#{$WIDELY_DATA_DIR}/listeners.conf",
+	WConfig::Property.new("main", { "port"=>7777, "manager"=>"default" }),
+	WConfig::Property.new("backends",
+		{ "qooxdoo"=>"listener_static",
+		"gui"=>"listener_static",
+		"doc"=>"listener_static",
+		"api"=>"listener_api",
+		"data"=>"listener_webdav"}),
+	WConfig::Property.new("listeners",
+		{ "listener_api" => {"type"=>"httpapi", "port"=>3401, "manager"=>"default"},
+		"listener_static" => {"type"=>"httpstatic", "port"=>3402, "manager"=>"default"},
+		"listener_webdav" => {"type"=>"webdav", "port"=>3403, "manager"=>"default_auth"}}))
+
+#
+# Interpreta la informacion de configuracion de
+# los listeners
+#
 begin
-	config = YAML::load(File.new( listeners_file ))
-	main = config["main"]
+	retries = 0 if ! retries
 	
-	config["listeners"].each do |name, listener|
+	config = $CONF_LISTENERS
+	config.load() if retries == 0
+	
+	retries += 1
+	
+	main = config.get("main").value
+	$WIDELY_LISTENERS["main"] = Pound::Dispatcher.new(main["port"], main["manager"]) if main
+	
+	config.get("listeners").value.each do |name, listener|
 		type = listener["type"]
 		port = listener["port"]
 		manager = listener["manager"]
@@ -29,9 +52,7 @@ begin
 		end
 	end
 	
-	$WIDELY_LISTENERS["main"] = Pound::Dispatcher.new(main["port"], main["manager"]) if main
-	
-	config["backends"].each do |name, listener_name|
+	config.get("backends").value.each do |name, listener_name|
 		listener = $WIDELY_LISTENERS[listener_name]
 		listener.mount_backend(name)
 		
@@ -39,15 +60,20 @@ begin
 	end
 	
 rescue Exception => ex
-	w_info("invalid listeners config file: #{listeners_file}")
+	w_info("invalid listeners config file: #{config.config_file}")
 	w_info(ex)
+	
+	config.restore_to_default
+	retry if retries < 2
 end
 
 
 #
-# Ejecuta cada listener en un hilo
+# Ejecuta cada listener en un hilo y espera
+# hasta que se terminen de crear
 #
 $WIDELY_LISTENERS.each { |name, listener| $WIDELY_THREADS.push listener.run() }
+sleep(2)
 
 #
 # Atrapa las señales para que sean manejadas correctamente

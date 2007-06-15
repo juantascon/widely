@@ -1,7 +1,7 @@
 module MongrelAdapter
 module MongrelAPI
 	
-	def init_server()
+	def wplugin_init()
 		@server = Mongrel::HttpServer.new("0.0.0.0", @port.to_s)
 	end
 	

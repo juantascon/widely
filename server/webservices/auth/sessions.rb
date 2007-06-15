@@ -1,6 +1,6 @@
 module Auth
 
-class SessionSet < Collection
+class SessionSet < WCollection
 	include Singleton
 	
 	def initialize
@@ -53,7 +53,7 @@ class AdminSession < Session
 		super()
 		
 		password = Auth::Crypt.crypt(password)
-		sys_password = $CONFIG.get("AUTH_ADMIN_PASSWORD").get_value
+		sys_password = $CONF.get("AUTH_ADMIN_PASSWORD").value
 		
 		if (password != sys_password)
 			raise ArgumentError, "Invalid password"

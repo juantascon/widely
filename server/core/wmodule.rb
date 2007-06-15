@@ -52,10 +52,10 @@ class WModule < Module
 	#  load_ok: los modulos cargados correctamente
 	#  load_fal: los modulos cargados incorrectamente
 	#
-	@@collection_all = Collection.new
-	@@collection_created = Collection.new
-	@@collection_load_ok = Collection.new
-	@@collection_load_fail = Collection.new
+	@@collection_all = WCollection.new
+	@@collection_created = WCollection.new
+	@@collection_load_ok = WCollection.new
+	@@collection_load_fail = WCollection.new
 	
 	def self.load_missing()
 		@@collection_created.each do |name, m|

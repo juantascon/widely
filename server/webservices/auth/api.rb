@@ -42,7 +42,7 @@ class API
 		return SessionSet.instance.add(UserSession.new(user))
 	end
 	
-	#TODO: esto deberia ir en otro lado (depronto en users)
+	#TODO: esto deberia ser algo asi como set_session_data
 	def set_wc(args)
 		args.check("session_id", "wc_id")
 		session = SessionSet.instance.get_ex(args["session_id"])

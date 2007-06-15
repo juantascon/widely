@@ -6,6 +6,7 @@ $WIDELY_HOME = Pathname.new("#{File.dirname($0)}/..").realpath.to_s
 $WIDELY_HOME_SERVER = "#{$WIDELY_HOME}/server"
 $WIDELY_HOME_GUI = "#{$WIDELY_HOME}/gui"
 $WIDELY_HOME_DOC = "#{$WIDELY_HOME}/doc"
+$WIDELY_DATA_DIR = "#{ENV["HOME"]}/.widely"
 
 #
 # Define el espacio de listeners y threads

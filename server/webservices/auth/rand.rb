@@ -8,7 +8,7 @@ class Rand
 	"0".upto("9") { |l| @@values.push(l) }
 	
 	def self.rand_key()
-		key_size = $CONFIG.get("AUTH_KEY_SIZE").get_value 
+		key_size = $CONF.get("AUTH_KEY_SIZE").value.to_i
 		ret = " " * key_size
 		key_size.times { |i| ret[i] = @@values[rand(@@values.size)] }
 		return ret

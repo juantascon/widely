@@ -1,30 +1,14 @@
-class Collection
+class WCollection
 	
 	include Enumerable
 	
-	attr_reader :klass, :save_path, :parent, :collection
+	attr_reader :klass, :parent, :collection
 	
-	def initialize(klass=Object, save_path=nil, parent=nil)
+	def initialize(klass=Object, parent=nil)
 		@klass = klass
-		@save_path = save_path
 		@parent = parent
-		@collection = Hash.new
-	end
-	
-	def load()
-		data = YAML::load( File.new(@save_path) )
-		data.each do |key, object_data|
-			object = @klass.allocate
-			object.load(object_data)
-			self.add(object)
-		end
-	end
-	
-	def save()
-		data = Hash.new
-		self.each { |key, value| data[key] = value.to_h }
 		
-		YAML::dump( data, File.new(@save_path, "w+") )
+		@collection = Hash.new
 	end
 	
 	#
@@ -77,8 +61,8 @@ class Collection
 	# Crea y adiciona un objeto cuya llave es la propiedad collectable_key
 	# de la clase klass pasando pasando al constructor los argumentos *args
 	#
-	def add_new(klass, *args)
-		add(klass.new(*args))
+	def add_new(*args, &block)
+		add(@klass.new(*args, &block))
 	end
 	
 	#

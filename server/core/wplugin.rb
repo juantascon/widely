@@ -40,12 +40,12 @@ class WPluginable
 	
 	attr_accessor :default
 	
-	def activate_default_wplugin()
+	def wplugin_activate_default()
 		@default = "default" if ! @default
-		activate_default_wplugin(@default)
+		wplugin_activate(@default)
 	end
 	
-	def activate_wplugin(wplugin_name)
+	def wplugin_activate(wplugin_name)
 		wplugin = self.class.wplugins[wplugin_name]
 		raise ArgumentError, "#{wplugin_name}: WPlugin not found" if ! wplugin
 		

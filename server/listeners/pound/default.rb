@@ -2,7 +2,7 @@ module Pound
 
 module Default
 	
-	def init_server()
+	def wplugin_init()
 		@config_file = Tempfile.new("pound.cfg")
 		@started = false
 		

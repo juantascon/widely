@@ -1,6 +1,6 @@
+#
 # Manejo de un repositorio con subversion(svn)
-# todo:
-# status()
+#
 
 module Svn
 module Repository
@@ -12,17 +12,20 @@ module Repository
 		[ /^%wc_dir%(\/|\/.*\/).svn((\/+.*)*)/ ]
 	end
 	
-	def init_repos()
-		raise ArgumentError.new("dir[#{@data_dir}]: invalid") if ! @data_dir.kind_of? String
-		raise ArgumentError.new("dir[#{@data_dir}]: not an absolute path") if ! File.absolute?(@data_dir)
-		
-		create_ok = self.create if ! exists
-		raise StandardError.new("create: invalid") if ! create_ok
+	def wplugin_init()
+		if ! exists
+			if ! self.create
+				raise StandardError, "create: invalid"
+			end
+		end
 	end
 	
 	
 	def exists()
-		return (directory?(@data_dir) and file?(@data_dir+"format") and file?(@data_dir+"README.txt") and file?(@data_dir+"db"+"fs-type"))
+		return (directory?(@data_dir) and
+			file?("#{@data_dir}/format") and
+			file?("#{@data_dir}/README.txt") and
+			file?("#{@data_dir}/db/fs-type"))
 	end
 	
 	def create()
