@@ -1,0 +1,23 @@
+%CORE_DATA_DIR%/
+	listeners.conf
+	widely.conf
+	users/
+		<user_id>/
+			user.conf
+			data_dir/
+				wcs/
+					<wc_name>
+						wc.conf
+						data_dir/
+					...
+				repos/
+					<repo_name>/
+						repo.conf
+						data_dir/
+						
+					...
+				userdata/
+					<userdata_key_name>
+						userdata.conf
+					...
+

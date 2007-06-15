@@ -29,7 +29,6 @@ id=$(eval_ws auth/user_session "session_id=$admin_id&user_id=test") ; echo $id
 raw_ws auth/set_wc "session_id=$id&wc_id=$id_w"
 raw_ws wc/checkout "session_id=$id"
 
-
 raw_ws wc/add "session_id=$id&path=/file1"
 raw_ws wc/write "session_id=$id&path=/file1&content=quemasbien"
 raw_ws wc/add "session_id=$id&path=/file2"

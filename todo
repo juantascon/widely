@@ -1,122 +1,56 @@
-semanas:
-	Inicio: Lunes
-	Fin: Domingo
-	
-	        Inicio - Fin
-	      -------------------
-	1(17) | Abr 30 - May 06 |
-	-------------------------
-	2(18) | May 07 - May 13 |
-	-------------------------
-	3(19) | May 14 - May 20 |
-	-------------------------
-	4(20) | May 21 - May 27 |
-	-------------------------
-	5(21) | May 28 - Jun 03 |
-	-------------------------
-	6(22) | Jun 04 - Jun 10 |
-	-------------------------
-	7(23) | Jun 11 - Jun 17 |
-	-------------------------
+TODO:
 
-Total Tiempo: 34
-Total Dias: 49
-Total Semanas: 7
+[core::Storage, lib::Collection, webservice:Auth, ]: 
+	*ok* adaptarlo al fs
+	*ok* agregar constantes de nombre (ej: "users")
+	*ok* hacer un rediseno de Collection, Users y Storage y agregarlo al core(wuser, wstorage)
+	*ok* crear archivos de configuracion de ejemplo
+[gui::Config]:
+	wcs
+	repos
+	datos de usuario
+[gui::Admin]:
+	administracion de usuarios
+	paramentros del servidor
+[gui::Login]:
+	login de usuarios
+	login de admin
+	almacenar el session_id en una cookie
+[gui::IDE]:
+	preguntar por copia de trabajo activa al inicio
+	toolbar principal (logout, config, wc activa))
+	acciones cuando un request de webservice retorna error o timeout
+[webservice::Compilator,gui::IDE]: crear una interfaz de compilacion
+[doc]:
+	arquitectura -> poner patrones (modulos, web services, APIs, minicore, ducktyping)
+	poner las flechas que son en los diagramas
 
-Dificultad/Semana: 5
+ADICIONALES:
 
+[gui::IDE]: Atajos de teclado
+[gui::IDE]: Click derecho en filetreeview y versionview
+[listener::WebDav,webservice::Auth,core::WUser]:
+	opcion de Activar/desactivar webdav
+	acceso a webdav por IP
+[webservice::WC, gui::IDE]: terminar status()
 
-
-
-************************************
-*********** PROGRAMACION ***********
-************************************
-
-Atajos de teclado [1]
-Atajos con iconos [1]
-Save a fs webservice: [1]
-Modificacion de fs (click derecho / toolbar) [3]
-		crear
-		mover
-		renombrar
-		borrar
-		actualizar
-		commit
-		ver otra version
-		etc
-
-**********************
-**** Fin semana 1 ****
-**********************
-
-Compilador:
-	seleccionar lenguaje [1]
-	interfaz con el compilador (webservice?) [3]
-	resultado de la compilacion (gui) [2]
-	
-**********************
-**** Fin semana 2 ****
-**********************
-
-Downloader:
-	descargar archivos empaquetados (targz, zip):
-		webservice? [2]
-		gui [1]
-	samba
-		webservice [3]
-		gui [2]
-	webdav?
-		webservice
-		gui
-
-**********************
-**** Fin semana 3 ****
-**********************
-
-Configurador: [6]
-	global
-	por cada modulo
-	load/save config
-	webservice
-	gui
-
-**********************
-**** Fin semana 4 ****
-**********************
-
-Usuarios y projectos: [4]
-	usuario admin (add/delete usuarios y projectos)
-	manejo de cookies/auth: webservice
-
-Permisos: [4]
-	permiso para leer/escribir
-	permisos por proyectos
-	permisos por archivos ?
-
-**********************
-**** Fin semana 5 ****
-**********************
-
-
-Editor mejorado:
+[gui::IDE]: Editor mejorado:
 	ver salto de linea para lineas largas
 	ver numero de linea
 	ver . en vez de <tab>
 	resaltar linea actual
 	resaltar sintaxis
 
-Diff:
-	visor de diferencias ?
+[gui::IDE, webservice::Repos]:Visor de diferencias
+[gui::IDE, webservice::Downloader]: Downloader
+*: Pasar todo a ingles
 
-
-**********************
-**** BUGS         ****
-**********************
-
-* no desactiva el tab o avisa de un archivo eliminado del WC cuando el archivo esta abierto en el editor
-* no hace checkeo de:
-	selector:
-		* delete: borrar /
-		* new_file: archivo que ya existe
-		* InputDialog con textos vacios
-		* new_file: nombres de archivos con chars invalidos
+BUGS:
+[gui::IDE]:
+	* no desactiva el tab(o avisa) de un archivo modificado en WC(delete, commit, write)
+	* filetreeview:
+		no chequea:
+			* delete: borrar /
+			* new_file: archivo que ya existe
+			* InputDialog con textos vacios
+			* new_file: nombres de archivos con chars invalidos
