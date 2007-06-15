@@ -10,7 +10,7 @@ class API
 	include WebService
 	
 	def create(args)
-		args.check("session_id", "repos_id", "name", "manager")
+		args.check("session_id", "repo_id", "name", "manager")
 		
 		name = args["name"]
 		manager = args["manager"]
@@ -18,7 +18,7 @@ class API
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
 		raise ArgumentError.new("#{name}: workingcopy already exists") if user.wcset.get(name)
 		
-		repository = user.reposet.get_ex(args["repos_id"])
+		repository = user.reposet.get_ex(args["repo_id"])
 		
 		return user.wcset.add(WorkingCopy.new(user, repository, name, manager))
 	end
@@ -37,7 +37,7 @@ class API
 		args.check("session_id")
 		session = Auth::SessionSet.instance.get_ex(args["session_id"])
 		wc = session.wc
-		version = Repos::Version.new(args["version"]) if args["version"]
+		version = Repo::Version.new(args["version"]) if args["version"]
 		
 		return wc.checkout(version)
 	end
@@ -59,7 +59,7 @@ class API
 	def cat(args)
 		args.check("session_id", "path")
 		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
-		version = Repos::Version.new(args["version"]) if args["version"]
+		version = Repo::Version.new(args["version"]) if args["version"]
 		
 		return wc.cat(args["path"], version)
 	end
@@ -67,7 +67,7 @@ class API
 	def ls(args)
 		args.check("session_id", "path")
 		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
-		version = Repos::Version.new(args["version"]) if args["version"]
+		version = Repo::Version.new(args["version"]) if args["version"]
 		
 		return wc.ls(args["path"], version)
 	end

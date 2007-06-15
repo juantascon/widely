@@ -56,7 +56,7 @@ module Default
 	end
 	
 	#
-	# Retorna un Array arr de Repository::Version
+	# Retorna un Array arr de Repo::Version
 	# siendo ar[0] -> la primera version
 	# arr.size -> la cantidad de versiones
 	# arr.last -> la ultima version

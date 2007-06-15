@@ -16,12 +16,12 @@ eval_ws()
 
 id=$(eval_ws auth/login "user_id=test&password=test") ; echo $id
 
-id_r=$(eval_ws repos/create "session_id=$id&name=project1&manager=svn") ; echo $id_r
-raw_ws repos/create "session_id=$id&name=project2&manager=svn"
-raw_ws repos/list "session_id=$id"
+id_r=$(eval_ws repo/create "session_id=$id&name=project1&manager=svn") ; echo $id_r
+raw_ws repo/create "session_id=$id&name=project2&manager=svn"
+raw_ws repo/list "session_id=$id"
 
-id_w=$(eval_ws wc/create "session_id=$id&repos_id=$id_r&name=project1-wc1&manager=default") ; echo $id_w
-raw_ws wc/create "session_id=$id&repos_id=$id_r&name=project1-wc2&manager=default"
+id_w=$(eval_ws wc/create "session_id=$id&repo_id=$id_r&name=project1-wc1&manager=default") ; echo $id_w
+raw_ws wc/create "session_id=$id&repo_id=$id_r&name=project1-wc2&manager=default"
 raw_ws wc/list "session_id=$id"
 
 admin_id=$(eval_ws auth/login_admin "password=admin") ; echo $admin_id

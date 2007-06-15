@@ -1,4 +1,4 @@
-module Repos
+module Repo
 
 class Repository < WPluginable
 	

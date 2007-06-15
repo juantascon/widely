@@ -1,4 +1,4 @@
-module Repos
+module Repo
 
 class Default
 	METHODS = [ :wplugin_init, :files, :create,

@@ -1,4 +1,4 @@
-module Repos
+module Repo
 
 #
 # Identifica una version dentro de un repositorio

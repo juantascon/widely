@@ -1,8 +1,8 @@
 #
-# API de Repos
+# API de Repo
 #
 
-module Repos
+module Repo
 
 class API
 	
@@ -33,6 +33,6 @@ class API
 	
 end
 
-HTTPAPI::WebServiceHandler.set_webservice("repos", Repos::API.instance)
+HTTPAPI::WebServiceHandler.set_webservice("repo", Repo::API.instance)
 
 end

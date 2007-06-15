@@ -2,7 +2,7 @@
 # Modulo de manejo de descargas de archivos
 #
 
-wmodule :Download => [ :HTTPAPI, :WC, :Repos ] do |mod|
+wmodule :Download => [ :HTTPAPI, :WC, :Repo ] do |mod|
 	begin
 		mod.require "download.rb"
 		mod.require "default.rb"

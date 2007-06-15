@@ -14,7 +14,7 @@ class API
 		
 		manager = args["manager"]
 		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
-		version = Repos::Version.new(args["version"]) if args["version"]
+		version = Repo::Version.new(args["version"]) if args["version"]
 		
 		return Download.new(wc, version, manager).pack()
 	end

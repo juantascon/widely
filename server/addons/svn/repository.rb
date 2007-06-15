@@ -64,13 +64,13 @@ module Repository
 		ret = Array.new
 		doc = REXML::Document.new(cmd.stdout)
 		doc.root.each_element do |version|
-			ret.push( Repos::Version.new(
+			ret.push( Repo::Version.new(
 				version.attribute("revision").to_s,
 				version.get_text("msg"),
 				version.get_text("date"),
 				version.get_text("author") ))
 		end
-		ret.push(Repos::Version.new(0))
+		ret.push(Repo::Version.new(0))
 		return ret.reverse
 	end
 	
