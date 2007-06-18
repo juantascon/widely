@@ -12,6 +12,8 @@ class WConfig < WStorage::CentralizedStorager
 			@name = name
 			@default_value = default_value
 			
+			raise wex_arg("name", @name, "(nice try)") if ! validate_id(@name)
+			
 			set_to_default
 		end
 		

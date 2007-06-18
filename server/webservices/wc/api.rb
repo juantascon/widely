@@ -16,7 +16,7 @@ class API
 		manager = args["manager"]
 		
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
-		raise ArgumentError.new("#{name}: workingcopy already exists") if user.wcset.get(name)
+		raise wex_arg("name", name, "workingcopy already exists") if user.wcset.get(name)
 		
 		repository = user.reposet.get_ex(args["repo_id"])
 		

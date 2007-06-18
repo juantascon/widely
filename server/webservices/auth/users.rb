@@ -6,7 +6,8 @@ class UserSet < WStorage::DistributedStorager
 	
 	def initialize
 		super(User, "#{$WIDELY_DATA_DIR}/users/%s/user.conf")
-		add(User.new("test", "test"))
+		self.load_all()
+		add(User.new("test", "test")) if ! get("test")
 	end
 	
 	def get(user_id, password=nil)
@@ -37,6 +38,7 @@ class User
 		raise NoMethodError, "undefined method `#{method_name}' for #{self}"
 	end
 	
+	
 	def initialize(user_id, password, from_storage=false)
 		password = Auth::Crypt.crypt(password) if ! from_storage
 		
@@ -44,6 +46,8 @@ class User
 		@password = password
 		
 		@data_dir = "#{$WIDELY_DATA_DIR}/users/#{@user_id}/data_dir" if ! @data_dir
+		
+		raise wex_arg("name", @name, "(nice try)") if ! validate_id(@user_id)
 		
 		@@attrs_constructors.each do |attr_name, constructor_block|
 			@@attrs[attr_name] = constructor_block.call(self, from_storage)

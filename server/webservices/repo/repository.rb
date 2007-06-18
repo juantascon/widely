@@ -15,12 +15,10 @@ class Repository < WPluginable
 		@owner = owner
 		@name = name
 		@manager = manager
-		@data_dir = "#{owner.data_dir}/repos/#{@name}/data_dir" if ! @data_dir
+		@data_dir = "#{@owner.data_dir}/repos/#{@name}/data_dir" if ! @data_dir
 		
-		if (@name.include? "/" || @name[0..0] == ".") ||
-			(File.basename(File.dirname(File.cleanpath(@data_dir))) != @name)
-			raise ArgumentError, "invalid name: #{@name} (nice try)" 
-		end
+		raise wex_arg("name", @name, "(nice try)") if ! validate_id(@name)
+		raise wex_arg("owner", @owner) if ! @owner.kind_of? Auth::User
 		
 		wplugin_activate(@manager)
 		wplugin_init()
@@ -29,9 +27,9 @@ class Repository < WPluginable
 	end
 	
 	def initialize_from_storage(data)
+		owner = UserSet.instance.get_ex(data["owner"])
 		name = data["name"]
 		manager = data["manager"]
-		owner = UserSet.instance.get(data["owner"])
 		
 		initialize(owner, name, manager, true)
 	end
@@ -44,7 +42,7 @@ end
 
 Auth::User.new_attr(:reposet) do |user, from_storage|
 	collection = WStorage::DistributedStorager.new(Repository, "#{user.data_dir}/repos/%s/repo.conf")
-	collection.load if from_storage
+	collection.load_all if from_storage
 	collection
 end
 

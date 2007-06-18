@@ -75,6 +75,9 @@ module WDebug
 		w_debug("X"*70)
 		sleep(2)
 	end
+	
+	def wex_invalid(klass, obj, msg=nil); Exception.new("Invalid #{klass}: #{obj} #{msg}"); end
+	def wex_arg(argname, arg, msg=nil); ArgumentError.new("Invalid Argument #{argname}: #{arg} #{msg}"); end
 end
 
 #

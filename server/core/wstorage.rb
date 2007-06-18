@@ -1,5 +1,11 @@
 module WStorage
 
+class InvalidFileException < Exception
+	def initialize(filename, msg=nil)
+		super("Invalid Config File: #{filename} #{msg}")
+	end
+end
+
 module Storable
 	
 	def Storable.included(mod)
@@ -37,6 +43,16 @@ module Storable
 	def initialize_from_storage(data)
 	end
 	
+	def validate_id(id)
+		return false if ! id.kind_of? String
+		
+		regexp = /[a-zA-Z][a-zA-Z0-9_-]*/
+		return false if ! regexp === id
+		return false if ! regexp.match(id)[0] == id
+		
+		return true
+	end
+	
 	def to_h()
 		{ "object_id" => self.object_id  }
 	end
@@ -46,29 +62,31 @@ end
 
 module Storager
 	
-	def load(filename)
+	def load_from_file(filename)
 		begin
 			file = File.new(filename)
 			data = YAML::load(file)
+			file.close
+			
 			return data
 		rescue Exception => ex
-			w_info("Imposible to load: #{filename}")
-			w_debug(ex)
-			
+			w_info("Imposible to load from file: #{filename}")
 			return false
 		end
 	end
 	
-	def save(filename, data)
+	def save_to_file(filename, data)
 		begin
+			FileUtils.mkdir_p(File.dirname(filename))
 			file = File.new(filename, "w+")
-			FileUtils.mkdir_p(File.dirname(file.path))
 			
 			YAML::dump(data, file)
+			file.close
+			
 			return true
 		rescue Exception => ex
-			w_info("Imposible to save: #{filename}")
 			w_debug(ex)
+			w_info("Imposible to save to file: #{filename}")
 			return false
 		end
 	end
@@ -83,33 +101,56 @@ class DistributedStorager < WCollection
 	attr_reader :path_format
 	
 	def initialize(klass=Object, path_format="", parent=nil)
-		super(klass, parent)
-		
 		@path_format = path_format
+		raise wex_arg("path_format", @path_format) if (@path_format.scan("%s").size != 1)
+		
+		super(klass, parent)
+		load_all
 	end
 	
 	def add_at(key, object)
-		raise ArgumentError, "#{key}: invalid key (nice try)" if (key.include? "/" || key[0..0] == ".")
-		return super(key,object)
+		raise wex_arg("key", key, "(nice try)") if (key.include? "/" || key[0..0] == ".")
+		
+		ret = super(key, object)
+		save(key)
+		return ret
 	end
 	
-	def load()
-		Dir.glob(@path_format % [ "*" ]).each do |filename|
-			data = super(filename)
-			return false if ! data
+	def load(key)
+		begin
+			filename = @path_format % key
+			data = load_from_file(filename)
 			
 			object = @klass.new_from_storage(data, filename)
 			self.add(object)
 			
-			return object
+			return true
+		rescue Exception => ex
+			w_info("Invalid Config File: #{filename}")
+			return false
 		end
 	end
 	
-	def save()
+	def save(key)
+		object = get(key)
+		return false if ! object
+		
+		filename = @path_format % key
+		data = object.to_h
+		
+		return save_to_file(filename, data)
+	end
+	
+	def load_all()
+		Dir.glob(@path_format % "*").each do |filename|
+			key = Regexp.new(@path_format % "(.*)").match(filename)[1]
+			load(key)
+		end
+	end
+	
+	def save_all()
 		self.each do |key, object|
-			filename = @path_format % [ key ]
-			data = object.to_h
-			super(filename, object)
+			save(key, object)
 		end
 	end
 	
@@ -123,28 +164,31 @@ class CentralizedStorager < WCollection
 	attr_reader :config_file
 	
 	def initialize(klass=Object, config_file="", parent=nil)
-		super(klass, parent)
-		
 		@config_file = config_file
+		super(klass, parent)
 	end
 	
-	def load()
-		data = super(@config_file)
-		return false if ! data
-		
-		data.each do |key, value|
-			object = @klass.new_from_storage(value, @config_file)
-			self.add(object)
+	def load_all()
+		begin
+			data = load_from_file(@config_file)
+			
+			data.each do |key, value|
+				object = @klass.new_from_storage(value, @config_file)
+				self.add(object)
+			end
+			
+			return true
+		rescue Exception => ex
+			w_info("Invalid Config File: #{@config_file}")
+			return false
 		end
-		
-		return true
 	end
 	
-	def save()
+	def save_all()
 		data = Hash.new
 		self.each { |key, object| data[key] = object.to_h }
 		
-		super(filename, data)
+		save_to_file(filename, data)
 	end
 	
 end

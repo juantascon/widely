@@ -16,7 +16,7 @@ class API
 		manager = args["manager"]
 		
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
-		raise ArgumentError.new("#{name}: repository already exists") if user.reposet.get(name)
+		raise wex_arg("name", name, "repository already exists") if user.reposet.get(name)
 		
 		return user.reposet.add(Repository.new(user, name, manager))
 	end

@@ -28,7 +28,7 @@ begin
 	retries = 0 if ! retries
 	
 	config = $CONF_LISTENERS
-	config.load() if retries == 0
+	config.load_all() if retries == 0
 	
 	retries += 1
 	
@@ -48,7 +48,7 @@ begin
 				HTTPStatic::Dispatcher.new(port, manager)
 			when "webdav"
 				WebDav::Dispatcher.new(port, manager)
-			else raise Exception, "invalid listener type: #{type}"
+			else raise wex_invalid("listener type", type)
 		end
 	end
 	
