@@ -6,7 +6,6 @@ class UserSet < WStorage::DistributedStorager
 	
 	def initialize
 		super(User, "#{$WIDELY_DATA_DIR}/users/%s/user.conf")
-		self.load_all()
 		add(User.new("test", "test")) if ! get("test")
 	end
 	

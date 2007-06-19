@@ -12,3 +12,8 @@ WModule.load_missing
 
 Dir.glob("#{$WIDELY_HOME_SERVER}/addons/*").each { |m| require "#{m.to_s}/init.rb" }
 WModule.load_missing
+
+#
+# Carga todos los usuarios
+#
+Auth::UserSet.instance.load_all

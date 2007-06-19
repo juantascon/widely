@@ -33,7 +33,7 @@ class WorkingCopy < WPluginable
 	end
 	
 	def initialize_from_storage(data)
-		owner = UserSet.instance.get_ex(data["owner"])
+		owner = Auth::UserSet.instance.get_ex(data["owner"])
 		repository = owner.repos.get_ex(data["repository"])
 		name = data["name"]
 		manager = data["manager"]
@@ -48,9 +48,9 @@ class WorkingCopy < WPluginable
 end
 
 Auth::User.new_attr(:wcset) do |user, from_storage|
-	collection = WStorage::DistributedStorager.new(WorkingCopy, "#{user.data_dir}/wcs/%s/wc.conf")
-	collection.load_all if from_storage
-	collection
+	storager = WStorage::DistributedStorager.new(WorkingCopy, "#{user.data_dir}/wcs/%s/wc.conf")
+	storager.load_all if from_storage
+	storager
 end
 
 end

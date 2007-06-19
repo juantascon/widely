@@ -27,7 +27,7 @@ class Repository < WPluginable
 	end
 	
 	def initialize_from_storage(data)
-		owner = UserSet.instance.get_ex(data["owner"])
+		owner = Auth::UserSet.instance.get_ex(data["owner"])
 		name = data["name"]
 		manager = data["manager"]
 		
@@ -41,9 +41,9 @@ class Repository < WPluginable
 end
 
 Auth::User.new_attr(:reposet) do |user, from_storage|
-	collection = WStorage::DistributedStorager.new(Repository, "#{user.data_dir}/repos/%s/repo.conf")
-	collection.load_all if from_storage
-	collection
+	storager = WStorage::DistributedStorager.new(Repository, "#{user.data_dir}/repos/%s/repo.conf")
+	storager.load_all if from_storage
+	storager
 end
 
 end
