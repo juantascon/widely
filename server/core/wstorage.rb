@@ -171,7 +171,7 @@ class CentralizedStorager < WCollection
 			return false if ! data
 			
 			data.each do |key, value|
-				object = @klass.new_from_storage(value, @config_file)
+				object = @klass.new_from_storage({key => value}, @config_file)
 				self.add(object)
 			end
 			
@@ -187,7 +187,7 @@ class CentralizedStorager < WCollection
 		data = Hash.new
 		self.each { |key, object| data[key] = object.to_h }
 		
-		save_to_file(filename, data)
+		save_to_file(@config_file, data)
 	end
 	
 end

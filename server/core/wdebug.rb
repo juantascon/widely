@@ -36,8 +36,9 @@ module WDebug
 			$WDEBUG_LAST_OBJECT = self
 		end
 		
-		from = "#{self.class.name}"
-		from = "#{from}.#{caller_method(back)}()" if caller_method(back)
+		#from = "#{self.class.name}"
+		#from = "#{from}.#{caller_method(back)}()" if caller_method(back)
+		from = "#{caller_method(back)}(): " if caller_method(back)
 		severity = Sev::SEVS[severity] || Sev::SEVS[Sev::UNKNOWN]
 		
 		begin
@@ -54,7 +55,7 @@ module WDebug
 				WDEBUG_LOGGER.print " [BACKTRACE]: END\n"
 			else
 				#WDEBUG_LOGGER.print "[#{severity}] #{from}: #{m}\n"
-				WDEBUG_LOGGER.print " [#{severity}] #{m}\n"
+				WDEBUG_LOGGER.print " [#{severity}] #{from}#{m}\n"
 		end
 		
 		WDEBUG_LOGGER.flush
