@@ -1,11 +1,5 @@
 module WStorage
 
-class InvalidFileException < Exception
-	def initialize(filename, msg=nil)
-		super("Invalid Config File: #{filename} #{msg}")
-	end
-end
-
 module Storable
 	
 	def Storable.included(mod)
@@ -71,6 +65,7 @@ module Storager
 			return data
 		rescue Exception => ex
 			w_info("Imposible to load from file: #{filename}")
+			w_debug(ex)
 			return false
 		end
 	end
@@ -85,8 +80,8 @@ module Storager
 			
 			return true
 		rescue Exception => ex
-			w_debug(ex)
 			w_info("Imposible to save to file: #{filename}")
+			w_debug(ex)
 			return false
 		end
 	end
@@ -105,7 +100,6 @@ class DistributedStorager < WCollection
 		raise wex_arg("path_format", @path_format) if (@path_format.scan("%s").size != 1)
 		
 		super(klass, parent)
-		load_all
 	end
 	
 	def add_at(key, object)
@@ -119,7 +113,9 @@ class DistributedStorager < WCollection
 	def load(key)
 		begin
 			filename = @path_format % key
+			
 			data = load_from_file(filename)
+			return false if ! data
 			
 			object = @klass.new_from_storage(data, filename)
 			self.add(object)
@@ -127,6 +123,7 @@ class DistributedStorager < WCollection
 			return true
 		rescue Exception => ex
 			w_info("Invalid Config File: #{filename}")
+			w_debug(ex)
 			return false
 		end
 	end
@@ -144,7 +141,7 @@ class DistributedStorager < WCollection
 	def load_all()
 		Dir.glob(@path_format % "*").each do |filename|
 			key = Regexp.new(@path_format % "(.*)").match(filename)[1]
-			load(key)
+			w_info("Not loaded #{@klass.name}: #{key}") if ! load(key)
 		end
 	end
 	
@@ -171,6 +168,7 @@ class CentralizedStorager < WCollection
 	def load_all()
 		begin
 			data = load_from_file(@config_file)
+			return false if ! data
 			
 			data.each do |key, value|
 				object = @klass.new_from_storage(value, @config_file)
@@ -180,6 +178,7 @@ class CentralizedStorager < WCollection
 			return true
 		rescue Exception => ex
 			w_info("Invalid Config File: #{@config_file}")
+			w_debug(ex)
 			return false
 		end
 	end
