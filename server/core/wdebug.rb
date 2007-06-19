@@ -56,6 +56,8 @@ module WDebug
 				#WDEBUG_LOGGER.print "[#{severity}] #{from}: #{m}\n"
 				WDEBUG_LOGGER.print " [#{severity}] #{m}\n"
 		end
+		
+		WDEBUG_LOGGER.flush
 	end
 	
 	#
