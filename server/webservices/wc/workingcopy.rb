@@ -34,7 +34,7 @@ class WorkingCopy < WPluginable
 	
 	def initialize_from_storage(data)
 		owner = Auth::UserSet.instance.get_ex(data["owner"])
-		repository = owner.repos.get_ex(data["repository"])
+		repository = owner.reposet.get_ex(data["repository"])
 		name = data["name"]
 		manager = data["manager"]
 		

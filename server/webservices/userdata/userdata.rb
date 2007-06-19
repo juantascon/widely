@@ -25,7 +25,7 @@ class UserData
 	end
 	
 	def to_h()
-		{ "key" => @key, "value" => @value }
+		{ "owner" => @owner.user_id, "key" => @key, "value" => @value }
 	end
 	
 end

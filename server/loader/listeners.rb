@@ -3,23 +3,6 @@
 # en cuenta al montarlo en Pound
 #
 
-
-#
-# Inicia la configuracion de los listeners
-#
-$CONF_LISTENERS = WConfig.new("#{$WIDELY_DATA_DIR}/listeners.conf",
-	WConfig::Property.new("main", { "port"=>7777, "manager"=>"default" }),
-	WConfig::Property.new("backends",
-		{ "qooxdoo"=>"listener_static",
-		"gui"=>"listener_static",
-		"doc"=>"listener_static",
-		"api"=>"listener_api",
-		"data"=>"listener_webdav"}),
-	WConfig::Property.new("listeners",
-		{ "listener_api" => {"type"=>"httpapi", "port"=>3401, "manager"=>"default"},
-		"listener_static" => {"type"=>"httpstatic", "port"=>3402, "manager"=>"default"},
-		"listener_webdav" => {"type"=>"webdav", "port"=>3403, "manager"=>"default_auth"}}))
-
 #
 # Interpreta la informacion de configuracion de
 # los listeners
@@ -28,7 +11,6 @@ begin
 	retries = 0 if ! retries
 	
 	config = $CONF_LISTENERS
-	config.load_all() if retries == 0
 	
 	retries += 1
 	

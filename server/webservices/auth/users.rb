@@ -26,14 +26,18 @@ class User
 	
 	@@attrs = Hash.new
 	@@attrs_constructors = Hash.new
+	@@attrs_order = Array.new
 	
 	def self.new_attr(attr_name, &constructor_block)
 		raise Exception, "constructor block not given" if ! block_given?
+		
+		@@attrs_order.push(attr_name.to_sym)
 		@@attrs_constructors[attr_name.to_sym] = constructor_block
 	end
 	
 	def method_missing(method_name, *args)
 		return @@attrs[method_name] if @@attrs[method_name]
+		w_debug(@@attrs)
 		raise NoMethodError, "undefined method `#{method_name}' for #{self}"
 	end
 	
@@ -48,7 +52,8 @@ class User
 		
 		raise wex_arg("name", @name, "(nice try)") if ! validate_id(@user_id)
 		
-		@@attrs_constructors.each do |attr_name, constructor_block|
+		@@attrs_order.each do |attr_name|
+			constructor_block = @@attrs_constructors[attr_name]
 			@@attrs[attr_name] = constructor_block.call(self, from_storage)
 		end
 		
