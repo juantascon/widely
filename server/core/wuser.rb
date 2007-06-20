@@ -5,8 +5,7 @@ class WUser
 		include Singleton
 		
 		def initialize
-			super(User, "#{$WIDELY_DATA_DIR}/users/%s/user.conf")
-			add(User.new("test", "test")) if ! get("test")
+			super(WUser, "#{$WIDELY_DATA_DIR}/users/%s/user.conf")
 		end
 		
 		def get(user_id, password=nil)
@@ -14,6 +13,12 @@ class WUser
 			return user if (! password)
 			return user if ( user ) and ( user.authenticate(password) )
 			return nil
+		end
+		
+		def load_all_extra_attrs()
+			self.each do |key, user|
+				ExtraAttrs.instance.initialize_attrs(user, true)
+			end
 		end
 		
 	end
@@ -35,12 +40,10 @@ class WUser
 		end
 		
 		def initialize_attrs(user, from_storage)
-			attrs = Hash.new
 			@attrs_order.each do |attr_name|
 				constructor_block = @attrs_constructors[attr_name]
-				attrs[attr_name] = constructor_block.call(user, from_storage)
+				user.extra_attrs[attr_name] = constructor_block.call(user, from_storage)
 			end
-			return attrs
 		end
 		
 	end
@@ -56,7 +59,8 @@ class WUser
 	
 	include WStorage::Storable
 	
-	attr_reader :user_id, :data_dir
+	attr_reader :user_id, :data_dir, :extra_attrs
+	
 	alias :collectable_key :user_id
 	
 	def method_missing(method_name, *args)
@@ -69,12 +73,13 @@ class WUser
 		
 		@user_id = user_id
 		@password = password
+		@extra_attrs = Hash.new
 		
 		@data_dir = "#{$WIDELY_DATA_DIR}/users/#{@user_id}/data_dir" if ! @data_dir
 		
 		raise wex_arg("name", @name, "(nice try)") if ! validate_id(@user_id)
 		
-		@extra_attrs = ExtraAttrs.instance.initialize_attrs(self, from_storage)
+		ExtraAttrs.instance.initialize_attrs(self, false) if ! from_storage
 		
 		w_debug("new: #{@user_id}")
 	end
