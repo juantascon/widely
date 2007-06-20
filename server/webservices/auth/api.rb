@@ -14,7 +14,7 @@ class API
 	def login(args)
 		args.check("user_id", "password")
 		
-		user = UserSet.instance.get_ex(args["user_id"], args["password"])
+		user = WUser::Set.instance.get_ex(args["user_id"], args["password"])
 		return SessionSet.instance.add(UserSession.new(user))
 	end
 	
@@ -37,7 +37,7 @@ class API
 		
 		session = SessionSet.instance.get_ex(args["session_id"])
 		raise ArgumentError, "session is not admin" if ! session.kind_of? AdminSession
-		user = UserSet.instance.get_ex(args["user_id"])
+		user = WUser::Set.instance.get_ex(args["user_id"])
 		
 		return SessionSet.instance.add(UserSession.new(user))
 	end

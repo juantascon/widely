@@ -13,11 +13,11 @@ class UserData
 		@value = value
 		
 		raise wex_arg("key", @key, "(nice try)") if ! validate_id(@key)
-		raise wex_arg("owner", @owner) if ! @owner.kind_of? Auth::User
+		raise wex_arg("owner", @owner) if ! @owner.kind_of? WUser
 	end
 	
 	def initialize_from_storage(data)
-		owner = Auth::UserSet.instance.get_ex(data["owner"])
+		owner = WUser::Set.instance.get_ex(data["owner"])
 		key = data["key"]
 		value = data["value"]
 		
@@ -30,7 +30,7 @@ class UserData
 	
 end
 
-Auth::User.new_attr(:userdataset) do |user, from_storage|
+WUser::ExtraAttrs.instance.add(:userdataset) do |user, from_storage|
 	storager = WStorage::DistributedStorager.new(UserData, "#{user.data_dir}/userdata/%s/userdata.conf")
 	storager.load_all if from_storage
 	storager

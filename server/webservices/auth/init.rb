@@ -9,10 +9,7 @@ wmodule :Auth => :HTTPAPI do |mod|
 		$CONF.add_property("AUTH_KEY_SIZE", 256)
 		$CONF.add_property("AUTH_ADMIN_PASSWORD", "sa1aY64JOY94w")
 		
-		mod.require "crypt.rb"
 		mod.require "rand.rb"
-		
-		mod.require "users.rb"
 		mod.require "sessions.rb"
 		
 		mod.require "webdavauth.rb"
