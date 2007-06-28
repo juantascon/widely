@@ -1,0 +1,25 @@
+qx.Class.define("ide.editor.EditorView",
+{
+	type: "singleton",
+	
+	extend: qx.ui.layout.VerticalBoxLayout,
+	
+	construct: function () {
+		this.base(arguments);
+		
+		this.set({height: "100%", width: "100%"});
+		
+		this.setTabview(new ui.editor.TabView());
+		//this.getTabview().add_tab(new ui.tree.File("file1", "/file1"));
+		this.setToolbar(new ui.editor.ToolBar());
+		
+		this.add(this.getToolbar());
+		this.add(this.getTabview());
+	},
+	
+	properties:
+	{
+		tabview: { check: "ui.editor.TabView" },
+		toolbar: { check: "ui.editor.ToolBar" }
+	}
+});
