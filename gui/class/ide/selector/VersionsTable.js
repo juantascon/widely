@@ -1,11 +1,11 @@
-qx.Class.define("ide.selector.VMTable",
+qx.Class.define("ide.selector.VersionsTable",
 {
 	extend: qx.ui.table.Table,
 	
-	include: dao.Versions,
+	include: lib.dao.WC,
 	
 	construct: function () {
-		var tm = new qx.ui.table.SimpleTableModel();
+		var tm = new qx.ui.table.model.Simple();
 		tm.setColumns(["ID", "Description", "Date", "Author"]);
 		
 		this.base(arguments, tm);
@@ -18,13 +18,15 @@ qx.Class.define("ide.selector.VMTable",
 		
 		this.setStatusBarVisible(false);
 		this.getDataRowRenderer().setVisualizeFocusedState(false);
-		this.getSelectionModel().setSelectionMode(qx.ui.table.SelectionModel.SINGLE_SELECTION);
+		this.getSelectionModel().setSelectionMode(qx.ui.table.selection.Model.SINGLE_SELECTION);
 		
 		this.setBackgroundColor("white");
-		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
 		
 		this.getSelectionModel().addEventListener("changeSelection", function(e){
-			core.Obj.selector.set_version(this.selected_row_id());
+			global.selectorview.set_filetree_version(this.selected_row_id());
+			
+			var read_only = global.selectorview.getFiletree().is_read_only();
+			global.selectorview.getToolbar().set_read_only_mode(!read_only);
 		}, this);
 	},
 	
@@ -46,8 +48,15 @@ qx.Class.define("ide.selector.VMTable",
 		selected_row_id: function(){
 			var row = this.getSelectionModel().getSelectedRanges()[0]["maxIndex"];
 			var id = ""+this.getTableModel().getData()[row][0];
-			if (id == "WC") { id = ""+core.Cons.WC }
+			if (id == "WC") { id = ""+cons.WC }
 			return id;
+		},
+		
+		load: function(){
+			var rq = this.dao_version_list();
+			rq.addEventListener("ok", function(e) {
+				this.load_from_hash(e.getData());
+			}, this);
 		}
 	}
 });

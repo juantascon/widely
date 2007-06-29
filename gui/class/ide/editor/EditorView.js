@@ -1,7 +1,5 @@
 qx.Class.define("ide.editor.EditorView",
 {
-	type: "singleton",
-	
 	extend: qx.ui.layout.VerticalBoxLayout,
 	
 	construct: function () {
@@ -9,9 +7,8 @@ qx.Class.define("ide.editor.EditorView",
 		
 		this.set({height: "100%", width: "100%"});
 		
-		this.setTabview(new ui.editor.TabView());
-		//this.getTabview().add_tab(new ui.tree.File("file1", "/file1"));
-		this.setToolbar(new ui.editor.ToolBar());
+		this.setTabview(new ide.editor.TabView());
+		this.setToolbar(new ide.editor.ToolBar());
 		
 		this.add(this.getToolbar());
 		this.add(this.getTabview());
@@ -19,7 +16,7 @@ qx.Class.define("ide.editor.EditorView",
 	
 	properties:
 	{
-		tabview: { check: "ui.editor.TabView" },
-		toolbar: { check: "ui.editor.ToolBar" }
+		tabview: { check: "ide.editor.TabView" },
+		toolbar: { check: "ide.editor.ToolBar" }
 	}
 });

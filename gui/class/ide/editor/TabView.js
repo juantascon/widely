@@ -10,7 +10,7 @@ qx.Class.define("ide.editor.TabView",
 	
 	properties:
 	{
-		tabs: { check: "lang.List", init: new lang.List() }
+		tabs: { check: "lib.lang.List", init: new lib.lang.List() }
 	},
 	
 	members:
@@ -30,14 +30,14 @@ qx.Class.define("ide.editor.TabView",
 				var tab = this.getTabs().get(i);
 				
 				if (tab.getFile().getPath() == file.getPath() &&
-					tab.getVersion() == file.getTree().getVersion()) {
+					tab.getFile().getVersion() == file.getVersion()) {
 					
 					tab.getButton().setChecked(true);
 					return tab;
 				}
 			}
 			
-			var tab = new ui.editor.Tab(file);
+			var tab = new ide.editor.Tab(file);
 			this.getBar().add(tab.getButton());
 			this.getPane().add(tab.getPage());
 			

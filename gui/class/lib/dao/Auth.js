@@ -10,7 +10,7 @@ qx.Mixin.define("lib.dao.Auth",
 		
 		dao_set_wc: function(wc_id){
 			return ( new lib.dao.WRQ("auth", "set_wc",
-				{ "session_id": widely.session_id, "wc_id": wc_id },
+				{ "session_id": global.session.id, "wc_id": wc_id },
 				"Setting WC") );
 		}
 	}

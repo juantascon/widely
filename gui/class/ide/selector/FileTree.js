@@ -2,12 +2,20 @@ qx.Class.define("ide.selector.FileTree",
 {
 	extend: qx.ui.tree.Tree,
 	
-	include: dao.Tree,
+	include: [ lib.lang.Versioned, lib.dao.WC ],
+	
+	properties:
+	{
+		name: { check: "String", init: "/" },
+		path: { check: "String", init: "/"}
+	},
 	
 	construct: function (version) {
+		this.setVersion(cons.WC);
+		
 		if (version) { this.setVersion(eval(version)); }
 		
-		if ( this.getVersion() == core.Cons.WC ) {
+		if ( this.getVersion() == cons.WC ) {
 			this.base(arguments, "WorkingCopy");
 		}
 		else {
@@ -16,15 +24,9 @@ qx.Class.define("ide.selector.FileTree",
 		this.set({height: "100%", width: "100%"});
 		this.setBackgroundColor("white");
 		this.setOverflow("auto");
-		this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
+		//this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
 		
 		this.setSelectedElement(this);
-	},
-	
-	properties:
-	{
-		name: { check: "String", init: "/" },
-		path: { check: "String", init: "/"}
 	},
 	
 	members:
@@ -33,12 +35,14 @@ qx.Class.define("ide.selector.FileTree",
 			this.destroyContent();
 			
 			for (var i in data){
+				data[i]["version"] = this.getVersion();
+				
 				if (data[i]["type"] == "dir"){
-					this.addToFolder(ui.selector.Dir.new_from_hash(data[i], exclude_files));
+					this.addToFolder(ide.selector.Dir.new_from_hash(data[i], exclude_files));
 				}
 				if (! exclude_files) {
 					if (data[i]["type"] == "file"){
-						this.addToFolder(ui.selector.File.new_from_hash(data[i]));
+						this.addToFolder(ide.selector.File.new_from_hash(data[i]));
 					}
 				}
 			}
@@ -52,6 +56,13 @@ qx.Class.define("ide.selector.FileTree",
 			}
 			
 			return null;
+		},
+		
+		load: function(){
+			var load_rq = this.dao_ls("/", this.getVersion());
+			load_rq.addEventListener("ok", function(e) {
+				this.load_from_hash(e.getData(), false);
+			}, this);
 		}
 	}
 });

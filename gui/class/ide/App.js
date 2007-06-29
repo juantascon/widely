@@ -2,9 +2,7 @@ qx.Class.define("ide.App",
 {
 	extend : qx.application.Gui,
 	
-	construct : function() {
-		this.base(arguments);
-	},
+	include: lib.dao.Auth,
 	
 	properties:
 	{
@@ -16,34 +14,37 @@ qx.Class.define("ide.App",
 		main: function(e) {
 			this.base(arguments);
 			
-			core.Obj.statusbar = ui.StatusBar.getInstance();
-			core.Obj.editor = ui.editor.EditorView.getInstance();
-			core.Obj.selector = ui.selector.View.getInstance();
+			qx.Class.createNamespace("cons.WC", -1);
 			
-			this.setFrame(new qx.ui.layout.DockLayout());
-			this.getFrame().setEdge(0);
+			qx.Class.createNamespace("global.statusbar", new lib.ui.StatusBar);
+			qx.Class.createNamespace("global.editorview", new ide.editor.EditorView);
+			qx.Class.createNamespace("global.selectorview", new ide.selector.SelectorView);
 			
-			this.getFrame().addBottom(core.Obj.statusbar);
+			qx.Class.createNamespace("global.session.id", -1);
+			qx.Class.createNamespace("global.session.user", "test");
 			
 			var split_box = new qx.ui.splitpane.HorizontalSplitPane(300, "1*");
-			split_box.addRight(core.Obj.editor);
-			split_box.addLeft(core.Obj.selector);
-			this.getFrame().add(split_box);
+			split_box.addRight(global.editorview);
+			split_box.addLeft(global.selectorview);
 			
-			qx.ui.core.ClientDocument.getInstance().add(this.getFrame());
+			var frame = new qx.ui.layout.DockLayout()
+			with(frame) {
+				set({left: 0, top: 0, height: "100%", width: "100%"});
+				addBottom(global.statusbar);
+				add(split_box);
+			}
 			
-			var login = new core.Login();
-			login.start();
+			qx.ui.core.ClientDocument.getInstance().add(frame);
+			
+			var login_rq = this.dao_login(global.session.user, global.session.user);
+			login_rq.addEventListener("ok", function(e){
+				global.session.id = e.getData();
+				this.dao_set_wc("project1-wc1");
+			}, this);
 		},
-		
 		
 		close: function(e) { this.base(arguments); },
 		
 		terminate: function(e) { this.base(arguments); }
-	},
-	
-	settings:
-	{
-		"apps.IDE.resourceUri": "./resource"
 	}
 });

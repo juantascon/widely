@@ -4,10 +4,6 @@ qx.Class.define("ide.cmd.FileTree",
 	
 	statics:
 	{
-		load: function(){
-			core.Obj.selector.getFiletree().load();
-		},
-		
 		new_file: function() {
 			if (core.Obj.selector.getFiletree().is_read_only()) {
 				core.Obj.statusbar.fail("Add: readonly tree");

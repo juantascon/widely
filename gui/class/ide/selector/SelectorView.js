@@ -1,7 +1,5 @@
 qx.Class.define("ide.selector.SelectorView",
 {
-	type: "singleton",
-	
 	extend: qx.ui.layout.VerticalBoxLayout,
 	
 	construct: function () {
@@ -10,34 +8,32 @@ qx.Class.define("ide.selector.SelectorView",
 		this.setEdge(0);
 		this.set({height: "100%", width: "100%"});
 		
-		this.setToolbar(new ui.selector.ToolBar());
+		this.setToolbar(new ide.selector.ToolBar());
+		this.add(this.getToolbar());
+		
+		this.setFiletree(new ide.selector.FileTree());
+		this.setVersionstable(new ide.selector.VersionsTable());
+		
 		this.setSplitbox(new qx.ui.splitpane.VerticalSplitPane("3*", "2*"));
-		this.setFiletree(new ui.selector.FileTree());
-		this.setVmtable(new ui.selector.VMTable());
-		
-		//this.getFiletree().dao_load();
-		
 		with(this.getSplitbox()) {
 			set({height: "100%", width: "100%"});
 			addTop(this.getFiletree());
-			addBottom(this.getVmtable());
+			addBottom(this.getVersionstable());
 		}
-		
-		this.add(this.getToolbar());
 		this.add(this.getSplitbox());
 	},
 	
 	properties:
 	{
-		filetree: { check: "ui.selector.FileTree" },
-		toolbar: { check: "ui.selector.ToolBar" },
-		vmtable: { check: "ui.selector.VMTable" },
+		filetree: { check: "ide.selector.FileTree" },
+		toolbar: { check: "ide.selector.ToolBar" },
+		versionstable: { check: "ide.selector.VersionsTable" },
 		splitbox: { check: "qx.ui.splitpane.VerticalSplitPane" }
 	},
 	
 	members:
 	{
-		set_version: function(version){
+		set_filetree_version: function(version){
 			this.getSplitbox().getTopArea().remove(this.getFiletree());
 			/*
 			 * TODO: se deben borrar los FileTree del view?
@@ -45,8 +41,8 @@ qx.Class.define("ide.selector.SelectorView",
 			 * this.getFiletree().dispose();
 			 * 
 			 */
-			this.setFiletree(new ui.selector.FileTree(version));
-			this.getFiletree().dao_load();
+			this.setFiletree(new ide.selector.FileTree(version));
+			this.getFiletree().load();
 			this.getSplitbox().addTop(this.getFiletree());
 		}
 	}

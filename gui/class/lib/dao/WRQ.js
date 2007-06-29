@@ -10,18 +10,18 @@ qx.Class.define("lib.dao.WRQ",
 		this.setData(lib.lang.Encode.encodeObj(params));
 		
 		this.addEventListener("aborted", function(e){
-			widely.statusbar.fail(msg+": aborted");
 			this.createDispatchEvent("fail");
+			global.statusbar.fail(msg+": aborted");
 		}, this);
 		
 		this.addEventListener("failed", function(e){
-			widely.statusbar.fail(msg+": failed");
 			this.createDispatchEvent("fail");
+			global.statusbar.fail(msg+": failed");
 		}, this);
 		
 		this.addEventListener("timeout", function(e){
-			widely.statusbar.fail(msg+": timeout");
 			this.createDispatchEvent("fail");
+			global.statusbar.fail(msg+": timeout");
 		}, this);
 		
 		
@@ -30,23 +30,20 @@ qx.Class.define("lib.dao.WRQ",
 			var data = resp.getContent();
 			
 			if (data["error"]) {
-				widely.statusbar.fail(msg+": error -- invalid request");
-				
 				this.createDispatchDataEvent("error", data["error"])
+				global.statusbar.fail(msg+": error -- invalid request");
 			}
 			else if (resp.getStatusCode() == 200){ // Status: OK
-				widely.statusbar.ok(msg+": OK");
-				
 				this.createDispatchDataEvent("ok", data)
+				global.statusbar.ok(msg+": OK");
 			}
 			else {
-				widely.statusbar.fail(msg+": error -- invalid request");
-				
 				this.createDispatchDataEvent("error", data)
+				global.statusbar.fail(msg+": error -- invalid request");
 			}
 		}, this);
 		
-		widely.statusbar.process(msg+": sending");
+		global.statusbar.process(msg+": sending");
 		this.send();
 	},
 	
