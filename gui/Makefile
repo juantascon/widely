@@ -44,11 +44,7 @@ QOOXDOO_URI = /qooxdoo-sdk/
 
 
 APPLICATION_NAMESPACE = config
-#APPLICATION_NAMESPACE = ide
-#APPLICATION_NAMESPACE = admin
-#APPLICATION_NAMESPACE = login
-
-#APPLICATION_CLASSNAME = App
+APPLICATION_CLASSNAME = App
 
 #
 # Files that will be copied from the source directory into the build
@@ -65,6 +61,7 @@ APPLICATION_FILES = html/*
 
 APPLICATION_HTML_TO_ROOT_URI = ..
 APPLICATION_SOURCE_PATH = ./
+APPLICATION_COMPLETE_SOURCE = false
 
 
 

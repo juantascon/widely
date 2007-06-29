@@ -1,15 +1,13 @@
 qx.Class.define("config.ConfigView",
 {
-	type: "singleton",
-	
 	extend: qx.ui.pageview.buttonview.ButtonView,
 	
 	construct: function () {
 		this.base(arguments);
 		
-		this.add_tab(new ui.config.UserPreferencesTab);
-		this.add_tab(new ui.config.RepoTab);
-		this.add_tab(new ui.config.WCTab);
+		this.add_tab(new config.tab.UserPreferencesTab);
+		this.add_tab(new config.tab.RepoTab);
+		this.add_tab(new config.tab.WCTab);
 	},
 	
 	members:

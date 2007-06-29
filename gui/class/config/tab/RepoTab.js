@@ -2,7 +2,7 @@ qx.Class.define("config.tab.RepoTab",
 {
 	extend: config.tab.Tab,
 	
-	include: dao.Repo,
+	include: lib.dao.Repo,
 	
 	construct: function () {
 		this.base(arguments, "Repositories", "icon/32/places/archive-folder.png");

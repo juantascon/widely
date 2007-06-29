@@ -2,7 +2,7 @@ qx.Class.define("lib.ui.EditableListView",
 {
 	extend: qx.ui.layout.GridLayout,
 	
-	construct: function (list_header) {
+	construct: function (header) {
 		this.base(arguments);
 		
 		this.setListview(new qx.ui.listview.ListView([], header));
@@ -15,7 +15,9 @@ qx.Class.define("lib.ui.EditableListView",
 			set({left: 0, top: 0, height: null, width: "auto"});
 			setSpacing(10);
 			setPaddingLeft(20);
-			
+		}
+		
+		with(this) {
 			add_button("Reload", "actions/view-refresh", function(e){
 				this.createDispatchEvent("load");
 			}, this);
@@ -49,7 +51,7 @@ qx.Class.define("lib.ui.EditableListView",
 	
 	properties:
 	{
-		toolbar: { check: "ui.config.ToolBar" },
+		toolbar: { check: "qx.ui.layout.VerticalBoxLayout" },
 		listview: { check: "qx.ui.listview.ListView" }
 	},
 	
