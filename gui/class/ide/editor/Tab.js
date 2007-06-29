@@ -22,7 +22,6 @@ qx.Class.define("ide.editor.Tab",
 		
 		this.setButton(new qx.ui.pageview.tabview.Button(label));
 		with(this.getButton()) {
-			setChecked(true);
 			setShowCloseButton(true);
 		}
 		

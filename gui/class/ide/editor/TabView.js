@@ -6,25 +6,33 @@ qx.Class.define("ide.editor.TabView",
 		this.base(arguments, "vertical");
 		
 		this.set({height: "1*", width: "100%"});
+		
+		this.getBar().getManager().addEventListener("changeSelected", function(e) {
+			
+			var b = e.getValue();
+			this.debug(this.getTabs().length());
+			
+			for (var i = 0; i < this.getTabs().length(); i++){
+				if (this.getTabs().get(i).getButton() == b){
+					this.setSelected(this.getTabs().get(i));
+					break;
+				}
+			}
+			
+			var read_only = this.getSelected().getFile().is_read_only()
+			global.editorview.getToolbar().set_read_only_mode(read_only);
+			
+		}, this);
 	},
 	
 	properties:
 	{
-		tabs: { check: "lib.lang.List", init: new lib.lang.List() }
+		tabs: { check: "lib.lang.List", init: new lib.lang.List() },
+		selected: { check: "ide.editor.Tab" }
 	},
 	
 	members:
 	{
-		selected_tab: function(){
-			var b = this.getBar().getManager().getSelected();
-			for (var i = 0; i < this.getTabs().length(); i++){
-				if (this.getTabs().get(i).getButton() == b){
-					return this.getTabs().get(i);
-				}
-			}
-			return null;
-		},
-		
 		add_tab: function(file){
 			for (var i = 0; i < this.getTabs().length(); i++){
 				var tab = this.getTabs().get(i);
@@ -38,6 +46,7 @@ qx.Class.define("ide.editor.TabView",
 			}
 			
 			var tab = new ide.editor.Tab(file);
+			
 			this.getBar().add(tab.getButton());
 			this.getPane().add(tab.getPage());
 			
@@ -58,6 +67,7 @@ qx.Class.define("ide.editor.TabView",
 			}, this);
 			
 			this.getTabs().add(tab);
+			tab.getButton().setChecked(true);
 			
 			return tab;
 		}
