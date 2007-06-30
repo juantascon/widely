@@ -1,4 +1,4 @@
-qx.Class.define("lib.ui.LoginDialog",
+qx.Class.define("lib.ui.dialog.LoginDialog",
 {
 	extend: lib.ui.Dialog,
 	

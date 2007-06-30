@@ -8,9 +8,7 @@ qx.Class.define("ide.editor.TabView",
 		this.set({height: "1*", width: "100%"});
 		
 		this.getBar().getManager().addEventListener("changeSelected", function(e) {
-			
 			var b = e.getValue();
-			this.debug(this.getTabs().length());
 			
 			for (var i = 0; i < this.getTabs().length(); i++){
 				if (this.getTabs().get(i).getButton() == b){
@@ -21,7 +19,6 @@ qx.Class.define("ide.editor.TabView",
 			
 			var read_only = this.getSelected().getFile().is_read_only()
 			global.editorview.getToolbar().set_read_only_mode(read_only);
-			
 		}, this);
 	},
 	
@@ -37,7 +34,7 @@ qx.Class.define("ide.editor.TabView",
 			for (var i = 0; i < this.getTabs().length(); i++){
 				var tab = this.getTabs().get(i);
 				
-				if (tab.getFile().getPath() == file.getPath() &&
+				if (tab.getFile().full_path == file.full_path &&
 					tab.getFile().getVersion() == file.getVersion()) {
 					
 					tab.getButton().setChecked(true);
@@ -54,13 +51,16 @@ qx.Class.define("ide.editor.TabView",
 				var b = e.getData();
 				var tabs = this.getTabs();
 				
-				if (tabs.length() <= 1){
-					return;
-				}
 				for (var i = 0; i < tabs.length(); i++) {
 					if (tabs.get(i).getButton() == b) {
 						tabs.get(i).dispose();
-						tabs.remove(i).getButton().setChecked(true);
+						var next_tab = tabs.remove(i);
+						if ( qx.util.Validation.isValid(next_tab) ) {
+							next_tab.getButton().setChecked(true);
+						}
+						else {
+							global.editorview.getToolbar().set_disabled_mode(true);
+						}
 						break;
 					}
 				}

@@ -25,7 +25,7 @@ qx.Class.define("ide.editor.Tab",
 			setShowCloseButton(true);
 		}
 		
-		this.setTextarea(this.create_textarea());
+		this.initialize_textarea();
 		
 		this.setPage(new qx.ui.pageview.tabview.Page(this.getButton()));
 		this.getPage().add(this.getTextarea());
@@ -36,18 +36,19 @@ qx.Class.define("ide.editor.Tab",
 	members:
 	{
 		load_file_content: function() {
-			var rq = this.dao_cat(this.getFile().getPath(), this.getFile().getVersion());
+			var rq = this.dao_cat(this.getFile().full_name(), this.getFile().getVersion());
 			rq.addEventListener("ok", function(e) {
 				this.getTextarea().setValue(""+e.getData());
 			}, this);
 		},
 		
-		create_textarea: function() {
+		save_file_content: function() {
+			var rq = this.dao_write(this.getFile().full_name(), this.getTextarea().getComputedValue());
+		},
+		
+		initialize_textarea: function() {
 			var textarea = new qx.ui.form.TextArea("");
-			
 			textarea.set({height: "100%", width: "100%"});
-			
-			textarea.setReadOnly(false);
 			
 			textarea.addEventListener("keypress", function(e){
 				if (e.getKeyIdentifier() == "Tab"){
@@ -67,12 +68,11 @@ qx.Class.define("ide.editor.Tab",
 			});
 			
 			textarea.addEventListener("insertDom", function(e) {
-				if (this.getFile().is_read_only()) {
-					this.getTextarea().setReadOnly(true);
-				}
+				var read_only = this.getFile().is_read_only();
+				this.getTextarea().setReadOnly(read_only);
 			}, this);
 			
-			return textarea;
+			this.setTextarea(textarea);
 		},
 		
 		dispose: function() {
@@ -86,7 +86,7 @@ qx.Class.define("ide.editor.Tab",
 			b.dispose();
 			p.dispose();
 			
-			this.setTextarea(this.create_textarea());
+			this.initialize_textarea();
 		}
 	}
 });

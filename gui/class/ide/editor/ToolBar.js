@@ -6,15 +6,13 @@ qx.Class.define("ide.editor.ToolBar",
 		this.base(arguments);
 		
 		this.add_button("Reload", "actions/view-refresh", true, function(e){
-			//TODO: terminar aqui
-			//gloabl.editorview.getTabview().selected_tab().getFile().dao_load();
+			global.editorview.getTabview().getSelected().load_file_content();
 		});
 		
 		this.add_button("Save", "actions/document-save", false, function(e){
-			//TODO: terminar aqui
-			//global.editorview.getTabview().selected_tab().getFile().dao_save();
+			global.editorview.getTabview().getSelected().save_file_content();
 		});
 		
-		this.set_read_only_mode(true);
+		this.set_disabled_mode(true);
 	}
 });

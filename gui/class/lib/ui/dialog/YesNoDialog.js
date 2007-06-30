@@ -1,4 +1,4 @@
-qx.Class.define("lib.ui.YesNoDialog",
+qx.Class.define("lib.ui.dialog.YesNoDialog",
 {
 	extend: ui.component.Dialog,
 	

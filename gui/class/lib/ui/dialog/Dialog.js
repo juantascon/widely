@@ -1,4 +1,4 @@
-qx.Class.define("lib.ui.Dialog",
+qx.Class.define("lib.ui.dialog.Dialog",
 {
 	extend: qx.ui.window.Window,
 	
@@ -14,12 +14,12 @@ qx.Class.define("lib.ui.Dialog",
 		}
 		
 		this.setOK(new qx.ui.form.Button("OK", "icon/16/actions/dialog-ok.png"));
-		this.setCANCEL(new qx.ui.form.Button("Cancel", "icon/16/actions/dialog-cancel.png"));
-		
 		this.getOK().addEventListener("execute", function(e) {
 			this.createDispatchEvent("ok");
 			this.stop();
 		}, this);
+		
+		this.setCANCEL(new qx.ui.form.Button("Cancel", "icon/16/actions/dialog-cancel.png"));
 		this.getCANCEL().addEventListener("execute", function(e) {
 			this.createDispatchEvent("cancel");
 			this.stop();

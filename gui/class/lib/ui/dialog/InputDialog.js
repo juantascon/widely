@@ -1,6 +1,6 @@
-qx.Class.define("lib.ui.InputDialog",
+qx.Class.define("lib.ui.dialog.InputDialog",
 {
-	extend: lib.ui.Dialog,
+	extend: lib.ui.dialog.Dialog,
 	
 	construct: function (title, message, input_field) {
 		if (!input_field){ input_field = new qx.ui.form.TextField(""); }

@@ -29,11 +29,11 @@ qx.Class.define("lib.dao.WRQ",
 			resp = e.getData();
 			var data = resp.getContent();
 			
-			if (data["error"]) {
-				this.createDispatchDataEvent("error", data["error"])
+			if (qx.util.Validation.isValidArray(data) && data["error"]) {
+				this.createDispatchDataEvent("error", data["error"]);
 				global.statusbar.fail(msg+": error -- invalid request");
 			}
-			else if (resp.getStatusCode() == 200){ // Status: OK
+			else if (resp.getStatusCode() == 200) { // Status: OK
 				this.createDispatchDataEvent("ok", data)
 				global.statusbar.ok(msg+": OK");
 			}

@@ -39,7 +39,10 @@ qx.Class.define("ide.App",
 			var login_rq = this.dao_login(global.session.user, global.session.user);
 			login_rq.addEventListener("ok", function(e){
 				global.session.id = e.getData();
-				this.dao_set_wc("project1-wc1");
+				var set_wc_rq = this.dao_set_wc("project1-wc1");
+				set_wc_rq.addEventListener("ok", function(e){
+					global.selectorview.getVersionstable().load();
+				});
 			}, this);
 		},
 		

@@ -10,10 +10,12 @@ qx.Class.define("lib.ui.ToolBar",
 	
 	construct: function () {
 		this.base(arguments);
-		//this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
-		this.setMinHeight("auto");
+		
 		this.setButtons( {} );
 		this.setWritebuttons( [] );
+		
+		//this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
+		this.setMinHeight("auto");
 	},
 	
 	members:
@@ -31,7 +33,16 @@ qx.Class.define("lib.ui.ToolBar",
 		},
 		
 		set_read_only_mode: function(mode) {
+			this.set_disabled_mode(false);
 			var b = this.getWritebuttons();
+			
+			for ( var i in b ) {
+				b[i].setEnabled(!mode);
+			}
+		},
+		
+		set_disabled_mode: function(mode) {
+			var b = this.getButtons();
 			
 			for ( var i in b ) {
 				b[i].setEnabled(!mode);
