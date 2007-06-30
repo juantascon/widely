@@ -38,6 +38,10 @@ class WPluginable
 		return true
 	end
 	
+	def self.wplugin_list()
+		return self.wplugins.keys
+	end
+	
 	attr_accessor :default
 	
 	def wplugin_activate_default()

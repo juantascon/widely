@@ -9,6 +9,12 @@ class API
 	include Singleton
 	include WebService
 	
+	def manager_list(args)
+		args.check("session_id")
+		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
+		return WorkingCopy.wplugin_list
+	end
+	
 	def create(args)
 		args.check("session_id", "repo_id", "name", "manager")
 		
@@ -49,7 +55,7 @@ class API
 		return wc.commit(args["log"])
 	end
 	
-	def versions(args)
+	def version_list(args)
 		args.check("session_id")
 		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
 		

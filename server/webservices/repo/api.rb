@@ -9,6 +9,12 @@ class API
 	include Singleton
 	include WebService
 	
+	def manager_list(args)
+		args.check("session_id")
+		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
+		return Repository.wplugin_list
+	end
+	
 	def create(args)
 		args.check("session_id", "name", "manager")
 		

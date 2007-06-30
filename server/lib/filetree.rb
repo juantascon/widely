@@ -44,20 +44,25 @@ class FileTree
 		#
 		# retorna la ruta completa hasta el directorio raiz
 		#
-		def fullpath()
+		def fullpath(skip=0)
 			path = Array.new
 			p = self
 			while p
-				path.push(p.id)
+				if skip > 0
+					skip -= 1 
+				else
+					path.push(p.id)
+				end
 				p = p.parent
 			end
+			return "/" if (path.size == 0)
 			return path.reverse.join("/")
 		end
 		
 		def to_h
 			return {
-				"text" => id,
-				"id" => fullpath,
+				"name" => id,
+				"path" => fullpath(1),
 				"childs" => false,
 				"type" => "file"
 			}
@@ -119,8 +124,8 @@ class FileTree
 			@childs.each{ |c| childs_h.push(c.to_h) }
 			
 			return {
-				"text" => id,
-				"id" => fullpath,
+				"name" => id,
+				"path" => fullpath(1),
 				"childs" => childs_h,
 				"type" => "dir"
 			}

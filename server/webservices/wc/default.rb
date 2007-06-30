@@ -35,8 +35,8 @@ module Default
 	#
 	# Obtiene una copia de trabajo
 	#
-	def checkout(version=@@WC)
-		version=versions.last if (! version || version.get == @@WC.get)
+	def checkout(version=self.default_wc)
+		version=versions.last if (! version || version.get == self.class.default_wc.get)
 		
 		return repository.checkout(@data_dir, version)
 	end
@@ -72,7 +72,7 @@ module Default
 	# del repositorio, sino se mostrara la version
 	# de la copia de trabajo
 	#
-	def cat(path, version=@@WC)
+	def cat(path, version=self.default_wc)
 		
 		# path no puede ser una ruta relativa
 		path = File.cleanpath(path)
@@ -82,7 +82,7 @@ module Default
 		end
 		
 		rpath = "#{@data_dir}/#{path}"
-		if ! version || version.get == @@WC.get
+		if ! version || version.get == self.class.default_wc.get
 			return false if ! file?(rpath)
 			return File.new(rpath).read
 		else
@@ -98,7 +98,7 @@ module Default
 	# del repositorio, sino se mostrara la version
 	# de la copia de trabajo
 	#
-	def ls(path, version=@@WC)
+	def ls(path, version=self.default_wc)
 		
 		# path no puede ser una ruta relativa
 		path = File.cleanpath(path)
@@ -108,7 +108,7 @@ module Default
 		end
 		
 		rpath = "#{@data_dir}/#{path}"
-		if ! version || version.get == @@WC.get
+		if ! version || version.get == self.class.default_wc.get
 			tree = FileTree.new
 			Find.find(rpath) do |f|
 				node_name = "#{Pathname.new(f).relative_path_from(Pathname.new(rpath)).to_s}"
