@@ -8,8 +8,10 @@ qx.Class.define("ide.selector.Dir",
 		this.base(arguments, name);
 		this.initialize_fs_object(name, path, version);
 		
-		this.set_fs_dragable();
-		this.set_fs_dropable();
+		if (! this.is_read_only()) {
+			this.set_fs_dragable();
+			this.set_fs_dropable();
+		}
 	},
 	
 	statics:

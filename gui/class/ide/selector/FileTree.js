@@ -21,8 +21,7 @@ qx.Class.define("ide.selector.FileTree",
 		//this.setBorder(new qx.renderer.border.Border(1, "solid", "#91A5BD"));
 		
 		this.setSelectedElement(this);
-		this.set_fs_dropable();
-		
+		if (! this.is_read_only()) { this.set_fs_dropable(); }
 	},
 	
 	members:

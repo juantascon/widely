@@ -12,7 +12,7 @@ qx.Class.define("ide.selector.File",
 			global.editorview.getTabview().add_tab(this);
 		}, this);
 		
-		this.set_fs_dragable();
+		if (! this.is_read_only()) { this.set_fs_dragable(); }
 	},
 	
 	statics:
