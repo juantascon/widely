@@ -20,4 +20,4 @@ raw_ws wc/write "session_id=$id&path=/dir1/dir1_1/file1_1_1&content=soy-otro-arc
 raw_ws wc/commit "session_id=$id&log=version2"
 
 raw_ws wc/ls "session_id=$id&path=/"
-raw_ws wc/versions "session_id=$id"
+raw_ws wc/version_list "session_id=$id"
