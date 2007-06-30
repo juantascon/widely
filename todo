@@ -1,10 +1,5 @@
 TODO:
 
-[core::Storage, lib::Collection, webservice:Auth, ]: 
-	*ok* adaptarlo al fs
-	*ok* agregar constantes de nombre (ej: "users")
-	*ok* hacer un rediseno de Collection, Users y Storage y agregarlo al core(wuser, wstorage)
-	*ok* crear archivos de configuracion de ejemplo
 [gui::Config]:
 	wcs
 	repos
@@ -16,14 +11,19 @@ TODO:
 	login de usuarios
 	login de admin
 	almacenar el session_id en una cookie
+	conectar con las otras apps
 [gui::IDE]:
 	preguntar por copia de trabajo activa al inicio
 	toolbar principal (logout, config, wc activa))
 	acciones cuando un request de webservice retorna error o timeout
+
+
 [webservice::Compilator,gui::IDE]: crear una interfaz de compilacion
 [doc]:
 	arquitectura -> poner patrones (modulos, web services, APIs, minicore, ducktyping)
 	poner las flechas que son en los diagramas
+
+
 
 ADICIONALES:
 
@@ -45,7 +45,10 @@ ADICIONALES:
 [gui::IDE, webservice::Downloader]: Downloader
 *: Pasar todo a ingles
 
+
+
 BUGS:
+
 [gui::IDE]:
 	* no desactiva el tab(o avisa) de un archivo modificado en WC(delete, commit, write)
 	* filetreeview:
