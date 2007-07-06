@@ -2,6 +2,12 @@ qx.Class.define("ide.editor.TabView",
 {
 	extend: qx.ui.pageview.tabview.TabView,
 	
+	properties:
+	{
+		tabs: { check: "lib.lang.List", init: new lib.lang.List() },
+		selected: { check: "ide.editor.Tab" }
+	},
+	
 	construct: function () {
 		this.base(arguments, "vertical");
 		
@@ -20,12 +26,6 @@ qx.Class.define("ide.editor.TabView",
 			var read_only = this.getSelected().getFile().is_read_only()
 			global.editorview.getToolbar().set_read_only_mode(read_only);
 		}, this);
-	},
-	
-	properties:
-	{
-		tabs: { check: "lib.lang.List", init: new lib.lang.List() },
-		selected: { check: "ide.editor.Tab" }
 	},
 	
 	members:

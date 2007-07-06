@@ -2,6 +2,11 @@ qx.Class.define("lib.ui.StatusBar",
 {
 	extend: qx.ui.layout.CanvasLayout,
 	
+	properties:
+	{
+		atom: { check: "qx.ui.basic.Atom" }
+	},
+	
 	construct: function () {
 		this.base(arguments);
 		
@@ -13,11 +18,6 @@ qx.Class.define("lib.ui.StatusBar",
 		
 		this.add(this.getAtom());
 		this.ok("StatusBar: loaded");
-	},
-	
-	properties:
-	{
-		atom: { check: "qx.ui.basic.Atom" }
 	},
 	
 	members:

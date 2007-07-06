@@ -2,6 +2,13 @@ qx.Class.define("lib.dao.WRQ",
 {
 	extend: qx.io.remote.Request,
 	
+	events:
+	{
+		"fail": "qx.event.type.Event",
+		"ok": "qx.event.type.Event",
+		"error": "qx.event.type.Event"
+	},
+	
 	construct: function (webservice, method, params, msg) {
 		this.base(arguments, "/api/"+webservice+"/"+method, "POST", qx.util.Mime.JSON);
 		
@@ -45,13 +52,5 @@ qx.Class.define("lib.dao.WRQ",
 		
 		global.statusbar.process(msg+": sending");
 		this.send();
-	},
-	
-	events:
-	{
-		"fail": "qx.event.type.Event",
-		"ok": "qx.event.type.Event",
-		"error": "qx.event.type.Event"
 	}
-	
 });

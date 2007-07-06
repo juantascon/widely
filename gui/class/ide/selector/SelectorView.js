@@ -2,6 +2,14 @@ qx.Class.define("ide.selector.SelectorView",
 {
 	extend: qx.ui.layout.VerticalBoxLayout,
 	
+	properties:
+	{
+		filetree: { check: "ide.selector.FileTree" },
+		toolbar: { check: "ide.selector.ToolBar" },
+		versionstable: { check: "ide.selector.VersionsTable" },
+		splitbox: { check: "qx.ui.splitpane.VerticalSplitPane" }
+	},
+	
 	construct: function () {
 		this.base(arguments);
 		
@@ -21,14 +29,6 @@ qx.Class.define("ide.selector.SelectorView",
 			addBottom(this.getVersionstable());
 		}
 		this.add(this.getSplitbox());
-	},
-	
-	properties:
-	{
-		filetree: { check: "ide.selector.FileTree" },
-		toolbar: { check: "ide.selector.ToolBar" },
-		versionstable: { check: "ide.selector.VersionsTable" },
-		splitbox: { check: "qx.ui.splitpane.VerticalSplitPane" }
 	},
 	
 	members:

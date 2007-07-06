@@ -21,7 +21,6 @@ qx.Mixin.define("lib.dao.WC",
 		},
 		
 		
-		
 		dao_checkout: function(version) {
 			if (! version) { version = "-1" }
 			

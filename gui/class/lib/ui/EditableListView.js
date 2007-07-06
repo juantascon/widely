@@ -2,6 +2,19 @@ qx.Class.define("lib.ui.EditableListView",
 {
 	extend: qx.ui.layout.GridLayout,
 	
+	events:
+	{
+		"load": "qx.event.type.Event",
+		"add": "qx.event.type.Event",
+		"delete": "qx.event.type.Event"
+	},
+	
+	properties:
+	{
+		toolbar: { check: "qx.ui.layout.VerticalBoxLayout" },
+		listview: { check: "qx.ui.listview.ListView" }
+	},
+	
 	construct: function (header) {
 		this.base(arguments);
 		
@@ -29,9 +42,8 @@ qx.Class.define("lib.ui.EditableListView",
 			add_button("Delete", "actions/edit-delete", function(e){
 				this.createDispatchEvent("delete");
 			}, this);
-		}
-		
-		with(this) {
+			
+			
 			set({left: 0, top: 0, height: "100%", width: "100%"});
 			setColumnCount(2);
 			setRowCount(3);
@@ -47,20 +59,6 @@ qx.Class.define("lib.ui.EditableListView",
 			add(this.getListview(), 0, 0);
 			add(this.getToolbar(), 1, 1);
 		}
-	},
-	
-	properties:
-	{
-		toolbar: { check: "qx.ui.layout.VerticalBoxLayout" },
-		listview: { check: "qx.ui.listview.ListView" }
-	},
-	
-	
-	events:
-	{
-		"load": "qx.event.type.Event",
-		"add": "qx.event.type.Event",
-		"delete": "qx.event.type.Event"
 	},
 	
 	members:

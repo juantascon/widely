@@ -5,5 +5,4 @@ qx.Class.define("lib.ui.dialogpopup.Atom",
 	construct: function (parent, message, icon) {
 		this.base(arguments, parent, new qx.ui.basic.Atom(message, icon));
 	}
-	
 });

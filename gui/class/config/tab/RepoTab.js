@@ -4,6 +4,11 @@ qx.Class.define("config.tab.RepoTab",
 	
 	include: lib.dao.Repo,
 	
+	properties:
+	{
+		editablelistview: { check: "lib.ui.EditableListView" }
+	},
+	
 	construct: function () {
 		this.base(arguments, "Repositories", "icon/32/places/archive-folder.png");
 		
@@ -33,11 +38,6 @@ qx.Class.define("config.tab.RepoTab",
 		
 		this.getPage().add(this.getEditablelistview());
 		this.getPage().setPadding(50);
-	},
-	
-	properties:
-	{
-		editablelistview: { check: "lib.ui.EditableListView" }
 	},
 	
 	members:

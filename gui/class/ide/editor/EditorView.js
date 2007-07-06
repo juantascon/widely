@@ -2,6 +2,12 @@ qx.Class.define("ide.editor.EditorView",
 {
 	extend: qx.ui.layout.VerticalBoxLayout,
 	
+	properties:
+	{
+		tabview: { check: "ide.editor.TabView" },
+		toolbar: { check: "ide.editor.ToolBar" }
+	},
+	
 	construct: function () {
 		this.base(arguments);
 		
@@ -12,11 +18,5 @@ qx.Class.define("ide.editor.EditorView",
 		
 		this.add(this.getToolbar());
 		this.add(this.getTabview());
-	},
-	
-	properties:
-	{
-		tabview: { check: "ide.editor.TabView" },
-		toolbar: { check: "ide.editor.ToolBar" }
 	}
 });

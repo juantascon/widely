@@ -2,6 +2,12 @@ qx.Class.define("lib.ui.dialogpopup.Base",
 {
 	extend: qx.ui.popup.Popup,
 	
+	events:
+	{
+		"ok": "qx.event.type.Event",
+		"cancel": "qx.event.type.Event"
+	},
+	
 	properties:
 	{
 		OK: { check: "qx.ui.form.Button" },
@@ -65,10 +71,5 @@ qx.Class.define("lib.ui.dialogpopup.Base",
 			this.hide();
 			this.dispose();
 		}
-	},
-	
-	events: {
-		"ok": "qx.event.type.Event",
-		"cancel": "qx.event.type.Event"
 	}
 });
