@@ -26,7 +26,7 @@ qx.Class.define("ide.selector.VersionsTable",
 			global.selectorview.set_filetree_version(this.selected_row_id());
 			
 			var read_only = global.selectorview.getFiletree().is_read_only();
-			global.selectorview.getToolbar().set_read_only_mode(read_only);
+			global.selectorview.getToolbar().set_mode_ro(read_only);
 		}, this);
 	},
 	

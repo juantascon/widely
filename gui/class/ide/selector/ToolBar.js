@@ -3,7 +3,7 @@ qx.Class.define("ide.selector.ToolBar",
 	extend: lib.ui.ToolBar,
 	
 	construct: function () {
-		this.base(arguments);
+		this.base(arguments, "horizontal", 16);
 		
 		this.add_button("Reload", "actions/view-refresh", true, function(e){
 			global.selectorview.getVersionstable().load();
@@ -21,6 +21,6 @@ qx.Class.define("ide.selector.ToolBar",
 		this.add_button("Commit", "actions/go-down", false, function(e){
 			ui.cmd.FileTree.commit();
 		});
-		this.set_read_only_mode(true);
+		this.set_mode_ro(true);
 	}
 });

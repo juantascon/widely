@@ -1,6 +1,6 @@
-qx.Class.define("lib.ui.dialogpopup.Input",
+qx.Class.define("lib.ui.popupdialog.Input",
 {
-	extend: lib.ui.dialogpopup.Base,
+	extend: lib.ui.popupdialog.Base,
 	
 	properties:
 	{
@@ -12,8 +12,7 @@ qx.Class.define("lib.ui.dialogpopup.Input",
 		
 		this.setField(new qx.ui.form.TextField(init_label));
 		with (this.getField()) {
-			setEdge(0,0,0,0);
-			
+			setEdge(0, 0, 0, 0);
 		}
 		
 		this.base(arguments, parent, this.getField());

@@ -1,4 +1,4 @@
-qx.Class.define("lib.ui.dialogpopup.Base",
+qx.Class.define("lib.ui.popupdialog.Base",
 {
 	extend: qx.ui.popup.Popup,
 	

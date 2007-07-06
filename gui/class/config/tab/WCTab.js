@@ -40,6 +40,14 @@ qx.Class.define("config.tab.WCTab",
 					this.load_list(e.getData());
 				}, this);
 			}, this);
+			
+			addEventListener("add", function(e){
+				new lib.ui.WDialog(global.mainframe, "Nuevo WC", new qx.ui.form.TextField("editame"));
+			}, this);
+			
+			addEventListener("delete", function(e){
+				new lib.ui.popupdialog.Atom(this.getListview(), "Esta seguro que desea borrar", new qx.ui.form.TextField("editame"));
+			}, this);
 		}
 		
 		this.getPage().add(this.getEditablelistview());

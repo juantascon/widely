@@ -6,13 +6,14 @@ qx.Class.define("lib.ui.EditableListView",
 	{
 		"load": "qx.event.type.Event",
 		"add": "qx.event.type.Event",
-		"delete": "qx.event.type.Event"
+		"delete": "qx.event.type.DataEvent"
 	},
 	
 	properties:
 	{
-		toolbar: { check: "qx.ui.layout.VerticalBoxLayout" },
-		listview: { check: "qx.ui.listview.ListView" }
+		toolbar: { check: "lib.ui.ToolBar" },
+		listview: { check: "qx.ui.listview.ListView" },
+		selected: { check: "String" }
 	},
 	
 	construct: function (header) {
@@ -21,29 +22,33 @@ qx.Class.define("lib.ui.EditableListView",
 		this.setListview(new qx.ui.listview.ListView([], header));
 		with (this.getListview()) {
 			set({left: 0, top: 0, height: "100%", width: "100%"});
+			
+			getPane().getManager().addEventListener("changeSelection", function(e) {
+				this.getToolbar().set_mode_ro(false);
+			}, this);
 		}
 		
-		this.setToolbar(new qx.ui.layout.VerticalBoxLayout);
+		this.setToolbar(new lib.ui.ToolBar("vertical", 22));
 		with (this.getToolbar()) {
-			set({left: 0, top: 0, height: null, width: "auto"});
 			setSpacing(10);
 			setPaddingLeft(20);
-		}
-		
-		with(this) {
-			add_button("Reload", "actions/view-refresh", function(e){
+			
+			add_button("Reload", "actions/view-refresh", true, function(e){
 				this.createDispatchEvent("load");
 			}, this);
 			
-			add_button("Add", "actions/edit-add", function(e){
+			add_button("Add", "actions/edit-add", true, function(e){
 				this.createDispatchEvent("add");
 			}, this);
 			
-			add_button("Delete", "actions/edit-delete", function(e){
-				this.createDispatchEvent("delete");
+			add_button("Delete", "actions/edit-delete", false, function(e){
+				this.createDispatchDataEvent("delete", "hola");
 			}, this);
 			
-			
+			set_mode_ro(true);
+		}
+		
+		with(this) {
 			set({left: 0, top: 0, height: "100%", width: "100%"});
 			setColumnCount(2);
 			setRowCount(3);
@@ -63,19 +68,18 @@ qx.Class.define("lib.ui.EditableListView",
 	
 	members:
 	{
-		add_button: function(label, icon, execute){
-			var b = new qx.ui.form.Button(label, "icon/22/"+icon+".png");
-			b.set({height: "auto", width: "auto"});
-			b.setBorder("outset");
+		selected: function(field) {
+			var item = this.getListview().getPane().getSelectedItem();
+			if ( qx.util.Validation.isValid(item) &&
+				qx.util.Validation.isValid(item[field]) ) {
+				
+				return item[field].text
+			}
 			
-			b.addEventListener("execute", execute, this);
-			b.setToolTip(new qx.ui.popup.ToolTip(label));
-			b.setShow("icon");
-			
-			this.getToolbar().add(b);
+			return null;
 		},
 		
-		set_data: function(data){
+		set_data: function(data) {
 			while(this.getListview().getData().pop());
 			
 			for (var i in data){

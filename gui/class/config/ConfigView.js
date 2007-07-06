@@ -2,6 +2,12 @@ qx.Class.define("config.ConfigView",
 {
 	extend: qx.ui.pageview.buttonview.ButtonView,
 	
+	properties:
+	{
+		tabs: { check: "lib.lang.List", init: new lib.lang.List() },
+		selected: { check: "config.tab.Tab" }
+	},
+	
 	construct: function () {
 		this.base(arguments);
 		
@@ -12,9 +18,12 @@ qx.Class.define("config.ConfigView",
 	
 	members:
 	{
-		add_tab: function(config_tab){
-			this.getBar().add(config_tab.getButton());
-			this.getPane().add(config_tab.getPage());
+		add_tab: function(tab){
+			this.getTabs().add(tab);
+			this.getBar().add(tab.getButton());
+			this.getPane().add(tab.getPage());
+			
+			return tab;
 		}
 	}
 });

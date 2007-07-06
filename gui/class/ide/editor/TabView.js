@@ -24,7 +24,7 @@ qx.Class.define("ide.editor.TabView",
 			}
 			
 			var read_only = this.getSelected().getFile().is_read_only()
-			global.editorview.getToolbar().set_read_only_mode(read_only);
+			global.editorview.getToolbar().set_mode_ro(read_only);
 		}, this);
 	},
 	
@@ -59,7 +59,7 @@ qx.Class.define("ide.editor.TabView",
 							next_tab.getButton().setChecked(true);
 						}
 						else {
-							global.editorview.getToolbar().set_disabled_mode(true);
+							global.editorview.getToolbar().set_mode_disable(true);
 						}
 						break;
 					}
