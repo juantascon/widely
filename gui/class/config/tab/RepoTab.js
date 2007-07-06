@@ -8,8 +8,18 @@ qx.Class.define("config.tab.RepoTab",
 		this.base(arguments, "Repositories", "icon/32/places/archive-folder.png");
 		
 		this.setEditablelistview(new lib.ui.EditableListView( {
-			name: { label: "Name", icon: "icon/16/categories/applications-development.png", width: "50%", type: "text" },
-			manager: { label: "Manager", icon: "icon/16/apps/accessories-archiver.png", width: "50%", type: "text" }
+			name: {
+				label: "Name",
+				icon: "icon/16/categories/applications-development.png",
+				width: "50%",
+				type: "text"
+			},
+			manager: {
+				label: "Manager",
+				icon: "icon/16/apps/accessories-archiver.png",
+				width: "50%",
+				type: "text"
+			}
 		} ));
 		
 		with (this.getEditablelistview()) {
