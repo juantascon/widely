@@ -53,7 +53,7 @@ qx.Class.define("ide.selector.VersionsTable",
 		},
 		
 		load: function(){
-			var rq = this.dao_version_list();
+			var rq = this.wc_version_list();
 			rq.addEventListener("ok", function(e) {
 				this.load_from_hash(e.getData());
 			}, this);

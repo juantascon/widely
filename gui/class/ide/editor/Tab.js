@@ -36,14 +36,14 @@ qx.Class.define("ide.editor.Tab",
 	members:
 	{
 		load_file_content: function() {
-			var rq = this.dao_cat(this.getFile().full_name(), this.getFile().getVersion());
+			var rq = this.wc_cat(this.getFile().full_name(), this.getFile().getVersion());
 			rq.addEventListener("ok", function(e) {
 				this.getTextarea().setValue(""+e.getData());
 			}, this);
 		},
 		
 		save_file_content: function() {
-			var rq = this.dao_write(this.getFile().full_name(), this.getTextarea().getComputedValue());
+			var rq = this.wc_write(this.getFile().full_name(), this.getTextarea().getComputedValue());
 		},
 		
 		initialize_textarea: function() {

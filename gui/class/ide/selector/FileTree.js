@@ -2,7 +2,7 @@ qx.Class.define("ide.selector.FileTree",
 {
 	extend: qx.ui.tree.Tree,
 	
-	include: [ ide.selector.FSObject, ide.selector.FSDragAndDrop, lib.dao.WC ],
+	include: [ ide.selector.FSDragAndDrop ],
 	
 	construct: function (version) {
 		if (qx.util.Validation.isInvalid(eval(version))) { version = cons.WC }
@@ -52,7 +52,7 @@ qx.Class.define("ide.selector.FileTree",
 		},
 		
 		load: function(){
-			var load_rq = this.dao_ls("/", this.getVersion());
+			var load_rq = this.wc_ls("/", this.getVersion());
 			load_rq.addEventListener("ok", function(e) {
 				this.load_from_hash(e.getData());
 			}, this);
@@ -68,7 +68,7 @@ qx.Class.define("ide.selector.FileTree",
 				name_d.addEventListener("ok", function(e) {
 					var name = name_d.get_text();
 					
-					var add_rq = this.dao_add(path+name, false);
+					var add_rq = this.wc_add(path+name, false);
 					add_rq.addEventListener("ok", function(e) {
 						this.load();
 					}, this);

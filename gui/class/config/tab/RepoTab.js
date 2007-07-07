@@ -29,7 +29,7 @@ qx.Class.define("config.tab.RepoTab",
 		
 		with (this.getEditablelistview()) {
 			addEventListener("load", function(e){
-				var wrq = this.dao_list();
+				var wrq = this.repo_list();
 				wrq.addEventListener("ok", function(e){
 					this.load_list(e.getData());
 				}, this);

@@ -25,7 +25,7 @@ qx.Class.define("config.App",
 			
 			qx.ui.core.ClientDocument.getInstance().add(global.mainframe);
 			
-			var login_rq = this.dao_login(global.session.user, global.session.user);
+			var login_rq = this.auth_login(global.session.user, global.session.user);
 			login_rq.addEventListener("ok", function(e){
 				global.session.id = e.getData();
 			}, this);

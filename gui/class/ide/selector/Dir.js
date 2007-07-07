@@ -2,7 +2,7 @@ qx.Class.define("ide.selector.Dir",
 {
 	extend: qx.ui.tree.TreeFolder,
 	
-	include: [ ide.selector.FSObject, ide.selector.FSDragAndDrop, lib.dao.WC ],
+	include: [ ide.selector.FSDragAndDrop ],
 	
 	construct: function (name, path, version) {
 		this.base(arguments, name);

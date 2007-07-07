@@ -35,14 +35,15 @@ qx.Class.define("config.tab.WCTab",
 		
 		with (this.getEditablelistview()) {
 			addEventListener("load", function(e){
-				var wrq = this.dao_list();
+				var wrq = this.wc_list();
 				wrq.addEventListener("ok", function(e){
 					this.load_list(e.getData());
 				}, this);
 			}, this);
 			
 			addEventListener("add", function(e){
-				new lib.ui.WDialog(global.mainframe, "Nuevo WC", new qx.ui.form.TextField("editame"));
+				var form = new lib.form.NewWC();
+				form.show_dialog(global.mainframe);
 			}, this);
 			
 			addEventListener("delete", function(e){

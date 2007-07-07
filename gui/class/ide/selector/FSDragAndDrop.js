@@ -1,5 +1,8 @@
 qx.Mixin.define("ide.selector.FSDragAndDrop",
 {
+	
+	includes: [ ide.selector.FSObject ],
+	
 	members:
 	{
 		set_fs_dragable: function() {
@@ -27,7 +30,7 @@ qx.Mixin.define("ide.selector.FSDragAndDrop",
 				 * Si se llega a este punto se deben mover los archivos en el FS
 				 *
 				 */
-				this.dao_move(source.full_name(), target.full_name());
+				this.wc_move(source.full_name(), target.full_name());
 				
 				e.stopPropagation();
 			}, this);
