@@ -99,7 +99,7 @@ qx.Class.define("lib.lang.List",
 		 * position
 		 *
 		 */
-		get: function (position){
+		get_at: function (position){
 			if (position >= 0){
 				var node = this.begin;
 				while(position >= 0){
@@ -110,7 +110,7 @@ qx.Class.define("lib.lang.List",
 			}
 		},
 		
-		length: function (){
+		size: function (){
 			var count = 0;
 			var node = this.begin.next;
 			while(node != this.end){

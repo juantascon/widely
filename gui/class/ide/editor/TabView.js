@@ -16,9 +16,9 @@ qx.Class.define("ide.editor.TabView",
 		this.getBar().getManager().addEventListener("changeSelected", function(e) {
 			var b = e.getValue();
 			
-			for (var i = 0; i < this.getTabs().length(); i++){
-				if (this.getTabs().get(i).getButton() == b){
-					this.setSelected(this.getTabs().get(i));
+			for (var i = 0; i < this.getTabs().size(); i++){
+				if (this.getTabs().get_at(i).getButton() == b){
+					this.setSelected(this.getTabs().get_at(i));
 					break;
 				}
 			}
@@ -31,12 +31,12 @@ qx.Class.define("ide.editor.TabView",
 	members:
 	{
 		add_tab: function(file){
-			for (var i = 0; i < this.getTabs().length(); i++){
-				var tab = this.getTabs().get(i);
+			for (var i = 0; i < this.getTabs().size(); i++ ){
+				var tab = this.getTabs().get_at(i);
 				
-				if (tab.getFile().full_path == file.full_path &&
+				if (tab.getFile().full_name() == file.full_name() &&
 					tab.getFile().getVersion() == file.getVersion()) {
-					
+					this.debug(file.get("name"));
 					tab.getButton().setChecked(true);
 					return tab;
 				}
@@ -51,9 +51,9 @@ qx.Class.define("ide.editor.TabView",
 				var b = e.getData();
 				var tabs = this.getTabs();
 				
-				for (var i = 0; i < tabs.length(); i++) {
-					if (tabs.get(i).getButton() == b) {
-						tabs.get(i).dispose();
+				for (var i = 0; i < tabs.size(); i++) {
+					if (tabs.get_at(i).getButton() == b) {
+						tabs.get_at(i).dispose();
 						var next_tab = tabs.remove(i);
 						if ( qx.util.Validation.isValid(next_tab) ) {
 							next_tab.getButton().setChecked(true);

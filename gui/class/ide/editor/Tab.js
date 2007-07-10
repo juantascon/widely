@@ -63,6 +63,7 @@ qx.Class.define("ide.editor.Tab",
 					
 					textarea.setSelectionStart(position+1);
 					textarea.setSelectionLength(0);
+					e.preventDefault();
 					e.stopPropagation();
 				}
 			});

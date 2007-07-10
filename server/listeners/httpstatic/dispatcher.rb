@@ -13,7 +13,7 @@ class Dispatcher < WPluginable
 	def mount_backend(backend_name)
 		case backend_name
 			when "gui" then mount("/gui/", $WIDELY_HOME_GUI)
-			when "qooxdoo" then mount("/qooxdoo-sdk/", "#{$WIDELY_HOME}/../qooxdoo-0.7-sdk/")
+			when "qooxdoo" then mount("/qooxdoo-sdk/", "#{$WIDELY_HOME}/../qooxdoo-0.7.1-sdk/")
 			when "doc" then mount("/doc/", $WIDELY_HOME_DOC)
 			else raise Exception, "invalid backend: #{backend_name}"
 		end
