@@ -1,4 +1,4 @@
-qx.Class.define("lib.form.NewWC",
+qx.Class.define("lib.form.NewUser",
 {
 	extend: qx.ui.groupbox.GroupBox,
 	
