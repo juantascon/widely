@@ -6,7 +6,9 @@ wmodule :Svn => :Repo do |mod|
 		require "rexml/document.rb"
 		mod.require "repository.rb"
 		
-		Repo::Repository.register_wplugin(WPlugin.new("svn", mod.MODULE::Repository))
+		Repo::Repository.register_wplugin(WPlugin.new("svn",
+			"The opensource version control system SubVersion",
+			mod.MODULE::Repository))
 		
 		true
 	rescue Exception => ex

@@ -12,6 +12,6 @@ class Default
 	end
 end
 
-Repository.register_wplugin(WPlugin.new("default", Default))
+Repository.register_wplugin(WPlugin.new("default", "Default Repo Manager Plugin", Default))
 
 end

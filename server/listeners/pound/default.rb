@@ -47,6 +47,6 @@ module Default
 	end
 end
 
-Dispatcher.register_wplugin(WPlugin.new("default", Default))
+Dispatcher.register_wplugin(WPlugin.new("default", "Default Pound (reverse proxy) Plugin", Default))
 
 end

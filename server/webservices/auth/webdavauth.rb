@@ -58,6 +58,8 @@ module WebDavAuth
 	
 end
 
-WebDav::Dispatcher.register_wplugin(WPlugin.new("default_auth", WebDavAuth))
+WebDav::Dispatcher.register_wplugin(WPlugin.new("default_auth",
+	"WebDav Plugin with Widely authentication support",
+	WebDavAuth))
 
 end

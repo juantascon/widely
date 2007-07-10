@@ -35,6 +35,6 @@ module Default
 	
 end
 
-Dispatcher.register_wplugin(WPlugin.new("default", Default))
+Dispatcher.register_wplugin(WPlugin.new("default", "Default HTTPAPI Plugin", Default))
 
 end

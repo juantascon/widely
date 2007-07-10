@@ -231,6 +231,6 @@ module Default
 	
 end
 
-WorkingCopy.register_wplugin(WPlugin.new("default", Default))
+WorkingCopy.register_wplugin(WPlugin.new("default",  "Default WorkingCopy manager Plugin",Default))
 
 end

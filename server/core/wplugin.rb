@@ -1,9 +1,10 @@
 class WPlugin
 	
-	attr_reader :name, :definition, :instance
+	attr_reader :name, :description, :definition, :instance
 	
-	def initialize(name, definition)
+	def initialize(name, description, definition)
 		@name = name
+		@description = description
 		@definition = definition
 	end
 	
@@ -24,6 +25,10 @@ class WPlugin
 		end
 	end
 	
+	def to_h()
+		return { "name" => @name, "description" => @description }
+	end
+	
 end
 
 
@@ -39,7 +44,7 @@ class WPluginable
 	end
 	
 	def self.wplugin_list()
-		return self.wplugins.keys
+		self.wplugins.values.map { |p| p.to_h }
 	end
 	
 	attr_accessor :default
