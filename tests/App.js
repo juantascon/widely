@@ -11,14 +11,15 @@ qx.Class.define("test.App",
 			
 			qx.Class.createNamespace("cons.WC", -1);
 			
+			qx.Class.createNamespace("global.mainframe", new qx.ui.layout.DockLayout);
 			qx.Class.createNamespace("global.statusbar", new lib.ui.StatusBar);
 			qx.Class.createNamespace("global.session.id", -1);
 			qx.Class.createNamespace("global.session.user", "test");
 			
-			var login_rq = this.dao_login(global.session.user, global.session.user);
+			var login_rq = this.auth_login(global.session.user, global.session.user);
 			login_rq.addEventListener("ok", function(e){
 				global.session.id = e.getData();
-				var set_wc_rq = this.dao_set_wc("project1-wc1");
+				var set_wc_rq = this.auth_set_wc("project1-wc1");
 				set_wc_rq.addEventListener("ok", function(e){
 					this.test();
 				},  this);
@@ -38,12 +39,11 @@ qx.Class.define("test.App",
 			}
 			
 			b1.addEventListener("click", function(e) {
-				d = new lib.ui.popupdialog.Input(b1, "archivo");
-				d.addEventListener("ok", function(e) {
-					this.debug(d.getContent().getComputedValue());
-				}, this);
+				var form = new lib.form.NewRepo();
+				form.create_dialog(global.mainframe, "New Repo");
 			});
 			
+			//global.mainframe.add(b1);
 			qx.ui.core.ClientDocument.getInstance().add(b1);
 			
 		},
