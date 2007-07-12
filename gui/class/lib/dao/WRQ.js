@@ -4,15 +4,12 @@ qx.Class.define("lib.dao.WRQ",
 	
 	events:
 	{
-		"fail": "qx.event.type.Event",
 		"ok": "qx.event.type.Event",
-		"error": "qx.event.type.Event"
+		"fail": "qx.event.type.Event"
 	},
 	
 	construct: function (webservice, method, params, msg) {
 		this.base(arguments, "/api/"+webservice+"/"+method, "POST", qx.util.Mime.JSON);
-		
-		this.setTimeout(15000);
 		
 		this.setData(lib.lang.Encode.encodeObj(params));
 		
@@ -37,7 +34,7 @@ qx.Class.define("lib.dao.WRQ",
 			var data = resp.getContent();
 			
 			if (qx.util.Validation.isValidArray(data) && data["error"]) {
-				this.createDispatchDataEvent("error", data["error"]);
+				this.createDispatchDataEvent("fail", data["error"]);
 				global.statusbar.fail(msg+": error -- invalid request");
 			}
 			else if (resp.getStatusCode() == 200) { // Status: OK
@@ -45,7 +42,7 @@ qx.Class.define("lib.dao.WRQ",
 				global.statusbar.ok(msg+": OK");
 			}
 			else {
-				this.createDispatchDataEvent("error", data)
+				this.createDispatchDataEvent("fail", data)
 				global.statusbar.fail(msg+": error -- invalid request");
 			}
 		}, this);
