@@ -43,11 +43,11 @@ QOOXDOO_URI = /qooxdoo-sdk/
 #
 
 
-#APPLICATION_NAMESPACE = login
+APPLICATION_NAMESPACE = login
 #APPLICATION_NAMESPACE = config
 #APPLICATION_NAMESPACE = admin
 #APPLICATION_NAMESPACE = ide
-APPLICATION_NAMESPACE = test
+#APPLICATION_NAMESPACE = test
 
 APPLICATION_CLASSNAME = App
 
@@ -64,6 +64,7 @@ APPLICATION_FILES = html/*
 # Add any of those variables for your custom configuration here:
 #-------------------------------------------------------------------------------
 
+APPLICATION_THEME = qx.theme.Ext
 APPLICATION_HTML_TO_ROOT_URI = ..
 APPLICATION_SOURCE_PATH = ./
 APPLICATION_COMPLETE_SOURCE = false
