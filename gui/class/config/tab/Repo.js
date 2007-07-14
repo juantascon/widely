@@ -1,8 +1,8 @@
-qx.Class.define("config.tab.WCTab",
+qx.Class.define("config.tab.Repo",
 {
 	extend: lib.ui.PageViewTab,
 	
-	include: lib.dao.WC,
+	include: lib.dao.Repo,
 	
 	properties:
 	{
@@ -12,45 +12,30 @@ qx.Class.define("config.tab.WCTab",
 	construct: function () {
 		this.base(arguments,
 			"buttonview",
-			"Working Copies",
-			"icon/32/places/document-folder.png");
+			"Repositories",
+			"icon/32/places/archive-folder.png");
 		
 		this.setEditablelistview(new lib.ui.EditableListView( {
 			name: {
 				label: "Name",
 				icon: "icon/16/categories/applications-development.png",
-				width: "33%",
+				width: "50%",
 				type: "text"
 			},
 			manager: {
 				label: "Manager",
 				icon: "icon/16/apps/accessories-archiver.png",
-				width: "33%",
-				type: "text"
-			},
-			repo: {
-				label: "Repository",
-				icon: "icon/16/places/archive-folder.png",
-				width: "33%",
+				width: "50%",
 				type: "text"
 			}
 		} ));
 		
 		with (this.getEditablelistview()) {
 			addEventListener("load", function(e){
-				var wrq = this.wc_list();
+				var wrq = this.repo_list();
 				wrq.addEventListener("ok", function(e){
 					this.load_list(e.getData());
 				}, this);
-			}, this);
-			
-			addEventListener("add", function(e){
-				var form = new lib.form.NewWC();
-				form.show_dialog(global.mainframe);
-			}, this);
-			
-			addEventListener("delete", function(e){
-				new lib.ui.popupdialog.Atom(this.getListview(), "Esta seguro que desea borrar", new qx.ui.form.TextField("editame"));
 			}, this);
 		}
 		
@@ -66,8 +51,7 @@ qx.Class.define("config.tab.WCTab",
 			for (var i in data){
 				this.getEditablelistview().getListview().getData().push({
 					name: {text: data[i]["name"]},
-					manager: {text: data[i]["manager"]},
-					repo: {text: data[i]["repository"]}
+					manager: {text: data[i]["manager"]}
 				});
 			}
 		}

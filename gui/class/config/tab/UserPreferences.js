@@ -1,4 +1,4 @@
-qx.Class.define("config.tab.UserPreferencesTab",
+qx.Class.define("config.tab.UserPreferences",
 {
 	extend: lib.ui.PageViewTab,
 	

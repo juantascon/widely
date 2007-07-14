@@ -11,9 +11,9 @@ qx.Class.define("config.ConfigView",
 	construct: function () {
 		this.base(arguments);
 		
-		this.add_tab(new config.tab.UserPreferencesTab);
-		this.add_tab(new config.tab.RepoTab);
-		this.add_tab(new config.tab.WCTab);
+		this.add_tab(new config.tab.UserPreferences);
+		this.add_tab(new config.tab.Repo);
+		this.add_tab(new config.tab.WC);
 	},
 	
 	members:
