@@ -5,7 +5,7 @@ qx.Class.define("config.ConfigView",
 	properties:
 	{
 		tabs: { check: "lib.lang.List", init: new lib.lang.List() },
-		selected: { check: "config.tab.Tab" }
+		selected: { check: "lib.ui.PageViewTab" }
 	},
 	
 	construct: function () {

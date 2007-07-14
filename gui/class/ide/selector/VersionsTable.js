@@ -9,25 +9,31 @@ qx.Class.define("ide.selector.VersionsTable",
 		tm.setColumns(["ID", "Description", "Date", "Author"]);
 		
 		this.base(arguments, tm);
-		this.set({height: "100%", width: "100%"});
 		
-		this.setColumnWidth(0, 20);
-		this.setColumnWidth(1, 120);
-		this.setColumnWidth(2, 100);
-		this.setColumnWidth(3, 60);
-		
-		this.setStatusBarVisible(false);
-		this.getDataRowRenderer().setVisualizeFocusedState(false);
-		this.getSelectionModel().setSelectionMode(qx.ui.table.selection.Model.SINGLE_SELECTION);
-		
-		this.setBackgroundColor("white");
-		
-		this.getSelectionModel().addEventListener("changeSelection", function(e){
-			global.selectorview.set_filetree_version(this.selected_row_id());
+		with(this) {
+			set({height: "100%", width: "100%"});
+			setOverflow("auto");
+			setBackgroundColor("white");
+			setStatusBarVisible(false);
 			
-			var read_only = global.selectorview.getFiletree().is_read_only();
-			global.selectorview.getToolbar().set_mode_ro(read_only);
-		}, this);
+			setColumnWidth(0, 20);
+			setColumnWidth(1, 120);
+			setColumnWidth(2, 100);
+			setColumnWidth(3, 60);
+			
+			getDataRowRenderer().setVisualizeFocusedState(false);
+			
+		}
+		
+		with (this.getSelectionModel()) {
+			setSelectionMode(qx.ui.table.selection.Model.SINGLE_SELECTION);
+			
+			addEventListener("changeSelection", function(e){
+				var s = global.selectorview;
+				s.set_filetree_version(this.selected_row_id());
+				s.getToolbar().set_mode_ro(s.getFiletree().is_read_only());
+			}, this);
+		}
 	},
 	
 	members:

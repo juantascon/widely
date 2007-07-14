@@ -9,7 +9,7 @@ qx.Class.define("login.App",
 		main: function (e){
 			this.base(arguments);
 			
-			qx.io.Alias.getInstance().add("resource", qx.core.Setting.get("login.resource"))
+			qx.io.Alias.getInstance().add("resource", qx.core.Setting.get("login.resource"));
 			
 			qx.Class.createNamespace("global.mainframe", new qx.ui.layout.DockLayout);
 			
