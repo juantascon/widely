@@ -1,5 +1,5 @@
 #
-# Modulo de manejo de autenticacion (usuarios y sessiones)
+# Modulo de manejo de autenticacion
 #
 
 wmodule :Auth => :HTTPAPI do |mod|

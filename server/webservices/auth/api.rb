@@ -9,8 +9,6 @@ class API
 	include Singleton
 	include WebService
 	
-	attr_reader :users, :sessions
-	
 	def login(args)
 		args.check("user_id", "password")
 		
@@ -26,12 +24,6 @@ class API
 		return SessionSet.instance.add(AdminSession.new(password))
 	end
 	
-	def logout(args)
-		args.check("session_id")
-		
-		return SessionSet.instance.delete_by_key(args["session_id"])
-	end
-	
 	def user_session(args)
 		args.check("session_id", "user_id")
 		
@@ -42,7 +34,7 @@ class API
 		return SessionSet.instance.add(UserSession.new(user))
 	end
 	
-	#TODO: esto deberia ser algo asi como set_session_data
+	#TODO: esto deberia ser algo asi como set_session_data o estar en User
 	def set_wc(args)
 		args.check("session_id", "wc_id")
 		session = SessionSet.instance.get_ex(args["session_id"])
@@ -50,6 +42,12 @@ class API
 		
 		session.wc = wc
 		return true
+	end
+	
+	def logout(args)
+		args.check("session_id")
+		
+		return SessionSet.instance.delete_by_key(args["session_id"])
 	end
 end
 

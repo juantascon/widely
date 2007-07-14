@@ -92,7 +92,7 @@ class WUser
 	end
 	
 	def to_h()
-		{ "user_id" => @user_id, "password" => @password }
+		{ "user_id" => @user_id }
 	end
 	
 	def authenticate(password)
