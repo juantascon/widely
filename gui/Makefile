@@ -35,7 +35,7 @@
 # It should end with the last directory. Please omit a trailing slash.
 #
 QOOXDOO_PATH = ../../qooxdoo-0.7.1-sdk
-QOOXDOO_URI = /qooxdoo-sdk/
+QOOXDOO_URI = /qooxdoo-sdk
 
 #
 # Namespace of your application e.g. custom
@@ -43,10 +43,10 @@ QOOXDOO_URI = /qooxdoo-sdk/
 #
 
 
-APPLICATION_NAMESPACE = login
+#APPLICATION_NAMESPACE = login
 #APPLICATION_NAMESPACE = config
 #APPLICATION_NAMESPACE = admin
-#APPLICATION_NAMESPACE = ide
+APPLICATION_NAMESPACE = ide
 #APPLICATION_NAMESPACE = test
 
 APPLICATION_CLASSNAME = App

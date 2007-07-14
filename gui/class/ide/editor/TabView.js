@@ -36,7 +36,7 @@ qx.Class.define("ide.editor.TabView",
 				
 				if (tab.getFile().full_name() == file.full_name() &&
 					tab.getFile().getVersion() == file.getVersion()) {
-					this.debug(file.get("name"));
+					
 					tab.getButton().setChecked(true);
 					return tab;
 				}

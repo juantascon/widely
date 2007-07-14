@@ -1,34 +1,29 @@
 qx.Class.define("ide.editor.Tab",
 {
-	extend: qx.core.Object,
+	extend: lib.ui.PageViewTab,
 	
 	include: lib.dao.WC,
 	
 	properties:
 	{
 		file: { check: "ide.selector.File" },
-		button: { check: "qx.ui.pageview.tabview.Button" },
-		page: { check: "qx.ui.pageview.tabview.Page" },
 		textarea: { check: "qx.ui.form.TextArea" }
 	},
 	
 	construct: function (file) {
-		this.base(arguments);
-		
 		this.setFile(file);
 		
 		var label = this.getFile().getName();
-		if (this.getFile().is_read_only()) { label += " :: ["+this.getFile().getVersion()+"]"; }
-		
-		this.setButton(new qx.ui.pageview.tabview.Button(label));
-		with(this.getButton()) {
-			setShowCloseButton(true);
+		if (this.getFile().is_read_only()) {
+			label += " :: ["+this.getFile().getVersion()+"]";
 		}
 		
-		this.initialize_textarea();
+		this.base(arguments, "tabview", label);
 		
-		this.setPage(new qx.ui.pageview.tabview.Page(this.getButton()));
+		this.initialize_textarea();
 		this.getPage().add(this.getTextarea());
+		
+		this.getButton().setShowCloseButton(true);
 		
 		this.load_file_content();
 	},

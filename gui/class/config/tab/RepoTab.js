@@ -1,6 +1,6 @@
 qx.Class.define("config.tab.RepoTab",
 {
-	extend: config.tab.Tab,
+	extend: lib.ui.PageViewTab,
 	
 	include: lib.dao.Repo,
 	
@@ -10,7 +10,10 @@ qx.Class.define("config.tab.RepoTab",
 	},
 	
 	construct: function () {
-		this.base(arguments, "Repositories", "icon/32/places/archive-folder.png");
+		this.base(arguments,
+			"buttonview",
+			"Repositories",
+			"icon/32/places/archive-folder.png");
 		
 		this.setEditablelistview(new lib.ui.EditableListView( {
 			name: {

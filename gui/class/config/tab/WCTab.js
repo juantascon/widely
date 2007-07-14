@@ -1,6 +1,6 @@
 qx.Class.define("config.tab.WCTab",
 {
-	extend: config.tab.Tab,
+	extend: lib.ui.PageViewTab,
 	
 	include: lib.dao.WC,
 	
@@ -10,7 +10,10 @@ qx.Class.define("config.tab.WCTab",
 	},
 	
 	construct: function () {
-		this.base(arguments, "Working Copies", "icon/32/places/document-folder.png");
+		this.base(arguments,
+			"buttonview",
+			"Working Copies",
+			"icon/32/places/document-folder.png");
 		
 		this.setEditablelistview(new lib.ui.EditableListView( {
 			name: {
