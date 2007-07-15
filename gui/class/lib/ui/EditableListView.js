@@ -12,8 +12,7 @@ qx.Class.define("lib.ui.EditableListView",
 	properties:
 	{
 		toolbar: { check: "lib.ui.ToolBar" },
-		listview: { check: "qx.ui.listview.ListView" },
-		selected: { check: "String" }
+		listview: { check: "qx.ui.listview.ListView" }
 	},
 	
 	construct: function (header) {
@@ -77,17 +76,6 @@ qx.Class.define("lib.ui.EditableListView",
 			}
 			
 			return null;
-		},
-		
-		set_data: function(data) {
-			while(this.getListview().getData().pop());
-			
-			for (var i in data){
-				this.getListview().getData().push({
-					name: {text: data[i]["name"]},
-					manager: {text: data[i]["manager"]}
-				});
-			}
 		}
 	}
 });
