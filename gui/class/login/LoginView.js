@@ -29,16 +29,17 @@ qx.Class.define("login.LoginView",
 		this.setUsername(new qx.ui.form.TextField(""));
 		this.setPassword(new qx.ui.form.PasswordField(""));
 		
+		var u = this.getUsername();
+		var p = this.getPassword();
+		
 		var spacer = new qx.ui.basic.VerticalSpacer()
 		spacer.setHeight(5);
 		
-		this.setLoginbutton(
-			new login.LoginButton(this.getUsername(),
-			this.getPassword()));
+		this.setLoginbutton(new login.LoginButton(u, p));
 		
 		with(this.getPanel()) {
-			add(this.label_field("User", "apps/system-users", this.getUsername()));
-			add(this.label_field("Password", "actions/encrypt", this.getPassword()));
+			add(new lib.ui.AtomField("User", "icon/22/apps/system-users.png", u));
+			add(new lib.ui.AtomField("Password", "icon/22/actions/encrypt.png",p));
 			add(spacer);
 			add(this.getLoginbutton());
 		}
@@ -48,27 +49,6 @@ qx.Class.define("login.LoginView",
 	
 	members:
 	{
-		label_field: function(label, icon, field) {
-			var box = new  qx.ui.layout.HorizontalBoxLayout
-			with(box) {
-				set({ left: 0, width: "100%", height: "auto" });
-				setVerticalChildrenAlign("middle");
-				setSpacing(10);
-			}
-			
-			var atom = new qx.ui.basic.Atom(label, "icon/22/"+icon+".png");
-			with(atom) {
-				set({ left: 0, width: "40%" });
-				setHorizontalChildrenAlign("left");
-				setSpacing(7);
-			}
-			
-			field.set({ right: 0, width: "60%" });
-			
-			box.add(atom, field);
-			return box;
-		},
-		
 		center_on_grid: function(){
 			var grid = new qx.ui.layout.GridLayout();
 			with(grid) {
