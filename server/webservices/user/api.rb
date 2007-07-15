@@ -1,5 +1,5 @@
 #
-# API de Auth
+# API de User
 #
 
 module User
@@ -12,8 +12,8 @@ class API
 	def create(args)
 		args.check("session_id", "user_id", "password")
 		
-		session = SessionSet.instance.get_ex(args["session_id"])
-		raise ArgumentError, "session is not admin" if ! session.kind_of? AdminSession
+		session = Auth::SessionSet.instance.get_ex(args["session_id"])
+		raise ArgumentError, "session is not admin" if ! session.kind_of? Auth::AdminSession
 		
 		user_id = args["user_id"]
 		password = args["password"]
@@ -26,8 +26,8 @@ class API
 	def list(args)
 		args.check("session_id")
 		
-		session = SessionSet.instance.get_ex(args["session_id"])
-		raise ArgumentError, "session is not admin" if ! session.kind_of? AdminSession
+		session = Auth::SessionSet.instance.get_ex(args["session_id"])
+		raise ArgumentError, "session is not admin" if ! session.kind_of? Auth::AdminSession
 		
 		ret = Array.new
 		WUser::Set.instance.each { |key, object| ret.push object.to_h }
