@@ -52,7 +52,9 @@ qx.Class.define("login.LoginButton",
 			}, this);
 			
 			login_rq.addEventListener("ok", function(e) {
-				window.location = "./ide.html";
+				var session_id = e.getData();
+				lib.dao.Cookie.set_session_id("config", session_id);
+				lib.lang.Redirect.redirect_to("./config.html");
 			}, this);
 		}
 	}

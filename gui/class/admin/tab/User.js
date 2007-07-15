@@ -26,7 +26,7 @@ qx.Class.define("admin.tab.User",
 		
 		with(this.getEditablelistview().getToolbar()) {
 			add_button("Edit User Config", "actions/edit", true, function(e){
-				qx.io.local.CookieApi;
+				this.debug("edit");
 			}, this);
 		}
 		
