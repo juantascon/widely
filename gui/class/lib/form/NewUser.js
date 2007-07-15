@@ -2,7 +2,7 @@ qx.Class.define("lib.form.NewUser",
 {
 	extend: qx.ui.groupbox.GroupBox,
 	
-	include: [ lib.dao.WC, lib.dao.Repo, lib.form.Helper ],
+	include: [ lib.dao.api.WC, lib.dao.api.Repo, lib.form.Helper ],
 	
 	properties:
 	{

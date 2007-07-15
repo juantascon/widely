@@ -2,7 +2,7 @@ qx.Class.define("lib.form.NewRepo",
 {
 	extend: qx.ui.groupbox.GroupBox,
 	
-	include: [ lib.dao.Repo, lib.form.Helper ],
+	include: [ lib.dao.api.Repo, lib.form.Helper ],
 	
 	properties:
 	{

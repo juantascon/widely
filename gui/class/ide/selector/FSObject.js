@@ -1,7 +1,7 @@
 qx.Mixin.define("ide.selector.FSObject",
 {
 	
-	include: lib.dao.WC,
+	include: lib.dao.api.WC,
 	
 	properties:
 	{

@@ -2,7 +2,7 @@ qx.Class.define("admin.tab.User",
 {
 	extend: lib.ui.PageViewTab,
 	
-	include: lib.dao.User,
+	include: lib.dao.api.User,
 	
 	properties:
 	{

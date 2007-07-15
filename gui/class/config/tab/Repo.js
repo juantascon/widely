@@ -2,7 +2,7 @@ qx.Class.define("config.tab.Repo",
 {
 	extend: lib.ui.PageViewTab,
 	
-	include: lib.dao.Repo,
+	include: lib.dao.api.Repo,
 	
 	properties:
 	{

@@ -1,4 +1,4 @@
-qx.Mixin.define("lib.dao.User",
+qx.Mixin.define("lib.dao.api.User",
 {
 	members:
 	{

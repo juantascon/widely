@@ -2,7 +2,7 @@ qx.Class.define("login.LoginButton",
 {
 	extend: qx.ui.basic.Atom,
 	
-	include: lib.dao.Auth,
+	include: lib.dao.api.Auth,
 	
 	properties:
 	{

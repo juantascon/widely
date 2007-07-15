@@ -1,4 +1,4 @@
-qx.Mixin.define("lib.dao.WC",
+qx.Mixin.define("lib.dao.api.WC",
 {
 	members:
 	{

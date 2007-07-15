@@ -2,7 +2,7 @@ qx.Class.define("ide.selector.VersionsTable",
 {
 	extend: qx.ui.table.Table,
 	
-	include: lib.dao.WC,
+	include: lib.dao.api.WC,
 	
 	construct: function () {
 		var tm = new qx.ui.table.model.Simple();

@@ -2,7 +2,7 @@ qx.Class.define("config.App",
 {
 	extend : qx.application.Gui,
 	
-	include: lib.dao.Auth,
+	include: lib.dao.api.Auth,
 	
 	members:
 	{

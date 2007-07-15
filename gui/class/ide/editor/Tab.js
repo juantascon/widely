@@ -2,7 +2,7 @@ qx.Class.define("ide.editor.Tab",
 {
 	extend: lib.ui.PageViewTab,
 	
-	include: lib.dao.WC,
+	include: lib.dao.api.WC,
 	
 	properties:
 	{
