@@ -14,6 +14,12 @@ qx.Mixin.define("lib.dao.api.Auth",
 				"Admin Login") );
 		},
 		
+		auth_session_type: function(session_id){
+			return ( new lib.dao.WRQ("auth", "session_type",
+				{ "session_id": session_id },
+				"Checking User Session") );
+		},
+		
 		auth_user_session: function(user_id){
 			return ( new lib.dao.WRQ("auth", "user_session",
 				{ "session_id": global.session.id, "user_id": user_id },
