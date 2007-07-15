@@ -24,6 +24,16 @@ class API
 		return SessionSet.instance.add(AdminSession.new(password))
 	end
 	
+	def session_type(args)
+		args.check("session_id")
+		
+		session = SessionSet.instance.get(args["session_id"])
+		
+		return "admin" if session.kind_of? AdminSession
+		return "user" if session.kind_of? UserSession
+		return "invalid"
+	end
+	
 	def user_session(args)
 		args.check("session_id", "user_id")
 		

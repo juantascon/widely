@@ -18,7 +18,7 @@ module Default
 		raise Exception, "imposible to mount, server already started" if @started
 		@config_file.print(
 			"\tService\n",
-				"\t\tURL \"/#{mount_point}/*\"\n",
+				"\t\tURL \"^/#{mount_point}/*\"\n",
 				"\t\tBackEnd\n",
 					"\t\t\tAddress #{hostname}\n",
 					"\t\t\tPort #{port}\n",
