@@ -18,7 +18,12 @@ qx.Class.define("ide.App",
 				split_box.addLeft(global.selectorview);
 				
 				global.mainframe.add(split_box);
-				
+
+				var set_wc_rq = this.auth_set_wc("project1-wc1");
+				set_wc_rq.addEventListener("ok", function(e){
+					global.selectorview.getVersionstable().load();
+				});
+
 				/* TODO: hacer un set_wc() cuando retorne hacer un:
 				 * global.selectorview.getVersionstable().load();
 				 */

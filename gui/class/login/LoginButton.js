@@ -53,8 +53,8 @@ qx.Class.define("login.LoginButton",
 			
 			login_rq.addEventListener("ok", function(e) {
 				var session_id = e.getData();
-				lib.dao.Cookie.set_session_id("config", session_id);
-				lib.lang.Redirect.redirect_to("./config.html");
+				lib.dao.Cookie.set_session_id("ide", session_id);
+				lib.lang.Redirect.redirect_to("./ide.html");
 			}, this);
 		}
 	}
