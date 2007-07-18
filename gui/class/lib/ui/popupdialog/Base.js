@@ -15,7 +15,7 @@ qx.Class.define("lib.ui.popupdialog.Base",
 		content: { check: "qx.ui.core.Widget" }
 	},
 	
-	construct: function (parent, content) {
+	construct: function (position_parent, content) {
 		this.base(arguments);
 		
 		this.setContent(content);
@@ -47,7 +47,7 @@ qx.Class.define("lib.ui.popupdialog.Base",
 		with(this) {
 			set({height: "auto", width: "auto"});
 			setAutoHide(true);
-			positionRelativeTo(parent);
+			positionRelativeTo(position_parent);
 			setBackgroundColor("white");
 			setBorder(new qx.ui.core.Border(1, "solid", "#91A5BD"));
 			

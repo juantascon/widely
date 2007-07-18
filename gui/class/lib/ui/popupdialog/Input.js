@@ -7,7 +7,7 @@ qx.Class.define("lib.ui.popupdialog.Input",
 		field: { check: "qx.ui.form.TextField" }
 	},
 	
-	construct: function (parent, init_label) {
+	construct: function (position_parent, init_label) {
 		if (!init_label){ init_label = ""; }
 		
 		this.setField(new qx.ui.form.TextField(init_label));
@@ -15,7 +15,7 @@ qx.Class.define("lib.ui.popupdialog.Input",
 			setEdge(0, 0, 0, 0);
 		}
 		
-		this.base(arguments, parent, this.getField());
+		this.base(arguments, position_parent, this.getField());
 	},
 	
 	members:
