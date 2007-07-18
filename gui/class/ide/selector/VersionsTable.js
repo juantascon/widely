@@ -11,7 +11,7 @@ qx.Class.define("ide.selector.VersionsTable",
 		this.base(arguments, tm);
 		
 		with(this) {
-			set({height: "100%", width: "100%"});
+			set({height: "84%", width: "100%"});
 			setOverflow("auto");
 			setBackgroundColor("white");
 			setStatusBarVisible(false);

@@ -11,6 +11,7 @@ qx.Class.define("ide.selector.Dir",
 		if (! this.is_read_only()) {
 			this.set_fs_dragable();
 			this.set_fs_dropable();
+			this.set_fs_renameable();
 		}
 	},
 	
