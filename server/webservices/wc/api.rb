@@ -100,6 +100,13 @@ class API
 		return wc.move(args["path_from"], args["path_to"])
 	end
 	
+	def copy(args)
+		args.check("session_id", "path_from", "path_to")
+		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc
+		
+		return wc.copy(args["path_from"], args["path_to"])
+	end
+	
 	def write(args)
 		args.check("session_id", "path", "content")
 		wc = Auth::SessionSet.instance.get_ex(args["session_id"]).wc

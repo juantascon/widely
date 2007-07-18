@@ -20,6 +20,16 @@ module Repository
 		end
 	end
 	
+	def process_path(path, wc_dir=false)
+		if ( ! File.absolute?(path) )
+			w_warn("#{path}: invalid path")
+			return false, false
+		else
+			path = File.cleanpath(path)
+			return path, "#{(wc_dir ? wc_dir : @data_dir)}/#{path}"
+		end
+	end
+	
 	
 	def exists()
 		return (directory?(@data_dir) and
@@ -35,6 +45,7 @@ module Repository
 		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
 		return true
 	end
+	
 	
 	def checkout(wc_dir, version=versions.last)
 		w_info("#{@data_dir}@#{version.get} -> #{wc_dir}")
@@ -77,10 +88,10 @@ module Repository
 	
 	def cat(path, version=versions.last)
 		w_info("#{path}@#{version.get}")
-		path = File.cleanpath(path)
-		(w_warn("#{path}: invalid path") ; return false) if ! File.absolute?(path)
 		
-		rpath = "#{@data_dir}/#{path}"
+		path, rpath = process_path(path)
+		return false if ! path
+		
 		cmd = Command.exec("svn", "cat", "file://#{rpath}@#{version.get}")
 		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
 		return cmd.stdout
@@ -88,10 +99,10 @@ module Repository
 	
 	def ls(path, version = self.versions.last)
 		w_info("#{path}@#{version.get}")
-		path = File.cleanpath(path)
-		(w_warn("#{path}: invalid path") ; return false) if ! File.absolute?(path)
 		
-		rpath = "#{@data_dir}/#{path}"
+		path, rpath = process_path(path)
+		return false if ! path
+		
 		cmd = Command.exec("svn", "ls", "-R", "--xml", "file://#{rpath}@#{version.get}")
 		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
 
@@ -113,41 +124,47 @@ module Repository
 	end
 	
 	
-	def add(wc_dir, path)
-		w_info("#{wc_dir}:#{path}")
-		path = File.cleanpath(path)
-		(w_warn("#{path}: invalid path") ; return false) if (! File.absolute?(path)) or File.root?(path)
+	
+	def cmd_add_delete(wc_dir, path, *cmd)
+		path, rpath = process_path(path, wc_dir)
+		return false if ! path or File.root?(path)
 		
-		rpath = "#{wc_dir}/#{path}"
-		cmd = Command.exec("svn", "add", "-N", rpath)
+		cmd = Command.exec(* (["svn"] + cmd + [rpath]) )
 		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
 		return true
+	end
+	
+	def cmd_move_copy(wc_dir, path_from, path_to, cmd)
+		path_from, rpath_from = process_path(path_from, wc_dir)
+		return false if ! path_from or File.root?(path_from)
+		
+		path_to, rpath_to = process_path(path_to, wc_dir)
+		return false if ! path_to
+		
+		cmd = Command.exec("svn", cmd, rpath_from, rpath_to)
+		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
+		return true
+	end
+	
+	
+	def add(wc_dir, path)
+		w_info("#{wc_dir}:#{path}")
+		return cmd_add_delete(wc_dir, path, "add", "-N")
 	end
 	
 	def delete(wc_dir, path)
 		w_info("#{wc_dir}:#{path}")
-		path = File.cleanpath(path)
-		(w_warn("#{path}: invalid path") ; return false) if (! File.absolute?(path)) or File.root?(path)
-		
-		rpath = "#{wc_dir}/#{path}"
-		cmd = Command.exec("svn", "delete", rpath)
-		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
-		return true
+		return cmd_add_delete(wc_dir, path, "delete")
 	end
 	
 	def move(wc_dir, path_from, path_to)
 		w_info("#{wc_dir}: #{path_from} -> #{path_to}")
-		path_from = File.cleanpath(path_from)
-		path_to = File.cleanpath(path_to)
-		(w_warn("#{path_from}: invalid path") ; return false) if (! File.absolute?(path_from)) or File.root?(path_from)
-		(w_warn("#{path_to}: invalid path") ; return false) if ! File.absolute?(path_to)
-		
-		rpath_from = "#{wc_dir}/#{path_from}"
-		rpath_to = "#{wc_dir}/#{path_to}"
-		
-		cmd = Command.exec("svn", "move", rpath_from, rpath_to)
-		( w_warn("Fail -- #{cmd.stderr}"); return false ) if ! cmd.status.success?
-		return true
+		cmd_move_copy(wc_dir, path_from, path_to, "move")
+	end
+	
+	def copy(wc_dir, path_from, path_to)
+		w_info("#{wc_dir}: #{path_from} -> #{path_to}")
+		cmd_move_copy(wc_dir, path_from, path_to, "copy")
 	end
 	
 end

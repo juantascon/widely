@@ -32,6 +32,16 @@ module Default
 		return false
 	end
 	
+	def process_path(path)
+		if ( repository_file? path ) or ( ! File.absolute?(path) )
+			w_warn("#{path}: invalid path")
+			return false, false
+		else
+			return File.cleanpath(path), "#{@data_dir}/#{File.cleanpath(path)}"
+		end
+	end
+	
+	
 	#
 	# Obtiene una copia de trabajo
 	#
@@ -74,15 +84,10 @@ module Default
 	#
 	def cat(path, version=self.default_wc)
 		
-		# path no puede ser una ruta relativa
-		path = File.cleanpath(path)
-		if ! File.absolute?(path) or repository_file?(path)
-			w_warn("#{path}: invalid path")
-			return false
-		end
+		path, rpath = process_path(path)
+		return false if ! path
 		
-		rpath = "#{@data_dir}/#{path}"
-		if ! version || version.get == self.class.default_wc.get
+		if ( ! version ) || ( version.get == self.class.default_wc.get )
 			return false if ! file?(rpath)
 			return File.new(rpath).read
 		else
@@ -100,15 +105,10 @@ module Default
 	#
 	def ls(path, version=self.default_wc)
 		
-		# path no puede ser una ruta relativa
-		path = File.cleanpath(path)
-		if ! File.absolute?(path) or repository_file?(path)
-			w_warn("#{path}: invalid path")
-			return false
-		end
+		path, rpath = process_path(path)
+		return false if ! path
 		
-		rpath = "#{@data_dir}/#{path}"
-		if ! version || version.get == self.class.default_wc.get
+		if ( ! version ) || ( version.get == self.class.default_wc.get )
 			tree = FileTree.new
 			Find.find(rpath) do |f|
 				node_name = "#{Pathname.new(f).relative_path_from(Pathname.new(rpath)).to_s}"
@@ -133,14 +133,9 @@ module Default
 	#
 	def add(path, as_dir=false)
 		
-		# path no puede ser una ruta relativa
-		path = File.cleanpath(path)
-		if (! File.absolute?(path)) or File.root?(path) or repository_file?(path)
-			w_warn("#{path}: invalid path")
-			return false
-		end
+		path, rpath = process_path(path)
+		return false if ! path or File.root?(path)
 		
-		rpath = "#{@data_dir}/#{path}"
 		if ! exist?(rpath)
 			mkdir(rpath) if as_dir
 			touch(rpath) if ! as_dir
@@ -159,14 +154,9 @@ module Default
 	#
 	def delete(path)
 		
-		# path no puede ser una ruta relativa
-		path = File.cleanpath(path)
-		if (! File.absolute?(path)) or File.root?(path) or repository_file?(path)
-			w_warn("#{path}: invalid path")
-			return false
-		end
+		path, rpath = process_path(path)
+		return false if ! path or File.root?(path)
 		
-		rpath = "#{@data_dir}/#{path}"
 		(ret = @repository.delete(@data_dir, path)) if exist?(rpath)
 		rm_rf(rpath) if exist?(rpath)
 		
@@ -180,31 +170,48 @@ module Default
 	#
 	def move(path_from, path_to)
 		
-		# path_from y path_to no pueden ser rutas relativas
-		path_from = File.cleanpath(path_from)
-		path_to = File.cleanpath(path_to)
-		if (! File.absolute?(path_from)) or File.root?(path_from) or repository_file?(path_from)
-			w_warn("#{path_from}: invalid path")
-			return false
-		end
-		if ! File.absolute?(path_to) or repository_file?(path_to)
-			w_warn("#{path_to}: invalid path")
-			return false
-		end
+		path_from, rpath_from = process_path(path_from)
+		return false if ! path_from or File.root?(path_from)
 		
-		rpath_from = "#{@data_dir}/#{path_from}"
-		rpath_to = "#{@data_dir}/#{path_to}"
-		if exist?(rpath_from)
-			if directory?(rpath_to) or
-				directory?(File.dirname(rpath_to))
-				
-				@repository.move(@data_dir, path_from, path_to)
-			else
-				return false
+		path_to, rpath_to = process_path(path_to)
+		return false if ! path_to
+		
+		return false if ! exist?(rpath_from)
+		
+		if directory?(rpath_to) or directory?(File.dirname(rpath_to))
+			ret = @repository.move(@data_dir, path_from, path_to)
+			
+			if ret and exist?(rpath_from)
+				if exist?(rpath_to)
+					rm_rf(rpath_from)
+				else
+					mv(rpath_from, rpath_to)
+				end
 			end
+			
+			return ret
 		end
+	end
+	
+	def copy(path_from, path_to)
 		
-		return mv(rpath_from, rpath_to) if exist?(rpath_from)
+		path_from, rpath_from = process_path(path_from)
+		return false if ! path_from or File.root?(path_from)
+		
+		path_to, rpath_to = process_path(path_to)
+		return false if ! path_to
+		
+		return false if ! exist?(rpath_from)
+		
+		if directory?(rpath_to) or directory?(File.dirname(rpath_to))
+			ret = @repository.copy(@data_dir, path_from, path_to)
+			
+			if ret and ! exist?(rpath_to)
+				cp_rf(path_from, path_to)
+			end
+			
+			return ret
+		end
 	end
 	
 	#
@@ -213,19 +220,15 @@ module Default
 	#
 	def write(path, content)
 		
-		# path no puede ser una ruta relativa
-		path = File.cleanpath(path)
-		if ! File.absolute?(path) or repository_file?(path)
-			w_warn("#{path}: invalid path")
-			return false
-		end
+		path, rpath = process_path(path)
+		return false if ! path
 		
-		rpath = "#{@data_dir}/#{path}"
 		return false if ! file?(rpath)
 		
 		file = File.new(rpath, "w")
 		ret = file.write(content.to_s+"\n")
 		file.fsync
+		
 		return ret
 	end
 	

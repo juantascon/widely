@@ -3,7 +3,7 @@ module Repo
 class Default
 	METHODS = [ :wplugin_init, :files, :create,
 		:checkout, :status, :commit, :versions,
-		:cat, :ls, :add, :delete, :move ]
+		:cat, :ls, :add, :delete, :move, :copy ]
 	
 	METHODS.each do |m|
 		define_method(m) do |*args|
