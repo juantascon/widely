@@ -18,6 +18,7 @@ raw_ws wc/add "session_id=$id&path=/dir1/dir1_1&as_dir=true"
 raw_ws wc/add "session_id=$id&path=/dir1/dir1_1/file1_1_1"
 raw_ws wc/write "session_id=$id&path=/dir1/dir1_1/file1_1_1&content=soy-otro-archivo"
 raw_ws wc/commit "session_id=$id&log=version2"
+raw_ws wc/move "session_id=$id&path_from=/dir1/dir1_1&path_to=/"
 
 raw_ws wc/ls "session_id=$id&path=/"
 raw_ws wc/version_list "session_id=$id"
