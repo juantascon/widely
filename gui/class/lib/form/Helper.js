@@ -2,15 +2,8 @@ qx.Mixin.define("lib.form.Helper",
 {
 	members:
 	{
-		create_dialog: function(pmodal, message) {
-			var d = new lib.ui.WDialog(pmodal, message, this);
-			/*d.addEventListener("ok", function(e) {
-				
-				this.debug(this.getName_i().getComputedValue());
-				this.debug(this.getManager_i().getSelectedRow()[1]);
-				this.debug(this.getRepo_i().getSelectedRow()[1]);
-			}, this);*/
-			
+		create_dialog: function(pmodal, title) {
+			var d = new lib.ui.WDialog(pmodal, title, this);
 			return d;
 		},
 		

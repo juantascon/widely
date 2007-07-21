@@ -2,31 +2,45 @@ qx.Class.define("lib.form.NewUser",
 {
 	extend: qx.ui.groupbox.GroupBox,
 	
-	include: [ lib.dao.api.WC, lib.dao.api.Repo, lib.form.Helper ],
+	include: [ lib.dao.api.User, lib.form.Helper ],
 	
 	properties:
 	{
 		grid: { check: "qx.ui.layout.GridLayout" },
 		name_i: { check: "qx.ui.form.TextField" },
-		manager_i: { check: "qx.ui.form.ComboBoxEx" },
-		repo_i: { check: "qx.ui.form.ComboBoxEx" }
+		password_i: { check: "qx.ui.form.PasswordField" }
 	},
 	
 	construct: function () {
-		this.base(arguments, "Working Copy Info");
+		this.base(arguments, "New User Info");
 		this.set({left: 0, top: 0, height: "auto", width: "auto"});
 		
 		this.setName_i(new qx.ui.form.TextField(""));
-		this.setRepo_i(this.create_combobox( ["name", "manager"], this.repo_list() ));
-		this.setManager_i(this.create_combobox( ["name", "description"], this.wc_manager_list() ));
+		this.setPassword_i(new qx.ui.form.PasswordField(""));
 		
 		this.setGrid(this.create_grid(
-			[ "Name", "Manager", "Repository" ],
-			[ this.getName_i(), this.getManager_i(), this.getRepo_i() ],
+			[ "Name", "Password" ],
+			[ this.getName_i(), this.getPassword_i() ],
 			80, 200
 		));
 		
 		this.add(this.getGrid());
-	}
+	},
 	
+	members:
+	{
+		run: function(pmodal, callback, _this){
+			var d = this.create_dialog(pmodal, "New User");
+			
+			d.addEventListener("ok", function(e) {
+				
+				var create_rq = this.user_create(
+					this.getName_i().getComputedValue(),
+					this.getPassword_i().getComputedValue() );
+				
+				create_rq.addEventListener("ok", callback, _this);
+				
+			}, this);
+		}
+	}
 });

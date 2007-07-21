@@ -4,7 +4,7 @@ qx.Mixin.define("lib.dao.api.User",
 	{
 		user_create: function(user_id, password) {
 			return ( new lib.dao.WRQ("user", "create",
-				{ "session_id": global.session.id, "user_id": user, "password": password },
+				{ "session_id": global.session.id, "user_id": user_id, "password": password },
 				"Creating User") );
 		},
 		

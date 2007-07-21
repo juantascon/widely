@@ -43,11 +43,14 @@ qx.Class.define("config.tab.WC",
 					this.load_list(e.getData());
 				}, this);
 			}, this);
+			createDispatchEvent("load");
 			
-			addEventListener("add", function(e){
+			addEventListener("add", function(e) {
 				var form = new lib.form.NewWC();
-				form.show_dialog(global.mainframe);
-			}, this);
+				form.run(this, function(e) {
+					this.createDispatchEvent("load");
+				}, this);
+			}, this.getEditablelistview());
 			
 			addEventListener("delete", function(e){
 				new lib.ui.popupdialog.Atom(this.getListview(), "Esta seguro que desea borrar", new qx.ui.form.TextField("editame"));

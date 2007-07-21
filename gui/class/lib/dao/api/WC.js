@@ -8,9 +8,9 @@ qx.Mixin.define("lib.dao.api.WC",
 				"Get Manager List") );
 		},
 		
-		wc_create: function(repo_id, name, manager) {
+		wc_create: function(name, repo_id, manager) {
 			return ( new lib.dao.WRQ("wc", "create",
-				{ "session_id": global.session.id, "repo_id": repo_id, "name": name, "manager": manager },
+				{ "session_id": global.session.id, "name": name, "repo_id": repo_id, "manager": manager },
 				"Create WC") );
 		},
 		

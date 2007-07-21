@@ -27,6 +27,23 @@ qx.Class.define("lib.form.NewWC",
 		));
 		
 		this.add(this.getGrid());
-	}
+	},
 	
+	members:
+	{
+		run: function(pmodal, callback, _this){
+			var d = this.create_dialog(pmodal, "New User");
+			
+			d.addEventListener("ok", function(e) {
+				
+				var create_rq = this.wc_create(
+					this.getName_i().getComputedValue(),
+					this.getRepo_i().getSelectedRow()[1],
+					this.getManager_i().getSelectedRow()[1] );
+				
+				create_rq.addEventListener("ok", callback, _this);
+				
+			}, this);
+		}
+	}
 });

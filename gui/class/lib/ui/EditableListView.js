@@ -41,7 +41,8 @@ qx.Class.define("lib.ui.EditableListView",
 			}, this);
 			
 			add_button("Delete", "actions/edit-delete", false, function(e){
-				this.createDispatchDataEvent("delete", "hola");
+				// TODO: terminar aqui
+				//this.createDispatchDataEvent("delete", this.getSelectedItem());
 			}, this);
 			
 			set_mode_ro(true);

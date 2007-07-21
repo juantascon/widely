@@ -27,11 +27,19 @@ qx.Class.define("admin.tab.User",
 		
 		with (this.getEditablelistview()) {
 			addEventListener("load", function(e){
-				var wrq = this.user_list();
-				wrq.addEventListener("ok", function(e){
+				var list_rq = this.user_list();
+				list_rq.addEventListener("ok", function(e){
 					this.load_list(e.getData());
 				}, this);
 			}, this);
+			createDispatchEvent("load");
+			
+			addEventListener("add", function(e) {
+				var form = new lib.form.NewUser();
+				form.run(this, function(e) {
+					this.createDispatchEvent("load");
+				}, this);
+			}, this.getEditablelistview());
 		}
 		
 		with(this.getEditablelistview().getToolbar()) {

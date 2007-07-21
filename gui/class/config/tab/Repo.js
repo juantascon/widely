@@ -37,6 +37,14 @@ qx.Class.define("config.tab.Repo",
 					this.load_list(e.getData());
 				}, this);
 			}, this);
+			createDispatchEvent("load");
+			
+			addEventListener("add", function(e) {
+				var form = new lib.form.NewRepo();
+				form.run(this, function(e) {
+					this.createDispatchEvent("load");
+				}, this);
+			}, this.getEditablelistview());
 		}
 		
 		this.getPage().add(this.getEditablelistview());
