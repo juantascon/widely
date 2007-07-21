@@ -67,7 +67,7 @@ qx.Class.define("config.tab.WC",
 				this.getEditablelistview().getListview().getData().push({
 					name: {text: data[i]["name"]},
 					manager: {text: data[i]["manager"]},
-					repo: {text: data[i]["repository"]}
+					repo: {text: data[i]["repo"]}
 				});
 			}
 		}
