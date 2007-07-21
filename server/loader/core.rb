@@ -11,6 +11,7 @@ require "rubygems"
 require "core/lang/kernel.rb"
 require "core/lang/class.rb"
 require "core/lang/file.rb"
+require "core/lang/hash.rb"
 
 #
 # Carga el Core
