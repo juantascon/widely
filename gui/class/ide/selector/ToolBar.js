@@ -18,12 +18,12 @@ qx.Class.define("ide.selector.ToolBar",
 		});
 		
 		this.add_button("Delete", "actions/edit-delete", false, function(e){
-			ui.cmd.FileTree.delete_selected();
+			
 		});
 		
 		
 		this.add_button("Commit", "actions/go-down", false, function(e){
-			ui.cmd.FileTree.commit();
+			
 		});
 		this.set_mode_ro(true);
 	}
