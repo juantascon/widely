@@ -114,14 +114,12 @@ module Default
 	# directorio, sino como archivo regular
 	#
 	def add(path, as_dir=false)
-		
 		path, rpath = process_path(path)
 		return false, "invalid path: #{path}" if ! path or File.root?(path)
+		return false, "#{path}: already exists" if exist?(rpath)
 		
-		if ! exist?(rpath)
-			mkdir(rpath) if as_dir
-			touch(rpath) if ! as_dir
-		end
+		mkdir(rpath) if as_dir
+		touch(rpath) if ! as_dir
 		
 		return @repo.add(@data_dir, path)
 	end
