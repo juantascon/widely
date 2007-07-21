@@ -80,13 +80,12 @@ class WUser
 		raise wex_arg("name", @name, "(nice try)") if ! validate_id(@user_id)
 		
 		ExtraAttrs.instance.initialize_attrs(self, false) if ! from_storage
-		
-		w_debug("new: #{@user_id}")
 	end
 	
 	def initialize_from_storage(data)
 		user_id = data["user_id"]
 		password = data["password"]
+		w_debug("restoring object: USER[user_id:#{user_id}]")
 		
 		initialize(user_id, password, true)
 	end

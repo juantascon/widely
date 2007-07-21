@@ -46,7 +46,7 @@ class WCollection
 	def add_at(key, object)
 		return false if ! object.kind_of? @klass
 		@collection[key] = object
-		return key
+		return true
 	end
 	
 	#
