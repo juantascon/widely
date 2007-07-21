@@ -30,7 +30,7 @@ class Repository < WPluginable
 		owner = WUser::Set.instance.get_ex(data["owner"])
 		name = data["name"]
 		manager = data["manager"]
-		w_debug("restoring object: REPO[owner#{owner.user_id} name:#{name}]")
+		w_debug("restoring object: REPO[owner:#{owner.user_id} name:#{name}]")
 		
 		initialize(owner, name, manager, true)
 	end

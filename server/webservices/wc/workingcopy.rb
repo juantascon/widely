@@ -37,7 +37,7 @@ class WorkingCopy < WPluginable
 		repo = owner.reposet.get_ex(data["repo"])
 		name = data["name"]
 		manager = data["manager"]
-		w_debug("restoring object: WC[owner#{owner.user_id} name:#{name}]")
+		w_debug("restoring object: WC[owner:#{owner.user_id} name:#{name}]")
 		
 		initialize(owner, repo, name, manager, true)
 	end
