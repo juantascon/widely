@@ -6,6 +6,7 @@ qx.Class.define("ide.selector.File",
 	
 	construct: function (name, path, version) {
 		this.base(arguments, name);
+		this.setFtype("file");
 		this.initialize_fs_object(name, path, version);
 		
 		this.addEventListener("click", function(e){

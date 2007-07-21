@@ -6,6 +6,7 @@ qx.Class.define("ide.selector.Dir",
 	
 	construct: function (name, path, version) {
 		this.base(arguments, name);
+		this.setFtype("dir");
 		this.initialize_fs_object(name, path, version);
 		
 		if (! this.is_read_only()) {

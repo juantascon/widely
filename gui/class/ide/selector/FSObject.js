@@ -7,7 +7,8 @@ qx.Mixin.define("ide.selector.FSObject",
 	{
 		name: { check: "String", init: "" },
 		path: { check: "String", init: ""},
-		version: { check: "Number" }
+		version: { check: "Number" },
+		ftype: { check: ["file", "dir"] }
 	},
 	
 	members:

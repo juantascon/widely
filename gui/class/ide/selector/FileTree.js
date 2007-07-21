@@ -15,6 +15,8 @@ qx.Class.define("ide.selector.FileTree",
 			this.base(arguments, "Version: "+this.getVersion());
 		}
 		
+		this.setFtype("dir");
+		
 		this.set({height: "100%", width: "100%"});
 		this.setBackgroundColor("white");
 		this.setOverflow("auto");
@@ -60,22 +62,33 @@ qx.Class.define("ide.selector.FileTree",
 			}, this);
 		},
 		
-		new_file: function() {
-			var dir_d = new lib.ui.dialog.WCDirDialog("New File", "Where?");
-			dir_d.addEventListener("ok", function(e) {
-				var path = dir_d.selected_path();
-				var selected = this.find_child_by_path(path);
+		new_file: function(as_dir) {
+			var dir = null;
+			var selected = this.getSelectedElement();
+			if (selected.getFtype() == "dir") {
+				dir = selected;
+			}
+			else {
+				dir = selected.getParentFolder();
+			}
+			
+			var name_popup = new lib.ui.popupdialog.Input(dir, "new");
+			name_popup.addEventListener("ok", function(e) {
+				var name = name_popup.get_text();
+				var path = dir.full_name();
 				
-				var name_d = new lib.ui.dialog.InputDialog("New File", "New file name:");
-				name_d.addEventListener("ok", function(e) {
-					var name = name_d.get_text();
-					
-					var add_rq = this.wc_add(path+name, false);
-					add_rq.addEventListener("ok", function(e) {
-						this.load();
-					}, this);
+				var add_rq = this.wc_add(path+"/"+name, as_dir);
+				add_rq.addEventListener("ok", function(e) {
+					if (as_dir) {
+						dir.addToFolder(new ide.selector.Dir(name, path, this.getVersion()));
+					}
+					else {
+						dir.addToFolder(new ide.selector.File(name, path, this.getVersion()));
+					}
 				}, this);
-				
+				add_rq.addEventListener("fail", function(e) {
+					new lib.ui.popupdialog.Atom(dir, e.getData());
+				}, this);
 			}, this);
 		}
 	}

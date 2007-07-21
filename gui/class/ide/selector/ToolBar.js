@@ -10,7 +10,11 @@ qx.Class.define("ide.selector.ToolBar",
 		});
 		
 		this.add_button("New File", "actions/document-new", false, function(e){
-			global.selectorview.getFiletree().new_file();
+			global.selectorview.getFiletree().new_file(false);
+		});
+		
+		this.add_button("New Dir", "actions/folder-new", false, function(e){
+			global.selectorview.getFiletree().new_file(true);
 		});
 		
 		this.add_button("Delete", "actions/edit-delete", false, function(e){
