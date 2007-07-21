@@ -18,13 +18,16 @@ qx.Class.define("ide.selector.ToolBar",
 		});
 		
 		this.add_button("Delete", "actions/edit-delete", false, function(e){
-			
+			global.selectorview.getTree().delete_selected();
 		});
+		
 		
 		
 		this.add_button("Commit", "actions/go-down", false, function(e){
-			
+			global.selectorview.getTree().commit();
 		});
+		
+		
 		this.set_mode_ro(true);
 	}
 });

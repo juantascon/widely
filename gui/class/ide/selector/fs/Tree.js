@@ -90,6 +90,37 @@ qx.Class.define("ide.selector.fs.Tree",
 					new lib.ui.popupdialog.Atom(dir, e.getData());
 				}, this);
 			}, this);
+		},
+		
+		delete_selected: function() {
+			var selected = this.getSelectedElement();
+			var path = selected.full_name();
+			
+			var confirm_popup = new lib.ui.popupdialog.Atom(selected, "Remove "+path);
+			confirm_popup.addEventListener("ok", function(e) {
+				var delete_rq = this.wc_delete(path);
+				delete_rq.addEventListener("ok", function(e) {
+					selected.destroy();
+				}, this);
+				delete_rq.addEventListener("fail", function(e) {
+					new lib.ui.popupdialog.Atom(selected, "imposible to delete, try with commit first");
+				}, this);
+			}, this);
+		},
+		
+		commit: function() {
+			var name_popup = new lib.ui.popupdialog.Input(this, "version name");
+			name_popup.addEventListener("ok", function(e) {
+				var commit_rq = this.wc_commit(name_popup.get_text());
+				commit_rq.addEventListener("ok", function(e) {
+					global.selectorview.getVersionstable().load();
+				}, this);
+				commit_rq.addEventListener("fail", function(e) {
+					new lib.ui.popupdialog.Atom(selected, e.getData());
+				}, this);
+			}, this);
 		}
+		
+		
 	}
 });

@@ -38,10 +38,14 @@ qx.Mixin.define("ide.selector.fs.DragAndDrop",
 						target.add(source);
 					}
 					if (action == "copy") {
+						// TODO: buscar como clonar un objeto
 						var clone = source.clone();
 						clone.setPath(target.full_name());
 						target.add(clone);
 					}
+				}, this);
+				mv_rq.addEventListener("fail", function(e) {
+					new lib.ui.popupdialog.Atom(source, "imposible to move, try with commit first");
 				}, this);
 				
 				e.stopPropagation();
@@ -79,6 +83,9 @@ qx.Mixin.define("ide.selector.fs.DragAndDrop",
 					mv_rq.addEventListener("ok", function(e) {
 						this.setName(text);
 						this.setLabel(text);
+					}, this);
+					mv_rq.addEventListener("fail", function(e) {
+						new lib.ui.popupdialog.Atom(this, "imposible to rename, try with commit first");
 					}, this);
 					
 				}, this);
