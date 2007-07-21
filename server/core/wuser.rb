@@ -1,3 +1,5 @@
+# TODO: Mover esta clase a webservices/user
+
 class WUser
 	
 	class Set < WStorage::DistributedStorager
@@ -10,8 +12,10 @@ class WUser
 		
 		def get(user_id, password=nil)
 			user = super(user_id)
+			return nil if ! user
+			
 			return user if (! password)
-			return user if ( user ) and ( user.authenticate(password) )
+			return user if ( user.authenticate(password) )
 			return nil
 		end
 		
@@ -77,7 +81,7 @@ class WUser
 		
 		@data_dir = "#{$WIDELY_DATA_DIR}/users/#{@user_id}/data_dir" if ! @data_dir
 		
-		raise wex_arg("name", @name, "(nice try)") if ! validate_id(@user_id)
+		raise wex_arg("user_id", @user_id, "(nice try)") if ! validate_id(@user_id)
 		
 		ExtraAttrs.instance.initialize_attrs(self, false) if ! from_storage
 	end
@@ -85,13 +89,13 @@ class WUser
 	def initialize_from_storage(data)
 		user_id = data["user_id"]
 		password = data["password"]
-		w_debug("restoring object: USER[user_id:#{user_id}]")
+		w_debug("restoring object: USER[user_id:#{user_id} password:#{password}]")
 		
 		initialize(user_id, password, true)
 	end
 	
 	def to_h()
-		{ "user_id" => @user_id }
+		{ "user_id" => @user_id, "password" => @password }
 	end
 	
 	def authenticate(password)
