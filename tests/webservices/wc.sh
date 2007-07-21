@@ -1,6 +1,7 @@
 #! /bin/bash
 
-id_w=$(eval_ws wc/create "session_id=$id&repo_id=$id_r&name=project1-wc1&manager=default") ; echo $id_w
+id_w=$(obj_ws wc/create "session_id=$id&repo_id=$id_r&name=project1-wc1&manager=default") ; echo $id_w
+
 raw_ws wc/create "session_id=$id&repo_id=$id_r&name=project1-wc2&manager=default"
 raw_ws wc/list "session_id=$id"
 

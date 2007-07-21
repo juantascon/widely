@@ -4,11 +4,11 @@ host="localhost:7777"
 
 raw_ws()
 {
-	echo $(curl $host/api/$1 -d $2 2>/dev/null)
+	curl $host/api/$1 -d $2 2>/dev/null
+	echo
 }
 
-eval_ws()
+obj_ws()
 {
-	eval "val=$(curl $host/api/$1 -d $2 2>/dev/null)"
-	echo $val
+	raw_ws $*|tr ":{},\"" " " | awk '{print $4}'
 }
