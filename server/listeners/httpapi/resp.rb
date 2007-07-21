@@ -15,36 +15,46 @@ class Resp
 	#
 	# Status: Not Found
 	#
-	def self.new_not_found()
-		new(404, "", "NOT FOUND A")
+	def self.new_not_found(path)
+		w_debug("API: #{path}: NOT FOUND")
+		new(404, "", "API #{path}: NOT FOUND")
 	end
 	
 	#
 	# Status: MethodNotAllowed
 	#
-	def self.new_method_not_allowed()
-		new(405, "", "METHOD NOT ALLOWED")
+	def self.new_method_not_allowed(method)
+		w_debug("#{method}: METHOD NOT ALLOWED")
+		new(405, "", "#{method}: METHOD NOT ALLOWED")
 	end
 	
-	#
-	# Status: OK
-	#
-	def self.new_html(data)
-		new(200, "text/html", data)
-	end
 	
 	#
-	# Status: OK
+	# Content Type: json
 	#
-	def self.new_json(obj)
-		new(200, "application/json", obj.to_json)
+	def self.new_json(status, obj)
+		new(status, "application/json", obj.to_json)
 	end
 	
 	#
 	# Status: Internal server Error
 	#
-	def self.new_error_json(message)
-		new(500, "application/json", {"error" => message}.to_json)
+	def self.new_json_ex(message)
+		new_json(500, { "status" => "fail", "message" => message })
+	end
+	
+	#
+	# Status: OK
+	#
+	def self.new_json_fail(message)
+		new_json(200, { "status" => "fail", "message" => message })
+	end
+	
+	#
+	# Status: OK
+	#
+	def self.new_json_ok(ret)
+		new_json(200, { "status" => "ok", "obj" => ret })
 	end
 end
 

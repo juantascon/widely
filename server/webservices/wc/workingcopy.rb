@@ -11,12 +11,12 @@ class WorkingCopy < WPluginable
 	@@default_wc = Repo::Version.new("-1")
 	def self.default_wc; @@default_wc; end
 	
-	attr_reader :owner, :repository, :name, :data_dir
+	attr_reader :owner, :repo, :name, :data_dir
 	alias :collectable_key :name
 	
-	def initialize(owner, repository, name, manager, from_storage=false)
+	def initialize(owner, repo, name, manager, from_storage=false)
 		@owner = owner
-		@repository = repository
+		@repo = repo
 		@name = name
 		@manager = manager
 		
@@ -24,7 +24,7 @@ class WorkingCopy < WPluginable
 		
 		raise wex_arg("name", @name, "(nice try)") if ! validate_id(@name)
 		raise wex_arg("owner", @owner) if ! @owner.kind_of? WUser
-		raise wex_arg("repository", @repository) if ! @repository.kind_of? Repo::Repository
+		raise wex_arg("repo", @repo) if ! @repo.kind_of? Repo::Repository
 		
 		wplugin_activate(@manager)
 		wplugin_init()
@@ -34,15 +34,16 @@ class WorkingCopy < WPluginable
 	
 	def initialize_from_storage(data)
 		owner = WUser::Set.instance.get_ex(data["owner"])
-		repository = owner.reposet.get_ex(data["repository"])
+		repo = owner.reposet.get_ex(data["repo"])
 		name = data["name"]
 		manager = data["manager"]
+		w_debug("restoring object: WC[owner#{owner.user_id} name:#{name}]")
 		
-		initialize(owner, repository, name, manager, true)
+		initialize(owner, repo, name, manager, true)
 	end
 	
 	def to_h()
-		{ "repository" => @repository.name, "owner" => @owner.user_id, "name" => @name, "manager" => @manager }
+		{ "repo" => @repo.name, "owner" => @owner.user_id, "name" => @name, "manager" => @manager }
 	end
 	
 end

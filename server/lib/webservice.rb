@@ -1,3 +1,4 @@
+# TODO: mover esta clase a httpapi
 module WebService
 	#
 	# Hace un llamado al metodo, comprueba que el metodo exista
@@ -15,7 +16,8 @@ module WebService
 		
 		# El metodo debe recibir un solo parametros (un hash con los valores de entrada)
 		raise ArgumentError.new("method[#{method}]: invalid definition") if real_method.arity != 1
-		real_method.call(Args.new(args))
+		
+		return real_method.call(Args.new(args))
 	end
 	
 	class Args < Hash

@@ -12,48 +12,30 @@ module Default
 		mkdir_p @data_dir if ! directory? @data_dir
 	end
 	
-	#
-	# Verifica si un archivo hace parte del manejador de
-	# versiones o si hace parte del sistema de archivos
-	#
-	def repository_file?(f)
-		f = File.cleanpath("%wc_dir%/#{f}")
-		
-		#
-		# Cada repositorio define files() como un metodo que
-		# retorna un array de expresiones regulares o simplemente
-		# strings.
-		# El string especial %wc_dir% se entiende como
-		# la ruta de la copia de trabajo
-		#
-		@repository.files.each do |exp|
-			return true if exp === f
-		end
-		return false
-	end
-	
 	def process_path(path)
-		if ( repository_file? path ) or ( ! File.absolute?(path) )
+		if ( @repo.repo_file? path ) or ( ! File.absolute?(path) )
 			w_warn("#{path}: invalid path")
 			return false, false
 		else
 			return File.cleanpath(path), "#{@data_dir}/#{File.cleanpath(path)}"
 		end
 	end
+	private :process_path
 	
 	
 	#
 	# Obtiene una copia de trabajo
 	#
 	def checkout(version=self.default_wc)
-		version=versions.last if (! version || version.get == self.class.default_wc.get)
+		version = versions[1].last if (! version || version.get == self.class.default_wc.get)
 		
-		return repository.checkout(@data_dir, version)
+		return @repo.checkout(@data_dir, version)
 	end
 
 	
 	def status()
-		@repository.status(@data_dir)
+		# TODO: terminar
+		return @repo.status(@data_dir)
 	end
 	
 	#
@@ -62,7 +44,7 @@ module Default
 	# log = la descripcion de los cambios
 	#
 	def commit(log)
-		@repository.commit(@data_dir, log.to_s)
+		@repo.commit(@data_dir, log.to_s)
 	end
 	
 	#
@@ -72,7 +54,7 @@ module Default
 	# arr.last -> la ultima version
 	#
 	def versions()
-		@repository.versions()
+		@repo.versions()
 	end
 	
 	#
@@ -85,13 +67,13 @@ module Default
 	def cat(path, version=self.default_wc)
 		
 		path, rpath = process_path(path)
-		return false if ! path
+		return false, "invalid path: #{path}" if ! path
 		
 		if ( ! version ) || ( version.get == self.class.default_wc.get )
-			return false if ! file?(rpath)
-			return File.new(rpath).read
+			return false, "invalid file: #{path}" if ! file?(rpath)
+			return true, File.new(rpath).read
 		else
-			return @repository.cat(path, version)
+			return @repo.cat(path, version)
 		end
 	end
 	
@@ -106,19 +88,19 @@ module Default
 	def ls(path, version=self.default_wc)
 		
 		path, rpath = process_path(path)
-		return false if ! path
+		return false, "invalid path: #{path}" if ! path
 		
 		if ( ! version ) || ( version.get == self.class.default_wc.get )
 			tree = FileTree.new
 			Find.find(rpath) do |f|
 				node_name = "#{Pathname.new(f).relative_path_from(Pathname.new(rpath)).to_s}"
 				next if node_name == "."
-				Find.prune if repository_file?(node_name)
+				Find.prune if @repo.repo_file?(node_name)
 				tree.add_with_parents("/#{node_name}", directory?(f))
 			end
-			return tree
+			return true, tree
 		else
-			return @repository.ls(path, version)
+			return @repo.ls(path, version)
 		end
 	end
 	
@@ -134,14 +116,14 @@ module Default
 	def add(path, as_dir=false)
 		
 		path, rpath = process_path(path)
-		return false if ! path or File.root?(path)
+		return false, "invalid path: #{path}" if ! path or File.root?(path)
 		
 		if ! exist?(rpath)
 			mkdir(rpath) if as_dir
 			touch(rpath) if ! as_dir
 		end
 		
-		return @repository.add(@data_dir, path)
+		return @repo.add(@data_dir, path)
 	end
 	
 	#
@@ -155,12 +137,13 @@ module Default
 	def delete(path)
 		
 		path, rpath = process_path(path)
-		return false if ! path or File.root?(path)
+		return false, "invalid path: #{path}" if ! path or File.root?(path)
 		
-		(ret = @repository.delete(@data_dir, path)) if exist?(rpath)
-		rm_rf(rpath) if exist?(rpath)
+		status, ret = @repo.delete(@data_dir, path)
 		
-		return ret
+		rm_rf(rpath) if exist?(rpath) and status
+		
+		return status, ret
 	end
 	
 	#
@@ -171,47 +154,31 @@ module Default
 	def move(path_from, path_to)
 		
 		path_from, rpath_from = process_path(path_from)
-		return false if ! path_from or File.root?(path_from)
+		return false, "invalid path_from: #{path_from}" if ! path_from or File.root?(path_from)
 		
 		path_to, rpath_to = process_path(path_to)
-		return false if ! path_to
+		return false, "invalid path_to: #{path_to}" if ! path_to
 		
-		return false if ! exist?(rpath_from)
+		status, ret = @repo.move(@data_dir, path_from, path_to)
 		
-		if directory?(rpath_to) or directory?(File.dirname(rpath_to))
-			ret = @repository.move(@data_dir, path_from, path_to)
-			
-			if ret and exist?(rpath_from)
-				if exist?(rpath_to)
-					rm_rf(rpath_from)
-				else
-					mv(rpath_from, rpath_to)
-				end
-			end
-			
-			return ret
-		end
+		rm_rf(rpath_from) if exist?(rpath_from) and status
+		
+		return status, ret
 	end
 	
 	def copy(path_from, path_to)
 		
 		path_from, rpath_from = process_path(path_from)
-		return false if ! path_from or File.root?(path_from)
+		return false, "invalid path_from: #{path_from}" if ! path_from or File.root?(path_from)
 		
 		path_to, rpath_to = process_path(path_to)
-		return false if ! path_to
+		return false, "invalid path_to: #{path_to}" if ! path_to
 		
-		return false if ! exist?(rpath_from)
+		status, ret = @repo.copy(@data_dir, path_from, path_to)
 		
-		if directory?(rpath_to) or directory?(File.dirname(rpath_to))
-			ret = @repository.copy(@data_dir, path_from, path_to)
-			
-			if ret and ! exist?(rpath_to)
-				cp_rf(path_from, path_to)
-			end
-			
-			return ret
-		end
+		cp_rf(path_from, path_to) if exist?(rpath_to) and status
+		
+		return status, ret
 	end
 	
 	#
@@ -219,17 +186,19 @@ module Default
 	# la copia de trabajo
 	#
 	def write(path, content)
-		
 		path, rpath = process_path(path)
-		return false if ! path
+		return false, "invalid path: #{path}" if ! path
+		return false, "invalid file: #{path}" if ! file?(rpath)
 		
-		return false if ! file?(rpath)
+		begin
+			file = File.new(rpath, "w")
+			ret = file.write(content.to_s+"\n")
+			file.fsync
+		rescue Exception => ex
+			return false, ex.message
+		end
 		
-		file = File.new(rpath, "w")
-		ret = file.write(content.to_s+"\n")
-		file.fsync
-		
-		return ret
+		return true, ret
 	end
 	
 end

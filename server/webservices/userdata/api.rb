@@ -17,7 +17,7 @@ class API
 		
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
 		
-		return user.userdataset.add(UserData.new(user, key, value))
+		return true, user.userdataset.add(UserData.new(user, key, value))
 	end
 	
 	def get_value(args)
@@ -25,9 +25,9 @@ class API
 		
 		key = args["key"]
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
-		data_set = user.userdataset.get_ex(key)
+		user_data = user.userdataset.get_ex(key)
 		
-		return data_set.value
+		return true, user_data.value
 	end
 	
 end

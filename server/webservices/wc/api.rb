@@ -11,8 +11,8 @@ class API
 	
 	def manager_list(args)
 		args.check("session_id")
-		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
-		return WorkingCopy.wplugin_list
+		session = Auth::SessionSet.instance.get_ex(args["session_id"])
+		return true, WorkingCopy.wplugin_list
 	end
 	
 	def create(args)
@@ -24,9 +24,12 @@ class API
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
 		raise wex_arg("name", name, "workingcopy already exists") if user.wcset.get(name)
 		
-		repository = user.reposet.get_ex(args["repo_id"])
+		repo = user.reposet.get_ex(args["repo_id"])
 		
-		return user.wcset.add(WorkingCopy.new(user, repository, name, manager))
+		wc = WorkingCopy.new(user, repo, name, manager)
+		user.wcset.add(wc)
+		
+		return true, wc.collectable_key
 	end
 	
 	def list(args)
@@ -36,7 +39,7 @@ class API
 		ret = Array.new
 		user.wcset.each { |key, object| ret.push object.to_h }
 		
-		return ret
+		return true, ret
 	end
 	
 	def checkout(args)

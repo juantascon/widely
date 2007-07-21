@@ -20,6 +20,7 @@ class UserData
 		owner = WUser::Set.instance.get_ex(data["owner"])
 		key = data["key"]
 		value = data["value"]
+		w_debug("restoring object: USERDATA[owner:#{owner.user_id} key:#{key} value:#{value}]")
 		
 		initialize(owner, key, value, true)
 	end

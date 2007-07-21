@@ -12,7 +12,7 @@ class API
 	def manager_list(args)
 		args.check("session_id")
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
-		return Repository.wplugin_list
+		return true, Repository.wplugin_list
 	end
 	
 	def create(args)
@@ -24,7 +24,10 @@ class API
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
 		raise wex_arg("name", name, "repository already exists") if user.reposet.get(name)
 		
-		return user.reposet.add(Repository.new(user, name, manager))
+		repo = Repository.new(user, name, manager)
+		user.reposet.add(repo)
+		
+		return true, repo.collectable_key
 	end
 	
 	def list(args)
@@ -34,7 +37,7 @@ class API
 		ret = Array.new
 		user.reposet.each { |key, object| ret.push object.to_h }
 		
-		return ret
+		return true, ret
 	end
 	
 end

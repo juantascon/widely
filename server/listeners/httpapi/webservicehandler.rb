@@ -17,12 +17,13 @@ class WebServiceHandler
 	# y del metodo
 	#
 	def self.process_rq(rq)
-		w_debug(rq.path)
 		# La ruta real es sin "/api/"
 		path = rq.path.gsub(/^\/api\//, "")
 		
+		w_info("API: #{path}")
+		
 		# En el API solo se aceptan peticiones POST
-		return Resp.new_method_not_allowed() if rq.method != "POST"
+		return Resp.new_method_not_allowed(rq.method) if rq.method != "POST"
 		
 		#
 		# El primer directorio indica que webservice utilizar
@@ -32,9 +33,9 @@ class WebServiceHandler
 		# ...
 		#
 		webservice_name = path.split("/")[0]
-		w_debug("path: #{path}");
 		webservice = @@webservices[webservice_name]
-		return Resp.new_not_found() if ! webservice
+		
+		return Resp.new_not_found(path) if ! webservice
 		
 		#
 		# El segundo directorio indica que metodo ejecutar en
@@ -50,14 +51,22 @@ class WebServiceHandler
 		# sacados de hacer parsing del request (rq.body)
 		#
 		begin
-			ret = webservice.call(method_name, URLParser.url_encoded_args_to_hash(rq.body))
+			ws_args = URLParser.url_encoded_args_to_hash(rq.body)
+			w_debug("API ARGS: #{ws_args}")
+			
+			status, ret = webservice.call(method_name, ws_args)
 		rescue Exception => ex
 			w_debug("Exception: #{ex.message}")
 			w_debug(ex.backtrace.join("\n\t"))
-			return Resp.new_error_json("#{method_name} [Exception]: #{ex.message}")
+			
+			return Resp.new_json_ex(ex.message)
 		end
 		
-		return Resp.new_json(ret)
+		if status
+			return Resp.new_json_ok(ret)
+		else
+			return Resp.new_json_fail(ret)
+		end
 	end
 	
 end

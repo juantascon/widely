@@ -13,7 +13,13 @@ class API
 		args.check("user_id", "password")
 		
 		user = WUser::Set.instance.get_ex(args["user_id"], args["password"])
-		return SessionSet.instance.add(UserSession.new(user))
+		session = UserSession.new(user)
+		
+		if SessionSet.instance.add(session)
+			return true, session.id
+		else
+			return false, "imposible to add session"
+		end
 	end
 	
 	def login_admin(args)
@@ -21,7 +27,13 @@ class API
 		
 		password = args["password"]
 		
-		return SessionSet.instance.add(AdminSession.new(password))
+		session = AdminSession.new(password)
+		
+		if SessionSet.instance.add(session)
+			return true, session.id
+		else
+			return false, "imposible to add session"
+		end
 	end
 	
 	def session_type(args)
@@ -29,19 +41,26 @@ class API
 		
 		session = SessionSet.instance.get(args["session_id"])
 		
-		return "admin" if session.kind_of? AdminSession
-		return "user" if session.kind_of? UserSession
-		return "invalid"
+		return true, "admin" if session.kind_of? AdminSession
+		return true, "user" if session.kind_of? UserSession
+		return true, "invalid"
 	end
 	
 	def user_session(args)
 		args.check("session_id", "user_id")
 		
 		session = SessionSet.instance.get_ex(args["session_id"])
-		raise ArgumentError, "session is not admin" if ! session.kind_of? AdminSession
+		return false, "session is not admin" if ! session.kind_of? AdminSession
+		
 		user = WUser::Set.instance.get_ex(args["user_id"])
 		
-		return SessionSet.instance.add(UserSession.new(user))
+		new_session = UserSession.new(user)
+		
+		if SessionSet.instance.add(new_session)
+			return true, new_session.id
+		else
+			return false, "imposible to add session"
+		end
 	end
 	
 	#TODO: esto deberia ser algo asi como set_session_data o estar en User
@@ -56,8 +75,9 @@ class API
 	
 	def logout(args)
 		args.check("session_id")
+		SessionSet.instance.delete_by_key(args["session_id"])
 		
-		return SessionSet.instance.delete_by_key(args["session_id"])
+		return true
 	end
 end
 
