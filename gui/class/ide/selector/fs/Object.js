@@ -1,4 +1,4 @@
-qx.Mixin.define("ide.selector.FSObject",
+qx.Mixin.define("ide.selector.fs.Object",
 {
 	
 	include: lib.dao.api.WC,

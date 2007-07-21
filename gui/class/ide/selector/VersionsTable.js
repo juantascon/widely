@@ -30,8 +30,8 @@ qx.Class.define("ide.selector.VersionsTable",
 			
 			addEventListener("changeSelection", function(e){
 				var s = global.selectorview;
-				s.set_filetree_version(this.selected_row_id());
-				s.getToolbar().set_mode_ro(s.getFiletree().is_read_only());
+				s.set_tree_version(this.selected_row_id());
+				s.getToolbar().set_mode_ro(s.getTree().is_read_only());
 			}, this);
 		}
 	},

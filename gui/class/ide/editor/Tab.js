@@ -6,7 +6,7 @@ qx.Class.define("ide.editor.Tab",
 	
 	properties:
 	{
-		file: { check: "ide.selector.File" },
+		file: { check: "ide.selector.fs.File" },
 		textarea: { check: "qx.ui.form.TextArea" }
 	},
 	

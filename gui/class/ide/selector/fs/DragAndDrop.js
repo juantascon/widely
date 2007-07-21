@@ -1,7 +1,7 @@
-qx.Mixin.define("ide.selector.FSDragAndDrop",
+qx.Mixin.define("ide.selector.fs.DragAndDrop",
 {
 	
-	include: ide.selector.FSObject,
+	include: ide.selector.fs.Object,
 	
 	members:
 	{

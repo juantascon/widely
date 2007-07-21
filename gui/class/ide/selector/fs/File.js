@@ -1,8 +1,8 @@
-qx.Class.define("ide.selector.File",
+qx.Class.define("ide.selector.fs.File",
 {
 	extend: qx.ui.tree.TreeFile,
 	
-	include: [ ide.selector.FSDragAndDrop ],
+	include: [ ide.selector.fs.DragAndDrop ],
 	
 	construct: function (name, path, version) {
 		this.base(arguments, name);
@@ -22,7 +22,7 @@ qx.Class.define("ide.selector.File",
 	statics:
 	{
 		new_from_hash: function(h){
-			return new ide.selector.File(h["name"], h["path"], h["version"]);
+			return new ide.selector.fs.File(h["name"], h["path"], h["version"]);
 		}
 		
 	}

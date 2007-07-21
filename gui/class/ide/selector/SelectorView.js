@@ -4,7 +4,7 @@ qx.Class.define("ide.selector.SelectorView",
 	
 	properties:
 	{
-		filetree: { check: "ide.selector.FileTree" },
+		tree: { check: "ide.selector.fs.Tree" },
 		toolbar: { check: "ide.selector.ToolBar" },
 		versionstable: { check: "ide.selector.VersionsTable" },
 		splitbox: { check: "qx.ui.splitpane.VerticalSplitPane" }
@@ -19,13 +19,13 @@ qx.Class.define("ide.selector.SelectorView",
 		this.setToolbar(new ide.selector.ToolBar());
 		this.add(this.getToolbar());
 		
-		this.setFiletree(new ide.selector.FileTree());
+		this.setTree(new ide.selector.fs.Tree());
 		this.setVersionstable(new ide.selector.VersionsTable());
 		
 		this.setSplitbox(new qx.ui.splitpane.VerticalSplitPane("3*", "2*"));
 		with(this.getSplitbox()) {
 			set({height: "100%", width: "100%"});
-			addTop(this.getFiletree());
+			addTop(this.getTree());
 			addBottom(this.getVersionstable());
 		}
 		this.add(this.getSplitbox());
@@ -33,17 +33,17 @@ qx.Class.define("ide.selector.SelectorView",
 	
 	members:
 	{
-		set_filetree_version: function(version){
-			this.getSplitbox().getTopArea().remove(this.getFiletree());
+		set_tree_version: function(version){
+			this.getSplitbox().getTopArea().remove(this.getTree());
 			/*
 			 * TODO: se deben borrar los FileTree del view?
 			 *
-			 * this.getFiletree().dispose();
+			 * this.getTree().dispose();
 			 * 
 			 */
-			this.setFiletree(new ide.selector.FileTree(version));
-			this.getFiletree().load();
-			this.getSplitbox().addTop(this.getFiletree());
+			this.setTree(new ide.selector.fs.Tree(version));
+			this.getTree().load();
+			this.getSplitbox().addTop(this.getTree());
 		}
 	}
 });

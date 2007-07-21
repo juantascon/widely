@@ -1,8 +1,8 @@
-qx.Class.define("ide.selector.Dir",
+qx.Class.define("ide.selector.fs.Dir",
 {
 	extend: qx.ui.tree.TreeFolder,
 	
-	include: [ ide.selector.FSDragAndDrop ],
+	include: [ ide.selector.fs.DragAndDrop ],
 	
 	construct: function (name, path, version) {
 		this.base(arguments, name);
@@ -19,17 +19,17 @@ qx.Class.define("ide.selector.Dir",
 	statics:
 	{
 		new_from_hash: function(h){
-			var dir = new ide.selector.Dir(h["name"], h["path"], h["version"]);
+			var dir = new ide.selector.fs.Dir(h["name"], h["path"], h["version"]);
 			
 			if ( h["childs"] ) {
 				for (var i in h["childs"]) {
 					h["childs"][i]["version"] = h["version"];
 					
 					if (h["childs"][i]["type"] == "dir"){
-						dir.addToFolder(ide.selector.Dir.new_from_hash(h["childs"][i]));
+						dir.addToFolder(ide.selector.fs.Dir.new_from_hash(h["childs"][i]));
 					}
 					if (h["childs"][i]["type"] == "file"){
-						dir.addToFolder(ide.selector.File.new_from_hash(h["childs"][i]));
+						dir.addToFolder(ide.selector.fs.File.new_from_hash(h["childs"][i]));
 					}
 				}
 			}

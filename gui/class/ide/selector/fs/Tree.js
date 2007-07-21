@@ -1,8 +1,8 @@
-qx.Class.define("ide.selector.FileTree",
+qx.Class.define("ide.selector.fs.Tree",
 {
 	extend: qx.ui.tree.Tree,
 	
-	include: [ ide.selector.FSDragAndDrop ],
+	include: [ ide.selector.fs.DragAndDrop ],
 	
 	construct: function (version) {
 		if (qx.util.Validation.isInvalid(eval(version))) { version = cons.WC }
@@ -37,10 +37,10 @@ qx.Class.define("ide.selector.FileTree",
 				data[i]["version"] = this.getVersion();
 				
 				if (data[i]["type"] == "dir"){
-					this.addToFolder(ide.selector.Dir.new_from_hash(data[i]));
+					this.addToFolder(ide.selector.fs.Dir.new_from_hash(data[i]));
 				}
 				if (data[i]["type"] == "file"){
-					this.addToFolder(ide.selector.File.new_from_hash(data[i]));
+					this.addToFolder(ide.selector.fs.File.new_from_hash(data[i]));
 				}
 			}
 		},
@@ -80,10 +80,10 @@ qx.Class.define("ide.selector.FileTree",
 				var add_rq = this.wc_add(path+"/"+name, as_dir);
 				add_rq.addEventListener("ok", function(e) {
 					if (as_dir) {
-						dir.addToFolder(new ide.selector.Dir(name, path, this.getVersion()));
+						dir.addToFolder(new ide.selector.fs.Dir(name, path, this.getVersion()));
 					}
 					else {
-						dir.addToFolder(new ide.selector.File(name, path, this.getVersion()));
+						dir.addToFolder(new ide.selector.fs.File(name, path, this.getVersion()));
 					}
 				}, this);
 				add_rq.addEventListener("fail", function(e) {
