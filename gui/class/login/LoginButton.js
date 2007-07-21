@@ -9,7 +9,7 @@ qx.Class.define("login.LoginButton",
 		loading: { check: "Boolean", init: false, apply: "apply_loading" }
 	},
 	
-	construct: function(user_field, password_field) {
+	construct: function(user_field, password_field, admin_field) {
 		this.base(arguments, "", this.icon_login);
 		with(this) {
 			setSpacing(4);
@@ -22,7 +22,7 @@ qx.Class.define("login.LoginButton",
 			this.setLoading(true);
 			
 			this.login(user_field.getComputedValue(),
-				password_field.getComputedValue());
+				password_field.getComputedValue(), admin_field.getChecked());
 		});
 	},
 	
@@ -40,8 +40,21 @@ qx.Class.define("login.LoginButton",
 			}
 		},
 		
-		login: function(user, password) {
-			var login_rq = this.auth_login(user, password);
+		login: function(user, password, admin) {
+			var login_rq = null;
+			var cookie_prefix = null;
+			var redirect_url = null;
+			
+			if (admin) {
+				cookie_prefix = "admin";
+				redirect_url = "./admin.html"
+				login_rq = this.auth_login_admin(password);
+			}
+			else {
+				cookie_prefix = "ide";
+				redirect_url = "./ide.html";
+				login_rq = this.auth_login(user, password);
+			}
 			
 			login_rq.addEventListener("fail", function(e) {
 				this.setLoading(false);
@@ -53,8 +66,8 @@ qx.Class.define("login.LoginButton",
 			
 			login_rq.addEventListener("ok", function(e) {
 				var session_id = e.getData();
-				lib.dao.Cookie.set_session_id("ide", session_id);
-				lib.lang.Redirect.redirect_to("./ide.html");
+				lib.dao.Cookie.set_session_id(cookie_prefix, session_id);
+				lib.lang.Redirect.redirect_to(redirect_url);
 			}, this);
 		}
 	}

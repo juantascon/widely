@@ -6,7 +6,12 @@ qx.Class.define("login.LoginView",
 	{
 		panel: { check: "qx.ui.layout.VerticalBoxLayout" },
 		username: { check: "qx.ui.form.TextField" },
+		usernamef: { check: "lib.ui.AtomField" },
+		
 		password: { check: "qx.ui.form.PasswordField" },
+		passwordf: { check: "lib.ui.AtomField" },
+		
+		admincheck: { check: "qx.ui.form.CheckBox" },
 		loginbutton: { check: "login.LoginButton" }
 	},
 	
@@ -27,20 +32,29 @@ qx.Class.define("login.LoginView",
 		}
 		
 		this.setUsername(new qx.ui.form.TextField(""));
-		this.setPassword(new qx.ui.form.PasswordField(""));
-		
 		var u = this.getUsername();
+		this.setUsernamef(new lib.ui.AtomField("User", "icon/22/apps/system-users.png", u));
+		
+		this.setPassword(new qx.ui.form.PasswordField(""));
 		var p = this.getPassword();
+		this.setPasswordf(new lib.ui.AtomField("Password", "icon/22/actions/encrypt.png",p));
 		
 		var spacer = new qx.ui.basic.VerticalSpacer()
 		spacer.setHeight(5);
 		
-		this.setLoginbutton(new login.LoginButton(u, p));
+		this.setAdmincheck(new qx.ui.form.CheckBox("Admin", "admin", "admin", false));
+		var a = this.getAdmincheck();
+		a.addEventListener("changeChecked", function(e) {
+			this.getUsernamef().setEnabled(!e.getValue());
+		}, this);
+		
+		this.setLoginbutton(new login.LoginButton(u, p, a));
 		
 		with(this.getPanel()) {
-			add(new lib.ui.AtomField("User", "icon/22/apps/system-users.png", u));
-			add(new lib.ui.AtomField("Password", "icon/22/actions/encrypt.png",p));
+			add(this.getUsernamef());
+			add(this.getPasswordf());
 			add(spacer);
+			add(a);
 			add(this.getLoginbutton());
 		}
 		
