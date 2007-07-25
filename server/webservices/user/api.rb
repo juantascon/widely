@@ -1,8 +1,8 @@
 #
-# API de User
+# API de WUser
 #
 
-module User
+module WUser
 
 class API
 	
@@ -18,10 +18,10 @@ class API
 		user_id = args["user_id"]
 		password = args["password"]
 		
-		raise wex_arg("user_id", user_id, "user already exists") if WUser::Set.instance.get(user_id)
+		raise wex_arg("user_id", user_id, "user already exists") if Set.instance.get(user_id)
 		
-		user = WUser.new(user_id, password)
-		WUser::Set.instance.add(user)
+		user = User.new(user_id, password)
+		Set.instance.add(user)
 		
 		return true, user.user_id
 	end
@@ -33,13 +33,13 @@ class API
 		return false, "session is not admin" if ! session.kind_of? Auth::AdminSession
 		
 		ret = Array.new
-		WUser::Set.instance.each { |key, object| ret.push object.to_h }
+		Set.instance.each { |key, object| ret.push object.to_h }
 		
 		return true, ret
 	end
 	
 end
 
-HTTPAPI::WebServiceHandler.set_webservice("user", User::API.instance)
+HTTPAPI::WebServiceHandler.set_webservice("user", API.instance)
 
 end

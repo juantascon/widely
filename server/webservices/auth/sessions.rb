@@ -52,7 +52,7 @@ class AdminSession < Session
 	def initialize(password)
 		super()
 		
-		password = WUser::crypt(password)
+		password = WUser::User.crypt(password)
 		sys_password = $CONF.get("AUTH_ADMIN_PASSWORD").value
 		
 		if (password != sys_password)

@@ -23,7 +23,7 @@ class WorkingCopy < WPluginable
 		@data_dir = "#{@owner.data_dir}/wcs/#{@name}/data_dir" if ! @data_dir
 		
 		raise wex_arg("name", @name, "(nice try)") if ! validate_id(@name)
-		raise wex_arg("owner", @owner) if ! @owner.kind_of? WUser
+		raise wex_arg("owner", @owner) if ! @owner.kind_of? WUser::User
 		raise wex_arg("repo", @repo) if ! @repo.kind_of? Repo::Repository
 		
 		wplugin_activate(@manager)

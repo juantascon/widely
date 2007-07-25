@@ -2,7 +2,7 @@
 # Modulo de manejo de copias de trabajo
 #
 
-wmodule :WC => [:HTTPAPI, :Repo] do |mod|
+wmodule :WC => [ :HTTPAPI, :Repo ] do |mod|
 	begin
 		mod.require "workingcopy.rb"
 		mod.require "default.rb"

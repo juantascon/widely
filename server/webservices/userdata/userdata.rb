@@ -13,7 +13,7 @@ class UserData
 		@value = value
 		
 		raise wex_arg("key", @key, "(nice try)") if ! validate_id(@key)
-		raise wex_arg("owner", @owner) if ! @owner.kind_of? WUser
+		raise wex_arg("owner", @owner) if ! @owner.kind_of? WUser::User
 	end
 	
 	def initialize_from_storage(data)

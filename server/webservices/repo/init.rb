@@ -2,7 +2,7 @@
 # Modulo de manejo de repòsitorios
 #
 
-wmodule :Repo => [:HTTPAPI, :Auth] do |mod|
+wmodule :Repo => [ :Auth ] do |mod|
 	begin
 		mod.require "version.rb"
 		mod.require "repository.rb"

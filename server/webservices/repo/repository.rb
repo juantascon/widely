@@ -18,7 +18,7 @@ class Repository < WPluginable
 		@data_dir = "#{@owner.data_dir}/repos/#{@name}/data_dir" if ! @data_dir
 		
 		raise wex_arg("name", @name, "(nice try)") if ! validate_id(@name)
-		raise wex_arg("owner", @owner) if ! @owner.kind_of? WUser
+		raise wex_arg("owner", @owner) if ! @owner.kind_of? WUser::User
 		
 		wplugin_activate(@manager)
 		wplugin_init()

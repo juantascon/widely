@@ -2,8 +2,11 @@
 # Modulo de manejo de usuarios
 #
 
-wmodule :User => [ :Auth, :HTTPAPI ] do |mod|
+wmodule :WUser => :HTTPAPI do |mod|
 	begin
+		mod.require "extraattrs.rb"
+		mod.require "user.rb"
+		mod.require "userset.rb"
 		mod.require "api.rb"
 		
 		true

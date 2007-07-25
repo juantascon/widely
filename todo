@@ -29,7 +29,7 @@ ADICIONALES:
 
 [gui::IDE]: Atajos de teclado
 [gui::IDE]: Click derecho en filetreeview y versionview
-[listener::WebDav,webservice::Auth,core::WUser]:
+[listener::WebDav,webservice::Auth,WUser]:
 	opcion de Activar/desactivar webdav
 	acceso a webdav por IP
 [webservice::WC, gui::IDE]: terminar status()
