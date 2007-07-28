@@ -13,11 +13,11 @@ class UserData
 		@value = value
 		
 		raise wex_arg("key", @key, "(nice try)") if ! validate_id(@key)
-		raise wex_arg("owner", @owner) if ! @owner.kind_of? WUser::User
+		raise wex_arg("owner", @owner) if ! @owner.kind_of? User::WUser
 	end
 	
 	def initialize_from_storage(data)
-		owner = WUser::Set.instance.get_ex(data["owner"])
+		owner = User::UserSet.instance.get_ex(data["owner"])
 		key = data["key"]
 		value = data["value"]
 		w_debug("restoring object: USERDATA[owner:#{owner.user_id} key:#{key} value:#{value}]")
@@ -31,7 +31,7 @@ class UserData
 	
 end
 
-WUser::ExtraAttrs.instance.add(:userdataset) do |user, from_storage|
+User::ExtraAttrs.instance.add(:userdataset) do |user, from_storage|
 	storager = WStorage::DistributedStorager.new(UserData, "#{user.data_dir}/userdata/%s/userdata.conf")
 	storager.load_all if from_storage
 	storager

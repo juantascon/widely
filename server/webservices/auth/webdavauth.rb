@@ -17,7 +17,7 @@ class WebDavHandlerAuth < WEBrick::HTTPServlet::WebDAVHandler
 			username, password = Base64.decode64(auth_data).split(':')
 			
 			#autentica el usuario
-			user = WUser::Set.instance.get(username, password)
+			user = User::UserSet.instance.get(username, password)
 			raise WEBrick::HTTPStatus::Unauthorized if ! user
 			
 			# Si la ruta solicitada es permitida por ese usuario

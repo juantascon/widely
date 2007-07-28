@@ -1,8 +1,8 @@
 #
-# API de WUser
+# API de User
 #
 
-module WUser
+module User
 
 class API
 	
@@ -18,22 +18,22 @@ class API
 		user_id = args["user_id"]
 		password = args["password"]
 		
-		raise wex_arg("user_id", user_id, "user already exists") if Set.instance.get(user_id)
+		raise wex_arg("user_id", user_id, "user already exists") if UserSet.instance.get(user_id)
 		
-		user = User.new(user_id, password)
-		Set.instance.add(user)
+		user = WUser.new(user_id, password)
+		UserSet.instance.add(user)
 		
 		return true, user.user_id
 	end
 	
-	def delete(args)
+	def destroy(args)
 		args.check("session_id", "user_id")
 		
 		session = Auth::SessionSet.instance.get_ex(args["session_id"])
 		return false, "session is not admin" if ! session.kind_of? Auth::AdminSession
 		
 		user_id = args["user_id"]
-		user = Set.instance.get(user_id)
+		user = UserSet.instance.get(user_id)
 		
 		raise wex_arg("user_id", user_id, "user does not exists") if ! user
 		
@@ -50,13 +50,13 @@ class API
 		return false, "session is not admin" if ! session.kind_of? Auth::AdminSession
 		
 		ret = Array.new
-		Set.instance.each { |key, object| ret.push object.to_h }
+		UserSet.instance.each { |key, object| ret.push object.to_h }
 		
 		return true, ret
 	end
 	
 end
 
-HTTPAPI::WebServiceHandler.set_webservice("user", API.instance)
+HTTPAPI::WebServiceHandler.set_webservice("user", User::API.instance)
 
 end

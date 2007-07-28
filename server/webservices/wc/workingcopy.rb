@@ -7,6 +7,7 @@ module WC
 class WorkingCopy < WPluginable
 	
 	include WStorage::Storable
+	include FileUtils
 	
 	@@default_wc = Repo::Version.new("-1")
 	def self.default_wc; @@default_wc; end
@@ -23,7 +24,7 @@ class WorkingCopy < WPluginable
 		@data_dir = "#{@owner.data_dir}/wcs/#{@name}/data_dir" if ! @data_dir
 		
 		raise wex_arg("name", @name, "(nice try)") if ! validate_id(@name)
-		raise wex_arg("owner", @owner) if ! @owner.kind_of? WUser::User
+		raise wex_arg("owner", @owner) if ! @owner.kind_of? User::WUser
 		raise wex_arg("repo", @repo) if ! @repo.kind_of? Repo::Repository
 		
 		wplugin_activate(@manager)
@@ -33,7 +34,7 @@ class WorkingCopy < WPluginable
 	end
 	
 	def initialize_from_storage(data)
-		owner = WUser::Set.instance.get_ex(data["owner"])
+		owner = User::UserSet.instance.get_ex(data["owner"])
 		repo = owner.reposet.get_ex(data["repo"])
 		name = data["name"]
 		manager = data["manager"]
@@ -53,7 +54,7 @@ class WorkingCopy < WPluginable
 	
 end
 
-WUser::ExtraAttrs.instance.add(:wcset) do |user, from_storage|
+User::ExtraAttrs.instance.add(:wcset) do |user, from_storage|
 	storager = WStorage::DistributedStorager.new(WorkingCopy, "#{user.data_dir}/wcs/%s/wc.conf")
 	storager.load_all if from_storage
 	storager

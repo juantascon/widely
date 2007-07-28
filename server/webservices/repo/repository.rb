@@ -3,6 +3,7 @@ module Repo
 class Repository < WPluginable
 	
 	include WStorage::Storable
+	include FileUtils
 	
 	attr_reader :owner, :name, :data_dir
 	alias :collectable_key :name
@@ -18,7 +19,7 @@ class Repository < WPluginable
 		@data_dir = "#{@owner.data_dir}/repos/#{@name}/data_dir" if ! @data_dir
 		
 		raise wex_arg("name", @name, "(nice try)") if ! validate_id(@name)
-		raise wex_arg("owner", @owner) if ! @owner.kind_of? WUser::User
+		raise wex_arg("owner", @owner) if ! @owner.kind_of? User::WUser
 		
 		wplugin_activate(@manager)
 		wplugin_init()
@@ -27,7 +28,7 @@ class Repository < WPluginable
 	end
 	
 	def initialize_from_storage(data)
-		owner = WUser::Set.instance.get_ex(data["owner"])
+		owner = User::UserSet.instance.get_ex(data["owner"])
 		name = data["name"]
 		manager = data["manager"]
 		w_debug("restoring object: REPO[owner:#{owner.user_id} name:#{name}]")
@@ -37,10 +38,7 @@ class Repository < WPluginable
 	
 	def destroy()
 		@owner.wcset.each do |key, wc|
-			if wc.repo == self
-				wc.delete
-				@owner.wcset.delete_by_object(wc)
-			end
+			wc.destroy if wc.repo == self
 		end
 		
 		rm_rf(File.dirname(@data_dir))
@@ -53,7 +51,7 @@ class Repository < WPluginable
 	
 end
 
-WUser::ExtraAttrs.instance.add(:reposet) do |user, from_storage|
+User::ExtraAttrs.instance.add(:reposet) do |user, from_storage|
 	storager = WStorage::DistributedStorager.new(Repository, "#{user.data_dir}/repos/%s/repo.conf")
 	storager.load_all if from_storage
 	storager

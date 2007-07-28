@@ -12,7 +12,7 @@ class API
 	def login(args)
 		args.check("user_id", "password")
 		
-		user = WUser::Set.instance.get_ex(args["user_id"], args["password"])
+		user = User::UserSet.instance.get_ex(args["user_id"], args["password"])
 		session = UserSession.new(user)
 		
 		if SessionSet.instance.add(session)
@@ -52,7 +52,7 @@ class API
 		session = SessionSet.instance.get_ex(args["session_id"])
 		return false, "session is not admin" if ! session.kind_of? AdminSession
 		
-		user = WUser::Set.instance.get_ex(args["user_id"])
+		user = User::UserSet.instance.get_ex(args["user_id"])
 		
 		new_session = UserSession.new(user)
 		

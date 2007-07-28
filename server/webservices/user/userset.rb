@@ -1,10 +1,10 @@
-module WUser
-class Set < WStorage::DistributedStorager
+module User
+class UserSet < WStorage::DistributedStorager
 	
 	include Singleton
 	
 	def initialize
-		super(User, "#{$WIDELY_DATA_DIR}/users/%s/user.conf")
+		super(WUser, "#{$WIDELY_DATA_DIR}/users/%s/user.conf")
 	end
 	
 	def get(user_id, password=nil)

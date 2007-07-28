@@ -1,4 +1,4 @@
-module WUser
+module User
 class ExtraAttrs
 	
 	include Singleton

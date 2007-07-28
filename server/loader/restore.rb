@@ -3,8 +3,8 @@
 #
 
 w_debug("restoring objects ...")
-WUser::Set.instance.load_all
-WUser::Set.instance.load_all_extra_attrs()
+User::UserSet.instance.load_all
+User::UserSet.instance.load_all_extra_attrs()
 w_debug("objects restored")
 
 $CONF.save_all if ! $CONF.load_all

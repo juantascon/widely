@@ -2,7 +2,7 @@
 # Modulo de manejo de autenticacion
 #
 
-wmodule :Auth => [ :HTTPAPI, :WUser ] do |mod|
+wmodule :Auth => [ :HTTPAPI, :User ] do |mod|
 	begin
 		require "base64"
 		

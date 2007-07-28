@@ -1,7 +1,8 @@
-module WUser
-class User
+module User
+class WUser
 	
 	include WStorage::Storable
+	include FileUtils
 	
 	attr_reader :user_id, :data_dir, :extra_attrs
 	
@@ -14,7 +15,7 @@ class User
 	end
 	
 	def initialize(user_id, password, from_storage=false)
-		password = User.crypt(password) if ! from_storage
+		password = WUser.crypt(password) if ! from_storage
 		
 		@user_id = user_id
 		@password = password
@@ -39,7 +40,7 @@ class User
 		@extra_attrs.each { |a| a.destroy if a.respond_to? :destroy }
 		
 		rm_rf(File.dirname(@data_dir))
-		Set.delete_by_object(self)
+		UserSet.instance.delete_by_object(self)
 	end
 	
 	def to_h()
@@ -47,7 +48,7 @@ class User
 	end
 	
 	def authenticate(password)
-		( User.crypt(password) == @password )
+		( WUser.crypt(password) == @password )
 	end
 	
 	def self.crypt(str)

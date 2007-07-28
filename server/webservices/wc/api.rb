@@ -32,7 +32,7 @@ class API
 		return true, wc.collectable_key
 	end
 	
-	def delete(args)
+	def destroy(args)
 		args.check("session_id", "name")
 		
 		name = args["name"]
