@@ -14,6 +14,12 @@ qx.Mixin.define("lib.dao.api.WC",
 				"Create WC") );
 		},
 		
+		wc_destroy: function(name) {
+			return ( new lib.dao.WRQ("wc", "destroy",
+				{ "session_id": global.session.id, "name": name },
+				"Delete WC") );
+		},
+		
 		wc_list: function(_user, _password) {
 			return ( new lib.dao.WRQ("wc", "list",
 				{ "session_id": global.session.id },

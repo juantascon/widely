@@ -41,6 +41,8 @@ qx.Class.define("config.tab.WC",
 				var wrq = this.wc_list();
 				wrq.addEventListener("ok", function(e){
 					this.load_list(e.getData());
+					this.getEditablelistview().toggleDisplay();
+					this.getEditablelistview().toggleDisplay();
 				}, this);
 			}, this);
 			createDispatchEvent("load");
@@ -52,8 +54,15 @@ qx.Class.define("config.tab.WC",
 				}, this);
 			}, this.getEditablelistview());
 			
-			addEventListener("delete", function(e){
-				new lib.ui.popupdialog.Atom(this.getListview(), "Esta seguro que desea borrar", new qx.ui.form.TextField("editame"));
+			addEventListener("delete", function(e) {
+				var wc_name = this.getEditablelistview().selected("name");
+				var confirm_dialog = new lib.ui.popupdialog.Atom(this.getEditablelistview(), "Delete?: "+wc_name+" all its content and child elements will be lost");
+				confirm_dialog.addEventListener("ok", function(e) {
+					var destroy_rq = this.wc_destroy(wc_name);
+					destroy_rq.addEventListener("ok", function(e) {
+						this.getEditablelistview().createDispatchEvent("load");
+					}, this);
+				},this);
 			}, this);
 		}
 		

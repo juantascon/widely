@@ -30,6 +30,8 @@ qx.Class.define("admin.tab.User",
 				var list_rq = this.user_list();
 				list_rq.addEventListener("ok", function(e){
 					this.load_list(e.getData());
+					this.getEditablelistview().toggleDisplay();
+					this.getEditablelistview().toggleDisplay();
 				}, this);
 			}, this);
 			createDispatchEvent("load");
@@ -40,6 +42,17 @@ qx.Class.define("admin.tab.User",
 					this.createDispatchEvent("load");
 				}, this);
 			}, this.getEditablelistview());
+			
+			addEventListener("delete", function(e) {
+				var user_id = this.getEditablelistview().selected("user_id");
+				var confirm_dialog = new lib.ui.popupdialog.Atom(this.getEditablelistview(), "Delete?: "+user_id+" all its content and child elements will be lost");
+				confirm_dialog.addEventListener("ok", function(e) {
+					var destroy_rq = this.user_destroy(user_id);
+					destroy_rq.addEventListener("ok", function(e) {
+						this.getEditablelistview().createDispatchEvent("load");
+					}, this);
+				},this);
+			}, this);
 		}
 		
 		with(this.getEditablelistview().getToolbar()) {

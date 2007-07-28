@@ -42,17 +42,10 @@ qx.Class.define("login.LoginButton",
 		
 		login: function(user, password, admin) {
 			var login_rq = null;
-			var cookie_prefix = null;
-			var redirect_url = null;
-			
 			if (admin) {
-				cookie_prefix = "admin";
-				redirect_url = "./admin.html"
 				login_rq = this.auth_login_admin(password);
 			}
 			else {
-				cookie_prefix = "ide";
-				redirect_url = "./ide.html";
 				login_rq = this.auth_login(user, password);
 			}
 			
@@ -66,8 +59,15 @@ qx.Class.define("login.LoginButton",
 			
 			login_rq.addEventListener("ok", function(e) {
 				var session_id = e.getData();
-				lib.dao.Cookie.set_session_id(cookie_prefix, session_id);
-				lib.lang.Redirect.redirect_to(redirect_url);
+				if (admin) {
+					lib.dao.Cookie.set_session_id("admin", session_id);
+					lib.lang.Redirect.redirect_to("./admin.html");
+				}
+				else {
+					lib.dao.Cookie.set_session_id("ide", session_id);
+					lib.dao.Cookie.set_session_id("config", session_id);
+					lib.lang.Redirect.redirect_to("./ide.html");
+				}
 			}, this);
 		}
 	}

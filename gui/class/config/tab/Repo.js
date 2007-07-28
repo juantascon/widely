@@ -35,6 +35,8 @@ qx.Class.define("config.tab.Repo",
 				var wrq = this.repo_list();
 				wrq.addEventListener("ok", function(e){
 					this.load_list(e.getData());
+					this.getEditablelistview().toggleDisplay();
+					this.getEditablelistview().toggleDisplay();
 				}, this);
 			}, this);
 			createDispatchEvent("load");
@@ -45,6 +47,17 @@ qx.Class.define("config.tab.Repo",
 					this.createDispatchEvent("load");
 				}, this);
 			}, this.getEditablelistview());
+			
+			addEventListener("delete", function(e) {
+				var repo_name = this.getEditablelistview().selected("name");
+				var confirm_dialog = new lib.ui.popupdialog.Atom(this.getEditablelistview(), "Delete?: "+repo_name+" all its content and child elements will be lost");
+				confirm_dialog.addEventListener("ok", function(e) {
+					var destroy_rq = this.repo_destroy(repo_name);
+					destroy_rq.addEventListener("ok", function(e) {
+						this.getEditablelistview().createDispatchEvent("load");
+					}, this);
+				},this);
+			}, this);
 		}
 		
 		this.getPage().add(this.getEditablelistview());

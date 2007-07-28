@@ -6,7 +6,7 @@ qx.Class.define("lib.ui.EditableListView",
 	{
 		"load": "qx.event.type.Event",
 		"add": "qx.event.type.Event",
-		"delete": "qx.event.type.DataEvent"
+		"delete": "qx.event.type.Event"
 	},
 	
 	properties:
@@ -41,8 +41,7 @@ qx.Class.define("lib.ui.EditableListView",
 			}, this);
 			
 			add_button("Delete", "actions/edit-delete", false, function(e){
-				// TODO: terminar aqui
-				//this.createDispatchDataEvent("delete", this.getSelectedItem());
+				this.createDispatchEvent("delete");
 			}, this);
 			
 			set_mode_ro(true);

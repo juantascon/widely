@@ -14,6 +14,12 @@ qx.Mixin.define("lib.dao.api.Repo",
 				"Login") );
 		},
 		
+		repo_destroy: function(name) {
+			return ( new lib.dao.WRQ("repo", "destroy",
+				{ "session_id": global.session.id, "name": name },
+				"Delete Repo") );
+		},
+		
 		repo_list: function() {
 			return ( new lib.dao.WRQ("repo", "list",
 				{ "session_id": global.session.id },
