@@ -42,10 +42,7 @@ class API
 		
 		raise wex_arg("name", name, "workingcopy does not exists") if ! wc
 		
-		status, ret = wc.delete
-		return false, ret if ! status
-		
-		user.wcset.delete_by_object(wc)
+		wc.destroy
 		
 		return true
 	end

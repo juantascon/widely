@@ -37,10 +37,7 @@ class API
 		
 		raise wex_arg("user_id", user_id, "user does not exists") if ! user
 		
-		status, ret = user.delete
-		return false, ret if ! status
-		
-		Set.delete_by_object(user)
+		user.destroy
 		
 		return true
 	end

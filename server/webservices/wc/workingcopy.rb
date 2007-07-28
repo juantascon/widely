@@ -42,9 +42,9 @@ class WorkingCopy < WPluginable
 		initialize(owner, repo, name, manager, true)
 	end
 	
-	def delete()
+	def destroy()
 		rm_rf(File.dirname(@data_dir))
-		return true
+		@owner.wcset.delete_by_object(self)
 	end
 	
 	def to_h()

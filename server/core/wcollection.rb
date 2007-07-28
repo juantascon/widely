@@ -81,4 +81,10 @@ class WCollection
 		@parent.delete_by_object(object) if @parent
 	end
 	
+	def destroy()
+		each do |key, obj|
+			obj.destroy if obj.respond_to? :destroy
+		end
+	end
+	
 end

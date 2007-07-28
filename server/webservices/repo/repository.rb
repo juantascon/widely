@@ -35,17 +35,16 @@ class Repository < WPluginable
 		initialize(owner, name, manager, true)
 	end
 	
-	def delete()
-		wcs = Array.new
-		
+	def destroy()
 		@owner.wcset.each do |key, wc|
-			wcs.push wc if wc.repo == self
+			if wc.repo == self
+				wc.delete
+				@owner.wcset.delete_by_object(wc)
+			end
 		end
 		
-		return false, "The repository has linked working copies:\n#{wcs.join("\n")}\n delete them first" if ! wcs.empty?
-		
 		rm_rf(File.dirname(@data_dir))
-		return true
+		@owner.reposet.delete_by_object(self)
 	end
 	
 	def to_h()

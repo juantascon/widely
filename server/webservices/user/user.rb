@@ -35,9 +35,11 @@ class User
 		initialize(user_id, password, true)
 	end
 	
-	def delete()
+	def destroy()
+		@extra_attrs.each { |a| a.destroy if a.respond_to? :destroy }
+		
 		rm_rf(File.dirname(@data_dir))
-		return true
+		Set.delete_by_object(self)
 	end
 	
 	def to_h()

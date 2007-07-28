@@ -30,7 +30,7 @@ class API
 		return true, repo.collectable_key
 	end
 	
-	def delete(args)
+	def destroy(args)
 		args.check("session_id", "name")
 		
 		name = args["name"]
@@ -40,10 +40,7 @@ class API
 		
 		raise wex_arg("name", name, "repository does not exists") if ! repo
 		
-		status, ret = repo.delete
-		return false, ret if ! status
-		
-		user.reposet.delete_by_object(repo)
+		repo.destroy
 		
 		return true
 	end
