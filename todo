@@ -1,35 +1,20 @@
 TODO:
 
-[gui::Config]:
-	wcs
-	repos
-	datos de usuario
-[gui::Admin]:
-	administracion de usuarios
-	paramentros del servidor
-[gui::Login]:
-	login de usuarios
-	login de admin
-	almacenar el session_id en una cookie
-	conectar con las otras apps
+[gui::Config]: datos de usuario
+[gui::Admin]: paramentros del servidor
 [gui::IDE]:
 	preguntar por copia de trabajo activa al inicio
 	toolbar principal (logout, config, wc activa))
-	acciones cuando un request de webservice retorna error o timeout
-
 
 [webservice::Compilator,gui::IDE]: crear una interfaz de compilacion
 [doc]:
 	arquitectura -> poner patrones (modulos, web services, APIs, minicore, ducktyping)
-	poner las flechas que son en los diagramas
-
-
 
 ADICIONALES:
 
 [gui::IDE]: Atajos de teclado
 [gui::IDE]: Click derecho en filetreeview y versionview
-[listener::WebDav,webservice::Auth,WUser]:
+[listener::WebDav,webservice::Auth,User]:
 	opcion de Activar/desactivar webdav
 	acceso a webdav por IP
 [webservice::WC, gui::IDE]: terminar status()
@@ -46,14 +31,7 @@ ADICIONALES:
 *: Pasar todo a ingles
 
 
-
 BUGS:
 
 [gui::IDE]:
 	* no desactiva el tab(o avisa) de un archivo modificado en WC(delete, commit, write)
-	* filetreeview:
-		no chequea:
-			* delete: borrar /
-			* new_file: archivo que ya existe
-			* InputDialog con textos vacios
-			* new_file: nombres de archivos con chars invalidos
