@@ -32,6 +32,24 @@ class API
 		return true, wc.collectable_key
 	end
 	
+	def delete(args)
+		args.check("session_id", "name")
+		
+		name = args["name"]
+		
+		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
+		wc = user.wcset.get(name)
+		
+		raise wex_arg("name", name, "workingcopy does not exists") if ! wc
+		
+		status, ret = wc.delete
+		return false, ret if ! status
+		
+		user.wcset.delete_by_object(wc)
+		
+		return true
+	end
+	
 	def list(args)
 		args.check("session_id")
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user

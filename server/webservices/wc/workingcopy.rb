@@ -42,6 +42,11 @@ class WorkingCopy < WPluginable
 		initialize(owner, repo, name, manager, true)
 	end
 	
+	def delete()
+		rm_rf(File.dirname(@data_dir))
+		return true
+	end
+	
 	def to_h()
 		{ "repo" => @repo.name, "owner" => @owner.user_id, "name" => @name, "manager" => @manager }
 	end

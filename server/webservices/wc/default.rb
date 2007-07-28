@@ -31,7 +31,7 @@ module Default
 		
 		return @repo.checkout(@data_dir, version)
 	end
-
+	
 	
 	def status()
 		# TODO: terminar

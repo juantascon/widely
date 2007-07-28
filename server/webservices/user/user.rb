@@ -35,6 +35,11 @@ class User
 		initialize(user_id, password, true)
 	end
 	
+	def delete()
+		rm_rf(File.dirname(@data_dir))
+		return true
+	end
+	
 	def to_h()
 		{ "user_id" => @user_id, "password" => @password }
 	end

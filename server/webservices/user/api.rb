@@ -26,6 +26,26 @@ class API
 		return true, user.user_id
 	end
 	
+	def delete(args)
+		args.check("session_id", "user_id")
+		
+		session = Auth::SessionSet.instance.get_ex(args["session_id"])
+		return false, "session is not admin" if ! session.kind_of? Auth::AdminSession
+		
+		user_id = args["user_id"]
+		user = Set.instance.get(user_id)
+		
+		raise wex_arg("user_id", user_id, "user does not exists") if ! user
+		
+		status, ret = user.delete
+		return false, ret if ! status
+		
+		Set.delete_by_object(user)
+		
+		return true
+	end
+	
+	
 	def list(args)
 		args.check("session_id")
 		

@@ -30,6 +30,24 @@ class API
 		return true, repo.collectable_key
 	end
 	
+	def delete(args)
+		args.check("session_id", "name")
+		
+		name = args["name"]
+		
+		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
+		repo = user.reposet.get(name)
+		
+		raise wex_arg("name", name, "repository does not exists") if ! repo
+		
+		status, ret = repo.delete
+		return false, ret if ! status
+		
+		user.reposet.delete_by_object(repo)
+		
+		return true
+	end
+	
 	def list(args)
 		args.check("session_id")
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
