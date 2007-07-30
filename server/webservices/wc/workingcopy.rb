@@ -9,8 +9,7 @@ class WorkingCopy < WPluginable
 	include WStorage::Storable
 	include FileUtils
 	
-	@@default_wc = Repo::Version.new("-1")
-	def self.default_wc; @@default_wc; end
+	DefaultWC = Repo::Version.new("-1")
 	
 	attr_reader :owner, :repo, :name, :data_dir
 	alias :collectable_key :name

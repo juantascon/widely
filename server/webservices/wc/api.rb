@@ -29,6 +29,8 @@ class API
 		wc = WorkingCopy.new(user, repo, name, manager)
 		user.wcset.add(wc)
 		
+		wc.checkout
+		
 		return true, wc.collectable_key
 	end
 	

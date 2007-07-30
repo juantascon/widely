@@ -26,8 +26,8 @@ module Default
 	#
 	# Obtiene una copia de trabajo
 	#
-	def checkout(version=self.default_wc)
-		version = versions[1].last if (! version || version.get == self.class.default_wc.get)
+	def checkout(version=WorkingCopy::DefaultWC)
+		version = versions[1].last if (! version || version.get == WorkingCopy::DefaultWC.get)
 		
 		return @repo.checkout(@data_dir, version)
 	end
@@ -64,12 +64,12 @@ module Default
 	# del repositorio, sino se mostrara la version
 	# de la copia de trabajo
 	#
-	def cat(path, version=self.default_wc)
+	def cat(path, version=WorkingCopy::DefaultWC)
 		
 		path, rpath = process_path(path)
 		return false, "invalid path: #{path}" if ! path
 		
-		if ( ! version ) || ( version.get == self.class.default_wc.get )
+		if ( ! version ) || ( version.get == WorkingCopy::DefaultWC.get )
 			return false, "invalid file: #{path}" if ! file?(rpath)
 			return true, File.new(rpath).read
 		else
@@ -85,12 +85,12 @@ module Default
 	# del repositorio, sino se mostrara la version
 	# de la copia de trabajo
 	#
-	def ls(path, version=self.default_wc)
+	def ls(path, version=WorkingCopy::DefaultWC)
 		
 		path, rpath = process_path(path)
 		return false, "invalid path: #{path}" if ! path
 		
-		if ( ! version ) || ( version.get == self.class.default_wc.get )
+		if ( ! version ) || ( version.get == WorkingCopy::DefaultWC.get )
 			tree = FileTree.new
 			Find.find(rpath) do |f|
 				node_name = "#{Pathname.new(f).relative_path_from(Pathname.new(rpath)).to_s}"
