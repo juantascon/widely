@@ -14,7 +14,7 @@
    width="2449.8318"
    height="1449.4147"
    version="1.0"
-   sodipodi:docbase="/home/juandiego/widely/doc/diagramas/interfaz"
+   sodipodi:docbase="/home/juandiego/widely/doc/diagramas/ui"
    sodipodi:docname="ide.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <metadata
@@ -45,7 +45,7 @@
      showgrid="true"
      inkscape:zoom="0.31331029"
      inkscape:cx="1213.1819"
-     inkscape:cy="591.21142"
+     inkscape:cy="1229.5562"
      inkscape:window-x="0"
      inkscape:window-y="31"
      inkscape:current-layer="svg2"
@@ -164,4 +164,22 @@
        id="tspan14386"
        x="167.17285"
        y="1448.7067">Status Bar</tspan></text>
+  <rect
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="rect2175"
+     width="2437"
+     height="183.8575"
+     x="1.5000001"
+     y="-215.94283" />
+  <text
+     xml:space="preserve"
+     style="font-size:50px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="234.07715"
+     y="-111.29333"
+     id="text2177"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan2179"
+       x="234.07715"
+       y="-111.29333">Main ToolBar</tspan></text>
 </svg>
