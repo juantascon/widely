@@ -87,7 +87,7 @@ qx.Class.define("ide.selector.fs.Tree",
 					}
 				}, this);
 				add_rq.addEventListener("fail", function(e) {
-					new lib.ui.popupdialog.Atom(dir, e.getData());
+					lib.ui.Msg.error(dir, e.getData());
 				}, this);
 			}, this);
 		},
@@ -96,14 +96,14 @@ qx.Class.define("ide.selector.fs.Tree",
 			var selected = this.getSelectedElement();
 			var path = selected.full_name();
 			
-			var confirm_popup = new lib.ui.popupdialog.Atom(selected, "Remove "+path);
+			var confirm_popup = lib.ui.Msg.warn(selected, "Remove "+path);
 			confirm_popup.addEventListener("ok", function(e) {
 				var delete_rq = this.wc_delete(path);
 				delete_rq.addEventListener("ok", function(e) {
 					selected.destroy();
 				}, this);
 				delete_rq.addEventListener("fail", function(e) {
-					new lib.ui.popupdialog.Atom(selected, "imposible to delete, try with commit first");
+					lib.ui.Msg.error(selected, "imposible to delete, try with commit first");
 				}, this);
 			}, this);
 		},
@@ -116,7 +116,7 @@ qx.Class.define("ide.selector.fs.Tree",
 					global.selectorview.getVersionstable().load();
 				}, this);
 				commit_rq.addEventListener("fail", function(e) {
-					new lib.ui.popupdialog.Atom(selected, e.getData());
+					lib.ui.Msg.error(selected, e.getData());
 				}, this);
 			}, this);
 		}

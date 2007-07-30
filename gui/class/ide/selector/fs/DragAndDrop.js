@@ -45,7 +45,7 @@ qx.Mixin.define("ide.selector.fs.DragAndDrop",
 					}
 				}, this);
 				mv_rq.addEventListener("fail", function(e) {
-					new lib.ui.popupdialog.Atom(source, "imposible to move, try with commit first");
+					lib.ui.Msg.error(source, "imposible to move, try with commit first");
 				}, this);
 				
 				e.stopPropagation();
@@ -85,7 +85,7 @@ qx.Mixin.define("ide.selector.fs.DragAndDrop",
 						this.setLabel(text);
 					}, this);
 					mv_rq.addEventListener("fail", function(e) {
-						new lib.ui.popupdialog.Atom(this, "imposible to rename, try with commit first");
+						lib.ui.Msg.error(this, "imposible to rename, try with commit first");
 					}, this);
 					
 				}, this);

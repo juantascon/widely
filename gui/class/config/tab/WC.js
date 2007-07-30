@@ -56,7 +56,10 @@ qx.Class.define("config.tab.WC",
 			
 			addEventListener("delete", function(e) {
 				var wc_name = this.getEditablelistview().selected("name");
-				var confirm_dialog = new lib.ui.popupdialog.Atom(this.getEditablelistview(), "Delete?: "+wc_name+" all its content and child elements will be lost");
+				
+				var confirm_dialog = lib.ui.Msg.warn( this.getEditablelistview(),
+					"Delete?: "+wc_name+" all its content and child elements will be lost");
+				
 				confirm_dialog.addEventListener("ok", function(e) {
 					var destroy_rq = this.wc_destroy(wc_name);
 					destroy_rq.addEventListener("ok", function(e) {

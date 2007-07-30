@@ -51,11 +51,7 @@ qx.Class.define("login.LoginButton",
 			
 			login_rq.addEventListener("fail", function(e) {
 				this.setLoading(false);
-				
-				/*global.loginview.getPanel().add(
-					new qx.ui.basic.Atom("Invalid Login",
-						"icon/22/status/dialog-error.png"));*/
-				new lib.ui.popupdialog.Atom(global.loginview.getPanel(), "Invalid Login", "icon/22/status/dialog-error.png");
+				lib.ui.Msg.error(global.loginview.getPanel(), "Invalid Login");
 			}, this);
 			
 			login_rq.addEventListener("ok", function(e) {
