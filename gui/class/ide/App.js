@@ -26,11 +26,30 @@ qx.Class.define("ide.App",
 			global.mainframe.add(split_box);
 			global.mainframe.addTop(global.toolbar);
 			
-			// TODO: quitar esto
-			var set_wc_rq = this.auth_set_wc("project1-wc1");
-			set_wc_rq.addEventListener("ok", function(e){
-				global.selectorview.getVersionstable().load();
-			});
+			this.rset_wc();
+		},
+		
+		rset_wc: function() {
+			var dialog = this.set_wc();
+			dialog.getCANCEL().setEnabled(false);
+			/*dialog.addEventListener("cancel", function(e) {
+				this.rset_wc();
+			}, this);*/
+		},
+		
+		set_wc: function() {
+			var form = new lib.form.SelectWC()
+			
+			var dialog = form.run(global.mainframe);
+			
+			dialog.addEventListener("ok", function(e) {
+				var set_wc_rq = this.auth_set_wc(form.selected("name"));
+				set_wc_rq.addEventListener("ok", function(e){
+					global.selectorview.getVersionstable().load();
+				});
+			}, this);
+			
+			return dialog;
 		}
 	}
 });

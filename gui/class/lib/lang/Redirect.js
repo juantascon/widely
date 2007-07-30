@@ -11,7 +11,7 @@ qx.Class.define("lib.lang.Redirect",
 		},
 		
 		fallback_redirect: function() {
-			var fallback_url = "/login.html";
+			var fallback_url = "./login.html";
 			lib.lang.Redirect.redirect_to(fallback_url);
 		}
 	}

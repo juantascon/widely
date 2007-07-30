@@ -12,16 +12,22 @@ qx.Class.define("ide.ToolBar",
 				type: "button", permanent: true,
 				label: "Browse (WebDav)",icon: "apps/system-file-manager",
 				execute: function(e){
-					var confirm = lib.ui.Msg.warn("Do you really want to logout?");
-					confirm.addEventListener("ok", function(e) {
-						global.app.instance.quit();
-					});
+				
 				}, _this: this
 			},
 			{
 				type: "button", permanent: true,
 				label: "Change Working Copy", icon: "places/document-folder",
 				execute: function(e){
+					global.app.instance.set_wc();
+				}, _this: this
+			},
+			{
+				type: "button", permanent: true,
+				label: "Config", icon: "apps/preferences",
+				execute: function(e){
+					//lib.lang.Redirect.redirect_to("./config.html");
+					(new qx.client.NativeWindow("./config.html")).open()
 					
 				}, _this: this
 			}
@@ -44,7 +50,11 @@ qx.Class.define("ide.ToolBar",
 				type: "button", permanent: true,
 				label: "Logout", icon: "actions/application-exit",
 				execute: function(e){
-				
+					var confirm = lib.ui.Msg.warn(global.mainframe, "Do you really want to logout?");
+					confirm.addEventListener("ok", function(e) {
+						this.debug("OK");
+						global.app.instance.quit();
+					});
 				}, _this: this
 			}
 		]);
