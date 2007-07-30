@@ -8,15 +8,13 @@ qx.Class.define("lib.WApp",
 	
 	members:
 	{
-		main: function(name) {
-			this.base(arguments);
-			
+		init_wapp: function(name, type) {
 			qx.Class.createNamespace("global.app.name", name);
 			qx.Class.createNamespace("global.app.instance", this);
-			
-			qx.Class.createNamespace("global.session.id", -1);
-			qx.Class.createNamespace("global.fallback_url", "./login.html");
-			
+			qx.Class.createNamespace("global.app.type", type);
+		},
+		
+		init_mainframe: function() {
 			qx.Class.createNamespace("global.mainframe", new qx.ui.layout.DockLayout);
 			qx.Class.createNamespace("global.statusbar", new lib.ui.StatusBar);
 			
@@ -28,15 +26,16 @@ qx.Class.define("lib.WApp",
 			qx.ui.core.ClientDocument.getInstance().add(global.mainframe);
 		},
 		
-		init_session: function(expected_type, callback, _this) {
+		init_session: function() {
+			qx.Class.createNamespace("global.session.id", -1);
 			var session_id = lib.dao.Cookie.get_session_id();
 			
 			var rq = this.auth_session_type(session_id);
 			rq.addEventListener("ok", function(e) {
 				var type = e.getData();
-				if ( type == expected_type ) {
+				if ( type == global.app.type ) {
 					global.session.id = session_id;
-					callback.call(_this);
+					this.init();
 				}
 				else {
 					lib.lang.Redirect.fallback_redirect();
@@ -45,7 +44,13 @@ qx.Class.define("lib.WApp",
 			
 			rq.addEventListener("fail", function(e) {
 				lib.lang.Redirect.fallback_redirect();
-			}, this);
+			});
+		},
+		
+		quit: function() {
+			this.auth_logout();
+			lib.dao.Cookie.set_session_id(global.app.name, -1);
+			lib.lang.Redirect.fallback_redirect();
 		},
 		
 		close: function(e) { this.base(arguments); },

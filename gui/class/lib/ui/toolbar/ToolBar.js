@@ -1,7 +1,5 @@
-qx.Class.define("lib.ui.ToolBar",
+qx.Mixin.define("lib.ui.toolbar.ToolBar",
 {
-	extend: qx.ui.layout.BoxLayout,
-	
 	properties:
 	{
 		buttons: { check: "Object" },
@@ -9,32 +7,32 @@ qx.Class.define("lib.ui.ToolBar",
 		iconsize: { check: "Number" }
 	},
 	
-	construct: function(orientation, iconsize) {
-		this.base(arguments, orientation);
-		
-		this.setIconsize(iconsize);
-		this.setButtons( {} );
-		this.setPermanentbuttons( [] );
-		
-		this.set({left: 0, top: 0});
-		if (this.getOrientation() == "vertical") { this.set({height: null, width: "auto"}); }
-		if (this.getOrientation() == "horizontal") { this.set({height: "auto", width: null}); }
-	},
-	
 	members:
 	{
-		add_button: function(label, icon, permanent, execute, _this){
+		initialize_toolbar: function(iconsize) {
+			this.setIconsize(iconsize);
+			this.setButtons( {} );
+			this.setPermanentbuttons( [] );
+		},
+		
+		create_button: function(label, icon, permanent, execute, _this) {
 			var b = new qx.ui.toolbar.Button(label, "icon/"+this.getIconsize()+"/"+icon+".png");
 			b.set({height: "auto", width: "auto"});
-			b.setBorder("outset");
+			//b.setBorder("outset");
 			
 			b.addEventListener("execute", execute, _this);
 			b.setToolTip(new qx.ui.popup.ToolTip(label));
 			b.setShow("icon");
 			
-			this.add(b);
 			this.getButtons()[label] = b;
 			if (permanent) { this.getPermanentbuttons().push(b); }
+			
+			return b;
+		},
+		
+		add_button: function(label, icon, permanent, execute, _this) {
+			var b = this.create_button(label, icon, permanent, execute, _this);
+			this.add(b);
 		},
 		
 		set_mode_ro: function(mode) {

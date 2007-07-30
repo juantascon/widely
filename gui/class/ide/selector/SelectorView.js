@@ -17,6 +17,7 @@ qx.Class.define("ide.selector.SelectorView",
 		this.set({height: "100%", width: "100%"});
 		
 		this.setToolbar(new ide.selector.ToolBar());
+		this.getToolbar().set({left: 0, top: 0});
 		this.add(this.getToolbar());
 		
 		this.setTree(new ide.selector.fs.Tree());

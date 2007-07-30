@@ -11,7 +11,7 @@ qx.Class.define("lib.ui.EditableListView",
 	
 	properties:
 	{
-		toolbar: { check: "lib.ui.ToolBar" },
+		toolbar: { check: "lib.ui.toolbar.Vertical" },
 		listview: { check: "qx.ui.listview.ListView" }
 	},
 	
@@ -27,8 +27,9 @@ qx.Class.define("lib.ui.EditableListView",
 			}, this);
 		}
 		
-		this.setToolbar(new lib.ui.ToolBar("vertical", 22));
+		this.setToolbar(new lib.ui.toolbar.Vertical(22));
 		with (this.getToolbar()) {
+			set({left: 0, top: 0});
 			setSpacing(10);
 			setPaddingLeft(20);
 			

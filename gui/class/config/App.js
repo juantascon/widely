@@ -4,13 +4,17 @@ qx.Class.define("config.App",
 	
 	members:
 	{
-		main: function (e){
-			this.base(arguments, "config");
+		main: function(e) {
+			this.base(arguments);
 			
-			this.init_session("user", function() {
-				qx.Class.createNamespace("global.configview", new config.ConfigView);
-				global.mainframe.add(global.configview);
-			}, this);
+			this.init_wapp("config", "user");
+			this.init_mainframe();
+			this.init_session();
+		},
+		
+		init: function (){
+			qx.Class.createNamespace("global.configview", new config.ConfigView);
+			global.mainframe.add(global.configview);
 		}
 	}
 });

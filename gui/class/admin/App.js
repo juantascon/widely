@@ -4,13 +4,17 @@ qx.Class.define("admin.App",
 	
 	members:
 	{
-		main: function (e) {
-			this.base(arguments, "admin");
+		main: function(e) {
+			this.base(arguments);
 			
-			this.init_session("admin", function() {
-				qx.Class.createNamespace("global.adminview", new admin.AdminView);
-				global.mainframe.add(global.adminview);
-			}, this);
+			this.init_wapp("admin", "admin");
+			this.init_mainframe();
+			this.init_session();
+		},
+		
+		init: function() {
+			qx.Class.createNamespace("global.adminview", new admin.AdminView);
+			global.mainframe.add(global.adminview);
 		}
 	}
 });

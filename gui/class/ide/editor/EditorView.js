@@ -15,6 +15,7 @@ qx.Class.define("ide.editor.EditorView",
 		
 		this.setTabview(new ide.editor.TabView());
 		this.setToolbar(new ide.editor.ToolBar());
+		this.getToolbar().set({left: 0, top: 0});
 		
 		this.add(this.getToolbar());
 		this.add(this.getTabview());

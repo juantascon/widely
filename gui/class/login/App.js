@@ -4,11 +4,16 @@ qx.Class.define("login.App",
 	
 	members:
 	{
-		main: function (e){
-			this.base(arguments, "login");
+		main: function(e) {
+			this.base(arguments);
 			
+			this.init_wapp("login", "user");
+			this.init_mainframe();
+			this.init();
+		},
+		
+		init: function() {
 			qx.io.Alias.getInstance().add("resource", qx.core.Setting.get("login.resources"));
-			
 			qx.Class.createNamespace("global.loginview", new login.LoginView);
 			global.mainframe.addRight(global.loginview.center_on_grid());
 		}
