@@ -68,7 +68,7 @@ qx.Class.define("lib.form.ChangePassword",
 				}, this);
 				
 				ch_rq.addEventListener("ok", function(e) {
-					lib.ui.Msg.error(this.getPasswordnew1(), "Password updated");
+					lib.ui.Msg.info(this.getPasswordnew1(), "Password updated");
 				}, this);
 			}
 		}
