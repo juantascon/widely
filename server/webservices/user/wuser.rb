@@ -51,6 +51,14 @@ class WUser
 		( WUser.crypt(password) == @password )
 	end
 	
+	def change_password(password_old, password_new)
+		return false, "invalid old password" if ! self.authenticate(password_old)
+		return false, "new password too short" if password_new.size <= 3
+		
+		@password = WUser.crypt(password_new)
+		return true
+	end
+	
 	def self.crypt(str)
 		return str.crypt("salt"+str)
 	end

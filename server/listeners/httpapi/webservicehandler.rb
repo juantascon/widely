@@ -59,13 +59,13 @@ class WebServiceHandler
 			w_debug("Exception: #{ex.message}")
 			w_debug(ex.backtrace.join("\n\t"))
 			
-			return Resp.new_json_ex(ex.message)
+			return Resp.new_json_ex("#{webservice_name}/#{method_name}", ex.message)
 		end
 		
 		if status
-			return Resp.new_json_ok(ret)
+			return Resp.new_json_ok("#{webservice_name}/#{method_name}", ret)
 		else
-			return Resp.new_json_fail(ret)
+			return Resp.new_json_fail("#{webservice_name}/#{method_name}", ret)
 		end
 	end
 	

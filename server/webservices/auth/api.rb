@@ -36,6 +36,17 @@ class API
 		end
 	end
 	
+	def change_password(args)
+		args.check("session_id", "password_old", "password_new")
+		
+		password_old = args["password_old"]
+		password_new = args["password_new"]
+		
+		session = SessionSet.instance.get_ex(args["session_id"])
+		
+		return session.change_password(password_old, password_new)
+	end
+	
 	def session_type(args)
 		args.check("session_id")
 		

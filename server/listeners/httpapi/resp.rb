@@ -39,22 +39,34 @@ class Resp
 	#
 	# Status: Internal server Error
 	#
-	def self.new_json_ex(message)
-		new_json(500, { "status" => "fail", "message" => message })
+	def self.new_json_ex(webservice, message)
+		new_json(500, {
+			"status" => "fail",
+			"message" => message,
+			"webservice" => webservice
+		})
 	end
 	
 	#
 	# Status: OK
 	#
-	def self.new_json_fail(message)
-		new_json(200, { "status" => "fail", "message" => message })
+	def self.new_json_fail(webservice, message)
+		new_json(200, {
+			"status" => "fail",
+			"message" => message,
+			"webservice" => webservice
+		})
 	end
 	
 	#
 	# Status: OK
 	#
-	def self.new_json_ok(ret)
-		new_json(200, { "status" => "ok", "obj" => ret })
+	def self.new_json_ok(webservice, ret)
+		new_json(200, {
+			"status" => "ok",
+			"obj" => ret,
+			"webservice" => webservice
+		})
 	end
 end
 

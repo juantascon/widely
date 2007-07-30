@@ -7,7 +7,8 @@ wmodule :Auth => [ :HTTPAPI, :User ] do |mod|
 		require "base64"
 		
 		$CONF.add_property("AUTH_KEY_SIZE", 256)
-		$CONF.add_property("AUTH_ADMIN_PASSWORD", "sa1aY64JOY94w")
+		$CONF.add_property("AUTH_ADMIN_PASSWORD", User::WUser.crypt("admin"))
+		#sa1aY64JOY94w
 		
 		mod.require "rand.rb"
 		mod.require "sessions.rb"

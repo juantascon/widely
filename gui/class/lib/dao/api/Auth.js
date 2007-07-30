@@ -20,6 +20,13 @@ qx.Mixin.define("lib.dao.api.Auth",
 				"Checking User Session") );
 		},
 		
+		auth_change_password: function(password_old, password_new){
+			return ( new lib.dao.WRQ("auth", "change_password",
+				{ "session_id": global.session.id,
+					"password_old": password_old, "password_new": password_new },
+				"Change Password") );
+		},
+		
 		auth_user_session: function(user_id){
 			return ( new lib.dao.WRQ("auth", "user_session",
 				{ "session_id": global.session.id, "user_id": user_id },

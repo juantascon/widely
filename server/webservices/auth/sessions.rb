@@ -16,7 +16,6 @@ class Session
 	def initialize
 		@id = Auth::Rand.rand_key
 	end
-	
 end
 
 
@@ -44,6 +43,10 @@ class UserSession < Session
 		@wc = InvalidWC.new(@id)
 		w_debug("new: #{@id} #{@user}")
 	end
+	
+	def change_password(password_old, password_new)
+		return self.user.change_password(password_old, password_new)
+	end
 end
 
 
@@ -58,6 +61,15 @@ class AdminSession < Session
 		if (password != sys_password)
 			raise ArgumentError, "Invalid password"
 		end
+	end
+	
+	def change_password(password_old, password_new)
+		if $CONF.get("AUTH_ADMIN_PASSWORD").value != User::WUser.crypt(password_old)
+			return false, "Invalid Password"
+		end
+		
+		$CONF.add_property("AUTH_ADMIN_PASSWORD", User::WUser.crypt(password_new))
+		return true
 	end
 	
 end

@@ -10,5 +10,5 @@ raw_ws()
 
 obj_ws()
 {
-	raw_ws $*|tr ":{},\"" " " | awk '{print $4}'
+	raw_ws $* | tr "," "\n" |grep "^\"obj\":"|tr "\"" " "| awk '{print $3}'
 }
