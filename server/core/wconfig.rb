@@ -66,13 +66,14 @@ $CONF = WConfig.new("#{$WIDELY_DATA_DIR}/widely.conf")
 #
 $CONF_LISTENERS = WConfig.new("#{$WIDELY_DATA_DIR}/listeners.conf",
 	WConfig::Property.new("main", { "port"=>7777, "manager"=>"default" }),
-	WConfig::Property.new("backends",
-		{ "qooxdoo"=>"listener_static",
+	WConfig::Property.new("backends", {
 		"gui"=>"listener_static",
 		"doc"=>"listener_static",
 		"api"=>"listener_api",
-		"data"=>"listener_webdav"}),
-	WConfig::Property.new("listeners",
-		{ "listener_api" => {"type"=>"httpapi", "port"=>3401, "manager"=>"default"},
+		"data"=>"listener_webdav"
+	}),
+	WConfig::Property.new("listeners", {
+		"listener_api" => {"type"=>"httpapi", "port"=>3401, "manager"=>"default"},
 		"listener_static" => {"type"=>"httpstatic", "port"=>3402, "manager"=>"default"},
-		"listener_webdav" => {"type"=>"webdav", "port"=>3403, "manager"=>"default_auth"}}))
+		"listener_webdav" => {"type"=>"webdav", "port"=>3403, "manager"=>"default_auth"}
+	}))
