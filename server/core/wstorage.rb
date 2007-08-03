@@ -147,7 +147,7 @@ class DistributedStorager < WCollection
 	
 	def save_all()
 		self.each do |key, object|
-			save(key, object)
+			save(key)
 		end
 	end
 	

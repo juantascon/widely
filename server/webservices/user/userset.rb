@@ -22,5 +22,13 @@ class UserSet < WStorage::DistributedStorager
 		end
 	end
 	
+	def save_all_extra_attrs()
+		self.each do |key, user|
+			user.extra_attrs.each do |key, attr|
+				attr.save_all if attr.respond_to? :save_all
+			end
+		end
+	end
+	
 end
 end

@@ -55,14 +55,39 @@ end
 # hasta que se terminen de crear
 #
 $WIDELY_LISTENERS.each { |name, listener| $WIDELY_THREADS.push listener.run() }
-sleep(2)
+sleep 2
 
 #
 # Atrapa las señales para que sean manejadas correctamente
 #
-["INT", "TERM" ].each { |signal| trap(signal) { $WIDELY_LISTENERS.each { |name, listener| listener.stop } } }
+["INT", "TERM" ].each do |signal|; trap(signal) do
+	
+	w_debug(" => Received Signal: #{signal}")
+	$WIDELY_LISTENERS.each do |name, listener|
+		w_debug(" => Stoping listener: #{name}")
+		listener.stop
+		w_debug(" => Stoped listener: #{name}")
+	end
+	w_debug(" => Waiting Listeners ...")
+	sleep 2
+	
+	w_debug(" => Saving objects ...")
+	User::UserSet.instance.save_all
+	User::UserSet.instance.save_all_extra_attrs()
+	w_debug(" => objects saved")
+	
+	w_debug(" => saving config ...")
+	$CONF.save_all
+	$CONF_LISTENERS.save_all
+	w_debug(" => config saved")
+
+end; end
+
+
+w_info ""
 w_info ""
 w_info " ================================ "
+w_info " =>  Widely is up and running  <= "
 w_info " => Ctrl-C to stop the servers <= "
 w_info " ================================ "
 w_info ""

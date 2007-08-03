@@ -59,7 +59,7 @@ qx.Class.define("admin.tab.User",
 		}
 		
 		with(this.getEditablelistview().getToolbar()) {
-			add_button("Edit User Config", "actions/edit", true, function(e) {
+			add_button("Edit User Config", "actions/edit", false, function(e) {
 				var user_id = this.getEditablelistview().selected("user_id");
 				
 				var user_session_rq = this.auth_user_session(user_id);
@@ -71,6 +71,8 @@ qx.Class.define("admin.tab.User",
 					config_window.open();
 				}, this);
 			}, this);
+			
+			set_mode_ro(true);
 		}
 		
 		this.getPage().add(this.getEditablelistview());

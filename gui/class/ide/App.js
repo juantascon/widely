@@ -31,10 +31,6 @@ qx.Class.define("ide.App",
 		
 		rset_wc: function() {
 			var dialog = this.set_wc();
-			dialog.getCANCEL().setEnabled(false);
-			/*dialog.addEventListener("cancel", function(e) {
-				this.rset_wc();
-			}, this);*/
 		},
 		
 		set_wc: function() {

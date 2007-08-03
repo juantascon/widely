@@ -26,11 +26,13 @@ si no esta en los paquetes se puede bajar de aca: http://www.apsis.ch/pound/Poun
 y las dependencias son: openssl(libopenssl-dev) y pcre(libpcre-dev)
 1.3(opcional) mongrel se instala con las rubygems, se baja de aca http://rubyforge.org/frs/download.php/20989/rubygems-0.9.4.tgz
   y se instala asi: despues de instalar ruby se descomprime y se ejecuta "ruby ./setup.rb" (como rut) en el directorio que
-  se acaba de descomprimir
-2. descomprimir el archivo( widely-FECHA.tar.bz2)
+  se acaba de descomprimir, luego se ejecuta(como rut) "gem install -Y mongrel"
+2. descomprimir el archivo( widely-XXXXXXX.tar.bz2)
 3. ejecutar el servidor de widely:
 ./widely/widely
-4. de ahora en adelante el <srv> va a ser http://localhost:7777/
+
+de ahora en adelante el <srv> va a ser http://localhost:7777/
+
 4. ingresar a <srv>/gui/build/html/login.html por el browser
 5. marcar la casilla de admin (la clave por defecto es "admin" o "admin1") y logearse
 6. crear un usuario
@@ -48,10 +50,9 @@ para el que no sepa:
   pronto se resolvera
 * los datos de confuracion de widely se guardan en ~/.widely entonces se borra ese directorio y se reinicia el server
   y queda como al comienzo otra vez
-* todavia tiene otro pequeisimo errorsillo que los cambios de datos no se guardan en el server(los cambios de archivos si) pero
+* todavia tiene otro pequeñisimo errorsillo que los cambios de datos no se guardan en el server(los cambios de archivos si) pero
   entonces si se reinicia puede dar fallitos, aunque tal vez no
   pronto se resolvera
-
 
 
 Documentar las pruebas seria algo que yo agradeceria muchisimo, no tiene que ser un documento bien presentado

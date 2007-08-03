@@ -44,22 +44,23 @@ qx.Mixin.define("lib.form.Helper",
 			
 			wrq.addEventListener("ok", function(e) {
 				var list = e.getData();
-				var selection = [];
-				
-				for(var i in list) {
-					var item = [];
-					item.push(i);
+				if (list.length > 0) {
+					var selection = [];
 					
-					for (var h in headers) {
-						item.push(list[i][headers[h]]);
+					for(var i in list) {
+						var item = [];
+						item.push(i);
+						
+						for (var h in headers) {
+							item.push(list[i][headers[h]]);
+						}
+						
+						selection.push(item);
 					}
 					
-					selection.push(item);
+					c.setSelection(selection);
+					c.setSelectedIndex(0);
 				}
-				
-				c.setSelection(selection);
-				c.setSelectedIndex(0);
-				
 			}, this);
 			
 			return c;

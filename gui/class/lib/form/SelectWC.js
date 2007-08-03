@@ -38,9 +38,14 @@ qx.Class.define("lib.form.SelectWC",
 		
 		var wrq = this.wc_list();
 		wrq.addEventListener("ok", function(e){
-			this.load_list(e.getData());
-			this.getListview().toggleDisplay();
-			this.getListview().toggleDisplay();
+			if (e.getData().length < 1) {
+				lib.ui.Msg.error(this, "Empty Working Copy list, you can create one in the config page");
+			}
+			else {
+				this.load_list(e.getData());
+				this.getListview().toggleDisplay();
+				this.getListview().toggleDisplay();
+			}
 		}, this);
 		
 		this.add(this.getListview());

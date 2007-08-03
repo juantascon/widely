@@ -16,8 +16,16 @@ qx.Class.define("lib.form.NewWC",
 		this.base(arguments, "Working Copy Info");
 		this.set({left: 0, top: 0, height: "auto", width: "auto"});
 		
+		var repo_list_rq = this.repo_list();
+		repo_list_rq.addEventListener("ok", function(e) {
+			if (e.getData().length < 1) {
+				
+				lib.ui.Msg.error(this.getRepo_i(), "Empty Repository list, please create one first");
+			}
+		}, this);
+		
 		this.setName_i(new qx.ui.form.TextField(""));
-		this.setRepo_i(this.create_combobox( ["name", "manager"], this.repo_list() ));
+		this.setRepo_i(this.create_combobox( ["name", "manager"], repo_list_rq ));
 		this.setManager_i(this.create_combobox( ["name", "description"], this.wc_manager_list() ));
 		
 		this.setGrid(this.create_grid(
@@ -33,6 +41,7 @@ qx.Class.define("lib.form.NewWC",
 	{
 		run: function(pmodal, callback, _this){
 			var d = this.create_dialog(pmodal, "New User");
+			d.getOK().setEnabled(false);
 			
 			d.addEventListener("ok", function(e) {
 				
@@ -44,6 +53,12 @@ qx.Class.define("lib.form.NewWC",
 				create_rq.addEventListener("ok", callback, _this);
 				
 			}, this);
+			
+			this.getRepo_i().addEventListener("changeValue", function(e) {
+				d.getOK().setEnabled(true);
+			});
+			
+			return d;
 		}
 	}
 });
