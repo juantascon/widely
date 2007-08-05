@@ -1,3 +1,8 @@
+syntax: glob
+
 widely.kdevelop
 widely.kdevses
 gui/script
+*.aux
+*.log
+*.dvi
