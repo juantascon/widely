@@ -1,0 +1,10 @@
+No te repitas
+De Wikipedia, la enciclopedia libre
+Saltar a navegación, búsqueda
+
+El principio No te repitas (en inglés Don't Repeat Yourself o DRY, también conocido como Una vez y solo una) es una filosofía de definición de procesos que promueve la reducción de la duplicación especialmente en computación. Según este principio ninguna pieza de información debería estar duplicada nunca debido a que la duplicación incrementa la dificultad en los cambios y evolución posterior, puede perjudicar la claridad y crea un espacio para posibles inconsistencias. Por "pieza de información" podemos, en un sentido amplio, entender desde datos almacenados en una base de datos pasando por el código fuente de un programa de software hasta llegar a información textual o documentación.
+
+Cuando el principio DRY se aplica de forma eficiente los cambios en cualquier parte del proceso requieren cambios en un único lugar. Por contra, si algunas partes del proceso está repertida por varios sitios, los cambios pueden provocar fallos con mayor facilidad si todos los sitios en los que aparece no se encuentran sincronizados.
+
+
+http://es.wikipedia.org/wiki/No_te_repitas

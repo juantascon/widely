@@ -24,9 +24,11 @@ las instrucciones para ejecutarlo son:
 y para instalarlo "aptitude install <nombre-que-vi-con-el-comando-anterior>",
 si no esta en los paquetes se puede bajar de aca: http://www.apsis.ch/pound/Pound-2.3.2.tgz
 y las dependencias son: openssl(libopenssl-dev) y pcre(libpcre-dev)
-1.3(opcional) mongrel se instala con las rubygems, se baja de aca http://rubyforge.org/frs/download.php/20989/rubygems-0.9.4.tgz
-  y se instala asi: despues de instalar ruby se descomprime y se ejecuta "ruby ./setup.rb" (como rut) en el directorio que
-  se acaba de descomprimir, luego se ejecuta(como rut) "gem install -Y mongrel"
+1.3(opcional) mongrel se instala con las rubygems, las rubygems se baja de aca
+http://rubyforge.org/frs/download.php/20989/rubygems-0.9.4.tgz y se instala asi:
+despues de instalar ruby se descomprime y se ejecuta "ruby ./setup.rb" (como rut) en el directorio que
+se acaba de descomprimir
+para instalar mongrel se ejecuta(como rut) "gem install -Y mongrel"
 2. descomprimir el archivo( widely-XXXXXXX.tar.bz2)
 3. ejecutar el servidor de widely:
 ./widely/widely
@@ -46,14 +48,8 @@ para el que no sepa:
 
 * commit quiere decir "enviar los cambios que he hecho al servidor de control de versiones"
 * los reportes de fallos son siempre bienvenidos
-* todavia tiene un errorsillo que si no uno crea un usuario y no le crea repositorio y copia de trabajo no lo deja entrar
-  pronto se resolvera
 * los datos de confuracion de widely se guardan en ~/.widely entonces se borra ese directorio y se reinicia el server
   y queda como al comienzo otra vez
-* todavia tiene otro pequeñisimo errorsillo que los cambios de datos no se guardan en el server(los cambios de archivos si) pero
-  entonces si se reinicia puede dar fallitos, aunque tal vez no
-  pronto se resolvera
-
 
 Documentar las pruebas seria algo que yo agradeceria muchisimo, no tiene que ser un documento bien presentado
 solo algo que diga que tanto se hizo y como se comporto, seria chevre si o que?

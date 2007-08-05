@@ -1,0 +1,157 @@
+JSON
+From Wikipedia, the free encyclopedia
+Jump to: navigation, search
+
+JSON (JavaScript Object Notation) is a lightweight computer data interchange format. It is a text-based, human-readable format for representing objects and other data structures and is mainly used to transmit such structured data over a network connection (in a process called serialization).
+
+JSON finds its main application in Ajax web application programming, as a simple alternative to using XML for asynchronously transmitting structured information between client and server. JSON stands for Javascript Object Notation and is pronounced like the English given name Jason, IPA /dʒeɪsən/).
+
+JSON was initially used in 2002 for use in generating large datasets of just-in-time content for online games (link needed) by Jeremy Damian Horn. The data was initially loaded by server-side JavaScript inlcude, and not vis AJAX requests. Later Douglas Crockford formalized this datastructure into what is today referred to as JSON.
+
+The JSON format is specified in RFC 4627 by Douglas Crockford. The official Internet media type for JSON is application/json.
+
+JSON is based on a subset of the JavaScript Programming Language, Standard ECMA-262 3rd Edition - December 1999,[1] and is commonly used with that language. However the basic types and data structures of most other programming languages can also be represented in JSON, and the format can therefore be used to exchange structured data between programs written in different languages. Code for parsing and generating JSON (the latter is also known as "stringifying") is available for the following languages: ActionScript, C, C++, C#, ColdFusion, Common Lisp, Delphi/Object pascal, E, Erlang, Haskell, Io[2] Java, JavaScript, Lasso, Limbo, Lua, ML, Objective-C, Objective CAML, Perl, PHP, Python, Rebol, Ruby, Smalltalk and Tcl.
+
+In December 2005, Yahoo! began offering some of its Web Services optionally in JSON.[3] Google started offering JSON feeds for its GData web protocol in December 2006.[4]
+Contents
+[hide]
+
+    * 1 Supported data types, syntax and example
+    * 2 Using JSON in Ajax
+    * 3 Security issues
+          o 3.1 JavaScript eval()
+          o 3.2 Cross-site request forgery
+    * 4 Comparison with other formats
+          o 4.1 XML
+          o 4.2 YAML
+    * 5 See also
+    * 6 References
+    * 7 External links
+          o 7.1 Tutorials
+
+[edit] Supported data types, syntax and example
+
+JSON's basic types are
+
+    * Number (integer, real, or floating point)
+    * String (double-quoted Unicode with backslash escapement)
+    * Boolean (true and false)
+    * Array (an ordered sequence of values, comma-separated and enclosed in square brackets)
+    * Object (collection of key/value pairs, comma-separated and enclosed in curly brackets)
+    * null
+
+The following example shows the JSON representation of an object that describes a person. The object has string fields for first name and last name, contains an object representing the person's address, and contains a list of phone numbers (an array).
+
+{
+    "firstName": "John",
+    "lastName": "Smith",
+    "address": {
+        "streetAddress": "21 2nd Street",
+        "city": "New York",
+        "state": "NY",
+        "postalCode": 10021
+    },
+    "phoneNumbers": [
+        "212 732-1234",
+        "646 123-4567"
+    ]
+}
+
+Suppose the above text is contained in the JavaScript string variable JSON_text. Since JSON is a subset of JavaScript's object literal notation, one can then recreate the object describing John Smith with a simple eval():
+
+var p = eval("(" + JSON_text + ")");
+
+and the fields p.firstName, p.address.city, p.phoneNumbers[0] etc. are then accessible. Parentheses are necessary because bare objects are not valid JavaScript.
+
+In general, eval() should only be used to parse JSON if the source of the JSON-formatted text is completely trusted; the execution of untrusted code is obviously dangerous. JSON parsers are available to process JSON input from less trusted sources.
+
+[edit] Using JSON in Ajax
+
+The following Javascript code shows how the client can use an XMLHttpRequest to request an object in JSON format from the server. (The server-side programming is omitted; it has to be set up to respond to requests at url with a JSON-formatted string.)
+
+var the_object;
+var http_request = new XMLHttpRequest();
+http_request.open("GET", url, true);
+http_request.onreadystatechange = function () {
+    if (http_request.readyState == 4) {
+        if (http_request.status == 200) {
+            the_object = eval("(" + http_request.responseText + ")");
+        } else {
+            alert("There was a problem with the URL.");
+        }
+        http_request = null;
+    }
+};
+
+Note that the use of XMLHttpRequest in this example is not cross-browser; syntactic variations are available on Internet Explorer, Opera, Safari, and Mozilla-based browsers. The usefulness of XMLHttpRequest is limited by the same origin policy: the URL replying to the request must reside on the same host that served the current page.
+
+Browsers can also use <iframe> elements to asynchronously request JSON data in a cross-browser fashion, or use simple <form action="url_to_cgi_script" target="name_of_hidden_iframe"> submissions. These approaches were prevalent prior to the advent of widespread support for XMLHttpRequest.
+
+Dynamic <script> tags can also be used to transport JSON data. With this technique it is possible to get around the overly restrictive same origin policy but it is insecure. JSONRequest has been proposed as a safer alternative.
+
+[edit] Security issues
+
+JSON is a self-contained unambiguous data representation format, and since it carries no executable or algorithmic meaning, it is inherently secure by itself. Security issues can arise, however, if a program incorrectly processes JSON-formatted data as though it were something else. Since the JSON syntax is, by design, a subset of the JavaScript syntax, most security concerns involve having a JavaScript interpreter directly process JSON text as though it were JavaScript source code.
+
+[edit] JavaScript eval()
+
+Because most JSON-formatted text is also syntactically legal JavaScript code, an easy way for a JavaScript program to parse JSON-formatted data is to use the built-in JavaScript eval() function. Rather than using a JSON-specific parser, the JavaScript interpreter itself is used to execute the JSON data to produce native JavaScript objects. This technique relies on intentionally misrepresenting the format of the input text as being JavaScript rather than JSON.
+
+Using the eval technique can be safe as long as everything, including both the JSON data and the entire JavaScript environment, is within the control of a single trusted source. In a web browser environment, however, this unified trust of all the components does not exist, allowing security to be breached. If the JSON data is itself not trusted, it would be possible to embed rogue JavaScript code inside the supposed JSON data. In addition, if the entire JavaScript environment is not trusted (including all the code loaded into the environment), then it is theoretically possible to intercept the evaluation of the JSON data.
+
+[edit] Cross-site request forgery
+
+Naive deployments of JSON are subject to cross-site request forgery attacks (CSRF or XSRF). [5] Because the HTML <script> tag does not respect the same origin policy in web browser implementations, a malicious page can request and obtain JSON data belonging to another site. This will allow the JSON-encoded data to be evaluated in the context of the malicious page, possibly divulging passwords or other sensitive data if the user is currently logged into the other site. (Although the JSON data, as an object literal, would normally evaluate to a constant, and so not be visible to the attacker, by overriding the Array() prototype, the attacker can feed the JSON data through their own interceptor.)
+
+Most fixes for this class of attacks involve wrapping or otherwise altering the JSON-formatted data so that it can not be interpreted as valid JavaScript code. One such method is to wrap the JSON-formatted text, such as inside a multi-line JavaScript comment (/* ... */), and then to unwrap it before parsing it. If a <script> element were to reference the wrapped data, the JavaScript interpreter would not execute any of the JSON data. This will not work if the attack uses an <iframe> element, although such an attack should be prevented by the same origin policy. Alternatives include magic cookie methods (but not HTTP cookies, since these will be sent by the browser as usual). A supplementary fix is to set the web server to refuse to serve JSON when an HTTP referer other than a trusted site is provided; this could, however, cause problems with clients that have been configured to omit or spoof referrer information.
+
+[edit] Comparison with other formats
+
+[edit] XML
+
+XML is often used to describe structured data and to serialize objects. Unlike JSON, however, which is simply a way to represent data structures, XML is a complete markup language. This makes XML significantly more complex than JSON, which is specifically designed as a data interchange format, not a markup language. A notably absent feature in JSON is the concept of format definition header commonly used in the XML specification for data validation. Both lack a rich (i.e., explicit) mechanism for representing large binary data types such as image data (although binary data can be stringified for both by converting to a base64 or similar representation).
+
+[edit] YAML
+
+(almost) All JSON is also legal YAML[1]. If compactness, simplicity of generation, and enhanced human readability are the user's reasons for choosing JSON over XML, then YAML, which can use whitespace indentation, like an outline, rather than punctuation blocks (e.g. JSON delimits blocks with {} and ;) may be a preferable alternative both for data interchange and for clean-looking configuration files. YAML also offers a simple format for extensible data types beyond primitives (i.e beyond strings, floats, ints, bools) and can include object definitions. Additionally, it offers some limited syntax for relational data: rather than repeating identical data later in a document, a YAML document can refer to an anchor elsewhere on the document or even in another YAML file. Because the YAML format is not associated with executable language syntax like JSON is to JavaScript, it enforces avoidance of the security pitfall of using a built-in interpreter to evaluate code into native data structures.
+
+[edit] See also
+
+    * Ajax (programming)
+    * JavaScript
+    * JSON-RPC
+    * JsonML
+    * S-expressions
+    * YAML
+
+http://en.wikipedia.org/wiki/JSON
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write. It is easy for machines to parse and generate. It is based on a subset of the JavaScript Programming Language, Standard ECMA-262 3rd Edition - December 1999. JSON is a text format that is completely language independent but uses conventions that are familiar to programmers of the C-family of languages, including C, C++, C#, Java, JavaScript, Perl, Python, and many others. These properties make JSON an ideal data-interchange language.
+
+JSON is built on two structures:
+
+    * A collection of name/value pairs. In various languages, this is realized as an object, record, struct, dictionary, hash table, keyed list, or associative array.
+    * An ordered list of values. In most languages, this is realized as an array, vector, list, or sequence.
+
+These are universal data structures. Virtually all modern programming languages support them in one form or another. It makes sense that a data format that is interchangable with programming languages also be based on these structures.
+
+
+http://json.org/
+
+

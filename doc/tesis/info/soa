@@ -1,0 +1,308 @@
+Arquitectura orientada a servicios
+De Wikipedia, la enciclopedia libre
+Saltar a navegación, búsqueda
+
+La Arquitectura Orientada a Servicios (en inglés Service-Oriented Architecture o SOA), es un concepto de arquitectura de software que define la utilización de servicios para dar soporte a los requerimientos de software del usuario.
+
+SOA proporciona una metodología y un marco de trabajo para documentar las capacidades de negocio y puede dar soporte a las actividades de integración y consolidación.
+
+En un ambiente SOA, los nodos de la red hacen disponibles sus recursos a otros participantes en la red como servicios independientes a los que tienen acceso de un modo estandarizado. La mayoría de las definiciones de SOA identifican la utilización de Servicios Web (empleando SOAP y WSDL) en su implementación, no obstante se puede implementar una SOA utilizando cualquier tecnología basada en servicios.
+
+Al contrario de las arquitecturas orientado a objetos, las SOAs están formadas por servicios de aplicación débilmente acoplados y altamente interoperables. Para comunicarse entre sí, estos servicios se basan en una definición formal independiente de la plataforma subyacente y del lenguaje de programación (p.ej., WSDL). La definición de la interfaz encapsula (oculta) las particularidades de una implementación, lo que la hace independiente del fabricante, del lenguaje de programación o de la tecnología de desarrollo (como Plataforma Java o Microsoft .NET). Con esta arquitectura, se pretende que los componentes software desarrollados sean muy reusables, ya que la interfaz se define siguiendo un estándar; así, un servicio C Sharp podría ser usado por una aplicación Java.
+
+Los lenguajes de alto nivel como BPEL o WS-coordinación llevan el concepto de servicio un paso adelante al proporcionar métodos de definición y soporte para flujos de trabajo y procesos de negocio.
+Tabla de contenidos
+[ocultar]
+
+    * 1 Definiciones SOA
+    * 2 Diseño y desarrollo de SOA
+    * 3 Literatura
+    * 4 Enlaces externos
+
+Definiciones SOA [editar]
+Término 	Definición / Comentario..
+Servicio 	Una función sin estado, auto-contenida, que acepta una(s) llamada(s) y devuelve una(s) respuesta(s) mediante una interfaz bien definida. Los servicios pueden también ejecutar unidades discretas de trabajo como serían editar y procesar una transacción. Los servicios no dependen del estado de otras funciones o procesos. La tecnología concreta utilizada para prestar el servicio no es parte de esta definición.
+Orquestación 	Secuenciar los servicios y proveer la lógica adicional para procesar datos. No incluye la presentación de los datos. Coordinación.
+Sin estado 	No mantiene ni depende de condición pre-existente alguna. En una SOA los servicios no son dependientes de la condición de ningún otro servicio. Reciben en la llamada toda la información que necesitan para dar una respuesta. Debido a que los servicios son "sin estado", pueden ser secuenciados (orquestados) en numerosas secuencias (algunas veces llamadas tuberías o pipelines) para realizar la lógica del negocio.
+Proveedor 	La función que brinda un servicio en respuesta a una llamada o petición desde un consumidor.
+Consumidor 	La función que consume el resultado del servicio provisto por un proveedor.
+
+Diseño y desarrollo de SOA [editar]
+
+La metodología de modelado y diseño para aplicaciones SOA se conoce como análisis y diseño orientado a servicios. La arquitectura orientada a servicios es tanto un marco de trabajo para el desarrollo de software como un marco de trabajo de implantación. Para que un proyecto SOA tenga éxito los desarrolladores de software deben orientarse ellos mismos a esta mentalidad de crear servicios comunes que son orquestados por clientes o middleware para implementar los procesos de negocio. El desarrollo de sistemas usando SOA requiere un compromiso con este modelo en términos de planificación, herramientas e infraestructura.
+
+Cuando la mayoría de la gente habla de una arquitectura orientada a servicios están hablando de un juego de servicios residentes en Internet o en una intranet, usando servicios web. Hay un juego de estándares de los que se habla ligados a los servicios web. Incluyen los siguientes:
+
+    * XML
+    * HTTP
+    * SOAP
+    * WSDL
+    * UDDI
+
+Hay que considerar, sin embargo, que un sistema SOA no necesariamente necesita utilizar estos estándares para ser "orientado a servicios" pero es altamente recomendable su uso.
+
+
+
+http://es.wikipedia.org/wiki/Arquitectura_orientada_a_servicios
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Service-oriented architecture
+From Wikipedia, the free encyclopedia
+Jump to: navigation, search
+	The external links in this article or section may require cleanup to comply with Wikipedia's content policies.
+Please improve this article by removing excessive or inappropriate external links. Please remove this tag when this is done. (talk)
+
+The introduction to this article provides insufficient context for those unfamiliar with the subject matter.
+Please help improve the introduction to meet Wikipedia's layout standards. You can discuss the issue on the talk page.
+
+Service Oriented Architecture(SOA) is an evolution of distributed computing. SOA provides a modularity of business logic, which can be presented as services for clients (client as in client-server architecture). These services are loosely coupled, in the sense that the 'User Interface' can remain completely independent of the service layer.
+
+There is no widely agreed upon definition of SOA other than its literal translation. It is an architecture that relies on service-orientation as its fundamental design principle.[1] In an SOA environment independent services can be accessed without knowledge of their underlying platform implementation.[2] These concepts can be applied to business, software and other types of producer/consumer systems.
+Contents
+[hide]
+
+    * 1 Other SOA Concepts
+    * 2 SOA definitions
+    * 3 Why SOA?
+    * 4 SOA principles
+    * 5 Service-oriented design and development
+          o 5.1 Service contract
+    * 6 SOA and web service protocols
+    * 7 SOA, Web 2.0, and mashups
+    * 8 SOA 2.0 or Advanced SOA
+    * 9 What are the challenges faced in SOA adoption?
+    * 10 Criticisms of SOA
+    * 11 SOA and Business Architecture
+    * 12 SOA and network management architecture
+    * 13 Jargon
+    * 14 Literature
+          o 14.1 Books, non-technical
+          o 14.2 Books, technical
+          o 14.3 Articles/Papers, non-technical
+          o 14.4 Articles/Papers, technical
+          o 14.5 Standards
+    * 15 References
+    * 16 See also
+    * 17 External links
+
+[edit] Other SOA Concepts
+
+Architecture is not tied to a specific technology. It may be implemented using a wide range of technologies, including SOAP, RPC, DCOM, CORBA, Web Services or WCF. SOA can be implemented using one or more of these protocols and, for example, might use a file system mechanism to communicate data conforming to a defined interface specification between processes conforming to the SOA concept. The key is independent services with defined interfaces that can be called to perform their tasks in a standard way, without the service having foreknowledge of the calling application, and without the application having or needing knowledge of how the service actually performs its tasks.
+Elements of SOA, by Dirk Krafzig, Karl Banke, and Dirk Slama. Enterprise SOA. Prentice Hall, 2005
+Elements of SOA, by Dirk Krafzig, Karl Banke, and Dirk Slama. Enterprise SOA. Prentice Hall, 2005
+SOA Meta Model, The Linthicum Group, 2007
+SOA Meta Model, The Linthicum Group, 2007
+
+SOA can also be regarded as a style of information systems architecture that enables the creation of applications that are built by combining loosely coupled and interoperable services[citation needed]. These services inter-operate based on a formal definition (or contract, e.g., WSDL) that is independent of the underlying platform and programming language. The interface definition hides the implementation of the language-specific service. SOA-based systems can therefore be independent of development technologies and platforms (such as Java, .NET etc). Services written in C# running on .NET platforms and services written in Java running on Java EE platforms, for example, can both be consumed by a common composite application (or client). Applications running on either platform can also consume services running on the other as Web services, which facilitates reuse.
+
+SOA can support integration and consolidation activities within complex enterprise systems, but SOA does not specify or provide a methodology or framework for documenting capabilities or services.
+
+High-level languages such as BPEL and specifications such as WS-CDL and WS-Coordination extend the service concept by providing a method of defining and supporting orchestration of fine grained services into more coarse-grained business services, which in turn can be incorporated into workflows and business processes implemented in composite applications or portals[citation needed].
+
+The use of Service component architecture (SCA) to implement SOA is a current area of research.
+
+[edit] SOA definitions
+
+SOA is a design for linking business and computational resources (principally organizations, applications and data) on demand to achieve the desired results for service consumers (which can be end users or other services). OASIS (the Organization for the Advancement of Structured Information Standards) defines SOA as the following:
+
+A paradigm for organizing and utilizing distributed capabilities that may be under the control of different ownership domains. It provides a uniform means to offer, discover, interact with and use capabilities to produce desired effects consistent with measurable preconditions and expectations.
+
+There are multiple definitions of SOA, the OASIS group and the Open Group have created formal definition with depth which can be applied to both the technology and business domains.
+
+    * Open Group SOA Definition (SOA-Definition)[3]
+    * OASIS SOA Reference Model (SOA-RM)[4]
+    * What Is Service-Oriented Architecture? (XML.com)
+    * What is Service-Oriented Architecture? (Javaworld.com)
+    * Webopedia definition
+    * TechEncyclopedia definition
+    * Object Management Group (OMG ) SOA Special Interest Group definition
+    * WhatIs.com definition
+    * SearchWebServices.com Numerous SOA definitions by industry experts
+
+Though many definitions of SOA limit themselves to technology or just web services, this is predominantly pushed by technology vendors; in 2003 they talked just of web services, while in 2006 the talk is of events and process engines.[citation needed]
+
+[edit] Why SOA?
+
+The main drivers for SOA adoption are that it links computational resources and promotes their reuse. Enterprise architects believe that SOA can help businesses respond more quickly and cost-effectively to changing market conditions[5] . This style of architecture promotes reuse at the macro(service) level rather than micro(objects) level. It can also simplify interconnection to - and usage of - existing IT (legacy) assets.
+
+SOA Practitioners Guide: Why Services-Oriented Architecture? provides a high-level summary on SOA.
+
+In some respects, SOA can be considered an architectural evolution rather than a revolution and captures many of the best practices of previous software architectures. In communications systems, for example, there has been little development of solutions that use truly static bindings to talk to other equipment in the network. By formally embracing a SOA approach, such systems are better positioned to stress the importance of well-defined, highly inter-operable interfaces.[citation needed]
+
+Some have questioned whether SOA is just a revival of modular programming (1970s), event-oriented design (1980s) or interface/component-based design (1990s)[citation needed]. SOA promotes the goal of separating users (consumers) from the service implementations. Services can therefore be run on various distributed platforms and be accessed across networks. This can also maximize reuse of services[citation needed].
+
+[edit] SOA principles
+
+The following guiding principles define the ground rules for development, maintenance, and usage of the SOA[6]
+
+    * Reuse, granularity, modularity, composability, componentization, and interoperability
+    * Compliance to standards (both common and industry-specific)
+    * Services identification and categorization, provisioning and delivery, and monitoring and tracking
+
+The following specific architectural principles for design and service definition focus on specific themes that influence the intrinsic behaviour of a system and the style of its design:
+
+    * Service Encapsulation - A lot of existing web-services are consolidated to be used under the SOA Architecture. Many a times, such services have not been planned to be under SOA.
+    * Service Loose coupling - Services maintain a relationship that minimizes dependencies and only requires that they maintain an awareness of each other
+    * Service contract - Services adhere to a communications agreement, as defined collectively by one or more service description documents
+    * Service abstraction - Beyond what is described in the service contract, services hide logic from the outside world
+    * Service reusability - Logic is divided into services with the intention of promoting reuse
+    * Service composability - Collections of services can be coordinated and assembled to form composite services
+    * Service autonomy – Services have control over the logic they encapsulate
+    * Service optimization – All else equal, high-quality services are generally considered preferable to low-quality ones
+    * Service discoverability – Services are designed to be outwardly descriptive so that they can be found and assessed via available discovery mechanisms[7]
+
+In addition, the following factors should also be taken into account when defining a SOA implementation:
+
+    * SOA Reference Architecture SOA Practitioners Guide Part 2: SOA Reference Architecture covers the SOA Reference Architecture, which provides a worked design of an enterprise-wide SOA implementation with detailed architecture diagrams, component descriptions, detailed requirements, design patterns, opinions about standards, patterns on regulation compliance, standards templates etc.
+    * Life cycle management SOA Practitioners Guide Part 3: Introduction to Services Lifecycle introduces the Services Lifecycle and provides a detailed process for services management though the service lifecycle, from inception through to retirement or repurposing of the services. It also contains an appendix that includes organization and governance best practices, templates, comments on key SOA standards, and recommended links for more information.
+    * Efficient use of system resources
+    * Service maturity and performance
+    * EAI Enterprise Application Integration
+
+[edit] Service-oriented design and development
+Info icon 	This section does not cite any references or sources.
+Please help improve this section by adding citations to reliable sources. (help, get involved!)
+Unverifiable material may be challenged and removed.
+
+This article has been tagged since June 2006.
+
+The modelling and design methodology for SOA applications has become known by the terms service-oriented analysis and design and SOAD [8]. SOAD is a design methodology for developing highly-agile systems in a consumer/producer model that abstracts implementation from process, such that a service-provider can be modified or changed without affecting the consumer.
+
+[edit] Service contract
+
+A service contract needs to have the following components:
+
+    * Header
+          o Name - Name of the service. Should indicate in general terms what it does, but not be the only definition
+          o Version - The version of this service contract
+          o Owner - The person/team in charge of the service
+          o RACI
+                + Responsible - The role the person/team is responsible for the deliverables of this contract/service. All versions of the contract
+                + Accountable - Ultimate Decision Maker in terms of this contract/service
+                + Consulted - Who must be consulted before action is taken on this contract/service. This is 2-way communication. These people have an impact on the decision and/or the execution of that decision.
+                + Informed - Who must be informed that a decision or action is being taken. This is a 1-way communication. These people are impacted by the decision or execution of that decision, but have no control over the action.
+          o Type - This is the type of the service to help distinguish the layer in which it resides. Different implementations will have different service types. Examples of service types include:
+                + Presentation
+                + Process
+                + Business
+                + Data
+                + Integration
+    * Functional
+          o Functional Requirement (From Requirements Document) - Indicates the functionality in specific bulleted items what exactly this service accomplishes. The language should be such that it allows test cases to prove the functionality is accomplished.
+          o Service Operations - Methods, actions etc. Must be defined in terms of what part of the Functionality it provides.
+          o Invocation - Indicates the invocation means of the service. This includes the URL, interface, etc. There may be multiple Invocation paths for the same service. We may have the same functionality for an internal and external clients each with a different invocation means and interface. Examples:
+                + SOAP
+                + REST
+                + Events Triggers
+    * Non-Functional
+          o Security Constraints - Defines who can execute this service in terms of roles or individual partners, etc. and which invocation mechanism they can invoke.
+          o Quality of Service - Determines the allowable failure rate
+          o Transactional - Is this capable of acting as part of a larger transaction and if so, how do we control that?
+          o Service Level Agreement - Determines the amount of latency the service is allowed to have to perform its actions
+          o Semantics - Dictates or defines the meaning of terms used in the description and interfaces of the service
+          o Process - Describes the process, if any, of the contracted service
+
+[edit] SOA and web service protocols
+Info icon 	This section does not cite any references or sources.
+Please help improve this section by adding citations to reliable sources. (help, get involved!)
+Unverifiable material may be challenged and removed.
+
+This article has been tagged since June 2006.
+
+SOA may be built on Web services standards (e.g., using SOAP) that have gained broad industry acceptance. These standards (also referred to as web service specifications) also provide greater interoperability and some protection from lock-in to proprietary vendor software. One can, however, implement SOA using any service-based technology, such as Jini.
+
+Service-oriented architecture is often defined as services exposed using the Web Services Protocol Stack[citation needed] . The base level of web services standards relevant to SOA includes the following:
+
+    * XML - a markup language for describing data in message payloads in a document format
+    * HTTP (or HTTPS) - request/response protocol between clients and servers used to transfer or convey information
+    * SOAP - a protocol for exchanging XML-based messages over a computer network, normally using HTTP
+    * XACML - a markup language for expressing access control rules and policies.
+    * Web Services Description Language (WSDL) - XML-based service description that describes the public interface, protocol bindings and message formats required to interact with a web service
+    * Universal Description, Discovery, and Integration (UDDI) - An XML-based registry to publish service descriptions (WSDL) and allow their discovery
+
+Note, however, that a system does not necessarily need to use any or all of these standards to be "service-oriented." For example, some service oriented systems have been implemented using Corba, Jini and REST.
+
+[edit] SOA, Web 2.0, and mashups
+
+Web 2.0 refers to a "second generation" of web sites, primarily distinguished by the ability of visitors to contribute information for collaboration and sharing. Web 2.0 applications use Web services and may include Ajax, Flash, Silverlight or JavaFX user interfaces, Web syndication, blogs, and wikis. While there are no set standards for Web 2.0, it is characterised by building on the existing web server architecture and using services. Web 2.0 can therefore be regarded as displaying some SOA characteristics[9].
+
+Mashups are also regarded by some as Web 2.0 applications. The term "enterprise mashup" has been coined to describe Web applications that combine content from more than one source into an integrated experience, which share many of the characteristics of service-oriented business applications (SOBAs), which are applications composed of services in a declarative manner. There is ongoing debate about "the collision of Web 2.0, mashups, and SOA", with some stating that Web 2.0 applications are a realisation of SOA composite and business applications. [10]
+
+[edit] SOA 2.0 or Advanced SOA
+
+Amid much negative reaction, Oracle is taking up SOA 2.0 as "the next-generation version of SOA" combining service-oriented architecture and Event Driven Architecture, and categorizing the first iteration of SOA as client-server driven[11] . Even though Oracle indicates that Gartner is coining a new term, Gartner analysts indicate that they call this advanced SOA and it is 'whimsically' referred to as SOA 2.0.[12] Most of the pure-play middleware vendors (e.g., webMethods and TIBCO Software) have had SOA 2.0 attributes for years. SOA 2.0 can therefore be regarded as "more marketing noise than anything else"[13] and product evangelism rather than a new "way of doing things".
+
+
+However, other industry commentators have criticized attaching a version number to an application architecture design approach, while others have stated that the "next generation" should apply to the evolution of SOA techniques from IT optimization to business development[14] .
+
+[edit] What are the challenges faced in SOA adoption?
+Info icon 	This section does not cite any references or sources.
+Please help improve this section by adding citations to reliable sources. (help, get involved!)
+Unverifiable material may be challenged and removed.
+
+This article has been tagged since June 2006.
+
+One obvious and common challenge faced is managing services metadata[citation needed]. SOA-based environments can include many services which exchange messages to perform tasks. Depending on the design, a single application may generate millions of messages. Managing and providing information on how services interact is a complicated task.
+
+Another challenge is providing appropriate levels of security. Security model built into an application may no longer be appropriate when the capabilities of the application are exposed as services that can be used by other applications. That is, application-managed security is not the right model for securing services. A number of new technologies and standards are emerging to provide more appropriate models for security in SOA. See SOA Security entry for more info.
+
+As SOA and the WS-* specifications are constantly being expanded, updated and refined, there is a shortage of skilled people to work on SOA based systems, including the integration of services and construction of services infrastructure.
+
+Interoperability is another important aspect in the SOA implementations. The WS-I organization has developed Basic Profile (BP) and Basic Security Profile (BSP) to enforce compatibility. Testing tools have been designed by WS-I to help assess whether web services are conformant with WS-I profile guidelines. Additionally, another Charter has been established to work on the Reliable Secure Profile.
+
+There is significant vendor hype concerning SOA that can create expectations that may not be fulfilled. Product stacks are still evolving as early adopters test the development and runtime products with real world problems. SOA does not guarantee reduced IT costs, improved systems agility or faster time to market. Successful SOA implementations may realise some or all of these benefits depending on the quality and relevance of the system architecture and design[15] . See also: WS-MetadataExchange OWL-S Abrobit Roy
+
+[edit] Criticisms of SOA
+
+Some criticisms of SOA are based on the assumption that SOA is just another term for Web Services. For example, some critics claim SOA results in the addition of XML layers introducing XML parsing and composition. In the absence of native or binary forms of Remote Procedure Call (RPC) applications could run slower and require more processing power, increasing costs. Most implementations do incur these overheads, but SOA can be implemented using technologies (for example, Java Business Integration (JBI)) which do not depend on remote procedure calls or translation through XML. However, there are emerging and open-source XML parsing technolgies, such as VTD-XML, and various XML-compatible binary formats (http://vtd-xml.sf.net/persistence.html) that promise to significantly improve the SOA performance.
+
+Stateful services require both the consumer and the provider to share the same consumer-specific context, which is either included in or referenced by messages exchanged between the provider and the consumer. The drawback of this constraint is that it could reduce the overall scalability of the service provider because it might need to remember the shared context for each consumer. It also increases the coupling between a service provider and a consumer and makes switching service providers more difficult.
+
+Another concern is that WS-* standards and products are still evolving (e.g., transaction, security), and SOA can thus introduce new risks unless properly managed and estimated with additional budget and contingency for additional Proof of Concept work.
+
+An informal survey by Network Computing placed SOA as the most despised buzzword (November 2006).
+
+Some critics feel SOA is merely an obvious evolution of currently well-deployed architectures (open interfaces, etc).
+
+A SOA being an architecture is the first stage of representing the system components that interconnect for the benefit of the business. At this level a SOA is just an evolution of an existing architecture and business functions. SOAs are normally associated with interconnecting back end transactional systems that are accessed via web services.
+
+The real issue with any IT "architecture" is how one defines the information management model and operations around it that deal with information privacy, reflect the business's products and services, enable services to be delivered to the customers, allow for self care, preferences and entitlements and at the same time embrace identity management and agility. On this last point, system modification (agility) is a critical issue which is normally omitted from IT system design. Many systems, including SOAs, hard code the operations, goods and services of the organisation thus restricting their online service and business agility in the global market place.
+
+Adopting SOAs is therefore just the first (diagrammatic) step in defining a real business system. The next step in the design process is the definition of a Service Delivery Platform (SDP) and its implementation. It is in the SDP design phase where one defines the business information models, identity management, products, content, devices, and the end user service characteristics, as well as how agile the system is so that it can deal with the evolution of the business and its customers.
+
+[edit] SOA and Business Architecture
+
+One area where SOA has been gaining ground is in its power as a mechanism for defining business services and operating models and thus provide a structure for IT to deliver against the actual business requirements and adapt in a similar way to the business. The purpose of using SOA as a business mapping tool is to ensure that the services created properly represent the business view and are not just what technologists think the business services should be. At the heart of SOA planning is the process of defining architectures for the use of information in support of the business, and the plan for implementing those architectures (Enterprise Architecture Planning by Steven Spewak and Steven Hill). Enterprise Business Architecture should always represent the highest and most dominant architecture. Every service should be created with the intent to bring value to the business in some way and must be traceable back to the business architecture.
+
+Within this area, SOMA (Service-Oriented Modelling and Architecture) was announced by IBM as the first SOA-related methodology in 2004. Since then, efforts have been made to move towards greater standardization and the involvement of business objectives, particularly within the OASIS standards group and specifically the SOA Adoption Blueprints group. All of these approaches take a fundamentally structured approach to SOA, focusing on the Services and Architecture elements and leaving implementation to the more technically focused standards.
+
+[edit] SOA and network management architecture
+
+The principles of SOA are currently being applied to the field of network management. Examples of Service-Oriented network management architectures are TS 188 001 NGN Management OSS Architecture from ETSI, and the recently published M.3060 Principles for the Management Of Next Generation Networks recommendation from the ITU-T SOA.
+
+Tools for managing SOA infrastructure include:
+
+    * Symantec APM
+    * HyPerformix IPS Performance Optimizer
+    * HP Management Software / Mercury SOA Manager
+    * IBM Tivoli Framework
+    * Tidal Software Intersperse
+
+[edit] Jargon
+Info icon 	This section does not cite any references or sources.
+Please help improve this section by adding citations to reliable sources. (help, get involved!)
+Unverifiable material may be challenged and removed.
+
+This article has been tagged since June 2006.
+
+SOA is an architectural style rather than a product. Several vendors offer products which can form the basis of, or enable, SOA--particularly Enterprise Service Bus (ESB) products. ESBs provide infrastructure that can be purchased, implemented and leveraged for SOA-based systems[citation needed]. SOA relies heavily on metadata design and management. Metadata design and management products are also critical to implementing SOA architectures. See the list of SOA related products for an overview and ideas.
+
+
+http://en.wikipedia.org/wiki/Service-oriented_architecture

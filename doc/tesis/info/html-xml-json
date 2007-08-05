@@ -1,0 +1,232 @@
+Desde mi último proyecto en AJAX, se ha incrementado la duda sobre la salida ideal de una llamada AJAX. Una vez que haces la llamada AJAX, ¿qué tipo de respuesta debería darnos el servidor? ¿Un documento XML? ¿Código HTML? ¿Una cadena JSON preparada para ser convertida en un objeto Javascript? ¿o culaquier otra cosa? En esta entrada, vamos a discutir sobre los tres formatos, con ejemplos, y vamos a preguntaros sobre qué formato es vuestro preferido.
+
+Cuando recibimos una cantidad de datos desde nuestr aplicación AJAX, tenemos que generar un script que incorpore estos datos en nuestra página HTML que controla la aplicación. Éste script dependerá del formato de datos que recibamos. ¿Buscarías nodos específicos en un documento XML y copiarías su contenido en el HTML? o ¿preferirías recibir el código HTML que directamente incluirias en la página tal como viene?
+
+En mi último proyecto recibí algunos datos como documentos XML y otros como código HTML, y necesité diferentes tipos de código javascript para volcar los datos en la página. Los dos formatos, así como los dos tipos de código javascript tienen sus ventajas e inconvenientes.
+
+Después de acabar el proyecto, investigué un poco más acerca de JSON (Javascript Object Notation), inventado por Douglas Crockford y recientemente escogido como el formato de salida de la mayoría de servicios de Yahoo, y creo que me gusta, aunque aún no lo haya usado nunca.
+
+Esto me lleva a pensar, ¿qué formato es el mejor? ¿Qué formato pensáis que es el mejor, o al menos, es más útil en un entorno AJAX práctico?
+
+EJEMPLO A PROBAR
+Como ejemplo de los 3 formatos, vamos a usar el ejemplo de la librería online AJAX. Vamos a pedir información de los libros de Javascript que tengan en el almacen -que por una extraña coincidencia son los mismos 3 libros que dan vueltas por la mesa. Una petición AJAX devolverá esos 3 resultados y tendremos que incorporarlos en el HTML de nuestra única página HTML.
+
+Mostraremos los ejemplos de los tres formatos, y un script sencillo para mostrar los resultados en el div <div id="lista_libros">
+DEVOLVER DOCUMENTOS XML
+
+La primera y más obvia selección para un formato de salida es el documento XML. La idea original detrás del objeto XMLHTTP era la importación de documentos XML, así que no debe sorprender que la mayor atención fuera al XML y sea aún considerado como formato de salida por defecto.
+
+Ejemplo
+El servidor devuelve este documento:
+PLAIN TEXT
+XML:
+<libros>
+    <libro>
+        <titulo>JavaScript, the Definitive Guide</titulo>
+        <publicado>O'Reilly</publicado>
+        <autor>David Flanagan</autor>
+        <portada src="/images/cover_defguide.jpg" />
+        <resumen>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</resumen>
+    </libro>
+    <libro>
+        <titulo>DOM Scripting</titulo>
+        <publicado>Friends of Ed</publicado>
+        <autor>Jeremy Keith</autor>
+        <portada src="/images/cover_domscripting.jpg" />
+        <resumen>Praesent et diam a ligula facilisis venenatis.</resumen>
+    </libro>
+    <libro>
+        <titulo>DHTML Utopia: Modern Web Design using JavaScript &amp; DOM</titulo>
+        <publicado>Sitepoint</publicado>
+        <autor>Stuart Langridge</autor>
+        <portada src="/images/cover_utopia.jpg" />
+        <resumen>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</resumen>
+    </libro>
+</libros>
+
+Necesitaríamos este código javascript para mostrar el resultado en nuestro <div>
+PLAIN TEXT
+JavaScript:
+function setDataXML(req)
+{
+    var libros = req.responseXML.getElementsByTagName('libro');
+    for (var i=0;i<libros.length;i++)
+    {
+        var x = document.createElement('div');
+        x.className = 'libro';
+        var y = document.createElement('h3');
+        y.appendChild(document.createTextNode(getNodeValue(libros[i],'titulo')));
+        x.appendChild(y);
+        var z = document.createElement('p');
+        z.className = 'masinfo';
+        z.appendChild(document.createTextNode('por' + getNodeValue(libros[i],'autor') + ', ' + getNodeValue(libros[i],'publicado')));
+        x.appendChild(z);
+        var a = document.createElement('img');
+        a.src = books[i].getElementsByTagName('portada')[0].getAttribute('src');
+        x.appendChild(a);
+        var b = document.createElement('p');
+        b.appendChild(document.createTextNode(getNodeValue(libros[i],'resumen')));
+        x.appendChild(b);
+        document.getElementById('lista_libros').appendChild(x);
+    }
+}
+
+function getNodeValue(obj,tag)
+{
+    return obj.getElementsByTagName(tag)[0].firstChild.nodeValue;
+}
+
+Bastante código, como podemos ver. Aunque el DOM de la W3C nos da acceso completo al documento XML desde el servidor y al documento HTML donde tenemos que mostrar los datos, no nos da una forma fácil y elegante de extraer exactamente los datos que necesitamos: tenemos que ahondar en el documento XML para conseguir lo que queremos.
+
+Es aquí donde XSLT sería útil, ya que la gracia de este lenguaje es precisamente en convertir un documento XML en otro tipo de XML, y ya que XHTML es XML, podemos usarlo para crear pequeñas partes de páginas. No he estudiado XSL(T) desde 1999, así que dejaremos XSLT para otro rato.
+Ventajas:
+
+La ventaja más importante de XML es que es el formato más fácil de leer para los humanos.
+Otra ventaja es que XML lleva mucho tiempo en el mundo y los desarrolladores ya se han acostumbrado a él. Decir: "Nos gustaría que tu servidor nos devolviese un XML" no suena extraño, mientras que "Nos gustaría que nos devolviese un objeto JSON" si.
+
+
+[Ventaja del traductor]
+La forma de mostrar la información es independiente de la forma de conseguirla. Por lo que podriamos aprovechar la misma petición AJAX para montar un simple listado, o para montar una lista con checkboxes, o con radios, para hacer A o para hacer B simplemente cambiando el javascript.
+Inconvenientes
+
+El javascript necesario para insertar los datos en la página HTML es bastante prolijo. He escrito una función bastante útil (getNodeValue()) para llevar a cabo la parte más aburrida del script: leer el texto de un tag XML. De todas maneras el script jamás ganaría un concurso de belleza.
+Código HTML
+
+El segundo, y quizás el más interesante formato de salida es directamente un trozo código HTML. Fijaros que digo trozo, ya que no recibimos una página HTML completa. En lugar de eso, conseguimos el código HTML que tiene que insertarse en nuestro
+
+Ejemplo
+
+El servidor devuelve este código HTML:
+PLAIN TEXT
+HTML:
+<div class="libro">
+    <h3>JavaScript, the Definitive Guide</h3>
+    <p class="masinfo">By David Flanagan, O'Reilly</p>
+    <img src="/images/cover_defguide.jpg" />
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+</div>
+<div class="libro">
+    <h3>DOM Scripting</h3>
+    <p class="masinfo">By Jeremy Keith, Friends of Ed</p>
+    <img src="/images/cover_domscripting.jpg" />
+    <p>Praesent et diam a ligula facilisis venenatis.</p>
+</div>
+<div class="libro">
+    <h3>HTML Utopia: Modern Web Design using JavaScript & DOM</h3>
+    <p class="masinfo">By Stuart Langridge, Sitepoint</p>
+    <img src="/images/cover_utopia.jpg" />
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+</div>
+
+El javascript es extremadamente simple, tan solo poner la propiedad responseText en el innerHTML del objeto correcto y ya estamos.
+PLAIN TEXT
+JavaScript:
+function setDataHTML(req)
+{
+    document.getElementById('lista_libros').innerHTML = req.responseText;
+}
+
+Ventajas
+
+La simplicidad del script es la ventaja más importante de este método.
+
+Podemos añadir que este formato ofrece opciones interesantes de accesibilidad. Podriamos escribir el código del servidor de forma que la página HTML fuese ser vista en cualquier dispositivo. Si la petición se hace con un script AJAX, el código de servidor descartaría todo el HTML excepto el del resultado de la búsqueda, o el código AJAX mismo buscaría los resultados (N.T.: Esto no me ha quedao demasiado claro.. :P )
+
+Por supuesto, es perfectamente posible crear características de accesibilidad similares cuando trabajas con XML o JSON, pero esta forma es la forma más fácil para realizar el trabajo.
+Inconvenientes
+
+Si el código HTML contiene formularios, o si el elemento que recibimos es un formulario, este método da herrores horribles en Explorer.
+
+Podemos añadir que el código HTML pueden volverse un poco complicados. Nuestro ejemplo no lo es, pero tan pronto quieras usar técnicas avanzadas de CSS que requieran más elementos que los extrictamente necesarios, el código podría contener demasiados s o otros elementos que necesites. También el código que general este HTML puede volverse muy complicado.
+JSON
+
+El tercer método es JSON (Javascript Object Notation). Personalmente lo pronuncio como "Jason", así otro héore antiguo Griego entra en el moderno desarrollo de javascript. (es necesario recordar que Telamon, el padre de AJAX , acompañó a Jason como Argonauta. Jason era más viejo, y en definitva más "exitoso" que AJAX)
+
+La idea general es repartir un poco de texto (una cadena, realmente) de forma que pueda ser interpretada como un objeto de Javascript. Una vez que llegue, usamos la función eval() de Javascript para convertir la cadena en un objeto Javascript real, que leeremos posteriormente.
+
+Ejemplo:
+
+El servidor devuelve esta cadena JSON:
+PLAIN TEXT
+JavaScript:
+{"libros":[{"libro":
+        {
+        "titulo":"JavaScript, the Definitive Guide",
+        "publicado":"O'Reilly",
+        "autor":"David Flanagan",
+        "portada":"/images/cover_defguide.jpg",
+        "resumen":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit."
+        }
+    },
+    {"libro":
+        {
+        "titulo":"DOM Scripting",
+        "publicado":"Friends of Ed",
+        "autor":"Jeremy Keith",
+        "portada":"/images/cover_domscripting.jpg",
+        "resumen":"Praesent et diam a ligula facilisis venenatis."
+        }
+    },
+    {"libro":
+        {
+        "titulo":"DHTML Utopia: Modern Web Design using JavaScript & DOM",
+        "publicado":"Sitepoint",
+        "autor":"Stuart Langridge",
+        "portada":"/images/cover_utopia.jpg",
+        "resumen":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit."
+        }
+    }
+]}
+
+El script se parece mucho al script del XML. Hace lo mismo, simplemente lee los datos desde otro formato. En este caso, XSLT también sería util.
+PLAIN TEXT
+JavaScript:
+function setDataJSON(req)
+{
+    var data = eval('(' + req.responseText + ')');
+    for (var i=0;i<data.libros.length;i++)
+    {
+        var x = document.createElement('div');
+        x.className = 'libro';
+        var y = document.createElement('h3');
+        y.appendChild(document.createTextNode(data.libros[i].libro.titulo));
+        x.appendChild(y);
+        var z = document.createElement('p');
+        z.className = 'masinfo';
+        z.appendChild(document.createTextNode('By ' + data.libros[i].libro.autor + ', ' + data.libros[i].libro.publicado));
+        x.appendChild(z);
+        var a = document.createElement('img');
+        a.src = data.libros[i].libro.portada;
+        x.appendChild(a);
+        var b = document.createElement('p');
+        b.appendChild(document.createTextNode(data.libros[i].libro.resumen));
+        x.appendChild(b);
+        document.getElementById('lista_libros').appendChild(x);
+    }
+}
+
+Ventajas
+
+La ventaja más importante es que JSON evita la misma política que el código Javascript si importas un archivo JSON como un nuevo tag <script>. Mirad el ejemplo de Simon Willison para ver los detalles.
+
+Javascript no te permita acceder a documentos (sean XML o HTML) que vienen de otro servidor. Sin embargo, si importamos un archivo JSON como un tag <script> evitamos el problema, y cualquiera dato en JSON puede ser importado en cualquier web. Sólo depende en tus objetivos de negocio decidir si esto es malo o es bueno, pero ahora mismo es el único formato de datos que permite acceso no restringido.
+
+Una segunda ventaja es que los scripts de datos JSON son ligeramente más simples y estan más en linea con el resto del lenguaje Javascript que los scripts necesarios para procesar los datos XML.
+Desventajas
+
+La desventaja más improtante de JSON es que el formato no es demasiado legible para humanos, y que también -por supuesto- cada coma, comilla y paréntesis debe estar exactamente en el sitio correcto. Mientras que esto también se puede aplicar a XML, JSON tiene apariencia de sintaxis complicada, como los }}]} al final del código, puede asustar a principiantes y hacer el debug complicado.
+¿Tu elección?
+
+Hay 3 formatos de salida que puedes usar al conseguir datos por AJAX. Aunque me gustaría inclinarme por alguno de ellos, creo que escoger el más adecuado depende de las circunstancias. No obstante, tomemos un rato en encontrar el mejor formato. Hay cuatro preguntas en que pensar:
+
+    * ¿Podemos pensar en algún otro formato?
+    * ¿Qué formato usáis en una aplicación comercial AJAX? (demos y pruebas no cuentan)
+    * ¿Cambiarías a otro formato en el futuro? Si es así, ¿a cual y porqué?
+    * ¿Puedes pensar en más ventajas y desventajas de estos 3 formatos?
+
+
+
+
+http://www.dewebs.es/2007/02/16/la-respuesta-de-ajax-xml-html-o-json/
+
+

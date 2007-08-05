@@ -1,0 +1,39 @@
+Reverse Proxy
+
+Un reverse proxy es un servidor proxy instalado en el domicilio de uno o más servidores web. Todo el tráfico entrante de Internet y con el destino de uno de esos servidores web pasa a través del servidor proxy. Hay varias razones para instalar un "reverse proxy":
+
+    * Seguridad: el servidor proxy es una capa adicional de defensa y por lo tanto protege los servidores web.
+    * Cifrado / Aceleración SSL: cuando se crea un sitio web seguro, habitualmente el cifrado SSL no la hace el mismo servidor web, sino que es realizada por el "reverse proxy", el cual está equipado con un hardware de aceleración SSL (Security Sockets Layer).
+    * Distribución de Carga: el "reverse proxy" puede distribuir la carga entre varios servidores web. En ese caso, el "reverse proxy" puede necesitar reescribir las URL de cada página web (traducción de la URL externa a la URL interna correspondiente, según en qué servidor se encuentre la información solicitada)
+    * Caché de contenido estático: Un "reverse proxy" puede descargar los servidores web almacenando contenido estático como imágenes y otro contenido gráfico..
+
+
+http://es.wikipedia.org/wiki/Proxy
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------s
+
+
+
+Reverse proxy
+From Wikipedia, the free encyclopedia
+Jump to: navigation, search
+
+A reverse proxy is a proxy server that is installed within the neighborhood of one or more servers. Typically, reverse proxies are utilized in front of webservers. All connections coming from the Internet addressed to one of the webservers are routed through the proxy server, which may either deal with the request itself or pass the request wholly or partially to the main webserver.
+
+Contrast this with 'forward proxy', which is a proxy server configured in the end-user's browser.
+
+There are several reasons for installing reverse proxy servers:
+
+    * Security: the proxy server is an additional layer of defense and therefore protects the webservers further up the chain
+    * Encryption / SSL acceleration: when secure websites are created, the SSL encryption is sometimes not done by the webserver itself, but by a reverse proxy that is equipped with SSL acceleration hardware.
+    * Load distribution: the reverse proxy can distribute the load to several servers, each server serving its own application area. In the case of reverse proxying in the neighborhood of webservers, the reverse proxy may have to rewrite the URLs in each webpage (translation from externally known URLs to the internal locations).
+    * Caching static content: A reverse proxy can offload the webservers by caching static content, such as images. Proxy caches of this sort can often satisfy a considerable amount of website requests, greatly reducing the load on the central web server.
+    * Compression: the proxy server can optimize and compress the content to speed up the load time.
+    * Spoon feeding: a dynamically generated page can be produced all at once and served to the reverse-proxy, which can then return it to the client a little bit at a time. The program that generates the page is not forced to remain open and tying up server resources during the possibly extended time the client requires to complete the file transfer.
+
+
+
+http://en.wikipedia.org/wiki/Reverse_proxy

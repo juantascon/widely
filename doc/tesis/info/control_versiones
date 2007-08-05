@@ -1,0 +1,273 @@
+Control de versiones
+De Wikipedia, la enciclopedia libre
+Saltar a navegación, búsqueda
+
+Se llama control de versiones a la gestión de versiones (revisiones) de todos los elementos de configuración que forman la línea base de un producto o una configuración del mismo. Los sistemas de control de versiones facilitan la administración de las distintas versiones de cada producto desarrollado junto a las posibles especializaciones realizadas para algún cliente específico.
+
+El control de versiones se realiza principalmente en la industria informática para controlar las distintas versiones del código fuente. Sin embargo, los mismos conceptos son aplicables a otros ámbitos y no sólo para código fuente sino para documentos, imágenes, etcétera.
+
+Aunque un sistema de control de versiones puede realizarse de forma manual, es muy aconsejable disponer de herramientas que faciliten esta gestión (CVS, Subversion, SourceSafe, ClearCase, Darcs, Plastic SCM, GIT, etc.).
+Tabla de contenidos
+[ocultar]
+
+    * 1 Características
+    * 2 Clasificación
+    * 3 Terminología básica
+          o 3.1 Vocabulario común
+    * 4 Véase también
+    * 5 Enlaces externos
+
+Características [editar]
+
+Un sistema de control de versiones debe proporcionar:
+
+    * Mecanismo de almacenaje de cada uno de los ítems que deba gestionarse (archivos de texto, imágenes, documentación...)
+    * Posibilidad de modificar, mover, borrar cada uno de los elementos
+    * Histórico de las acciones realizadas con cada elemento pudiendo volver a un estado anterior dentro de ese historial
+
+Aunque no es estrictamente necesario, suele ser muy útil la generación de informes con los cambios introducidos entre dos versiones, informes de estado, marcado con nombre identificativo de la versión de un conjunto de ficheros, etcétera.
+
+Clasificación [editar]
+
+La principal clasificación que se pude establecer está basada en el almacenamiento del código:
+
+    * Centralizados: existe un repositorio centralizado de todo el código, del cual es responsable un único usuario (o conjunto de ellos). Se facilitan las tareas administrativas a cambio de reducir la potencia y flexibilidad, pues todas las decisiones fuertes (como crear una nueva rama) necesitan la aprobación del responsable. Algunos ejemplos son CVS y SVN
+    * Distribuidos: se aumenta la capacidad de decisión distribuida. Esto da más flexibilidad pero puede dificultar bastante la sincronización. Ejemplos: GIT y GNU Arch
+
+Terminología básica [editar]
+
+Todos los sistemas de control de versiones se basan en disponer de un repositorio, que es el conjunto de información gestionada por el sistema. Este repositorio contiene el historial de versiones de todos los elementos gestionados.
+
+Cada uno de los usuarios puede crearse una copia local duplicando el contenido del repositorio para permitir su uso. Es posible duplicar la última versión o cualquier versión almacenada en el historial. Para modificar la copia local existen dos semánticas básicas:
+
+    * Exclusivos: para poder realizar un cambio es necesario marcar en el repositorio el elemento que se desea modificar y el sistema se encargará de impedir que otro usuario pueda modificar dicho elemento. Este proceso se suele conocer como check out o desproteger.
+    * Colaborativos: en el que cada usuario se descarga la copia la modifica y el sistema automáticamente mezcla las diversas modificaciones. El principal problema es la aparición de conflictos que deben ser solucionados manualmente o las posibles inconsistencias que surjan al modificar el mismo fichero por varias personas no coordinadas. Además, esta semántica no es apropiada para ficheros binarios.
+
+Tras realizar la modificación es necesario actualizar el repositorio con los cambios realizados. Habitualmente este proceso se denomina commit, check in o proteger.
+
+Vocabulario común [editar]
+
+La terminología empleada puede variar de sistema a sistema, pero a continuación se describen algunos términos de uso común.[1][2]
+
+Línea base ("Baseline") 
+    Una revisión aprobada de un documento o fichero fuente, a partir del cual se pueden realizar cambios subsiguientes.
+Rama ("branch") 
+    Un conjunto de ficheros bajo control de versiones puede ser branched o forked en un momento de tiempo de forma que, desde ese momento en adelante, dos copias de esos ficheros puedan ser desarrolladas a diferentes velocidades o de diferentes formas, de modo independiente.
+"Check-out" ("checkout", "co") 
+    Un check-out crea una copia de trabajo local desde el repositorio. Se puede especificar una revisión específica, y por defecto se suele obtener la última.
+"Commit" ("check-in", "ci", "install", "submit") 
+    Un commit sucede cuando una copia de los cambios hechos a una copia local es escrita o integrada sobre repositorio.
+Conflicto 
+    Un conflicto ocurre cuando se realizan dos cambios por diferentes partes al mismo documento, y el sistema es incapaz de reconciliar los mismos. Un usuario debe resolver el conflicto combinando los cambios, o eligiendo uno de ellos para descartar el otro.
+Cambio ("change", "diff", "delta") 
+    Un cambio representa una modificación específica a un documento bajo control de versiones. La granularidad de la modificación considerada un cambio varía entre diferentes sistemas de control de versiones.
+Lista de cambios ("changelist", "change set", "patch") 
+    En muchos sistemas de control de versiones con commits multi-cambio atómicos, una lista de cambios identifica el conjunto de cambios hechos en un único commit. Esto también puede representar una vista secuencial del código fuente, permitiendo que el fuente sea examinado a partir de cualquier identificador de lista de cambios particular.
+Exportación ("export") 
+    Una exportación es similar a un check-out, salvo porque crea un árbol de directorios limpio sin los metadatos de control de versiones presentes en la copia de trabajo. Se utiliza a menudo de forma previa a la publicación de los contenidos.
+Importación ("import") 
+    Una importación es la acción de copia un árbol de directorios local (que no es en ese momento una copia de trabajo) en el repositorio por primera vez.
+Integración ("merge") 
+    Una integración une dos conjuntos de cambios sobre un fichero o un conjunto de ficheros en una revisión unificada de dicho fichero o ficheros.
+
+        * Esto puede suceder cuando un usuario, trabajando en esos ficheros, actualiza su copia local con los cambios realizados, y añadidos al repositorio, por otros usuarios. Análogamente, este mismo proceso puede ocurrir en el repositorio cuando un usuario intenta check-in sus cambios.
+        * Puede suceder después de que el código haya sido branched, y un problema anterior al branching sea arreglado en una rama, y se necesite incorporar dicho arreglo en la otra.
+        * Puede suceder después de que los ficheros hayan sido branched, desarrollados de forma independiente por un tiempo, y que entonces se haya requerido que fueran fundidos de nuevo en un único trunk unificado.
+
+Repositorio 
+    El repositorio es el lugar en el que se almacenan los datos actualizados e históricos, a menudo en un servidor. A veces se le denomina depósito o depot (e.g. with SVK, AccuRev and Perforce).
+Integración inversa 
+    El proceso de fundir ramas de diferentes equipos en el trunk principal del sistema de versiones.
+Revisión ("versión") 
+    Una revisión es una versión dentro de una cadena de cambios.
+Etiqueta ("tag", "release") 
+    Una etiqueta se refiere a una "toma" en el tiempo importante, consistente a lo largo de muchos ficheros. Estos ficheros en un instante del tiempo pueden ser colectivamente etiquetados con un nombre fácil de identificar por el usuario, con significado, o con un número de revisión.
+Resolver 
+    El acto de la intervención del usuario para atender un conflicto entre diferentes cambios al mismo documento.
+Actualización ("sync") 
+    Una actualización integra los cambios que han sido hechos en el repositorio (por ejemplo por otras personas) en la copia de trabajo local.
+Copia de trabajo 
+    La copia de trabajo es la copia local de los ficheros de un repositorio, en un momento del tiempo o revisión específicos. Todo el trabajo realizado sobre los ficheros en un repositorio se realiza inicialmente sobre una copia de trabajo, de ahí su nombre. Conceptualmente, es un cajón de arena o sandbox.
+Congelar 
+    congelar significa permitir los últimos cambios (commits) para solucionar las fallas a resolver en una entrega (release) y suspender cualquier otro cambio antes de una entrega, con el fin de obtener una version consistente. Si no se congela el repositorio, un desarrollador podría comenzar a resolver una falla cuya resolución no esta prevista y cuya solución dé lugar a efectos colaterales imprevistos. 
+
+
+
+
+
+http://es.wikipedia.org/wiki/Control_de_versiones
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+Revision control
+From Wikipedia, the free encyclopedia
+Jump to: navigation, search
+
+Revision control (also known as version control, source control or (source) code management (SCM)) is the management of multiple revisions of the same unit of information. It is most commonly used in engineering and software development to manage ongoing development of digital documents like application source code, art resources such as blueprints or electronic models and other critical information that may be worked on by a team of people. Changes to these documents are identified by incrementing an associated number or letter code, termed the "revision number", "revision level", or simply "revision" and associated historically with the person making the change. A simple form of revision control, for example, has the initial issue of a drawing assigned the revision number "1". When the first change is made, the revision number is incremented to "2" and so on.
+
+Software tools for revision control are increasingly recognized as being necessary for the organization of multi-developer projects. [1]
+Contents
+[hide]
+
+    * 1 Overview
+          o 1.1 Compression
+    * 2 Storage models
+          o 2.1 File locking
+          o 2.2 Version merging
+    * 3 Distributed revision control
+          o 3.1 Open Systems
+          o 3.2 Closed Systems
+    * 4 Integration
+    * 5 Common vocabulary
+    * 6 References
+    * 7 See also
+    * 8 External links
+
+[edit] Overview
+
+Engineering revision control developed from formalized processes based on tracking revisions of early blueprints or bluelines. Implicit in this control was the ability to return to any earlier state of the design, for cases in which an engineering dead-end was reached in the development of the design. Likewise, in computer software engineering, revision control is any practice that tracks and provides control over changes to source code. Software developers sometimes use revision control software to maintain documentation and configuration files as well as source code. Also, version control is widespread in business and law. Indeed, "contract redline" and "legal blackline" are some of the earliest forms of revision control, and are still employed with more or less sophistication. An entire industry has emerged to service the document revision control needs of business and other users, and some of the revision control technology employed in these circles is subtle, powerful, and innovative. The most sophisticated techniques are beginning to be used for the electronic tracking of changes to CAD files (see Product Data Management), supplanting the "manual" electronic implementation of traditional revision control.
+
+As software is designed, developed and deployed, it is extremely common for multiple versions of the same software to be deployed in different sites, and for the software's developers to be working simultaneously on updates. Bugs and other issues with software are often only present in certain versions (because of the fixing of some problems and the introduction of others as the program develops). Therefore, for the purposes of locating and fixing bugs, it is vitally important to be able to retrieve and run different versions of the software to determine in which version(s) the problem occurs. It may also be necessary to develop two versions of the software concurrently (for instance, where one version has bugs fixed, but no new features, while the other version is where new features are worked on).
+
+At the simplest level, developers could simply retain multiple copies of the different versions of the program, and number them appropriately. This simple approach has been used on many large software projects. While this method can work, it is inefficient as many near-identical copies of the program have to be maintained. This requires a lot of self-discipline on the part of developers, and often leads to mistakes. Consequently, systems to automate some or all of the revision control process have been developed.
+
+Moreover, in software development and other environments, including in legal and business practice, it is increasingly common for a single document or snippet of code to be edited by a team, the members of which may be geographically diverse and/or may pursue different and even contrary interests. Sophisticated revision control that tracks and accounts for ownership of changes to documents and code may be extremely helpful or even necessary in such situations.
+
+Another use for revision control is to track changes to configuration files, such as those typically stored in /etc or /usr/local/etc on Unix systems. This gives system administrators another way to easily track changes to configuration files and a way to roll back to earlier versions should the need arise.
+
+[edit] Compression
+
+Most revision control software can use delta compression, which retains only the differences between successive versions of files. This allows more efficient storage of many different versions of files.
+
+[edit] Storage models
+
+Traditional revision control systems use a centralized model, where all the revision control functions are performed on a shared server. If two developers try to change the same file at the same time, without some method of managing access the developers may end up overwriting each other's work. Centralized revision control systems solve this problem in one of 2 different "storage models": file locking and version merging.
+
+[edit] File locking
+
+The simplest method of preventing "concurrent access" problems is to lock files so that only one developer at a time has write access to the central "repository" copies of those files. Once one developer "checks out" a file, others can read that file, but no one else is allowed to change that file until that developer "checks in" the updated version (or cancels the checkout).
+
+File locking has merits and drawbacks. It can provide some protection against difficult merge conflicts when a user is making radical changes to many sections of a large file (or group of files). But if the files are left exclusively locked for too long, other developers can be tempted to simply bypass the revision control software and change the files locally anyway. That can lead to more serious problems.
+
+[edit] Version merging
+
+Most version control systems, such as CVS, allow multiple developers to be editing the same file at the same time. The first developer to "check in" changes to the central repository always succeeds. The system provides facilities to merge changes into the central repository, so the improvements from the first developer are preserved when the other programmers check in.
+
+The concept of a reserved edit can provide an optional means to explicitly lock a file for exclusive write access, even though a merging capability exists.
+
+[edit] Distributed revision control
+
+Distributed revision control takes a peer-to-peer approach, as opposed to the client-server approach of centralized systems. Rather than a single, central repository on which clients synchronize, each peer's working copy of the codebase is a bona-fide repository.[2] Synchronization is conducted by exchanging patches (change-sets) from peer to peer. This results in some striking differences from a centralized system:
+
+    * No canonical, reference copy of the codebase exists by default; only working copies.
+    * Common operations such as commits, viewing history, and reverting changes are fast, because there is no need to communicate with a central server.[3]
+    * Each working copy is effectively a remoted backup of the codebase and change history, providing natural security against data loss.[3]
+
+There are two types of distributed systems: open and closed. Open systems are tuned more to open-source development, and closed systems to traditional, single baseline, development.
+
+[edit] Open Systems
+
+An open system of distributed revision control is characterized by its support for independent branches, and its heavy reliance on merge operations. Its general characteristics are:
+
+    * Every working copy is effectively a branch.
+    * Each branch is actually implemented as a working copy, with merges conducted by ordinary patch exchange, from branch to branch.
+    * It may be possible to "cherry-pick" single changes, selectively pulling them from peer to peer.
+    * New peers can freely join, without applying for access to a server.
+
+One of the first open systems was BitKeeper, noteable for its use in the development of the Linux kernel. A later decision by the makers of BitKeeper to restrict its licensing led the Linux developers on a search for a free replacement[4]. Common open systems now in free use are:
+
+    * Bazaar
+    * Darcs
+    * Git
+    * Mercurial
+
+	
+
+    * Monotone
+    * SVK
+    * for a full list, see the comparison of revision control software
+
+[edit] Closed Systems
+
+A closed system of distributed revision control is based on a Replicated Database. A check-in is equivalent to a distributed commit. Successfull commits create a single baseline. An example of a closed distributed system is Code Co-op.
+
+[edit] Integration
+
+Some of the more advanced revision control tools offer many other facilities, allowing deeper integration with other tools and software engineering processes. Plugins are often available for IDEs such as IntelliJ IDEA, Eclipse and Visual Studio. NetBeans IDE comes with integrated version control support.
+
+[edit] Common vocabulary
+
+Terminology can vary from system to system, but here are some terms in common usage.[5][6]
+
+Baseline 
+    An approved revision of a document or source file from which subsequent changes can be made.
+Branch 
+    A set of files under version control may be branched or forked at a point in time so that, from that time forward, two copies of those files may be developed at different speeds or in different ways independently of the other.
+Check-out 
+    A check-out (or checkout or co) creates a local working copy from the repository. Either a specific revision is specified, or the latest is obtained.
+Commit 
+    A commit (check-in, ci or, more rarely, install or submit) occurs when a copy of the changes made to the working copy is written or merged into the repository.
+Conflict 
+    A conflict occurs when two changes are made by different parties to the same document, and the system is unable to reconcile the changes. A user must resolve the conflict by combining the changes, or by selecting one change in favour of the other.
+Change 
+    A change (or diff, or delta) represents a specific modification to a document under version control. The granularity of the modification considered a change varies between version control systems.
+Change list 
+    On many version control systems with atomic multi-change commits, a changelist, change set, or patch identifies the set of changes made in a single commit. This can also represent a sequential view of the source code, allowing source to be examined as of any particular changelist ID.
+Dynamic stream 
+    A stream (a data structure that implements a configuration of the elements in a particular repository) whose configuration changes over time, with new versions promoted from child workspaces and/or from other dynamic streams. It also inherits versions from its parent stream.
+Export 
+    An export is similar to a check-out except that it creates a clean directory tree without the version control metadata used in a working copy. Often used prior to publishing the contents.
+Head 
+    The most recent commit.
+Import 
+    An import is the action of copying a local directory tree (that is not currently a working copy) into the repository for the first time.
+Mainline 
+    Similar to Trunk, but there can be a Mainline for each branch.
+Merge 
+    A merge or integration brings together two sets of changes to a file or set of files into a unified revision of that file or files.
+
+        * This may happen when one user, working on those files, updates their working copy with changes made, and checked into the repository, by other users. Conversely, this same process may happen in the repository when a user tries to check-in their changes.
+        * It may happen after a set of files has been branched, then a problem that existed before the branching is fixed in one branch and this fix needs merging into the other.
+        * It may happen after files have been branched, developed independently for a while and then are required to be merged back into a single unified trunk.
+
+Repository 
+    The repository is where the current and historical file data is stored, often on a server. Sometimes also called a depot (e.g. with SVK, AccuRev and Perforce).
+Reverse integration 
+    The process of merging different team branches into the main trunk of the versioning system.
+Revision 
+    A revision or version is one version in a chain of changes.
+Tag 
+    A tag or release refers to an important snapshot in time, consistent across many files. These files at that point may all be tagged with a user-friendly, meaningful name or revision number.
+Trunk
+    The unique line of development that is not a branch (sometimes also called Baseline or Mainline)
+Resolve 
+    The act of user intervention to address a conflict between different changes to the same document.
+Update 
+    An update (or sync) merges changes that have been made in the repository (e.g. by other people) into the local working copy.
+Working copy
+    The working copy is the local copy of files from a repository, at a specific time or revision. All work done to the files in a repository is initially done on a working copy, hence the name. Conceptually, it is a sandbox.
+
+[edit] References
+
+   1. ^ Rapid Subversion Adoption Validates Enterprise Readiness and Challenges Traditional Software Configuration Management Leaders. EETimes (2007-5-17). Retrieved on 2007-6-1.
+   2. ^ Wheeler, David A.. Comments on Open Source Software / Free Software (OSS/FS) Software Configuration Management (SCM) Systems. Retrieved on 2007-05-08.
+   3. ^ a b O\u2019Sullivan, Bryan. Distributed revision control with Mercurial. Retrieved on 2007-07-13.
+   4. ^ "Bitmover ends free Bitkeeper, replacement sought for managing Linux kernel code", Wikinews, 2005-04-07. 
+   5. ^ Collins-Sussman, Ben; Fitzpatrick, B.W. and Pilato, C.M. (2004). Version Control with Subversion. O'Reilly. ISBN 0-596-00448-6. 
+   6. ^ Wingerd, Laura (2005). Practical Perforce. O'Reilly. ISBN 0-596-10185-6. 
+
+
+http://en.wikipedia.org/wiki/Revision_control
+

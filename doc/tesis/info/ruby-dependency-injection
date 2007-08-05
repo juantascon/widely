@@ -1,0 +1,28 @@
+Dependency injection
+From Wikipedia, the free encyclopedia
+Jump to: navigation, search
+
+Dependency injection (DI) is a programming architectural model, sometimes also referred to as inversion of control or IOC although, technically speaking, dependency injection specifically refers to an implementation of a particular form of IOC.
+Contents
+[hide]
+
+    * 1 Description
+    * 2 Existing frameworks
+    * 3 External links
+    * 4 References
+
+[edit] Description
+
+Dependency Injection describes the situation where one object uses a second object to provide a particular capacity. For example, being passed a database connection as an argument to the constructor instead of creating one internally.
+
+The term "Dependency injection" is a misnomer, since it is not a dependency that is injected, rather it is a provider of some capability or resource that is injected.
+
+The pattern seeks to establish a level of abstraction via a public interface, and to remove dependency on components by (for example) supplying a plug-in architecture. The architecture links the components rather than the components linking themselves or being linked together. Dependency injection is a pattern in which responsibility for object creation and object linking is removed from the objects themselves and transferred to a factory. Dependency injection therefore is inverting the control for object creation and linking, and can be seen to be a form of IoC.
+
+There are three common forms of dependency injection: setter-, constructor- and interface-based injection.
+
+Dependency injection is a way to achieve loose coupling. The technique results in highly testable objects, particularly when applying test-driven development using mock objects: Avoiding dependencies on the implementations of collaborating classes (by depending only on interfaces that those classes adhere to) makes it possible to produce controlled unit tests that focus on exercising the behavior of, and only of, the class under test. To achieve this, dependency injection is used to cause instances of the class under test to interact with mock collaborating objects, whereas, in production, dependency injection is used to set up associations with bona fide collaborating objects.
+
+
+
+http://en.wikipedia.org/wiki/Dependency_injection

@@ -1,0 +1,36 @@
+Type introspection
+From Wikipedia, the free encyclopedia
+(Redirected from Introspection (computer science))
+Jump to: navigation, search
+
+In computing, type introspection is a capability of some object-oriented programming languages to determine the type of an object at runtime. This is a notable capability of the Objective-C language, and is a common feature in any language that allows object classes to be manipulated as first-class objects by the programmer.
+
+In Objective-C, for example, both the generic Object and NSObject (in Cocoa/OpenStep) provide the method isMemberOfClass: which returns true if the argument to the method is an instance of the specified class. The method isKindOfClass: analogously returns true if the argument inherits from the specified class.
+
+For example, say we have a Puppy and Kitten class inheriting from Animal, and a Vet class.
+
+Now, in the desex method we can write
+
+- desex: (id) to_desex
+{
+   if([to_desex isKindOfClass:[Animal class]])
+   {
+      //we're actually desexing an Animal, so continue
+      if([to_desex isMemberOfClass:[Puppy class]])
+         desex_dog(to_desex);
+      else if([to_desex isMemberOfClass:[Kitten class]])
+         desex_cat(to_desex);
+      else
+         error();
+   }
+   else
+   {
+      error();
+   }
+}
+
+Now, when desex is called with a generic object (an id), the function will behave correctly depending on the type of the generic object.
+
+Type introspection can be used to implement polymorphism.
+
+http://en.wikipedia.org/wiki/Introspection_(computer_science)

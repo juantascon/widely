@@ -1,0 +1,56 @@
+Cross-Domain Ajax. Security Implications in Depth
+
+Some people think we should remove the "same-domain" restriction from Ajax calls, and Eric Pascarello and xml.com (amongst others) don't. I don't think we've got to the bottom of the debate yet.
+
+Eric has 2 points:
+
+    * "script kiddies", although he doesn't elaborate on how cross-domain XHR will help them
+    * and the problem of slow 3rd party websites, which proxying and caching can solve.
+
+So lets try to dig into this a bit.
+
+I can see 2 concrete security concerns with allowing cross-domain XHR: Resource theft and cross site scripting. Can anyone think of any others?
+Resource Theft
+
+Resource theft can happen when Jack Innocent visits the website of Evil Bob. Evil Bob has written some XHR code that repeatedly requests compute expensive pages from the site of Victim Inc. Thus Evil Bob gets to use Jack Innocent to do his nasty work.
+
+Sounds bad? In reality I think this is a bit of a non issue for 2 reasons - Firstly, Evil Bob can do this anyway using iframes - just create a hidden iframe with the resource expensive URL and secondly the referrer header will give him away.
+
+I think we know from experience with iframe, that cross-domain XHR won't be a huge resource theft issue.
+
+If the rest of the Internet was squeaky clean then resource theft might be an issue here, but frankly given the mess the Internet is in, stopping cross-domain XHR because of resource theft issues is like telling Sony BMG they should have a green background to XCP because people find green backgrounds less intimidating.
+Cross Site Scripting
+
+The second issue is cross-site scripting. Any time you let someone else add code to your pages you trust them to do anything that anyone can do using your web interface (remember Sammy).
+
+Who's scared of Google? Something else to worry about: Anyone using Google Analytics (like me) is trusting them with the keys to the interface to your website. Google could pull an XSS attack on anyone using Analytics.
+
+The same issue holds with cross-domain XHR, so unless you are very careful with how you do your XHR call you trust the 3rd party web site. In some cases this trust will be well placed in some cases it won't.
+
+Should we ban cross-domain XHR because of XSS attacks? I'm not sure, but be sure of this: there are plenty of ways to allow XSS attacks on your site without cross-domain XHR.
+Slow 3rd Party Web Sites
+
+Eric's second issue was:
+
+"What if your server is in the US, the client is in the US, and the remote service is in India. The request has to travel halfway around the world and back to retrieve the same information it could have had on its US server. You are talking increased time having to wait for information."
+
+Ajax brings you plenty of opportunities to shoot yourself in the foot. If I had a dollar for every time I heard someone argue, "Ajax means slow websites due to thousands of small requests" then I'd need to go to a bank because dollars are no use to me; I live in the UK. But I'd also be better off than I am now.
+
+If you design your website to use thousands of small requests then you are asking for trouble - so don't do it! Likewise if you design your website to depend on a slow resource then expect your website to be slow.
+
+Eric is right in saying that proxy caching is a great solution to this problem, but let's not ban cross-domain XHR because people can do silly things with it.
+Why Do People Want Cross-Domain XHR?
+
+Because it makes SOA happen in a way that it can't now. Currently if I think of a great mash-up, I will need a fancy server to make it happen, I have a lot of unnecessary extra coding, and when I get Digged or Slashdotted, I'm dead. With Cross-Domain XHR, all I need is Ajax and I'm all set. No server side computation required, no server side coding, no needing to make calls out of your server, life is a lot simpler and you have a much greater chance of surviving becoming famous.
+But
+
+To a certain extent the debate is mute - I doubt very much if Firefox 1.5 or IE7 are going to change their current behaviour. So let's not pretend this is a debate for now. Maybe in a year's time or so...
+
+Before you go thinking I'm all for cross-domain XHR, I'm not. Yet. The security implications of such an action needs to be thought out. Carefully. My only point is that I've yet to think of a reason why the worlds crackers are desperate to get their hands on cross domain XHR.
+
+So what security implications have I not thought of?
+
+
+
+
+http://getahead.org/dwr/ajax/cross-domain-xhr

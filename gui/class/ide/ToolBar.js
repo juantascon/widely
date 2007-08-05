@@ -12,7 +12,8 @@ qx.Class.define("ide.ToolBar",
 				type: "button", permanent: true,
 				label: "Browse (WebDav)",icon: "apps/system-file-manager",
 				execute: function(e){
-				
+					lib.ui.Msg.info(this, "if you are using konqueror(recommended)<br/> you can browse your webdav directory at:<br/>webdav://&lt;server&gt;/data/&lt;username&gt;");
+					
 				}, _this: this
 			},
 			{

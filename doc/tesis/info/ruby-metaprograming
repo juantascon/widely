@@ -1,0 +1,40 @@
+Metaprogramming
+From Wikipedia, the free encyclopedia
+Jump to: navigation, search
+This article is about the programming technique. For the management technique, see Metaprogramming (management).
+
+Metaprogramming is the writing of computer programs that write or manipulate other programs (or themselves) as their data or that do part of the work during compile time that is otherwise done at run time. In many cases, this allows programmers to get more done in the same amount of time as they would take to write all the code manually.
+
+The language in which the metaprogram is written is called the metalanguage. The language of the programs that are manipulated is called the object language. The ability of a programming language to be its own metalanguage is called reflexivity.
+
+Metaprogramming usually works through one of two ways. The first way is to expose the internals of the run-time engine to the programming code through application programming interfaces (APIs). The second approach is dynamic execution of string expressions that contain programming commands. Thus, "programs can write programs". Although both approaches can be used, most languages tend to lean toward one or the other.
+
+[edit] Examples of metaprogramming
+
+A simple example of a metaprogram is this bash script, which is an example of generative programming:
+
+#!/bin/bash
+# metaprogram
+echo '#!/bin/bash' >program
+for ((I=1; I<=992; I++)); do
+    echo "echo $I" >>program
+done
+chmod +x program
+
+This script (or program) generates a new 993 line program which prints out the numbers 1–992. This is only an illustration of how to use code to write more code, not the most efficient way to print out a list of numbers. Nonetheless, a good programmer can write and execute this metaprogram in just a couple of minutes, and will have generated exactly 1000 lines of code in that amount of time.
+
+Not all metaprogramming involves generative programming. If programs are modifiable at runtime (such as in Lisp, Python, Smalltalk, Ruby, PHP, Perl, and Tcl), then techniques can be used to perform metaprogramming without actually generating source code.
+
+The most common metaprogramming tool is a compiler which allows a programmer to write a relatively short program in a high-level language and uses it to write an equivalent assembly language or machine language program. This is a fundamental tool for programming since, in most cases, it is impossible or vastly impractical to write the machine language program directly.
+
+Another still fairly common example of metaprogramming might be found in the use of lex and yacc, two tools used to generate lexical analyzers and parsers. Yacc is often used as a compiler compiler, a tool to generate a tool for translating high-level language programs to machine language.
+
+A quine is a special kind of metaprogram that has its own source as its output.
+
+One style of programming which focuses heavily on metaprogramming is called language-oriented programming which is done via domain-specific programming languages.
+
+Reflection is a valuable language feature to facilitate metaprogramming. Having the programming language itself as a first-class data type (as in Lisp) is also very useful. Generic programming invokes a metaprogramming facility within a language, in those languages which support it.
+
+
+http://en.wikipedia.org/wiki/Metaprogramming
+

