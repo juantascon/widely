@@ -1,9 +1,146 @@
 \section{MARCO TEORICO}
 
 \subsection{CONCEPTOS}
+
 Reverse Proxy:
-Un Proxy Inverso es un servidor proxy usado comunmente como front-end de multiples servidores web
-y como es propio de un servidor proxy sin embargo de forma opuesta, retransmite las peticiones HTTP
-desde cualquier host (dependiendo de la configuracion
+
+Un Proxy Inverso es un servidor proxy usado comunmente como front-end (la parte visible)
+de uno o mas servidores, funciona de forma opuesta a un servidor proxy regular ya que
+retransmite las conexiones entrantes de internet hacia los servidores (back-ends).
+
+El proxy inverso puede lidiar el mismo con la peticion o simplemente retransmitirla de
+forma parcial o total hacia los servidores.
+
+Las principales caracteristicaas de un servidor proxy inverso son:
+
+\begin{itemize}
+	\item Cifrado de datos: el servidor inverso puede ser el encargado de realizar una
+	conexion cifrada (SSL) con las maquinas clientes en el caso en que los servidores
+	reales (back-ends) no puedan hacerlo o en el caso en que el proxy inverso disponga
+	de hardware de cifrado que acelere el proceso.
+	
+	\item Seguridad: el servidor proxy inverso es una capa de defensa adicional.
+	
+	\item Distribucion de carga: el servidor proxy inverso puede distribuir la carga
+	hacia los servidores reales (back-ends), cada uno puede disponer de una parte de
+	la informacion o simplemente distribuir la carga basado en la disponibilidad de los
+	servidores.
+	
+	\item Cache: el servidor proxy inverso puede disminuir la carga de los servidores
+	utilizando tecnicas de cache de contenido invariable.
+\end{itemize}
+
+Ruby:
+
+Ruby es un lenguaje de programacion orientada a objetos, interpretado, creado por
+Yukihiro "Matz" Matsumoto, que tiene sintaxis inspirada en varios lenguajes de programacion como perl, smalltalk, python, C, Lisp, entre otros.
+
+Las principales caracteristicas de Ruby son:
+
+* Orientado a Objetos: en ruby todos los datos son objetos, incluso las clases y los
+tipos de datos que en algunos lenguajes son manejados como datos primitivos
+(enteros, strings, etc), los valores con nombre(variables) siempre hacen referencia a
+los objetos, no son los objetos mismos
+
+Ruby soporta ademas herencia, polimorfismo, tipado dinamico, mixins (definiciones de
+metodos y variables agrupados que se pueden incluir en la definicion de clases y en los
+objetos), y metodos singletons(los metodos no solo son parte de las clases sino que
+ademas pueden pertenecer unicamente a un objeto)
+
+* Duck Typing: El termino Duck typing (tipado de pato) hace referencia a la prueba del
+pato (duck test) que dice que si un animal que camina como pato, nada como pato y grazna
+como pato, entonces se podria decir que ese animal es un pato.
+
+Es un principio de los lenguajes de programacion con tipado dinamico en donde el conjunto
+de metodos y propiedades de un objeto determina la semantica valida, en lugar de su 
+herencia de una clase o un tipo de dato en particular.
+
+Ejemplo:
+
+\begin{verbatim*}
+def concatenar(a, b)
+  unless a.respond_to?(:<<)
+    raise ArgumentError.new("'a' no soporta el método <<")
+  end
+  a << b
+end
+\end{verbatim*}
+
+* Instrospeccion: Instrospeccion de tipos es la capacidad de algunos lenguajes de
+programacion orientados a objetos que permite determinar el tipo de un objeto en tiempo
+de ejecucion.
+
+* Manejo de Excepciones: 
+* Iteradores y Closures(bloques): en ruby el llamado a metodos permite pasar un fragmento
+de codigo (bloque o closures) como parte de los parametros de entrada del metodo,
+permitiendo definir iteradores basados en estos bloques de codigo
+
+Ejemplo:
+
+\begin{verbatim*}
+['hola', 3, 'que mas'].each {|item| puts item}
+# => hola
+# => 3
+# => que mas
+\end{verbatim*}
+
+
+* Expresiones Regulares Nativas: ruby permite definicion de expresiones regulares nativas
+en el lenguaje de forma similar a como se hacen en perl, para mas claridad lo mejor es
+mirar un ejemplo
+
+Ejemplo:
+
+\begin{verbatim*}
+"archivo.png".match(/^[a-z]*.png/)[0]
+# => "archivo.png"
+\end{verbatim*}
+
+* Inyeccion de Dependencias: Inyeccion de dependencias describe una situacion en donde un
+objeto utiliza un segundo objeto para proveer una caracteristica particular, por ejemplo 
+pasando una conexion de base de datos como argumento en el constructor en lugar de crear
+uno internamente.
+
+El termino ``Inyeccion de Dependencias'' no se refiere realmente a una dependencia que es
+inyectada sino que es un proveedor de alguna caracteristica o recurso el que es
+inyectado.
+
+* Metaprogramacion: Metaprogramacion se refiere a programas de computadora que tienen
+la habilidad de escribir o manipular otros programas(incluso a ellos mismos). En muchos
+casos esto permite a los programadores hacer mas cosas en el mismo tiempo que hubiera
+tomado escribir el codigo de forma manual
+
+Ejemplo
+
+\begin{verbatim*}
+#! /usr/bin/env ruby
+# metaprograma
+file = File.new("./programa.rb", "w+")
+file.puts "#! /usr/bin/env ruby'
+[1..200].each { |n| file.puts "puts #{n}" }
+\end{verbatim*}
+
+Este programa genera 200 lineas de programa que muestran en pantalla los numeros desde
+el 0 hasta el 200.
+
+* Reflexion: reflexion es la capacidad de un programa de observar y modificar su estructura interna.
+
+Ejemplo:
+
+\begin{verbatim*}
+Object.methods
+# => ["inspect", "private_class_method", "const_missing", "clone", ... ]
+\end{verbatim*}
+
+* Continuaciones y generadores: 
+* Carga de objetos dinamicos(shared object/DLL): 
+* DRY(Don't Repeat Yourself): EL principio No te repitas, es una filosofía de definición de procesos que promueve la reducción de la duplicación.
+Según este principio ninguna pieza de información debería estar duplicada nunca debido a que la duplicación incrementa la dificultad en los cambios y evolución posterior, puede perjudicar la claridad y crea un espacio para posibles inconsistencias.
+
+Cuando el principio DRY se aplica de forma eficiente los cambios en cualquier parte del proceso requieren cambios en un único lugar. Por contra, si algunas partes del proceso está repertida por varios sitios, los cambios pueden provocar fallos con mayor facilidad si todos los sitios en los que aparece no se encuentran sincronizados.
+
+
+
+
 
 \subsection{ESTADO DEL ARTE}
