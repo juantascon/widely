@@ -1,8 +1,10 @@
 syntax: glob
 
-widely.kdevelop
-widely.kdevses
+*.kdevelop
+*.kdevses
+*.kilepr
 gui/script
 *.aux
 *.log
 *.dvi
+*.backup

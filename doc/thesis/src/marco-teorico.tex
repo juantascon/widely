@@ -4,141 +4,223 @@
 
 Reverse Proxy:
 
-Un Proxy Inverso es un servidor proxy usado comunmente como front-end (la parte visible)
-de uno o mas servidores, funciona de forma opuesta a un servidor proxy regular ya que
-retransmite las conexiones entrantes de internet hacia los servidores (back-ends).
+Un Proxy Inverso es un servidor proxy usado comunmente como front-end (la parte visible) de uno o mas servidores, funciona de forma opuesta a un servidor proxy regular ya que retransmite las conexiones entrantes de internet hacia los servidores (back-ends).
 
-El proxy inverso puede lidiar el mismo con la peticion o simplemente retransmitirla de
-forma parcial o total hacia los servidores.
+El proxy inverso puede lidiar el mismo con la peticion o simplemente retransmitirla de forma parcial o total hacia los servidores.
 
 Las principales caracteristicaas de un servidor proxy inverso son:
 
 \begin{itemize}
-	\item Cifrado de datos: el servidor inverso puede ser el encargado de realizar una
-	conexion cifrada (SSL) con las maquinas clientes en el caso en que los servidores
-	reales (back-ends) no puedan hacerlo o en el caso en que el proxy inverso disponga
-	de hardware de cifrado que acelere el proceso.
+	\item Cifrado de datos: el servidor inverso puede ser el encargado de realizar una conexion cifrada (SSL) con las maquinas clientes en el caso en que los servidores reales (back-ends) no puedan hacerlo o en el caso en que el proxy inverso disponga de hardware de cifrado que acelere el proceso.
 	
 	\item Seguridad: el servidor proxy inverso es una capa de defensa adicional.
 	
-	\item Distribucion de carga: el servidor proxy inverso puede distribuir la carga
-	hacia los servidores reales (back-ends), cada uno puede disponer de una parte de
-	la informacion o simplemente distribuir la carga basado en la disponibilidad de los
-	servidores.
+	\item Distribucion de carga: el servidor proxy inverso puede distribuir la carga	hacia los servidores reales (back-ends), cada uno puede disponer de una parte de la informacion o simplemente distribuir la carga basado en la disponibilidad de los servidores.
 	
-	\item Cache: el servidor proxy inverso puede disminuir la carga de los servidores
-	utilizando tecnicas de cache de contenido invariable.
+	\item Cache: el servidor proxy inverso puede disminuir la carga de los servidores utilizando tecnicas de cache de contenido invariable.
 \end{itemize}
 
 Ruby:
 
-Ruby es un lenguaje de programacion orientada a objetos, interpretado, creado por
-Yukihiro "Matz" Matsumoto, que tiene sintaxis inspirada en varios lenguajes de programacion como perl, smalltalk, python, C, Lisp, entre otros.
+Ruby es un lenguaje de programacion orientada a objetos, interpretado, creado por Yukihiro "Matz" Matsumoto, que tiene sintaxis inspirada en varios lenguajes de programacion como perl, smalltalk, python, C, Lisp, entre otros.
 
 Las principales caracteristicas de Ruby son:
 
-* Orientado a Objetos: en ruby todos los datos son objetos, incluso las clases y los
-tipos de datos que en algunos lenguajes son manejados como datos primitivos
-(enteros, strings, etc), los valores con nombre(variables) siempre hacen referencia a
-los objetos, no son los objetos mismos
+* Orientado a Objetos: en ruby todos los datos son objetos, incluso las clases y los tipos de datos que en algunos lenguajes son manejados como datos primitivos (enteros, strings, etc), los valores con nombre(variables) siempre hacen referencia a los objetos, no son los objetos mismos.
 
-Ruby soporta ademas herencia, polimorfismo, tipado dinamico, mixins (definiciones de
-metodos y variables agrupados que se pueden incluir en la definicion de clases y en los
-objetos), y metodos singletons(los metodos no solo son parte de las clases sino que
-ademas pueden pertenecer unicamente a un objeto)
+Ruby soporta ademas herencia, polimorfismo, tipado dinamico, mixins (definiciones de metodos y variables agrupados que se pueden incluir en la definicion de clases y en los objetos), y metodos singletons(los metodos no solo son parte de las clases sino que ademas pueden pertenecer unicamente a un objeto).
 
-* Duck Typing: El termino Duck typing (tipado de pato) hace referencia a la prueba del
-pato (duck test) que dice que si un animal que camina como pato, nada como pato y grazna
-como pato, entonces se podria decir que ese animal es un pato.
+* Duck Typing: El termino Duck typing (tipado de pato) hace referencia a la prueba del pato (duck test) que dice que si un animal que camina como pato, nada como pato y grazna como pato, entonces se podria decir que ese animal es un pato.
 
-Es un principio de los lenguajes de programacion con tipado dinamico en donde el conjunto
-de metodos y propiedades de un objeto determina la semantica valida, en lugar de su 
-herencia de una clase o un tipo de dato en particular.
+Es un principio de los lenguajes de programacion con tipado dinamico en donde el conjunto de metodos y propiedades de un objeto determina la semantica valida, en lugar de su herencia de una clase o un tipo de dato en particular.
 
 Ejemplo:
 
-\begin{verbatim*}
+\begin{verbatim}
 def concatenar(a, b)
   unless a.respond_to?(:<<)
     raise ArgumentError.new("'a' no soporta el método <<")
   end
   a << b
 end
-\end{verbatim*}
+\end{verbatim}
 
-* Instrospeccion: Instrospeccion de tipos es la capacidad de algunos lenguajes de
-programacion orientados a objetos que permite determinar el tipo de un objeto en tiempo
-de ejecucion.
+* Instrospeccion: Instrospeccion de tipos es la capacidad de algunos lenguajes de programacion orientados a objetos que permite determinar el tipo de un objeto en tiempo de ejecucion.
 
-* Manejo de Excepciones: 
-* Iteradores y Closures(bloques): en ruby el llamado a metodos permite pasar un fragmento
-de codigo (bloque o closures) como parte de los parametros de entrada del metodo,
-permitiendo definir iteradores basados en estos bloques de codigo
+* Iteradores y Closures(bloques): en ruby el llamado a metodos permite pasar un fragmento de codigo (bloque o closures) como parte de los parametros de entrada del metodo, permitiendo definir iteradores basados en estos bloques de codigo
 
 Ejemplo:
 
-\begin{verbatim*}
+\begin{verbatim}
 ['hola', 3, 'que mas'].each {|item| puts item}
 # => hola
 # => 3
 # => que mas
-\end{verbatim*}
+\end{verbatim}
 
 
-* Expresiones Regulares Nativas: ruby permite definicion de expresiones regulares nativas
-en el lenguaje de forma similar a como se hacen en perl, para mas claridad lo mejor es
-mirar un ejemplo
+* Expresiones Regulares Nativas: ruby permite definicion de expresiones regulares nativas en el lenguaje de forma similar a como se hacen en el lenguaje perl.
 
 Ejemplo:
 
-\begin{verbatim*}
+\begin{verbatim}
 "archivo.png".match(/^[a-z]*.png/)[0]
 # => "archivo.png"
-\end{verbatim*}
+\end{verbatim}
 
-* Inyeccion de Dependencias: Inyeccion de dependencias describe una situacion en donde un
-objeto utiliza un segundo objeto para proveer una caracteristica particular, por ejemplo 
-pasando una conexion de base de datos como argumento en el constructor en lugar de crear
-uno internamente.
+* Inyeccion de Dependencias: Inyeccion de dependencias describe una situacion en donde un objeto utiliza un segundo objeto para proveer una caracteristica particular, por ejemplo pasando una conexion de base de datos como argumento en el constructor en lugar de crear uno internamente.
 
-El termino ``Inyeccion de Dependencias'' no se refiere realmente a una dependencia que es
-inyectada sino que es un proveedor de alguna caracteristica o recurso el que es
-inyectado.
+El termino ``Inyeccion de Dependencias'' no se refiere realmente a una dependencia que es inyectada sino que es un proveedor de alguna caracteristica o recurso el que es inyectado.
 
-* Metaprogramacion: Metaprogramacion se refiere a programas de computadora que tienen
-la habilidad de escribir o manipular otros programas(incluso a ellos mismos). En muchos
-casos esto permite a los programadores hacer mas cosas en el mismo tiempo que hubiera
-tomado escribir el codigo de forma manual
+* Metaprogramacion: Metaprogramacion se refiere a programas de computadora que tienen la habilidad de escribir o manipular otros programas(incluso a ellos mismos). En muchos casos esto permite a los programadores hacer mas cosas en el mismo tiempo que hubiera tomado escribir el codigo de forma manual.
 
 Ejemplo
 
-\begin{verbatim*}
+\begin{verbatim}
 #! /usr/bin/env ruby
 # metaprograma
 file = File.new("./programa.rb", "w+")
 file.puts "#! /usr/bin/env ruby'
 [1..200].each { |n| file.puts "puts #{n}" }
-\end{verbatim*}
+\end{verbatim}
 
-Este programa genera 200 lineas de programa que muestran en pantalla los numeros desde
-el 0 hasta el 200.
+Este programa genera 200 lineas de programa que muestran en pantalla los numeros desde el 0 hasta el 200.
 
 * Reflexion: reflexion es la capacidad de un programa de observar y modificar su estructura interna.
 
 Ejemplo:
 
-\begin{verbatim*}
+\begin{verbatim}
 Object.methods
 # => ["inspect", "private_class_method", "const_missing", "clone", ... ]
-\end{verbatim*}
+\end{verbatim}
 
-* Continuaciones y generadores: 
-* Carga de objetos dinamicos(shared object/DLL): 
+* Continuaciones y generadores: Una continuacion es un objeto que representa un punto en el programa, permitiendo que sea posible regresar alli en cualquier momento, incluso en los casos en los que la ejecucion se encuentre en un ambito diferente(ej: dentro de un metodo).
+
 * DRY(Don't Repeat Yourself): EL principio No te repitas, es una filosofía de definición de procesos que promueve la reducción de la duplicación.
+
 Según este principio ninguna pieza de información debería estar duplicada nunca debido a que la duplicación incrementa la dificultad en los cambios y evolución posterior, puede perjudicar la claridad y crea un espacio para posibles inconsistencias.
 
 Cuando el principio DRY se aplica de forma eficiente los cambios en cualquier parte del proceso requieren cambios en un único lugar. Por contra, si algunas partes del proceso está repertida por varios sitios, los cambios pueden provocar fallos con mayor facilidad si todos los sitios en los que aparece no se encuentran sincronizados.
 
+
+WebDAV:
+
+WebDAV es una extension al protocolo HTTP 1.1 que permite realizar acciones de gestion de archivos tales como escribir, copiar, eliminar o modificar.
+
+El objetivo de WebDAV se define por su lema ``makes the Web Writable'' (hacer que la web sea escribible), hacer de la web un espacio de colaboracion, donde varias personas distintas puedan participar conjuntamente en la elaboracion de documentos.
+
+Algunas de las caracteristicas mas destacadas de webdav (aparte de proporcionar acceso a la escritura del documento via http) son el locking o posibilidad de cerrar dicho acceso de escritura, mecanismo imprescindible en un entorno de trabajo compartido, para evitar que el trabajo de un nuevo usuario sobreescriba al del anterior. La posibilidad de describir propiedades (metadatos) del documento en formato xml, como titulo, asunto, autor, fecha, tamaño, que aunque no aparecen en el documento proporcionan informacion sobre el mismo y pueden ser facilmente gestionados por el protocolo (permitiendo funciones de listado de datos, busqueda inteligente, etc).
+
+Con WebDav desaparecen las diferencias entre nuestro disco duro y el espacio web. Sera mucho mas practico para las empresas guardar sus documentos en servidores web desde donde podran asegurar su inmediata disponibilidad de forma segura. Cualquier usuario dotado del navegador adecuado podra establecer vinculos enlaces virtuales entre documentos.
+
+WebDAV añade los siguientes métodos a HTTP:
+
+    * PROPFIND - Usado para recuperar propiedades, almacenadas como XML, desde un recurso. También está sobrecargado para permitir recuperar la estructura de colección (la jerarquía de directorios) de un sistema remoto.
+    * PROPPATCH - Usado para cambiar y borrar múltiples propiedades de un recurso en una simple operación atómica(commit).
+    * MKCOL - Usado para crear colecciones (directorios)
+    * COPY - Usado para copiar un recurso desde un URI a otro.
+    * MOVE - Usado para mover un recurso desde un URI a otro.
+    * LOCK - Usado para bloquear (lock) un recurso.
+    * UNLOCK - Para desbloquear un recurso.
+
+Recurso es el nombre HTTP para una referencia que está apuntada por un Identificador de Recursos Uniforme o URI (Uniform Resource Identifier).
+
+El grupo de trabajo WebDAV esta todavía trabajando en unas cuantas extensiones a WebDAV, incluyendo: control de redirecciones, enlaces, límites de espacio en disco y mejoras en la especificación base para que alcance el nivel de madurez del resto de estándares de Internet.
+
+CIFS(Common Internet File System):
+
+CIFS (Systema de Archivos Comun de Internet) es un protocolo de red que permite compartir archivos e impresoras (entre otras cosas) entre nodos de una red.
+
+CIFS fue originalmente inventado por IBM con el nombre de SMB(Server Message Block), pero la versión más común hoy en día es la modificada ampliamente por Microsoft.
+
+Microsoft renombró SMB a Common Internet File System (CIFS) y añadió más características, que incluyen soporte para enlaces simbólicos, enlaces duros (hard links), y mayores tamaños de archivos.
+
+Samba es una implementación libre del protocolo CIFS que funciona en sistemas operativos Unix.
+
+Samba es realmente una implementacion de muchos servicios y muchos protocolos, entre los que están: NetBIOS sobre TCP/IP (NetBT), SMB (también conocido como CIFS), DCE/RPC o más concretamente, MSRPC, el servidor WINS también conocido como el servidor de nombres NetBIOS (NBNS), la suite de protocolos del dominio NT, con su Logon de entrada a dominio, la base de datos del gestor de cuentas seguras (SAM), el servicio Local Security Authority (LSA), el servicio de impresoras de NT. Todos estos servicios y protocolos son frecuentemente referidos de un modo incorrecto como NetBIOS o SMB.
+
+SOA (Service Oriented Arquitecture)
+
+SOA (Arquitectura Orientada a Servicios) es una evolucion de la computacion distribuida, SOA provee modularidad en la logica de negocios que puede ser representada como servicios para los clientes, estos servicios tienen bajo acoplamiento, en el sentido en que la interfaz de usuario(GUI) puede permanecer totalmente independiente de la capa de servicio.
+
+OASIS (Organization for the Advancement of Structured Information Standards) define SOA de la siguiente manera:
+
+Es un paradigma para organizar y utilizar caracteristicas distribuiodas que pueden estar bajo el control de dominios diferentes. Provee un significado uniforme para ofrecer, descubrir interactuar y utilizar estas caracteristicas para producir los efectos deseados con precondiciones y expectativas medibles 
+
+JSON(JavaScript Object Notation):
+
+JSON (Notacion de Objecto en JavaScript) es un formato liviano de intercambio de datos, es mas sencillo de leer y escribir para los humanos, ademas es facil para una maquina analizarlo y generarlo, esta basado en un subconjunto del lenguaje de programacion JavaScript Standard ECMA-262 3rd Edition - December 1999.
+
+JSON es un formato de texto que es completamente independiente del lengujae pero utiliza convenciones familiares para los programadores que hayan utilizado lenguajes derivados del lenguaje C (C, C++, C\#, Java, Python, etc)
+
+Por estas razones JSON se convierte en un lenguaje ideal para el intercambio de datos.
+
+JSON es construido en dos estructuras:
+
+* Una coleccion con pares nombre/valor, en varios leguajes esto es visto como un objeto, una estructura, un diccionario, una tabla hash, etc.
+* Una Lista ordenada de valores, en varios lenguajes esto es visto como un array, un vector, una lista, etc.
+
+Estas son estructuras de datos universales y gracias a que todos los lenguajes modernos las soportan de una forma u otra, tiene sentido que estas estructuras de datos que son intercambiable entre los lenguajes se utilizen como intercambio de datos.
+
+Por el hecho de que la mayoria de texto en formato JSON tienen una sintaxis valida en JavaScript, surge una forma para que un programa JavaScript analize datos en este formato utilizando la funcion built-in de JavaScript eval(), en este caso en lugar de utilizar un analizador especifico de JSON es el propio lenguaje el que se encarga de interpretar y ejecutar los datos para producir objetos nativos de JavaScript 
+
+El uso de esta tecnica puede ser segura siempre y cuando todo el entorno (los datos JSON y el programa JavaScript) esta bajo el control de una fuente confiable y unica, sin embargo en el ambiente de un servidor web esta confianza de que todo provenga de una unica fuente no se da, abriendo el paso a posibles fallos de seguridad.
+
+
+Ejemplo:
+
+Una lista de personas en JSON
+
+[
+ { ``nombre'': ``Juan'', ``apellido'': ``Tascon'', ``codigo'': ``0233680'' },
+ { ``nombre'': ``Diego'', ``apellido'': ``Tascon'', ``codigo'': ``0233681'' },
+ { ``nombre'': ``Jose'', ``apellido'': ``Vidarte'', ``codigo'': ``0533282'' }
+]
+
+
+CGI(Common Gateway Interface) - FCGI(Fast CGI:
+
+CGI(Interfaz de salida comun) es un protocolo estandar para enlazar aplicaciones externas con un servidor de informacion (generalmente un servidor web), esto permite al servidor pasar las peticiones del cliente hacia la aplicacion externa, en este caso el servidor puede retornar la salida de la aplicacion hacia el cliente.
+
+
+A pesar de que es muy sencillo modificar un programa para que sea funcional con CGI, surge un inconveniente y es que CGI necesita una copia completa de la ejecucion del programa (un proceso) para cada peticion CGI, es por esto que la carga de trabajo se incrementa rapidamente en el servidor, como solucion han surgido tecnicas mas eficientes como incluir un interprete del lenguaje a utilizar como un modulo del servidor (por ejemplo mod\_php en apache) y otro menos utilizado pero no por eso menos eficiente FastCGI.
+
+
+FastCGI surge como respuesta a la perdida de eficiencia que se genera al utilizar CGI, FastCGI en lugar de crear un proceso por cada peticion, permite utilizar un unico proceso persistente que maneje varias peticiones durante su ciclo de ejecucion.
+
+
+Control de Versiones:
+
+Control de versiones se refiere al proceso de administrar multiples revisiones de la misma unidad de informacion, es utilizada con mayor frecuencia en el desarrollo de software.
+Debido a la naturaleza del desarrollo de software de multiples programadores trabajando sobre multiples archivos simultaneamente, surge la necesidad de llevar un control sobre quien, en que momento y los mas importante cuales cambios se hacen sobre los archivos de codigo fuente.
+
+
+Sistema de Control de Versiones:
+
+Un sistema de control de versiones permite gestionar las versiones de todos los items de configuracion que forman la linea base de un producto o una configuracion del mismo. Este tipo de sistemas facilitan la administracion de las distintas versiones de cada producto desarrollado junto a las posibles especializaciones realizadas para algun cliente especifico.
+
+Los sistemas de control de versiones son utilizados principalmente en la industria del software para controlar las distintas versiones del codigo fuente, Sin embargo, los mismos conceptos son aplicables en otros ambitos y no solo para codigo fuente sino para documentos en general, imagenes, etc.
+
+Aunque un sistema de control de versiones puede realizarse de forma manual, es muy aconsejable disponer de herramientas que faciliten esta gestion entre las mas populares se encuentran:
+
+* CVS
+* SubVersion (SVN)
+* GIT
+* Darcs
+* BitKeeper
+* Mercurial (HG)
+* Source Safe
+
+Algunos sistemas de control de versiones utilizan un modelo de trabajo centralizado en donde todas las funciones de control son realizadas en un servidor compartido, si dos desarrolladores tratan de cambiar el mismo archivo al mismo tiempo sin un metodo de control del acceso los desarrolladores podrian terminar sobre escribiendo el trabajo del otro, es por esto que los sistemas de control centralizados resuelven este problema utilizando 2 tecnicas de modelo de almacenamiento:
+
+* Bloqueo de archivos: el bloqueo de archivos permite a un usuario impedir que otros obtengan y modifiquen una copia de una unidad de informacion determinada, asegurando asi la integridad de los datos.
+
+* Fusion de Versiones: algunos sistemas de control de versiones permiten que varios desarrolladores trabajen sobre una unidad de informacion al mismo tiempo, esto hace que el primer desarrollador en enviar los cambios no tenga ningun problema, sin embargo debe proveerse facilidades para que los subsiguientes cambios no eliminen los cambios enviados por el primer desarrollador.
+
+El otro tipo de sistema de control de versiones son los sistemas distribuidos, en los cuales existe una aproximacion uno a uno contraria a la aproximacion cliente-servidor de los sistemas centralizados, en lugar de que la informacion se centre en un unico repositorio en donde los clientes se sincronizan, cada desarrollador posee una copia del repositorio de codigo.
+
+En estos sistemas la sincronizacion es conducida por el intercambio de parches (conjuntos de cambios) entre los desarrolladores esto demuestra a una clara diferencia con los sistemas centralizados
 
 
 
