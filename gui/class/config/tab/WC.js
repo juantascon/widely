@@ -1,3 +1,7 @@
+/*
+ * Tab Para la administracion de los copias de trabajo del usuario
+ *
+ */
 qx.Class.define("config.tab.WC",
 {
 	extend: lib.ui.PageViewTab,
@@ -6,6 +10,7 @@ qx.Class.define("config.tab.WC",
 	
 	properties:
 	{
+		// La lista de copias de trabajo
 		editablelistview: { check: "lib.ui.EditableListView" }
 	},
 	
@@ -37,6 +42,8 @@ qx.Class.define("config.tab.WC",
 		} ));
 		
 		with (this.getEditablelistview()) {
+			
+			// Cargar una copia de trabajo
 			addEventListener("load", function(e){
 				var wrq = this.wc_list();
 				wrq.addEventListener("ok", function(e){
@@ -47,13 +54,21 @@ qx.Class.define("config.tab.WC",
 			}, this);
 			createDispatchEvent("load");
 			
+			// Crear una copia de trabajo
 			addEventListener("add", function(e) {
+				// Se llama a la forma encargada del proceso de creacion de repositorios
 				var form = new lib.form.NewWC();
+				
 				form.run(this, function(e) {
 					this.createDispatchEvent("load");
 				}, this);
 			}, this.getEditablelistview());
 			
+			/*
+			 * Cuando se debe eliminar una copia de trabajo tambien se borran todas
+			 * los archivos de la copia de trabajo
+			 *
+			 */
 			addEventListener("delete", function(e) {
 				var wc_name = this.getEditablelistview().selected("name");
 				
@@ -75,6 +90,12 @@ qx.Class.define("config.tab.WC",
 	
 	members:
 	{
+		/*
+		 * Carga la lista de copias de trabajo
+		 *
+		 * data: los datos de las copias de trabajo
+		 *
+		 */
 		load_list: function(data){
 			while(this.getEditablelistview().getListview().getData().pop());
 			

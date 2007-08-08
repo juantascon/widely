@@ -1,3 +1,7 @@
+/*
+ * Esta forma permite crear una copia de trabajo nueva
+ *
+ */
 qx.Class.define("lib.form.NewWC",
 {
 	extend: qx.ui.groupbox.GroupBox,
@@ -7,8 +11,11 @@ qx.Class.define("lib.form.NewWC",
 	properties:
 	{
 		grid: { check: "qx.ui.layout.GridLayout" },
+		// El nombre de la copia de trabajo
 		name_i: { check: "qx.ui.form.TextField" },
+		// El manejador de la copia de trabajo
 		manager_i: { check: "qx.ui.form.ComboBoxEx" },
+		// El repositorio de la copia de trabajo
 		repo_i: { check: "qx.ui.form.ComboBoxEx" }
 	},
 	
@@ -39,6 +46,14 @@ qx.Class.define("lib.form.NewWC",
 	
 	members:
 	{
+		/*
+		 * Ejecuta la forma dentro de un dialogo
+		 *
+		 * pmodal: el padre del dialogo
+		 * callback: la funcion a ejecutar cuando se haya creado la copia de trabajo
+		 * _this: el objeto this del callback
+		 *
+		 */
 		run: function(pmodal, callback, _this){
 			var d = this.create_dialog(pmodal, "New User");
 			d.getOK().setEnabled(false);
@@ -54,6 +69,11 @@ qx.Class.define("lib.form.NewWC",
 				
 			}, this);
 			
+			/*
+			 * El boton aceptar de la forma debe permanecer desactivado hasta
+			 * que se hayan cargado los posibles valores para el repositorio
+			 *
+			 */
 			this.getRepo_i().addEventListener("changeValue", function(e) {
 				d.getOK().setEnabled(true);
 			});

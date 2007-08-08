@@ -1,3 +1,8 @@
+/*
+ * La vista principal para la administracion
+ * de la configuracion del usuario
+ *
+ */
 qx.Class.define("config.ConfigView",
 {
 	extend: qx.ui.pageview.buttonview.ButtonView,
@@ -18,6 +23,12 @@ qx.Class.define("config.ConfigView",
 	
 	members:
 	{
+		/*
+		 * Adiciona un tab a la vista
+		 *
+		 * tab: el tab a adicionar
+		 *
+		 */
 		add_tab: function(tab){
 			this.getTabs().add(tab);
 			this.getBar().add(tab.getButton());

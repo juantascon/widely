@@ -1,3 +1,9 @@
+/*
+ * API de repo en el lado cliente
+ *
+ * para mas informacion consultar server/webservices/repo
+ *
+ */
 qx.Mixin.define("lib.dao.api.Repo",
 {
 	members:

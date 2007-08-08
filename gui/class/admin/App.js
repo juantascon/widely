@@ -1,3 +1,8 @@
+/*
+ * La aplicacion para la administracion del servidor
+ * y los usuarios
+ *
+ */
 qx.Class.define("admin.App",
 {
 	extend: lib.WApp,

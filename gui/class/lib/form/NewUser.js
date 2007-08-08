@@ -1,3 +1,7 @@
+/*
+ * Esta forma permite crear un usuario nuevo
+ *
+ */
 qx.Class.define("lib.form.NewUser",
 {
 	extend: qx.ui.groupbox.GroupBox,
@@ -7,7 +11,9 @@ qx.Class.define("lib.form.NewUser",
 	properties:
 	{
 		grid: { check: "qx.ui.layout.GridLayout" },
+		// El nombre del usuario
 		name_i: { check: "qx.ui.form.TextField" },
+		// La clave del usuario
 		password_i: { check: "qx.ui.form.PasswordField" }
 	},
 	
@@ -29,6 +35,14 @@ qx.Class.define("lib.form.NewUser",
 	
 	members:
 	{
+		/*
+		 * Ejecuta la forma dentro de un dialogo
+		 *
+		 * pmodal: el padre del dialogo
+		 * callback: la funcion a ejecutar cuando se haya creado el usuario
+		 * _this: el objeto this del callback
+		 *
+		 */
 		run: function(pmodal, callback, _this){
 			var d = this.create_dialog(pmodal, "New User");
 			

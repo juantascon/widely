@@ -1,3 +1,8 @@
+/*
+ * El tab para la administracion de los datos del servidor
+ * actualmente unicamente permite cambiar la clave del administrador
+ *
+ */
 qx.Class.define("admin.tab.System",
 {
 	extend: lib.ui.PageViewTab,
@@ -6,7 +11,9 @@ qx.Class.define("admin.tab.System",
 	
 	properties:
 	{
+		// El boton para guardar los cambios
 		save: { check: "qx.ui.form.Button" },
+		// La forma para cambiar la clave del administrador
 		changepassword: { check: "lib.form.ChangePassword" }
 	},
 	

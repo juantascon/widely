@@ -1,3 +1,7 @@
+/*
+ * La aplicacion IDE
+ *
+ */
 qx.Class.define("ide.App",
 {
 	extend: lib.WApp,
@@ -29,18 +33,30 @@ qx.Class.define("ide.App",
 			this.rset_wc();
 		},
 		
+		/*
+		 * De forma recursiva pregunta por la copia de trabajo actual
+		 *
+		 */
 		rset_wc: function() {
 			var dialog = this.set_wc();
 		},
 		
+		/*
+		 * De pregunta por la copia de trabajo actual por medio de
+		 * un cuadro de dialogo
+		 *
+		 */
 		set_wc: function() {
+			// Utiliza la forma encargada de preguntar por la copia de trabajo
 			var form = new lib.form.SelectWC()
 			
 			var dialog = form.run(global.mainframe);
 			
 			dialog.addEventListener("ok", function(e) {
+				// Envia la peticion al servidor
 				var set_wc_rq = this.auth_set_wc(form.selected("name"));
 				set_wc_rq.addEventListener("ok", function(e){
+					// Carga los datos de la lista de versiones
 					global.selectorview.getVersionstable().load();
 				});
 			}, this);

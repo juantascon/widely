@@ -1,3 +1,9 @@
+/*
+ * API de wc auth el lado cliente
+ *
+ * para mas informacion consultar server/webservices/auth
+ *
+ */
 qx.Mixin.define("lib.dao.api.Auth",
 {
 	members:

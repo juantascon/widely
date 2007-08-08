@@ -1,3 +1,7 @@
+/*
+ * Esta Forma permite cambiar una contraseña de usuario
+ *
+ */
 qx.Class.define("lib.form.ChangePassword",
 {
 	extend: qx.ui.layout.VerticalBoxLayout,
@@ -6,8 +10,11 @@ qx.Class.define("lib.form.ChangePassword",
 	
 	properties:
 	{
+		// La clave antigua
 		passwordold: { check: "lib.ui.AtomField" },
+		// La clave nueva
 		passwordnew1: { check: "lib.ui.AtomField" },
+		// Repetir la clave nueva
 		passwordnew2: { check: "lib.ui.AtomField" }
 	},
 	
@@ -33,18 +40,27 @@ qx.Class.define("lib.form.ChangePassword",
 	
 	members:
 	{
+		// Retorna el valor ingresado como clave antigua
 		pold: function() {
 			return this.getPasswordold().getField().getComputedValue();
 		},
 		
+		// Retorna el valor ingresado como clave nueva
 		pnew1: function() {
 			return this.getPasswordnew1().getField().getComputedValue();
 		},
 		
+		// Retorna el valor ingresado como repeticion de la clave nueva
 		pnew2: function() {
 			return this.getPasswordnew2().getField().getComputedValue();
 		},
 		
+		/*
+		 * Hace las siguientes comprobaciones en las claves
+		 * 1. que la clave nueva sea igual a su repeticion
+		 * 2. que el tamaño de la clave nueva sea mayor a 3
+		 *
+		 */
 		check_passwords: function() {
 			if ( this.pnew1() == this.pnew2() ) {
 				if (this.pnew1().length > 3) {
@@ -59,6 +75,10 @@ qx.Class.define("lib.form.ChangePassword",
 			return false;
 		},
 		
+		/*
+		 * Envia la peticion al servidor para cambiar la clave
+		 *
+		 */
 		change_password: function() {
 			if (this.check_passwords()) {
 				var ch_rq = this.auth_change_password(this.pold(), this.pnew1());

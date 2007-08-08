@@ -1,11 +1,20 @@
+/*
+ * Una lista de valores unido con un toolbar
+ * que permite la edicion de los valores(agregar, borrar)
+ * y la actualizacion de los datos desde el servidor
+ *
+ */
 qx.Class.define("lib.ui.EditableListView",
 {
 	extend: qx.ui.layout.GridLayout,
 	
 	events:
 	{
+		// Cuando se deben (re)cargar los datos
 		"load": "qx.event.type.Event",
+		// Cuando se debe adicionar un dato
 		"add": "qx.event.type.Event",
+		// Cuando se debe borrar un dato
 		"delete": "qx.event.type.Event"
 	},
 	
@@ -15,6 +24,9 @@ qx.Class.define("lib.ui.EditableListView",
 		listview: { check: "qx.ui.listview.ListView" }
 	},
 	
+	/*
+	 * header: las cabezeras de la lista de valores
+	 */
 	construct: function (header) {
 		this.base(arguments);
 		
@@ -22,6 +34,12 @@ qx.Class.define("lib.ui.EditableListView",
 		with (this.getListview()) {
 			set({left: 0, top: 0, height: "100%", width: "100%"});
 			
+			/*
+			 * inicialmente el toolbar esta en modo solo lectura
+			 * si se selecciona algun valor de la lista se debe activar
+			 * desactivar
+			 *
+			 */
 			getPane().getManager().addEventListener("changeSelection", function(e) {
 				this.getToolbar().set_mode_ro(false);
 			}, this);
@@ -68,6 +86,12 @@ qx.Class.define("lib.ui.EditableListView",
 	
 	members:
 	{
+		/*
+		 * Retorna el valor de un campo del elemento de la lista de valores
+		 * seleccionado.
+		 *
+		 * field: el nombre del campo del elemento
+		 */
 		selected: function(field) {
 			var item = this.getListview().getPane().getSelectedItem();
 			if ( qx.util.Validation.isValid(item) &&

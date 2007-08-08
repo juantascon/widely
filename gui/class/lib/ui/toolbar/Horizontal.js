@@ -1,9 +1,16 @@
+/*
+ * ToolBar en modo Horizontal
+ */
 qx.Class.define("lib.ui.toolbar.Horizontal",
 {
 	extend: qx.ui.toolbar.ToolBar,
 	
 	include: lib.ui.toolbar.ToolBar,
 	
+	/*
+	 * iconsize: el tamaño de los iconos
+	 *
+	 */
 	construct: function(iconsize) {
 		this.base(arguments);
 		
@@ -13,6 +20,12 @@ qx.Class.define("lib.ui.toolbar.Horizontal",
 	
 	members:
 	{
+		/*
+		 * Adiciona un grupo de botones (part) al toolbar
+		 *
+		 * button_list: la lista de botones, un array de hashs con la informacion de los botones
+		 *
+		 */
 		add_part: function(button_list) {
 			var part = new qx.ui.toolbar.Part();
 			

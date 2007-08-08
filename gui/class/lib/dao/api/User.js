@@ -1,3 +1,9 @@
+/*
+ * API de user en el lado cliente
+ *
+ * para mas informacion consultar server/webservices/user
+ *
+ */
 qx.Mixin.define("lib.dao.api.User",
 {
 	members:

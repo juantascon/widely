@@ -1,10 +1,16 @@
+/*
+ * La vista de edicion de archivos
+ *
+ */
 qx.Class.define("ide.editor.EditorView",
 {
 	extend: qx.ui.layout.VerticalBoxLayout,
 	
 	properties:
 	{
+		// La vista de tabs
 		tabview: { check: "ide.editor.TabView" },
+		// la barra de herramientas
 		toolbar: { check: "ide.editor.ToolBar" }
 	},
 	

@@ -1,3 +1,7 @@
+/*
+ * La vista principal que permite a los usuarios ingresar al sistema
+ *
+ */
 qx.Class.define("login.LoginView",
 {
 	extend: qx.ui.layout.CanvasLayout,
@@ -5,13 +9,18 @@ qx.Class.define("login.LoginView",
 	properties:
 	{
 		panel: { check: "qx.ui.layout.VerticalBoxLayout" },
+		// El nombre del usuario
 		username: { check: "qx.ui.form.TextField" },
 		usernamef: { check: "lib.ui.AtomField" },
 		
+		// La clave del usuario
 		password: { check: "qx.ui.form.PasswordField" },
 		passwordf: { check: "lib.ui.AtomField" },
 		
+		// Un checkbox que indica si es el admin quien va a ingresar
 		admincheck: { check: "qx.ui.form.CheckBox" },
+		
+		// El boton de Login
 		loginbutton: { check: "login.LoginButton" }
 	},
 	
@@ -63,6 +72,12 @@ qx.Class.define("login.LoginView",
 	
 	members:
 	{
+		/*
+		 * Crea una grilla y ubica esta vista centrada dentro de
+		 * ella
+		 *
+		 */
+		
 		center_on_grid: function(){
 			var grid = new qx.ui.layout.GridLayout();
 			with(grid) {

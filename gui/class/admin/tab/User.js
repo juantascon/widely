@@ -1,3 +1,8 @@
+/*
+ * El tab para administrar los usuarios
+ * permite la creacion adicion y modificacion de los  usuario
+ *
+ */
 qx.Class.define("admin.tab.User",
 {
 	extend: lib.ui.PageViewTab,
@@ -7,6 +12,7 @@ qx.Class.define("admin.tab.User",
 	
 	properties:
 	{
+		// La lista de los usuario
 		editablelistview: { check: "lib.ui.EditableListView" }
 	},
 	
@@ -26,6 +32,7 @@ qx.Class.define("admin.tab.User",
 		} ));
 		
 		with (this.getEditablelistview()) {
+			// Cargar la lista de usuarios
 			addEventListener("load", function(e){
 				var list_rq = this.user_list();
 				list_rq.addEventListener("ok", function(e){
@@ -36,6 +43,7 @@ qx.Class.define("admin.tab.User",
 			}, this);
 			createDispatchEvent("load");
 			
+			// Agregar un usuario
 			addEventListener("add", function(e) {
 				var form = new lib.form.NewUser();
 				form.run(this, function(e) {
@@ -43,6 +51,7 @@ qx.Class.define("admin.tab.User",
 				}, this);
 			}, this.getEditablelistview());
 			
+			// Eliminar un usuario
 			addEventListener("delete", function(e) {
 				var user_id = this.getEditablelistview().selected("user_id");
 				
@@ -58,15 +67,25 @@ qx.Class.define("admin.tab.User",
 			}, this);
 		}
 		
+		/*
+		 * Adiciona un boton en la barra de herramientas de la lista de
+		 * usuarios que permite editar las opciones de un usuario
+		 *
+		 */
 		with(this.getEditablelistview().getToolbar()) {
 			add_button("Edit User Config", "actions/edit", false, function(e) {
 				var user_id = this.getEditablelistview().selected("user_id");
 				
+				// Hace una peticion de una session para el usuario seleccionado
 				var user_session_rq = this.auth_user_session(user_id);
 				user_session_rq.addEventListener("ok", function(e) {
 					var session_id = e.getData();
+					
+					// Guarda la session para entrar en la configuracion del usuario
 					lib.dao.Cookie.set_session_id("config", session_id);
 					this.debug(user_id);
+					
+					// Abre una nueva ventana con la configuracion del usuario
 					var config_window = new qx.client.NativeWindow("./config.html");
 					config_window.open();
 				}, this);
@@ -81,6 +100,12 @@ qx.Class.define("admin.tab.User",
 	
 	members:
 	{
+		/*
+		 * Carga la lista de usuarios
+		 *
+		 * data: los datos de los usuarios
+		 *
+		 */
 		load_list: function(data){
 			while(this.getEditablelistview().getListview().getData().pop());
 			

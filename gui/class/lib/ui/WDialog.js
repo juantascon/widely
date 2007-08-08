@@ -1,10 +1,18 @@
+/*
+ * Dialog que no permite moverse, bloqueante (modal) con 2 botones para
+ * cancelar y aceptar, el diaglo ademas esta centrado en la pantalla del
+ * navegador
+ *
+ */
 qx.Class.define("lib.ui.WDialog",
 {
 	extend: qx.ui.window.Window,
 	
 	events:
 	{
+		// Cuando presionan el boton OK
 		"ok": "qx.event.type.Event",
+		// Cuando presionan el boton Cancelar
 		"cancel": "qx.event.type.Event"
 	},
 	
@@ -12,10 +20,18 @@ qx.Class.define("lib.ui.WDialog",
 	{
 		OK: { check: "qx.ui.form.Button" },
 		CANCEL: { check: "qx.ui.form.Button" },
+		// El contenido del dialogo
 		content: { check: "qx.ui.core.Widget" },
+		// El padre a ser bloqueado
 		pmodal: { check: "qx.ui.core.Widget" }
 	},
 	
+	/*
+	 * pmodal: el padre del dialogo, sera bloqueado
+	 * title: el titulo del dialogo
+	 * content: el contenido del dialogo
+	 *
+	 */
 	construct: function (pmodal, title, content) {
 		this.base(arguments, title, "icon/16/actions/system-run.png");
 		
@@ -76,6 +92,11 @@ qx.Class.define("lib.ui.WDialog",
 	
 	members:
 	{
+		/*
+		 * Inicia el dialog agregandolo al DOM y bloqueando al
+		 * padre
+		 *
+		 */
 		start: function() {
 			with(this) {
 				addToDocument();
@@ -84,6 +105,11 @@ qx.Class.define("lib.ui.WDialog",
 			}
 		},
 		
+		/*
+		 * Detiene el dialog quitandolo del DOM y desbloqueando al
+		 * padre
+		 *
+		 */
 		stop: function() {
 			with(this) {
 				close();

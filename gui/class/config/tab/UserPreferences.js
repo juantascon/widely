@@ -1,3 +1,8 @@
+/*
+ * El tab con las preferencias del usuario
+ * actualmente unicamente permite cambiar la clave del usuario
+ *
+ */
 qx.Class.define("config.tab.UserPreferences",
 {
 	extend: lib.ui.PageViewTab,
@@ -6,7 +11,9 @@ qx.Class.define("config.tab.UserPreferences",
 	
 	properties:
 	{
+		// El boton de guardar los cambios
 		save: { check: "qx.ui.form.Button" },
+		// La forma para cambiar la clave del usuario
 		changepassword: { check: "lib.form.ChangePassword" }
 	},
 	

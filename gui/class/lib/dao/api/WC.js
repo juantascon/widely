@@ -1,3 +1,9 @@
+/*
+ * API de wc en el lado cliente
+ *
+ * para mas informacion consultar server/webservices/wc
+ *
+ */
 qx.Mixin.define("lib.dao.api.WC",
 {
 	members:

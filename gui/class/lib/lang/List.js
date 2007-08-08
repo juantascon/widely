@@ -3,7 +3,6 @@
  * El primer y ultimo elemento son comodines que se enlazan entre si
  *
  */
-
 qx.Class.define("lib.lang.List",
 {
 	extend: qx.core.Object,
@@ -11,12 +10,23 @@ qx.Class.define("lib.lang.List",
 	construct: function () {
 		this.base(arguments);
 		
+		// Crea el primer y el ultimo elemento
 		this.begin = this.new_node(null, null, null);
 		this.end = this.new_node(null, null, null);
 		
+		/*
+		 * Crea un doble enlace desde el primer elemento
+		 * hacia el ultimo
+		 *
+		 */
 		this.begin.next = this.end;
 		this.begin.prev = this.begin;
 		
+		/*
+		 * Crea un doble enlace desde el ultimo elemento
+		 * hacia el primero
+		 *
+		 */
 		this.end.prev = this.begin;
 		this.end.next = this.end;
 	},
@@ -46,8 +56,11 @@ qx.Class.define("lib.lang.List",
 		},
 		
 		/*
-		 * Agrega un valor en la posicion position
-		 * si position es negativo se agregara en orden inverso
+		 * Agrega un valor a la lista
+		 *
+		 * value: el valor a agregar a la lista
+		 * position: la posicion en donde agregar el valor, si es negativo se
+		 * agregara en orden inverso
 		 *
 		 */
 		add: function(value, position){
@@ -73,7 +86,9 @@ qx.Class.define("lib.lang.List",
 		
 		/*
 		 * Elimina un valor de la lista
-		 * solo sirve para valores positivos
+		 *
+		 * position: la posicion del valor a eliminar solo sirve para
+		 * posiciones positivas
 		 *
 		 */
 		remove: function (position){
@@ -95,8 +110,9 @@ qx.Class.define("lib.lang.List",
 		},
 		
 		/*
-		 * Obtiene un elemento de la lista en la posicion
-		 * position
+		 * Obtiene un elemento de la lista
+		 *
+		 * position: la posicion del elemento a obtener
 		 *
 		 */
 		get_at: function (position){
@@ -110,6 +126,11 @@ qx.Class.define("lib.lang.List",
 			}
 		},
 		
+		/*
+		 * Calcula el tamaño de la lista excluyendo los
+		 * comodines
+		 *
+		 */
 		size: function (){
 			var count = 0;
 			var node = this.begin.next;

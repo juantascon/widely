@@ -1,3 +1,8 @@
+/*
+ * Tab que encapsula el boton y la pagina para los pageviews
+ * de QooxDoo
+ *
+ */
 qx.Class.define("lib.ui.PageViewTab",
 {
 	type: "abstract",
@@ -12,6 +17,12 @@ qx.Class.define("lib.ui.PageViewTab",
 		page: { check: "qx.ui.pageview.AbstractPage" }
 	},
 	
+	/*
+	 * viewtype: el tipo de pageview <"buttonview"|"tabview">
+	 * title: el titulo del boton
+	 * icon: el icono del boton
+	 *
+	 */
 	construct: function (viewtype, title, icon) {
 		this.base(arguments);
 		

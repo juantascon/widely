@@ -1,3 +1,7 @@
+/*
+ * ToolBar del editor de archivos
+ *
+ */
 qx.Class.define("ide.editor.ToolBar",
 {
 	extend: lib.ui.toolbar.Horizontal,
@@ -7,6 +11,7 @@ qx.Class.define("ide.editor.ToolBar",
 		
 		this.add_part([
 			{
+				// Boton para guardar los cambios del archivo
 				type: "button", permanent: false,
 				label: "Save", icon: "actions/document-save",
 				execute: function(e){
@@ -17,6 +22,11 @@ qx.Class.define("ide.editor.ToolBar",
 		
 		this.add_part([
 			{
+				/*
+				 * Boton para volver a la version del archivo que se encuentra en el
+// 				 * servidor
+				 *
+				 */
 				type: "button", permanent: true,
 				label: "Reload", icon: "actions/view-refresh",
 				execute: function(e){

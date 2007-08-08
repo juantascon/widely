@@ -1,3 +1,8 @@
+/*
+ * Esta forma permite a un usuario seleccionar una de sus copias
+ * de trabajo disponibles
+ *
+ */
 qx.Class.define("lib.form.SelectWC",
 {
 	extend: qx.ui.groupbox.GroupBox,
@@ -6,6 +11,7 @@ qx.Class.define("lib.form.SelectWC",
 	
 	properties:
 	{
+		// La lista de copias de trabajo disponibles
 		listview: { check: "qx.ui.listview.ListView" }
 	},
 	
@@ -38,6 +44,7 @@ qx.Class.define("lib.form.SelectWC",
 		
 		var wrq = this.wc_list();
 		wrq.addEventListener("ok", function(e){
+			// Si no hay ninguna copia de trabajo se debe mostrar un mensaje de error
 			if (e.getData().length < 1) {
 				lib.ui.Msg.error(this, "Empty Working Copy list, you can create one in the config page");
 			}
@@ -53,6 +60,11 @@ qx.Class.define("lib.form.SelectWC",
 	
 	members:
 	{
+		/*
+		 * Carga la lista de valores de las copias de trabajo
+		 *
+		 * data: los datos para cargar la lista
+		 */
 		load_list: function(data){
 			while(this.getListview().getData().pop());
 			
@@ -65,6 +77,12 @@ qx.Class.define("lib.form.SelectWC",
 			}
 		},
 		
+		/*
+		 * Retorna el valor de un campo del elemento seleccionado
+		 *
+		 * field: el campo del elemento seleccionado
+		 *
+		 */
 		selected: function(field) {
 			var item = this.getListview().getPane().getSelectedItem();
 			if ( qx.util.Validation.isValid(item) &&
@@ -76,10 +94,20 @@ qx.Class.define("lib.form.SelectWC",
 			return null;
 		},
 		
+		/*
+		 * Ejecuta la forma en un dialogo
+		 *
+		 * pmodal: el padre del dialogo
+		 *
+		 */
 		run: function(pmodal) {
 			var d = this.create_dialog(pmodal, "Select Working Copy");
 			d.getOK().setEnabled(false);
 			
+			/*
+			 * El boton aceptar del dialogo debe permanecer desabilitado hasta que se
+			 * cargue la lista de copias de trabajo
+			 */
 			this.getListview().getPane().getManager().addEventListener("changeSelection", function(e) {
 				d.getOK().setEnabled(true);
 			});

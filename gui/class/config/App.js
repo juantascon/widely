@@ -1,3 +1,8 @@
+/*
+ * La aplicacion para la configuracion de los datos del
+ * usuario
+ *
+ */
 qx.Class.define("config.App",
 {
 	extend: lib.WApp,

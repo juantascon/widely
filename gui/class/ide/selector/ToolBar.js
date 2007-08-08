@@ -1,3 +1,7 @@
+/*
+ * ToolBar de la vista de seleccion de archivos
+ *
+ */
 qx.Class.define("ide.selector.ToolBar",
 {
 	extend: lib.ui.toolbar.Horizontal,
@@ -7,6 +11,7 @@ qx.Class.define("ide.selector.ToolBar",
 		
 		this.add_part([
 			{
+				// Boton para crear un archivo nuevo
 				type: "button", permanent: false,
 				label: "New File",icon: "actions/document-new",
 				execute: function(e){
@@ -14,6 +19,7 @@ qx.Class.define("ide.selector.ToolBar",
 				}
 			},
 			{
+				// Boton para crear un directorio nuevo
 				type: "button", permanent: false,
 				label: "New Dir",icon: "actions/folder-new",
 				execute: function(e){
@@ -21,6 +27,7 @@ qx.Class.define("ide.selector.ToolBar",
 				}
 			},
 			{
+				// Boton para borrar el archivo/direcotorio seleccionado
 				type: "button", permanent: false,
 				label: "Delete",icon: "actions/edit-delete",
 				execute: function(e){
@@ -31,6 +38,7 @@ qx.Class.define("ide.selector.ToolBar",
 		
 		this.add_part([
 			{
+				// Boton para hacer commit al repositorio
 				type: "button", permanent: false,
 				label: "Commit",icon: "actions/go-down",
 				execute: function(e){
@@ -41,6 +49,7 @@ qx.Class.define("ide.selector.ToolBar",
 		
 		this.add_part([
 			{
+				// Boton para recargar la lista de versiones
 				type: "button", permanent: true,
 				label: "Reload",icon: "actions/view-refresh",
 				execute: function(e){

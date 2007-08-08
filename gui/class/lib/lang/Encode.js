@@ -1,7 +1,17 @@
+/*
+ * Se encarga de hacer las codificaciones de datos
+ *
+ */
 qx.Class.define("lib.lang.Encode",
 {
 	statics:
 	{
+		/*
+		 * Codifica el objeto utilizando codificacion URI
+		 *
+		 * obj: el objeto a codificar
+		 *
+		 */
 		encodeObj: function(obj){
 			if ( qx.util.Validation.isInvalidObject(obj) ) { return obj; }
 			

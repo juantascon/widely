@@ -1,3 +1,7 @@
+/*
+ * Esta forma permite crear un repositorio nuevo
+ *
+ */
 qx.Class.define("lib.form.NewRepo",
 {
 	extend: qx.ui.groupbox.GroupBox,
@@ -7,7 +11,9 @@ qx.Class.define("lib.form.NewRepo",
 	properties:
 	{
 		grid: { check: "qx.ui.layout.GridLayout" },
+		// El nombre del repositorio
 		name_i: { check: "qx.ui.form.TextField" },
+		// El manejador del repositorio
 		manager_i: { check: "qx.ui.form.ComboBoxEx" }
 	},
 	
@@ -29,6 +35,14 @@ qx.Class.define("lib.form.NewRepo",
 	
 	members:
 	{
+		/*
+		 * Ejecuta la forma dentro de un dialogo
+		 *
+		 * pmodal: el padre del dialogo
+		 * callback: la funcion a ejecutar cuando se haya creado el repositorio
+		 * _this: el objeto this del callback
+		 *
+		 */
 		run: function(pmodal, callback, _this){
 			var d = this.create_dialog(pmodal, "New User");
 			

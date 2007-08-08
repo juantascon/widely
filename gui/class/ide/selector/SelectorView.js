@@ -1,11 +1,21 @@
+/*
+ * La vista principal para la administracion
+ * del servidor y los usuarios
+ *
+ */
 qx.Class.define("ide.selector.SelectorView",
 {
 	extend: qx.ui.layout.VerticalBoxLayout,
 	
 	properties:
 	{
+		// El arbol de archivos
 		tree: { check: "ide.selector.fs.Tree" },
+		
+		// La barra de herramientas
 		toolbar: { check: "ide.selector.ToolBar" },
+		
+		// La tabla de versiones
 		versionstable: { check: "ide.selector.VersionsTable" },
 		splitbox: { check: "qx.ui.splitpane.VerticalSplitPane" }
 	},
@@ -23,6 +33,7 @@ qx.Class.define("ide.selector.SelectorView",
 		this.setTree(new ide.selector.fs.Tree());
 		this.setVersionstable(new ide.selector.VersionsTable());
 		
+		// El arbol de archivos y la tabla de versiones van en un splitbox
 		this.setSplitbox(new qx.ui.splitpane.VerticalSplitPane("3*", "2*"));
 		with(this.getSplitbox()) {
 			set({height: "100%", width: "100%"});
@@ -34,13 +45,19 @@ qx.Class.define("ide.selector.SelectorView",
 	
 	members:
 	{
+		/*
+		 * Cambia la version actual del arbol de archivos
+		 *
+		 * version: la nueva version del arbol de archivos
+		 *
+		 */
 		set_tree_version: function(version){
 			this.getSplitbox().getTopArea().remove(this.getTree());
 			/*
 			 * TODO: se deben borrar los FileTree del view?
 			 *
 			 * this.getTree().dispose();
-			 * 
+			 *
 			 */
 			this.setTree(new ide.selector.fs.Tree(version));
 			this.getTree().load();
