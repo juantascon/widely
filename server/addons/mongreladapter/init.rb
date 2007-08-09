@@ -1,6 +1,8 @@
 #
-# Modulo de manejo de versiones: SubVersion (Svn)
+# Modulo de servidor mongrel
+# Soporta los listeners HTTPStatic y HTTPAPI
 #
+
 wmodule :MongrelAdapter => [ :HTTPStatic, :HTTPAPI ] do |mod|
 	begin
 		# Mongrel require

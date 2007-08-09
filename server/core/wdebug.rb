@@ -21,12 +21,20 @@ module WDebug
 	# Por defecto hacia STDERR
 	#
 	WDEBUG_LOGGER = STDERR
+	
+	# Define el nivel de depuracion del los mensaje, por defecto
+	# todos (DEBUG)
 	WDEBUG_LEVEL = Sev::DEBUG
 	
 	#
 	# El metodo principal
 	# es utilizado para imprimir los mensajes dependiendo de la
 	# severidad y del dispositivo de salida
+	#
+	# severity: que tan severo es el mensaje
+	# m: el mensaje a mostrar
+	# back: quien llama este metodo?
+	# block: en caso de que se pase el mensaje es lo que retorna este bloque(closure)
 	#
 	def w_log(severity, m, back=1, &block)
 		return true if severity < WDEBUG_LEVEL
@@ -41,6 +49,7 @@ module WDebug
 		from = "#{caller_method(back)}(): " if caller_method(back)
 		severity = Sev::SEVS[severity] || Sev::SEVS[Sev::UNKNOWN]
 		
+		# Se ha pasado un bloque?
 		begin
 			m = block.call if block_given?
 		rescue Exception => block_ex
@@ -48,6 +57,7 @@ module WDebug
 		end
 		
 		case m
+			# el mensaje puede ser una exception
 			when Exception
 				WDEBUG_LOGGER.print " [#{m.class.name}]: #{m.message}"
 				WDEBUG_LOGGER.print " [BACKTRACE]: BEGIN\n"
@@ -58,12 +68,12 @@ module WDebug
 				WDEBUG_LOGGER.print " [#{severity}] #{from}#{m}\n"
 		end
 		
+		# Se verifica que los mensaje se impriman
 		WDEBUG_LOGGER.flush
 	end
 	
 	#
-	# Estos metodos son muy utiles y comodos
-	# Para mensajes:
+	# Estos metodos son muy utiles y comodos para la depuracion de mensajes
 	#
 	def w_debug(m, back=0, &block); w_log(Sev::D, m, 2+back, &block); end
 	def w_info(m, back=0, &block); w_log(Sev::I, m, 2+back, &block); end
@@ -72,6 +82,9 @@ module WDebug
 	def w_fatal(m, back=0, &block); w_log(Sev::F, m, 2+back, &block); end
 	def w_unknown(m, back=0, &block); w_log(Sev::U, m, 2+back, &block); end
 	
+	#
+	# Muestra un mensaje de depuracion 
+	#
 	def w_debugx(m, back=0, &block)
 		w_debug("X"*70)
 		w_debug(m, back, &block)

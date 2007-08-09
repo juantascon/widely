@@ -1,5 +1,5 @@
 #
-# Modulo de manejo de conecciones http API
+# Modulo de manejo de conecciones HTTP API
 #
 
 wmodule :HTTPAPI do |mod|

@@ -9,12 +9,18 @@ class API
 	include Singleton
 	include WebService
 	
+	#
+	# Retorna una lista de los manejadores de repositorio
+	#
 	def manager_list(args)
 		args.check("session_id")
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
 		return true, Repository.wplugin_list
 	end
 	
+	#
+	# Crea un repositorio nuevo 
+	#
 	def create(args)
 		args.check("session_id", "name", "manager")
 		
@@ -30,6 +36,9 @@ class API
 		return true, repo.collectable_key
 	end
 	
+	#
+	# Destruye un repositorio
+	#
 	def destroy(args)
 		args.check("session_id", "name")
 		
@@ -45,6 +54,9 @@ class API
 		return true
 	end
 	
+	#
+	# Retorna la lista de los repositorios de un usuario
+	#
 	def list(args)
 		args.check("session_id")
 		user = Auth::SessionSet.instance.get_ex(args["session_id"]).user
@@ -57,6 +69,7 @@ class API
 	
 end
 
+# Registra este API como un webservice
 HTTPAPI::WebServiceHandler.set_webservice("repo", Repo::API.instance)
 
 end

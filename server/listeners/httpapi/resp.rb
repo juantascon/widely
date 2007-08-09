@@ -1,8 +1,8 @@
+#
+# Representa una respuesta HTTP
+#
 module HTTPAPI
 
-#
-# HTTP Response
-#
 class Resp
 	attr_reader :status, :content_type, :body
 	

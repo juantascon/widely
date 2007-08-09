@@ -21,7 +21,9 @@ $WIDELY_THREADS = Array.new
 $: << $WIDELY_HOME_SERVER
 $: << "#{$WIDELY_HOME_SERVER}/lib"
 
-
+#
+# Inicia el proceso de carga
+#
 require "loader/autoloads.rb"
 require "loader/core.rb"
 require "loader/wmodules.rb"

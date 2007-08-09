@@ -9,6 +9,9 @@ class API
 	include Singleton
 	include WebService
 	
+	#
+	# Crea un usuario nuevo
+	#
 	def create(args)
 		args.check("session_id", "user_id", "password")
 		
@@ -26,6 +29,9 @@ class API
 		return true, user.user_id
 	end
 	
+	#
+	# Elimina un usuario
+	#
 	def destroy(args)
 		args.check("session_id", "user_id")
 		
@@ -42,7 +48,9 @@ class API
 		return true
 	end
 	
-	
+	#
+	# Retorna una lista de los usuario registrados
+	#
 	def list(args)
 		args.check("session_id")
 		
@@ -57,6 +65,7 @@ class API
 	
 end
 
+# Registra este API como un webservice
 HTTPAPI::WebServiceHandler.set_webservice("user", User::API.instance)
 
 end

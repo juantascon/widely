@@ -1,5 +1,5 @@
 #
-# Modulo de manejo de conecciones http
+# Modulo de manejo de conecciones HTTP de archivos estaticos
 #
 
 wmodule :HTTPStatic do |mod|

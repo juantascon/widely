@@ -7,6 +7,10 @@ module Auth
 #
 class WebDavHandlerAuth < WEBrick::HTTPServlet::WebDAVHandler
 	
+	#
+	# Redefine el metodo de procesar cada peticion del manejador de
+	# WebDAV por defecto
+	#
 	def service(req, resp)
 		begin
 			auth_header = req.header.fetch('authorization') do
@@ -16,13 +20,15 @@ class WebDavHandlerAuth < WEBrick::HTTPServlet::WebDAVHandler
 			auth_header = auth_header.first
 			
 			method, auth_data = auth_header.split(' ')
+			
+			# Decodifica la clave y el nombre de usuarios enviados
 			username, password = Base64.decode64(auth_data).split(':')
 			
 			#autentica el usuario
 			user = User::UserSet.instance.get(username, password)
 			raise WEBrick::HTTPStatus::Unauthorized if ! user
 			
-			# Si la ruta solicitada es permitida por ese usuario
+			# Verifica que la ruta solicitada sea permitida por ese usuario
 			real_path_rq = File.cleanpath("#{@root}#{req.path_info}")
 			user_data_dir = File.dirname(user.data_dir)
 			
@@ -43,19 +49,34 @@ class WebDavHandlerAuth < WEBrick::HTTPServlet::WebDAVHandler
 	
 end
 
+#
+# Modulo de manejo de WebDAV con autenticacion
+#
 module WebDavAuth
 	
 	include WebDav::Default
 	
+	#
+	# Monta una ruta en el servidor
+	#
+	# mount_point: el punto de montaje
+	# fs_path: la ruta del sistema de archivos
+	#
 	def mount(mount_point, fs_path)
 		@server.mount(mount_point, WebDavHandlerAuth, fs_path)
 	end
 	
+	#
+	# Inicia el servidor en un nuevo hilo
+	#
 	def run()
 		w_info "run(webdavauth)"
 		return super
 	end
 	
+	#
+	# Detiene el servidor
+	#
 	def stop()
 		w_info "stop(webdavauth)"
 		return super
@@ -63,6 +84,7 @@ module WebDavAuth
 	
 end
 
+# Registra plugin
 WebDav::Dispatcher.register_wplugin(WPlugin.new("default_auth",
 	"WebDav Plugin with Widely authentication support",
 	WebDavAuth))

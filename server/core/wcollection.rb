@@ -1,9 +1,17 @@
+#
+# Representa una coleccion de objetos
+#
+
 class WCollection
 	
 	include Enumerable
 	
 	attr_reader :klass, :parent, :collection
 	
+	#
+	# klass: el tipo de dato que se va a almacenar en la coleccion
+	# parent: si la coleccion hereda de otra coleccion
+	#
 	def initialize(klass=Object, parent=nil)
 		@klass = klass
 		@parent = parent
@@ -12,8 +20,9 @@ class WCollection
 	end
 	
 	#
-	# Obtiene el objeto a partir de la llave con la que se
-	# almaceno, si no la encuentra retorna nil
+	# Obtiene un objeto dado, si no la encuentra retorna nil
+	#
+	# key: la llave con la que se almacena el objeto 
 	#
 	def get(key)
 		return @collection[key] if @collection.include? key
@@ -22,8 +31,11 @@ class WCollection
 	end
 	
 	#
-	# Obtiene el objeto a partir de la llave con la que se
-	# almaceno, si no la encuentra retorna una exception
+	# Obtiene un objeto dado, si no la encuentra levanta una excepcion
+	#
+	# key: la llave con la que se almacena el objeto
+	# *args: argumentos extra para poder obtener la llave
+	# block: argumento extra(closure) para poder obtener la llave
 	#
 	def get_ex(key, *args, &block)
 		object = get(key, *args, &block)
@@ -32,8 +44,10 @@ class WCollection
 	end
 	
 	#
-	# Recorre la coleccion evaluando block con cada objeto y
+	# Recorre la coleccion evaluando un bloque con cada objeto y
 	# cada llave ( mas info: Hash#each )
+	#
+	# block: el bloque a evaluar
 	#
 	def each(*args, &block)
 		@parent.each(*args, &block) if @parent
@@ -41,7 +55,10 @@ class WCollection
 	end
 	
 	#
-	# Adiciona un objeto con una llave dada
+	# Adiciona un objeto a la coleccion
+	#
+	# key: la llave donde almacenar el objeto
+	# object: el objeto a almacenar
 	#
 	def add_at(key, object)
 		return false if ! object.kind_of? @klass
@@ -51,7 +68,9 @@ class WCollection
 	
 	#
 	# Adiciona un objeto a partir de la propiedad collectable_key
-	# del ojeto
+	# del objeto
+	#
+	# object: el objeto a almacenar
 	#
 	def add(object)
 		add_at(object.collectable_key, object)
@@ -66,7 +85,9 @@ class WCollection
 	end
 	
 	#
-	# Elimina un objeto de la coleccion a partir de su llave
+	# Elimina un objeto de la coleccion a partir de la llave del objeto
+	#
+	# key: la llave donde esta el objeto
 	#
 	def delete_by_key(key)
 		@collection.delete(key)
@@ -74,13 +95,19 @@ class WCollection
 	end
 	
 	#
-	# Busca y elimina un objeto de la coleccion
+	# Elimina un objeto de la coleccion a partir del propio objeto
+	#
+	# object: el objeto a eliminar
 	#
 	def delete_by_object(object)
 		@collection.delete(@collection.index(object))
 		@parent.delete_by_object(object) if @parent
 	end
 	
+	#
+	# Destruye de forma recursiva (en caso de que se pueda) todos los objetos de la
+	# coleccion
+	#
 	def destroy()
 		each do |key, obj|
 			obj.destroy if obj.respond_to? :destroy

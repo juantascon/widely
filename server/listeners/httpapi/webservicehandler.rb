@@ -1,3 +1,6 @@
+#
+# Maneja el registro e invocacion de los webservices
+#
 module HTTPAPI
 class WebServiceHandler
 	
@@ -7,6 +10,12 @@ class WebServiceHandler
 	#
 	@@webservices = Hash.new
 	
+	#
+	# Registra un nuevo webservice
+	#
+	# id: el identificador del webservice
+	# webservice: la clase manejadora del webservice
+	#
 	def self.set_webservice(id, webservice)
 		w_info("WebService[#{id}]: #{webservice}")
 		@@webservices[id] = webservice
@@ -51,23 +60,29 @@ class WebServiceHandler
 		# sacados de hacer parsing del request (rq.body)
 		#
 		begin
+			# Obtiene los argumentos pasados en la peticion
 			ws_args = URLParser.url_encoded_args_to_hash(rq.body)
 			w_debug("API ARGS: #{ws_args}")
 			
+			# Hace el llamado del webservice
 			status, ret = webservice.call(method_name, ws_args)
 		rescue Exception => ex
 			w_debug("Exception: #{ex.message}")
 			w_debug(ex.backtrace.join("\n\t"))
 			
+			# En caso de exception retorna un mensaje de error
 			return Resp.new_json_ex("#{webservice_name}/#{method_name}", ex.message)
 		end
 		
+		# Termino correctamente la invocacion del webservice?
 		if status
 			return Resp.new_json_ok("#{webservice_name}/#{method_name}", ret)
 		else
 			return Resp.new_json_fail("#{webservice_name}/#{method_name}", ret)
 		end
+		
 	end
 	
 end
+
 end

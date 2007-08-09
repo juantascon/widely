@@ -1,11 +1,15 @@
 #
-# Tomado de Ruby on Rails (activesupport) lib/active_support/core_ext/class/inheritable_attributes.rb
+# Tomado de Ruby on Rails (activesupport):
+# lib/active_support/core_ext/class/inheritable_attributes.rb
 #
 
-# Allows attributes to be shared within an inheritance hierarchy, but where each descendant gets a copy of
-# their parents' attributes, instead of just a pointer to the same. This means that the child can add elements
-# to, for example, an array without those additions being shared with either their parent, siblings, or
-# children, which is unlike the regular class-level attributes that are shared across the entire hierarchy.
+#
+# Permite que los atributos sean compartibles en una jerarquia de herencia, con la
+# diferencia de que cada descendiente obtiene una copia de los atributos de su padre
+# en lugar de solo apuntar hacia los mismos.
+# Esto significa que el hijo podria por ejemplo adicionar elementos a una array y que
+# estas adiciones no se vean reflejadas en los atributos del padre
+#
 
 class Class
 	def class_inheritable_reader(*syms)

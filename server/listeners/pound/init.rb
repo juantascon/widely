@@ -1,5 +1,5 @@
 #
-# Modulo de manejo de conecciones http
+# Modulo de manejo del servidor despachador
 #
 
 wmodule :Pound do |mod|

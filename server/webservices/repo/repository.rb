@@ -1,3 +1,7 @@
+#
+# Un repositorio
+#
+
 module Repo
 
 class Repository < WPluginable
@@ -27,6 +31,9 @@ class Repository < WPluginable
 		w_debug("new: #{@owner} #{@name} #{@manager}")
 	end
 	
+	#
+	# Inicia el repositorio desde datos obtenidos del almacenamiento
+	#
 	def initialize_from_storage(data)
 		owner = User::UserSet.instance.get_ex(data["owner"])
 		name = data["name"]
@@ -36,6 +43,9 @@ class Repository < WPluginable
 		initialize(owner, name, manager, true)
 	end
 	
+	#
+	# Destruye los datos del repositorio
+	#
 	def destroy()
 		@owner.wcset.each do |key, wc|
 			wc.destroy if wc.repo == self
@@ -45,12 +55,18 @@ class Repository < WPluginable
 		@owner.reposet.delete_by_object(self)
 	end
 	
+	#
+	# Convierte el repositorio en Hash
+	#
 	def to_h()
 		{ "name" => @name, "manager" => @manager, "owner" => @owner.user_id }
 	end
 	
 end
 
+#
+# Registra en cada usuario una coleccion de repositorios
+#
 User::ExtraAttrs.instance.add(:reposet) do |user, from_storage|
 	storager = WStorage::DistributedStorager.new(Repository, "#{user.data_dir}/repos/%s/repo.conf")
 	storager.load_all if from_storage

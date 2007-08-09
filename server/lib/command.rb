@@ -91,6 +91,11 @@ class Command
 		return Monitored.new(pid, r_out, r_err)
 	end
 	
+	#
+	# Ejecuta el comando [cmd *args] en el directorio actual
+	#
+	# para mas informacion ver exec2()
+	#
 	def self.exec(cmd, *args)
 		exec2(nil, cmd, *args).wait
 	end

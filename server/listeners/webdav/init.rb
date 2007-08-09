@@ -1,5 +1,5 @@
 #
-# Modulo de listener webdav
+# Modulo de manejo de conecciones WebDAV
 #
 
 wmodule :WebDav do |mod|

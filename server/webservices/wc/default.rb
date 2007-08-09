@@ -8,6 +8,9 @@ module Default
 	include FileUtils
 	include FileTest
 	
+	#
+	# Crea el directorio de datos
+	#
 	def wplugin_init()
 		mkdir_p @data_dir if ! directory? @data_dir
 	end
@@ -164,6 +167,11 @@ module Default
 		return status, ret
 	end
 	
+	#
+	# Copia path_from a path_to en la copia de trabajo y
+	# lo marca para ser movido en el repositorio
+	# en el proximo commit
+	#
 	def copy(path_from, path_to)
 		
 		path_from, rpath_from = process_path(path_from)

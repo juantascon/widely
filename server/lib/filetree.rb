@@ -111,7 +111,10 @@ class FileTree
 			return nil
 		end
 		
-		
+		#
+		# Recorre los nodos hijos del directorio y para cada nodo ejecuta
+		# el bloque dado
+		#
 		def each(&block)
 			@childs.each do |c|
 				block.call(c) if block_given?
@@ -119,6 +122,9 @@ class FileTree
 			end
 		end
 		
+		#
+		# Convierte el directorio en un Hash
+		#
 		def to_h
 			childs_h = Array.new
 			@childs.each{ |c| childs_h.push(c.to_h) }
@@ -131,6 +137,9 @@ class FileTree
 			}
 		end
 		
+		#
+		# Convierte el directorio en un array
+		#
 		def to_a
 			list = Array.new
 			@childs.each { |c| list.push(c.to_h) }
@@ -152,7 +161,7 @@ class FileTree
 		realpath = Pathname.new(path).cleanpath
 		(w_warn("#{path} -> not an absolute path") ; return false) if ! realpath.absolute?
 		
-		# Primero se crean los directorios padres de forma iterativa
+		# Primero se crean los directorios padres de forma recursiva
 		parent = @root
 		realpath.dirname.each_filename do |id|
 			child = parent.add(id, true)
@@ -166,6 +175,9 @@ class FileTree
 		return ret
 	end
 	
+	#
+	# Convierte el arbol de archivos en formato JSON
+	#
 	def to_json
 		@root.to_a.to_json
 	end

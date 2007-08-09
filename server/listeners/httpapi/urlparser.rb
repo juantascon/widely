@@ -14,6 +14,7 @@ module URLParser
 	def url_encoded_args_to_hash(str)
 		ret = Hash.new
 		return ret if ! str.kind_of? String
+		
 		str.split("&").each do |arg|
 			key = arg.split("=", 2)[0]
 			value = arg.split("=", 2)[1]

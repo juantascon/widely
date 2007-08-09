@@ -9,6 +9,9 @@ class API
 	include Singleton
 	include WebService
 	
+	#
+	# Coloca un nuevo valor para un dato
+	#
 	def set_value(args)
 		args.check("session_id", "key", "value")
 		
@@ -20,6 +23,9 @@ class API
 		return true, user.userdataset.add(UserData.new(user, key, value))
 	end
 	
+	#
+	# Obtiene el valor de un dato
+	#
 	def get_value(args)
 		args.check("session_id", "key")
 		
@@ -32,6 +38,7 @@ class API
 	
 end
 
+# Registra este API como un webservice
 HTTPAPI::WebServiceHandler.set_webservice("userdata", API.instance)
 
 end

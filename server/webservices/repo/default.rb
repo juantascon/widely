@@ -1,5 +1,9 @@
 module Repo
 
+#
+# Plugin manejador de repositorio por defecto
+#
+
 class Default
 	
 	def wplugin_init()
@@ -10,6 +14,9 @@ class Default
 		:checkout, :status, :commit, :versions,
 		:cat, :ls, :add, :delete, :move, :copy ]
 	
+	#
+	# Define los metodos por defecto
+	#
 	METHODS.each do |m|
 		define_method(m) do |*args|
 			w_warn("called abstract method: #{self.class.name}.#{method_name}")
@@ -18,6 +25,7 @@ class Default
 	end
 end
 
+# Registra el plugin
 Repository.register_wplugin(WPlugin.new("default", "Default Repo Manager Plugin", Default))
 
 end

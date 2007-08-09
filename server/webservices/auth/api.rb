@@ -9,6 +9,9 @@ class API
 	include Singleton
 	include WebService
 	
+	#
+	# Realiza una entrada al sistema retornando una llave de session
+	#
 	def login(args)
 		args.check("user_id", "password")
 		
@@ -22,6 +25,9 @@ class API
 		end
 	end
 	
+	#
+	# Realiza un login en el sistema como administrador
+	#
 	def login_admin(args)
 		args.check("password")
 		
@@ -36,6 +42,9 @@ class API
 		end
 	end
 	
+	#
+	# Cambia la clave del usuario
+	#
 	def change_password(args)
 		args.check("session_id", "password_old", "password_new")
 		
@@ -47,6 +56,9 @@ class API
 		return session.change_password(password_old, password_new)
 	end
 	
+	#
+	# Retorna el tipo de session (admin|user|invalid)
+	#
 	def session_type(args)
 		args.check("session_id")
 		
@@ -57,6 +69,9 @@ class API
 		return true, "invalid"
 	end
 	
+	#
+	# Registra una session de usuario a partir de una session admin
+	#
 	def user_session(args)
 		args.check("session_id", "user_id")
 		
@@ -75,6 +90,10 @@ class API
 	end
 	
 	#TODO: esto deberia ser algo asi como set_session_data o estar en User
+	
+	#
+	# Define la copia de trabajo a utilizar en la session
+	#
 	def set_wc(args)
 		args.check("session_id", "wc_id")
 		session = SessionSet.instance.get_ex(args["session_id"])
@@ -84,6 +103,9 @@ class API
 		return true
 	end
 	
+	#
+	# Elimina una session
+	#
 	def logout(args)
 		args.check("session_id")
 		SessionSet.instance.delete_by_key(args["session_id"])
@@ -92,6 +114,7 @@ class API
 	end
 end
 
+# Registra este API como un webservice
 HTTPAPI::WebServiceHandler.set_webservice("auth", Auth::API.instance)
 
 end

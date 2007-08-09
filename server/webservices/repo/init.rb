@@ -1,5 +1,5 @@
 #
-# Modulo de manejo de repòsitorios
+# Modulo de manejo de repositorios
 #
 
 wmodule :Repo => [ :Auth ] do |mod|
