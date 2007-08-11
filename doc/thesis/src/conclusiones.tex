@@ -1,6 +1,79 @@
 \section{CONCLUSIONES}
 
 \subsection{Resultados}
-\subsection{Aportes} % al mundo y a mi
+
+Como resultado se obtuvo una aplicacion web IDE que permite:
+
+* Administracion(creacion eliminacion y configuracion) de usuarios.
+* Administracion (creacion y eliminacion) de repositorios de codigo fuente SVN (SubVersioN).
+* Administracion (creacion y eliminacion) de copias de trabajo SVN (SubVersioN).
+* Administracion (mover, copiar, eliminar, crear) de archivos y directorios utilizando una vista de arbol de archivos.
+* Edicion de codigo fuente
+* Edicion concurrente de codigo fuente instanciando el editor en multiples tabs
+* Compilacion de codigo en lenguaje python
+* Creacion de nuevas versiones de proyecto
+* Consulta inteligente del estado de proyectos (arbol de archivos y contenido de archivos) en otras versiones
+* Acceso a los datos de configuracion, repositorios y copias de trabajo de los usuarios via WebDAV
+
+El desarrollo de la aplicacion permite que cualquier persona continue con el trabajo debido a la documentacion generada y a la claridad de la implementacion.
+
+Lo mas importante que se tiene es una aplicacion que centraliza en un solo punto el proceso de almacenamiento de informacion, edicion de codigo, compilacion y administracion de las versiones de los archivos, facilitando la integracion con maquinas clientes de bajas prestaciones y como unico requisito que tenga instalado cualquiera de los sistemas operativos modernos.
+
 \subsection{Trabajos Futuros}
+
+Como trabajos futuros principalmente se plantea que el producto adquiera un nivel mayor de estabilidad para que pueda ser catalogado como producto usable en produccion.
+
+Otras mejoras planteadas son:
+
+En el modulo de control de versiones:
+
+* Crear un plugin que permita utilizar un manejador de versiones distribuido, entre los manejadores de versiones distribuidos se encuentran: GIT, DARCS, Mercurial(HG), Bazaar, etc
+
+En el modulo de GUI:
+
+* Hacer que el editor muestre resaltado de sintaxis del codigo fuente.
+
+* Crear en el editor un mecanismo de autoindentacion.
+
+* Resaltar en el editor las lineas donde se detectaron los errores de compilacion
+
+
+En el modulo de WebServices:
+
+* Modificar el sistema de webservices conforme para que sea compatible con el estandar JSON-RPC (TODO: www.?)
+
+TODO: listar mas
+
 \subsection{Experiencias Obtenidas}
+
+
+Quiza la mayor experiencia obtenida durante el desarrollo de este proyecto fue el de poder vivir en carne propia las metodologias de desarrollo de software existentes y poder ver su alto grado de inmadurez, incluso en metodologias ampliamente utilizadas como la propuesta de Rational Rose.
+
+De acuerdo a mi experiencia es humanamente imposible pensar en las consecuencias que puede traer un diseño previo de un desarrollo de software bastante elaborado teniendo como limite de tiempo el mismo tiempo que se va a gastar en la implementacion, es por esto que no tiene sentido gastar tiempo valioso en especificaciones y declaraiones de como se van a realizar las cosas.
+
+Las verdaderas consecuencias del diseño son solo medibles con heuristicas aceptables cuando se procede la implementacion real del software debido a que intervienen ciertos factores en el proceso de desarrollo que son muy influyentes y muy estocasticos por lo que se reflejan en problemas que simplemente no se tuvieron en cuenta en el momento del diseño del software, otro efecto que surge es el amarre de estos factores con el diseño moldeandolo y produciendo un diseño con un enfoque cerrado a ciertas caracteristicas, estos factores son:
+
+* El lenguaje de programacion: la cantidad de lenguajes de programacion depende de los tipos de lenguajes de programacion que existen, partiendo de este hecho y teniendo en cuenta que los tipos de lenguajes de programacion rondan en cifras cercanas a los (TODO buscar cuantos tipos de lenguajes de programacion hay) entonces podemos concluir que existen lenguajes de programacion de todos los colores y sabores y asi mismo cada uno tiene sus propias caracteristicas, habilidades, herramientas, soporte y paradigmas, de esto se concluye que la formulacion de la solucion de un problema varia de acuerdo a las caracteristicas del lenguaje.
+
+* Las herramientas a utilizar: este concepto se puede observar mejor en el ambito de las aplicaciones web, un campo que ha soportado una revolucion desde el punto de vista de las ayudas y facilidades para el desarrollador, en donde han surgido herramientas de gran embergadura conocidas como frameworks que automatizan procesos como: las conecciones a base de datos, el deployment (de desarrollo, pruebas y produccion), las pruebas unitarias, la organizacion del proyecto, etc. Cada uno de estos frameworks crean dependencias que obligan hacer las cosas de cierta forma(ej: en ruby on rails se debe seguir una arquitectura modelo-vista-controlador), cambiando de forma radical el diseño de nuestra aplicacion.
+
+* Las bibliotecas disponibles: una biblioteca no es mas que una implementacion de un concepto de programacion, entre mas y mejores bibliotecas dispongamos para nuesrto lenguaje mas facil se nos resultaran hacer las cosas, un ejemplo muy simple es el de el sistema de autenticacion ya que generalmente se requiere la implementacion de algun sistema de cifrado, si no disponemos de una buena implementacion es posible que busquemos otras alternativas que cambian nuestro diseño como utilizar las de otro lenguaje lo que requeriria crear un sistema de comunicacion entre ambos lenguajes o simplemente implementar el algoritmo aumentando la complejidad del software a producir.
+
+* Las tecnologias asociadas: generalmente en la programacion de software existen mucnas formas de hacer las cosas que dependen incluso de la epoca en la que nos encontremos, el ejemplo mas claro es que hace unos 10 años la mayoria de la programacion seguia un paradigma funcional, hoy la media es utilizar sistemas orientados a objetos y es muy posible que para mañana se utilizen herramientas basadas en la concurrencia de los procesos como el paradigma de los agentes o el de restricciones.
+
+Desde luego estas afirmaciones tambien tienen sus limites ya que simplemente lanzarse a programar la solucion, traeara problemas que entre los mas importantes estan la perdida de trabajo y la creacion de software poco expandible y cerrado.
+
+Mi propuesta para resolver estos problemas se resume en la declaracion de un punto intermedio en donde se describa el problema y los resultados esperados y en donde el diseño sea amortiguable(facil de modificar) y cuyo limite de detalle sea el punto en donde se pueda escoger cualquiera de las variantes de los factores mencionados anteriormente sin que se vea reflejado en un cambio en el diseño, lo principal de este diseño es diferenciar y describir pero no detallar los sistemas que componen la aplicacion (ej: sistema de control de usuarios, sistema de envio de la informacion, etc), luego de esto se procede con la realizacion de la aplicacion (programacion) en donde los detalles de la implementacion se describan dentro del propio codigo (no en diagramas de colaboracion o de secuencia), y en donde los resultados sufran un proceso de reingenieria hasta lograr una solucion estable que satisfaga los resultados esperados.
+
+Otras experiencias obtenidas se basan en la adquisicion de nuevos conocimientos y dominio de diversas tecnologias, estos son:
+
+* Ruby
+* Ruby on Rails
+* JSON
+* XML
+* JavaScript
+* HTML
+* CSS
+* AJAX
+* Control de versiones
+* Lenguajes de programacion
