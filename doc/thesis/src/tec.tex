@@ -1,0 +1,46 @@
+Tecnologias utilizadas:
+
+********
+
+SOA fue elegida principalmente por que provee division, modularidad y bajo acoplamiento dentro de la logica de negocio y en la comunicacion con la interfaz de usuario.
+
+********
+
+La principal ventaja que tiene sobre el formato XML es que no requiere realizar un analizador en el lenguaje JavaScript sino que este esta incluido en el lenguaje mismo.
+
+JSON esta esta siendo adoptado a una velocidad tan grande que quiza algun dia haya reemplazado por completo a su rival mas cercano XML.
+
+********
+
+Las principales ventajas de WebDAV sobre otros sistemas de archivos de red son:
+
+* Se puede acceder en modo solo lectura desde cualquier browser que soporte el protocolo HTTP 1.1.
+
+* Todos los sistemas operativos incluyen soporte para WebDAV.
+
+* Es un estandar ampliamente utilizado.
+
+* La implementacion de un servidor es bastante sencillo, por esta misma razon es muy facil de adaptarlo para que sea compatible con un sistema de autenticacion propio.
+
+********
+
+Como nota personal del autor la razon de mayor peso para escoger este lenguaje de programacion sobre otros es que es un lenguaje muy comodo y atractivo, con muchas caracteristicas unicas, que hacen de ruby uno de los lenguajes mas potentes que se pueden encontrar en estos tiempos.
+
+********
+
+Pound:
+
+Las soluciones actuales para despacho de informacion procesada a traves de la web son:
+
+La solucion CGI implica realizar una comunicacion entre el servidor web y la aplicacion CGI, esta comunicacion se realiza lenvantando un proceso por cada peticion al servidor, retornando la salida del programa CGI y utilizando los datos de la peticion como datos de entrada, esto produce un aumento en la cola de carga del servidor haciendo de esta una solucion poco rentable.
+
+Como respuesta a este problema surge FastCGI que agiliza el proceso de ejecucion de programas teniendolos siempre funcionando y esperando las peticiones del servidor.
+
+Otra solucion es la de extender el servidor web con modulos que sirvan como interpretes y ejecutores para lenguajes no compilados, quiza el mas popular sea el modulo del servidor web Apache para el lenguaje PHP, los inconvenientes de esta solucion son que para cada lenguaje y para cada servidor se debe crear un interprete adicional y que no se puede implementar en lenguajes compilados(ej: c/c++, java, etc).
+
+La solucion mas inteligente es tener en el propio lenguaje un pequeño servidor web constante para generar los datos dinamicos y utilizar un servidor web mas elaborado para los datos estaticos, adicional a esto unirlos como un solo servidor utilizando un proxy inverso(algunos servidores web sirven tambien como proxy inverso) y puesto que para la aplicacion se necesita un servidor para los webservices otro para los archivos estaticos y otro para el servidor de envio de archivos (WebDAV), entonces esta se convierte en la solucion mas optima partiendo del hecho de que el tiempo en el proceso de comunicacion entre el proxy inverso y los otros servidores es casi nulo.
+
+********
+
+% TODO: hablar de QooXdoo
+
