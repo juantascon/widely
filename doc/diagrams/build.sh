@@ -1,5 +1,11 @@
 #! /bin/bash
 
+# letter - 6 cm
+#WIDTH=530 # px
+
+# letter - 5 cm
+#HEIGHT=770 # px
+
 DDIR="$(cd $(dirname $0) && pwd)"
 OUTPUT="$DDIR/output"
 

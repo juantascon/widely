@@ -2,22 +2,22 @@
 
 \subsection{Resultados}
 
-Como resultado se obtuvo una aplicacion web IDE que permite:
+El resultado mas importante que se obtuvo es una aplicacion que centraliza en un solo punto el proceso de almacenamiento de informacion, edicion de codigo, compilacion y administracion de las versiones de los archivos, facilitando la integracion con maquinas clientes de bajas prestaciones y como unico requisito que tenga instalado cualquiera de los sistemas operativos modernos.
 
-* Administracion(creacion eliminacion y configuracion) de usuarios.
-* Administracion (creacion y eliminacion) de repositorios de codigo fuente SVN (SubVersioN).
-* Administracion (creacion y eliminacion) de copias de trabajo SVN (SubVersioN).
+Como resultados adicionales la aplicacion web IDE permite:
+
+* Creacion eliminacion y configuracion de usuarios.
+* Creacion y eliminacion de repositorios de codigo fuente SVN (SubVersioN).
+* Creacion y eliminacion de copias de trabajo SVN (SubVersioN).
 * Administracion (mover, copiar, eliminar, crear) de archivos y directorios utilizando una vista de arbol de archivos.
-* Edicion de codigo fuente
-* Edicion concurrente de codigo fuente instanciando el editor en multiples tabs
-* Compilacion de codigo en lenguaje python
-* Creacion de nuevas versiones de proyecto
-* Consulta inteligente del estado de proyectos (arbol de archivos y contenido de archivos) en otras versiones
-* Acceso a los datos de configuracion, repositorios y copias de trabajo de los usuarios via WebDAV
+* Edicion de codigo fuente wysiwyg(What You See Is What You Get).
+* Edicion concurrente de codigo fuente instanciando el editor en multiples tabs.
+* Compilacion de codigo en lenguaje python.
+* Creacion de nuevas versiones de proyecto.
+* Consulta inteligente del estado de proyectos (arbol de archivos y contenido de archivos) en otras versiones.
+* Acceso a los datos de configuracion, repositorios y copias de trabajo de los usuarios via WebDAV.
 
-El desarrollo de la aplicacion permite que cualquier persona continue con el trabajo debido a la documentacion generada y a la claridad de la implementacion.
-
-Lo mas importante que se tiene es una aplicacion que centraliza en un solo punto el proceso de almacenamiento de informacion, edicion de codigo, compilacion y administracion de las versiones de los archivos, facilitando la integracion con maquinas clientes de bajas prestaciones y como unico requisito que tenga instalado cualquiera de los sistemas operativos modernos.
+Ademas de todo esto el proceso de desarrollo de la aplicacion permite que cualquier persona continue con el trabajo debido a la documentacion generada y a la claridad de la implementacion.
 
 \subsection{Trabajos Futuros}
 
@@ -25,31 +25,39 @@ Como trabajos futuros principalmente se plantea que el producto adquiera un nive
 
 Otras mejoras planteadas son:
 
-En el modulo de control de versiones:
+Modulo de control de versiones:
 
 * Crear un plugin que permita utilizar un manejador de versiones distribuido, entre los manejadores de versiones distribuidos se encuentran: GIT, DARCS, Mercurial(HG), Bazaar, etc
 
-En el modulo de GUI:
+Modulo de GUI:
 
 * Hacer que el editor muestre resaltado de sintaxis del codigo fuente.
 
 * Crear en el editor un mecanismo de autoindentacion.
 
-* Resaltar en el editor las lineas donde se detectaron los errores de compilacion
+* Crear en el editor un sistema que permita hacer sugerencias y completado de palabras automatico.
 
+Modulo de Compilacion:
 
-En el modulo de WebServices:
+* Resaltar en el editor las lineas donde se detectaron los errores de compilacion.
 
-* Modificar el sistema de webservices conforme para que sea compatible con el estandar JSON-RPC (TODO: www.?)
+* Crear un plugin de compilacion para otros lenguajes como pueden ser c++, java, etc
 
-TODO: listar mas
+Modulo de WebServices:
+
+* Modificar el sistema de webservices para que sea compatible con el estandar JSON-RPC (TODO: www.?)
+
+Modulo de Listeners:
+
+* Crear un modulo que permita despachar los archivos estaticos por medio de servidores mas utilizados como lighttp ( http://www.lighttpd.net/ ) o Apache ( http://www.apache.org/ )
+
 
 \subsection{Experiencias Obtenidas}
 
 
-Quiza la mayor experiencia obtenida durante el desarrollo de este proyecto fue el de poder vivir en carne propia las metodologias de desarrollo de software existentes y poder ver su alto grado de inmadurez, incluso en metodologias ampliamente utilizadas como la propuesta de Rational Rose.
+Quiza la mayor experiencia obtenida durante el desarrollo de este proyecto fue el de poder vivir en carne propia las metodologias de desarrollo de software existentes y poder ver su alto grado de inmadurez, incluso en metodologias ampliamente utilizadas como la propuesta de Rational Rose el RUP(Rational Unified Process).
 
-De acuerdo a mi experiencia es humanamente imposible pensar en las consecuencias que puede traer un diseño previo de un desarrollo de software bastante elaborado teniendo como limite de tiempo el mismo tiempo que se va a gastar en la implementacion, es por esto que no tiene sentido gastar tiempo valioso en especificaciones y declaraiones de como se van a realizar las cosas.
+De acuerdo a mi experiencia es humanamente imposible pensar en las consecuencias que puede traer un diseño previo de un desarrollo de software bastante elaborado, teniendo como limite de tiempo el mismo tiempo que se va a gastar en la implementacion, es por esto que no tiene sentido gastar tiempo valioso en especificaciones y declaraiones de como se van a realizar las cosas, mas especificamente hablando de los diagramas de secuencia y de colaboracion.
 
 Las verdaderas consecuencias del diseño son solo medibles con heuristicas aceptables cuando se procede la implementacion real del software debido a que intervienen ciertos factores en el proceso de desarrollo que son muy influyentes y muy estocasticos por lo que se reflejan en problemas que simplemente no se tuvieron en cuenta en el momento del diseño del software, otro efecto que surge es el amarre de estos factores con el diseño moldeandolo y produciendo un diseño con un enfoque cerrado a ciertas caracteristicas, estos factores son:
 
