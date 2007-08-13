@@ -11,10 +11,10 @@
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="0.45.1"
-   width="2186.4399"
-   height="1480.96"
+   width="2440"
+   height="1477.4741"
    version="1.0"
-   sodipodi:docbase="/home/juandiego/widely/doc/diagramas/interfaz"
+   sodipodi:docbase="/home/juandiego/widely/doc/diagramas/ui"
    sodipodi:docname="login.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <metadata
@@ -44,8 +44,8 @@
      id="base"
      showgrid="true"
      inkscape:zoom="0.31331029"
-     inkscape:cx="1816.8611"
-     inkscape:cy="-5847.2375"
+     inkscape:cx="1696.7089"
+     inkscape:cy="996.18454"
      inkscape:window-x="0"
      inkscape:window-y="31"
      inkscape:current-layer="svg2"
@@ -57,36 +57,36 @@
      id="rect12882"
      width="2437"
      height="1414.4736"
-     x="1.5"
-     y="6484.9858" />
+     x="1.4999999"
+     y="1.4999999" />
   <rect
      style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.00000024;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
      id="rect12884"
      width="2437"
      height="35.434303"
-     x="1.5000004"
-     y="7922.46" />
+     x="1.5000002"
+     y="1438.9741" />
   <rect
      style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.99999952;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
      id="rect2177"
      width="597"
      height="76.999489"
      x="1641.5"
-     y="6802.4604" />
+     y="318.97461" />
   <text
      xml:space="preserve"
      style="font-size:50px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="1411.1934"
-     y="6858.8315"
+     y="375.3457"
      id="text2179"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan2181"
        x="1411.1934"
-       y="6858.8315">Username</tspan></text>
+       y="375.3457">Username</tspan></text>
   <g
      id="g3211"
-     transform="translate(0,4.7326088e-4)">
+     transform="translate(-1.1920929e-7,-6483.4854)">
     <text
        sodipodi:linespacing="125%"
        id="text2183"
@@ -110,16 +110,16 @@
      xml:space="preserve"
      style="font-size:50px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="1367.2969"
-     y="7179.6001"
+     y="696.11426"
      id="text2189"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan2191"
        x="1367.2969"
-       y="7179.6001">Admin</tspan></text>
+       y="696.11426">Admin</tspan></text>
   <g
      id="g3186"
-     transform="translate(-4.2152098,2.3007393e-5)">
+     transform="translate(-4.2152099,-6483.4858)">
     <rect
        y="7122.4604"
        x="1645.7152"
@@ -134,7 +134,7 @@
   </g>
   <g
      id="g3243"
-     transform="translate(-3.3793335,0)">
+     transform="translate(-3.3793336,-6483.4858)">
     <rect
        y="7282.4595"
        x="1929.7151"
@@ -158,11 +158,11 @@
      xml:space="preserve"
      style="font-size:50px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="167.17285"
-     y="7960.252"
+     y="1476.7661"
      id="text14384"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan14386"
        x="167.17285"
-       y="7960.252">Status Bar</tspan></text>
+       y="1476.7661">Status Bar</tspan></text>
 </svg>
