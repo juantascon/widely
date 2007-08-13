@@ -1,9 +1,117 @@
+%TODO: como se adicionan imagenes en latex?
+
 \section{IDE WEB}
 \subsection{FORMULACION}
 \subsubsection{CASOS DE USO}
-\subsubsection{DEFINICION DE LA ARQUITECTURA}
+
+Los actores involucrados en el proceso del sistema son:
+
+* Usuario Anonimo: un usuario anonimo es cualquiera con acceso a la pantalla de inicio del sistema, en teoria cualquier sistema externo (pueden ser personas) que tenga la habilidad de comunicarse con el sistema es considerado un usuario anonimo.
+
+* Administrador: el usuario administrador es el que se encarga de configurar las tareas principales del sistema.
+
+* Usuario: un usuario es cualquier sistema registrado, validado y aprobado por el administrador.
+
+Los casos de uso a desarrollar son:
+
+
+* Autenticacion (Authetication):
+
+El sistema debe permitir a un usuario desconocido poder autenticarse para que el sistema a partir dependiendo del proceso de autenticacion lo pueda tratar como un usuario registrado o como un usuario administrador.
+
+* Administracion de usuario (Users Administration):
+
+El sistema debe permitir al usuario administrador crear y eliminar usuarios registrados, ademas debe permitir editar los datos de configuracion de estos usuarios.
+
+* Cambio de Clave de autenticacion (Change Authentication Key):
+
+El sistema debe proveer a los usuarios y al administrador un proceso mediante el cual puedan cambiar sus llaves de autenticacion con el sistema (passwords).
+
+
+* Manejo de archivos y versiones (File and Versions Handling):
+
+Gracias a la centralizacion que provee el IDE Web es posible integrar, de forma inteligente (incluso algunas acciones se deben poder hacer de forma transparante al usuario) el sistema de control de versiones con la administracion de los archivos del proyecto, a pesar de esta integracion, la copia de trabajo de cada usuario debe estar separado del repositorio del proyecto.
+
+* Edicion de codigo fuente (Source Code Editing)
+
+El sistema debe tener una interfaz capaz de editar codigo fuente, opcionalmente se pueden incluir ayudas comunes pero de gran utilidad para un programador como son:
+
+* AutoIndentacion
+* Autocompletado de palabras
+* Opciones de Codificacion(I18N)
+* Resaltado de sintaxis
+
+* Administracion de repositorios y copias de trabajo (Repositories and Working Copies Administration):
+
+El programa debe tener una interfaz grafica que permita crear, acceder y actualizar repositorios de archivos a partir de las copias de trabajo de los usuarios, el manejo del repositorio se hara con una interfaz a un sistema manejador de versiones existente permitiendo aumentar la compatibilidad con otros sistemas, entre los sistemas de control de versiones mas populares se encuentran:
+
+* SubVersioN
+* CVS
+* GIT
+* Mercurial (HG)
+
+
+* Compilacion centralizada (Centralized Compilation):
+
+El sistema debe ser capaz de compilar el codigo fuente de forma centralizada (en el servidor) utilizando interfaces con herramientas de compilacion.
+
+* Envio de Archivos
+
+El servidor debe permitir al cliente una interfaz de acceso a sus archivos de forma local, utilizando un sistema de archivos de red para compartir los archivos ejecutables y de codigo fuente desde el servidor y hacia el cliente, algunos de los mas populares sistemas de archivos de red son:
+
+* SMB/CIFS
+* WebDAV
+* AFS
+* NFS
+* NCP
+
+
+
+
+
+\subsubsection{ARQUITECTURA}
+
+Al tratarse de una aplicacion web la arquitectura que se utilizara para el desarrollo del proyecto sera la arquitectura Cliente-Servidor en la cual el servidor se encarga de centralizar la informacion y la logica y la presenta a multiples clientes encargados de hacer peticiones de acuerdo a sus necesidades.
+
+En la desarrollo de aplicaciones web lo mas comun es que no sea necesario crear el lado cliente de la aplicacion ya que se utiliza como cliente un browser(explorador) incluido en la mayoria de sistemas operativos modernos, por lo tanto, la mayor parte del desarrollo web se centra en la creacion del servidor que es encargado, incluso, de generar la interfaz a los clientes para que estos la muestren al usuario final.
+
+
 \subsection{DISEÑO}
 \subsubsection{MODELO CONCEPTUAL}
+
+\subsubsection{MODELO DE NAVEGACION}
+
+El modelo de navegacion muestra el flujo de navegacion que un usuario final puede seguir, el siguiente es un diagrama de navegacion de aplicacion web modificado para la adaptacion a la tecnica de desarrollo AJAX.
+
+
 \subsubsection{DISEÑO DE INTERFAZ}
+
+
 \subsubsection{DIAGRAMA DE PAQUETES}
+
+
 \subsubsection{DIAGRAMA DE BASE DE DATOS}
+
+Bases de datos
+
+Las base de datos de mayor uso en la actualidad son las base de datos relacionales estas se fundamentan en el uso de "relaciones", las cuales podran considerarse desde un punto de vista logico como conjuntos de datos llamados "tuplas", en este modelo no importa el lugar ni la forma en que se almacenan los datos, teniendo como ventaja su facil entendimiento y utilizacion para un usuario casual de la base de datos.
+
+Otras bases de datos menos utilizadas, pero no por esto menos atractivas son:
+
+* Base de Datos Orientada a Objetos(OODB): En estas el modelo de almacenamiento como su nombre lo dice es una base de datos cuyo sistema de consulta es orientado a objetos permitiendo patrones avanzados como herencia, encapsulamiento, paso de mensajes, etc.
+
+* Base de Datos XML(XMLDB): El uso principal de XML es estructurar datos, recibirlos y enviarlos, pero tambien podemos guardar datos en nuestros documentos o una coleccion de ellos para que sean tratados luego con algun lenguaje o herramienta XML.
+
+\title{Sistema de Archivos}
+
+Los sistemas de archivos mas comunes utilizan dispositivos de almacenamiento de datos que permiten el acceso a los datos como una cadena de bloques de un mismo tamaño, a veces llamados sectores. El software del sistema de archivos es responsable de la organizacion de estos sectores en archivos y directorios y mantiene un registro de que sectores pertenecen a que archivos y de que sectores no han sido utilizados.
+
+En la practica, un sistema de archivos no requiere necesariamente de un dispositivo de almacenamiento de datos, sino que puede ser utilizado tambien para acceder a datos generados dinamicamente, como los recibidos a travez de una conexion de red, un generador de numeros aleatorios, un sistema de configuracion en donde cada parametro es representado por un archivo y en donde las acciones de obtener o cambiar el valor del parametro es equivalente a escribir o leer en el archivo, entre otros.
+
+En sistemas de archivos jerarquicos, usualmente, se declara la ubicacion precisa de un archivo con una cadena de texto llamada "ruta". La nomenclatura para rutas varia ligeramente de sistema en sistema, pero mantienen por lo general una misma estructura. Una ruta viene dada por una sucesion de nombres de directorios y subdirectorios, ordenados jerarquicamente de izquierda a derecha y separados por algun caracter especial y puede terminar en el nombre de un archivo presente en la ultima rama de directorios especificada.
+
+\title{Bases de Datos vs Sistemas de Archivos}
+
+Debido a que los manejadores de versiones trabajan sobre archivos que se encuentran sobre sistemas de archivos es por esto que en caso de que estos se encuentren en una base de datos, se nota inmediatamente una deficiencia en el tiempo requerido para procesar las acciones de administracion de versiones de archivos ya que en algun punto se hace necesario mover los archivos desde la base de datos hasta el sistema de archivos.
+
+Por esta razon para la realizacion del proyecto se ha tomado la desicion de no utilizar un manejador de base de datos, en lugar de esto se utilizara una jerarquia de archivos ordenada y bien definida.
