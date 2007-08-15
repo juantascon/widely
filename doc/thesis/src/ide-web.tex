@@ -1,5 +1,3 @@
-%TODO: como se adicionan imagenes en latex?
-
 \section{IDE WEB}
 \subsection{Formulacion}
 \subsubsection{Casos de Uso}
@@ -66,6 +64,13 @@ El servidor debe permitir al cliente una interfaz de acceso a sus archivos de fo
 * NFS
 * NCP
 
+\newpage
+\begin{figure}
+ \centering
+ \includegraphics[scale=1]{../diagrams/output/usecases}
+ \caption{Diagrama de Casos de Uso}
+ \label{diagrama:casos_uso}
+\end{figure}
 
 
 \subsubsection{Arquitectura}
@@ -76,27 +81,109 @@ En la desarrollo de aplicaciones web lo mas comun es que no sea necesario crear 
 
 En el lado del servidor se utilizara una arquitectura orientada a servicios (SOA), la cual provee division, modularidad y bajo acoplamiento en la logica de negocio y entre la interfaz de usuario, vista en el lado cliente como un catalogo de servicios.
 
+\newpage
+\begin{landscape}
+\begin{figure}
+ \centering
+ \includegraphics[scale=1]{../diagrams/output/arquitecture}
+ \caption{Diagrama de Arquitectura}
+ \label{diagrama:arquitectura}
+\end{figure}
+\end{landscape}
+
 
 \subsection{Diseño}
+
 \subsubsection{Modelo Conceptual}
+
+\begin{landscape}
+\begin{figure}
+ \centering
+ \includegraphics[scale=1]{../diagrams/output/conceptual}
+ \caption{Diagrama Conceptual}
+ \label{diagrama:conceptual}
+\end{figure}
+\end{landscape}
+
 
 \subsubsection{Modelo de Navegacion}
 
-
-
-
 El modelo de navegacion muestra el flujo de navegacion que un usuario final puede seguir, el siguiente es un diagrama de navegacion de aplicacion web modificado para la adaptacion a la tecnica de desarrollo AJAX.
+
+\newpage
+
+\begin{landscape}
+\begin{figure}
+ \centering
+ \includegraphics[scale=1]{../diagrams/output/navigation}
+ \caption{Diagrama de Navegacion}
+ \label{diagrama:navegacion}
+\end{figure}
+\end{landscape}
 
 
 \subsubsection{Diseño de Interfaz}
 
+La interfaz del usuario se divide en 4 pantallas diferentes:
+
+* Login: Es la interfaz en donde el usuario procede a ingresar al sistema.
+
+* Admin: Es la interfaz de configuracion de parametros del servidor y de administracion de usuarios.
+
+* Config: Es la interfaz de configuracion de los parametros del usuario, asi como sus repositorios y sus copias de trabajo.
+
+* IDE: Es la interfaz principal, el verdadero IDE, contiene un editor, una barra de herramientas, una sistema de consulta de versiones del repositorio y un sistema de modificacion de jerarquia de archivos en forma de arbol.
+
+\begin{landscape}
+\begin{figure}
+ \centering
+ \includegraphics[scale=1]{../diagrams/output/ui-login}
+ \caption{Diagrama de Interfaz - Login}
+ \label{diagrama:ui-login}
+\end{figure}
+\end{landscape}
+
+\begin{figure}
+ \centering
+ \includegraphics[scale=1]{../diagrams/output/ui-admin}
+ \caption{Diagrama de Interfaz - Admin}
+ \label{diagrama:ui-admin}
+\end{figure}
+
+\begin{figure}
+ \centering
+ \includegraphics[scale=1]{../diagrams/output/ui-config}
+ \caption{Diagrama de Interfaz - Config}
+ \label{diagrama:ui-config}
+\end{figure}
+
+\begin{landscape}
+\begin{figure}
+ \centering
+ \includegraphics[scale=1]{../diagrams/output/ui-ide}
+ \caption{Diagrama de Interfaz - IDE}
+ \label{diagrama:ui-ide}
+\end{figure}
+\end{landscape}
+
 
 \subsubsection{Diagrama de Paquetes}
+
+La arquitectura orientada a servicios permitio dividir la aplicacion en paquetes con funcionalidades bien definidas y con bajo acoplamiento.
+
+\begin{landscape}
+\begin{figure}
+ \centering
+ \includegraphics[scale=1]{../diagrams/output/packages}
+ \caption{Diagrama de Paquetes}
+ \label{diagrama:paquetes}
+\end{figure}
+\end{landscape}
 
 
 \subsubsection{Jerarquia de Archivos}
 
-Bases de datos
+\paragraph{Bases de datos}
 
 Las base de datos de mayor uso en la actualidad son las base de datos relacionales estas se fundamentan en el uso de "relaciones", las cuales podran considerarse desde un punto de vista logico como conjuntos de datos llamados "tuplas", en este modelo no importa el lugar ni la forma en que se almacenan los datos, teniendo como ventaja su facil entendimiento y utilizacion para un usuario casual de la base de datos.
 
@@ -106,7 +193,8 @@ Otras bases de datos menos utilizadas, pero no por esto menos atractivas son:
 
 * Base de Datos XML(XMLDB): El uso principal de XML es estructurar datos, recibirlos y enviarlos, pero tambien podemos guardar datos en nuestros documentos o una coleccion de ellos para que sean tratados luego con algun lenguaje o herramienta XML.
 
-\title{Sistema de Archivos}
+\paragraph{Sistema de Archivos}
+
 
 Los sistemas de archivos mas comunes utilizan dispositivos de almacenamiento de datos que permiten el acceso a los datos como una cadena de bloques de un mismo tamaño, a veces llamados sectores. El software del sistema de archivos es responsable de la organizacion de estos sectores en archivos y directorios y mantiene un registro de que sectores pertenecen a que archivos y de que sectores no han sido utilizados.
 
@@ -114,8 +202,17 @@ En la practica, un sistema de archivos no requiere necesariamente de un disposit
 
 En sistemas de archivos jerarquicos, usualmente, se declara la ubicacion precisa de un archivo con una cadena de texto llamada "ruta". La nomenclatura para rutas varia ligeramente de sistema en sistema, pero mantienen por lo general una misma estructura. Una ruta viene dada por una sucesion de nombres de directorios y subdirectorios, ordenados jerarquicamente de izquierda a derecha y separados por algun caracter especial y puede terminar en el nombre de un archivo presente en la ultima rama de directorios especificada.
 
-\title{Bases de Datos vs Sistemas de Archivos}
+\paragraph{Bases de Datos vs Sistemas de Archivos}
+
 
 Debido a que los manejadores de versiones trabajan sobre archivos que se encuentran sobre sistemas de archivos es por esto que en caso de que estos se encuentren en una base de datos, se nota inmediatamente una deficiencia en el tiempo requerido para procesar las acciones de administracion de versiones de archivos ya que en algun punto se hace necesario mover los archivos desde la base de datos hasta el sistema de archivos.
 
 Por esta razon para la realizacion del proyecto se ha tomado la desicion de no utilizar un manejador de base de datos, en lugar de esto se utilizara una jerarquia de archivos ordenada y bien definida.
+
+\begin{figure}
+ \centering
+ \includegraphics[scale=1]{../diagrams/output/fs}
+ \caption{Diagrama de Jerarquia de Sistema de Archivos}
+ \label{diagrama:fs}
+\end{figure}
+
