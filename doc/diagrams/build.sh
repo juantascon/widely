@@ -14,10 +14,12 @@ mkdir -p $OUTPUT
 for d in $DDIR/*.dia
 do
 	dia -e "$OUTPUT/$(basename $d).png" "$d"
+	dia -e "$OUTPUT/$(basename $d).eps" "$d"
 done
 
 for d in $DDIR/ui/*.svg
 do
 	inkscape -b white -e "$OUTPUT/ui-$(basename $d).png"  "$d"
+	inkscape -b white -E "$OUTPUT/ui-$(basename $d).eps"  "$d"
 done
 
