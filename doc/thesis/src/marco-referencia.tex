@@ -1,24 +1,92 @@
 \section{MARCO DE REFERENCIA}
 
-\subsection{Marco Conceptual}
+\subsection{Tecnologías Implementadas}
 
-Reverse Proxy:
 
-Un Proxy Inverso es un servidor proxy usado comunmente como front-end (la parte visible) de uno o mas servidores, funciona de forma opuesta a un servidor proxy regular ya que retransmite las conexiones entrantes de internet hacia los servidores (back-ends).
+SOA (Service Oriented Arquitecture):
 
-El proxy inverso puede lidiar el mismo con la peticion o simplemente retransmitirla de forma parcial o total hacia los servidores.
+SOA (Arquitectura Orientada a Servicios) es una evolucion de la computacion distribuida, SOA provee modularidad en la logica de negocios que puede ser representada como servicios para los clientes, estos servicios tienen bajo acoplamiento, en el sentido en que la interfaz de usuario(GUI) puede permanecer totalmente independiente de la capa de servicio.
 
-Las principales caracteristicaas de un servidor proxy inverso son:
+OASIS (Organization for the Advancement of Structured Information Standards) define SOA de la siguiente manera:
 
-\begin{itemize}
-	\item Cifrado de datos: el servidor inverso puede ser el encargado de realizar una conexion cifrada (SSL) con las maquinas clientes en el caso en que los servidores reales (back-ends) no puedan hacerlo o en el caso en que el proxy inverso disponga de hardware de cifrado que acelere el proceso.
-	
-	\item Seguridad: el servidor proxy inverso es una capa de defensa adicional.
-	
-	\item Distribucion de carga: el servidor proxy inverso puede distribuir la carga	hacia los servidores reales (back-ends), cada uno puede disponer de una parte de la informacion o simplemente distribuir la carga basado en la disponibilidad de los servidores.
-	
-	\item Cache: el servidor proxy inverso puede disminuir la carga de los servidores utilizando tecnicas de cache de contenido invariable.
-\end{itemize}
+Es un paradigma para organizar y utilizar caracteristicas distribuidas que pueden estar bajo el control de dominios diferentes. Provee un significado uniforme para ofrecer, descubrir, interactuar y utilizar estas caracteristicas para producir los efectos deseados con precondiciones y expectativas medibles.
+
+SOA fue elegida principalmente por que provee division, modularidad y bajo acoplamiento dentro de la logica de negocio y en la comunicacion con la interfaz de usuario.
+
+
+
+JSON(JavaScript Object Notation):
+
+JSON (Notacion de Objecto en JavaScript) es un formato liviano de intercambio de datos, es mas sencillo de leer y escribir para los humanos, ademas es facil para una maquina analizarlo y generarlo, esta basado en un subconjunto del lenguaje de programacion JavaScript Standard ECMA-262 3rd Edition - December 1999.
+
+JSON es un formato de texto que es completamente independiente del lengujae pero utiliza convenciones familiares para los programadores que hayan utilizado lenguajes derivados del lenguaje C (C, C++, C\#, Java, Python, etc)
+
+Por estas razones JSON se convierte en un lenguaje ideal para el intercambio de datos.
+
+JSON es construido en dos estructuras:
+
+* Una coleccion con pares nombre/valor, en varios leguajes esto es visto como un objeto, una estructura, un diccionario, una tabla hash, etc.
+
+* Una Lista ordenada de valores, en varios lenguajes esto es visto como un array, un vector, una lista, etc.
+
+Estas son estructuras de datos universales y gracias a que todos los lenguajes modernos las soportan de una forma u otra, tiene sentido que estas estructuras de datos que son intercambiable entre los lenguajes se utilizen como intercambio de datos.
+
+Por el hecho de que la mayoria de texto en formato JSON tienen una sintaxis valida en JavaScript, surge una forma para que un programa JavaScript analize datos en este formato utilizando la funcion built-in de JavaScript eval(), en este caso en lugar de utilizar un analizador especifico de JSON es el propio lenguaje el que se encarga de interpretar y ejecutar los datos para producir objetos nativos de JavaScript 
+
+El uso de esta tecnica puede ser segura siempre y cuando todo el entorno (los datos JSON y el programa JavaScript) esta bajo el control de una fuente confiable y unica, sin embargo en el ambiente de un servidor web esta confianza de que todo provenga de una unica fuente no se da, abriendo el paso a posibles fallos de seguridad.
+
+
+Ejemplo:
+
+Una lista de personas en JSON
+
+[
+ { ``nombre'': ``Juan'', ``apellido'': ``Tascon'', ``codigo'': ``0233680'' },
+ { ``nombre'': ``Diego'', ``apellido'': ``Tascon'', ``codigo'': ``0233681'' },
+ { ``nombre'': ``Jose'', ``apellido'': ``Vidarte'', ``codigo'': ``0533282'' }
+]
+
+La principal ventaja que tiene sobre el formato XML es que no requiere realizar un analizador en el lenguaje JavaScript sino que este esta incluido en el lenguaje mismo.
+
+JSON esta esta siendo adoptado a una velocidad tan grande que quiza algun dia haya reemplazado por completo a su rival mas cercano XML.
+
+
+
+WebDAV:
+
+WebDAV es una extension al protocolo HTTP 1.1 que permite realizar acciones de gestion de archivos tales como escribir, copiar, eliminar o modificar.
+
+El objetivo de WebDAV se define por su lema ``makes the Web Writable'' (hacer que la web sea escribible), hacer de la web un espacio de colaboracion, donde varias personas distintas puedan participar conjuntamente en la elaboracion de documentos.
+
+Algunas de las caracteristicas mas destacadas de webdav (aparte de proporcionar acceso a la escritura del documento via http) son el locking o posibilidad de cerrar dicho acceso de escritura, mecanismo imprescindible en un entorno de trabajo compartido, para evitar que el trabajo de un nuevo usuario sobreescriba al del anterior. La posibilidad de describir propiedades (metadatos) del documento en formato xml, como titulo, asunto, autor, fecha, tamaño, que aunque no aparecen en el documento proporcionan informacion sobre el mismo y pueden ser facilmente gestionados por el protocolo (permitiendo funciones de listado de datos, busqueda inteligente, etc).
+
+Con WebDav desaparecen las diferencias entre nuestro disco duro y el espacio web. Sera mucho mas practico para las empresas guardar sus documentos en servidores web desde donde podran asegurar su inmediata disponibilidad de forma segura. Cualquier usuario dotado del navegador adecuado podra establecer vinculos enlaces virtuales entre documentos.
+
+WebDAV añade los siguientes métodos a HTTP:
+
+    * PROPFIND - Usado para recuperar propiedades, almacenadas como XML, desde un recurso. También está sobrecargado para permitir recuperar la estructura de colección (la jerarquía de directorios) de un sistema remoto.
+    * PROPPATCH - Usado para cambiar y borrar múltiples propiedades de un recurso en una simple operación atómica(commit).
+    * MKCOL - Usado para crear colecciones (directorios)
+    * COPY - Usado para copiar un recurso desde un URI a otro.
+    * MOVE - Usado para mover un recurso desde un URI a otro.
+    * LOCK - Usado para bloquear (lock) un recurso.
+    * UNLOCK - Para desbloquear un recurso.
+
+Recurso es el nombre HTTP para una referencia que está apuntada por un Identificador de Recursos Uniforme o URI (Uniform Resource Identifier).
+
+El grupo de trabajo WebDAV esta todavía trabajando en unas cuantas extensiones a WebDAV, incluyendo: control de redirecciones, enlaces, límites de espacio en disco y mejoras en la especificación base para que alcance el nivel de madurez del resto de estándares de Internet.
+
+Las principales ventajas de WebDAV sobre otros sistemas de archivos de red son:
+
+* Se puede acceder en modo solo lectura desde cualquier browser que soporte el protocolo HTTP 1.1.
+
+* Todos los sistemas operativos incluyen soporte para WebDAV.
+
+* Es un estandar ampliamente utilizado.
+
+* La implementacion de un servidor es bastante sencillo, por esta misma razon es muy facil de adaptarlo para que sea compatible con un sistema de autenticacion propio.
+
+
 
 Ruby:
 
@@ -103,30 +171,66 @@ Según este principio ninguna pieza de información debería estar duplicada nun
 
 Cuando el principio DRY se aplica de forma eficiente los cambios en cualquier parte del proceso requieren cambios en un único lugar. Por contra, si algunas partes del proceso está repertida por varios sitios, los cambios pueden provocar fallos con mayor facilidad si todos los sitios en los que aparece no se encuentran sincronizados.
 
+Como nota personal del autor la razon de mayor peso para escoger este lenguaje de programacion sobre otros es que es un lenguaje muy comodo y atractivo, con muchas caracteristicas unicas, que hacen de ruby uno de los lenguajes mas potentes que se pueden encontrar en estos tiempos.
 
-WebDAV:
 
-WebDAV es una extension al protocolo HTTP 1.1 que permite realizar acciones de gestion de archivos tales como escribir, copiar, eliminar o modificar.
 
-El objetivo de WebDAV se define por su lema ``makes the Web Writable'' (hacer que la web sea escribible), hacer de la web un espacio de colaboracion, donde varias personas distintas puedan participar conjuntamente en la elaboracion de documentos.
+Pound:
 
-Algunas de las caracteristicas mas destacadas de webdav (aparte de proporcionar acceso a la escritura del documento via http) son el locking o posibilidad de cerrar dicho acceso de escritura, mecanismo imprescindible en un entorno de trabajo compartido, para evitar que el trabajo de un nuevo usuario sobreescriba al del anterior. La posibilidad de describir propiedades (metadatos) del documento en formato xml, como titulo, asunto, autor, fecha, tamaño, que aunque no aparecen en el documento proporcionan informacion sobre el mismo y pueden ser facilmente gestionados por el protocolo (permitiendo funciones de listado de datos, busqueda inteligente, etc).
+Las soluciones actuales para despacho de informacion procesada a traves de la web son:
 
-Con WebDav desaparecen las diferencias entre nuestro disco duro y el espacio web. Sera mucho mas practico para las empresas guardar sus documentos en servidores web desde donde podran asegurar su inmediata disponibilidad de forma segura. Cualquier usuario dotado del navegador adecuado podra establecer vinculos enlaces virtuales entre documentos.
+La solucion CGI implica realizar una comunicacion entre el servidor web y la aplicacion CGI, esta comunicacion se realiza lenvantando un proceso por cada peticion al servidor, retornando la salida del programa CGI y utilizando los datos de la peticion como datos de entrada, esto produce un aumento en la cola de carga del servidor haciendo de esta una solucion poco rentable.
 
-WebDAV añade los siguientes métodos a HTTP:
+Como respuesta a este problema surge FastCGI que agiliza el proceso de ejecucion de programas teniendolos siempre funcionando y esperando las peticiones del servidor.
 
-    * PROPFIND - Usado para recuperar propiedades, almacenadas como XML, desde un recurso. También está sobrecargado para permitir recuperar la estructura de colección (la jerarquía de directorios) de un sistema remoto.
-    * PROPPATCH - Usado para cambiar y borrar múltiples propiedades de un recurso en una simple operación atómica(commit).
-    * MKCOL - Usado para crear colecciones (directorios)
-    * COPY - Usado para copiar un recurso desde un URI a otro.
-    * MOVE - Usado para mover un recurso desde un URI a otro.
-    * LOCK - Usado para bloquear (lock) un recurso.
-    * UNLOCK - Para desbloquear un recurso.
+Otra solucion es la de extender el servidor web con modulos que sirvan como interpretes y ejecutores para lenguajes no compilados, quiza el mas popular sea el modulo del servidor web Apache para el lenguaje PHP, los inconvenientes de esta solucion son que para cada lenguaje y para cada servidor se debe crear un interprete adicional y que no se puede implementar en lenguajes compilados(ej: c/c++, java, etc).
 
-Recurso es el nombre HTTP para una referencia que está apuntada por un Identificador de Recursos Uniforme o URI (Uniform Resource Identifier).
+La solucion mas inteligente es tener en el propio lenguaje un pequeño servidor web constante para generar los datos dinamicos y utilizar un servidor web mas elaborado para los datos estaticos, adicional a esto unirlos como un solo servidor utilizando un proxy inverso(algunos servidores web sirven tambien como proxy inverso) y puesto que para la aplicacion se necesita un servidor para los webservices otro para los archivos estaticos y otro para el servidor de envio de archivos (WebDAV), entonces esta se convierte en la solucion mas optima partiendo del hecho de que el tiempo en el proceso de comunicacion entre el proxy inverso y los otros servidores es casi nulo.
 
-El grupo de trabajo WebDAV esta todavía trabajando en unas cuantas extensiones a WebDAV, incluyendo: control de redirecciones, enlaces, límites de espacio en disco y mejoras en la especificación base para que alcance el nivel de madurez del resto de estándares de Internet.
+
+
+QooXdoo:
+
+QooXdoo es un framework de trabajo que esta pensado para el desarrollo profesional en Javascript, contiene una conjunto de herramientas avanzada de desarrollo de Interfaces de usuario y de comunicacion cliente-servidor de alto nivel, este framework no tiene dependencia alguna con el lenguaje utilizado en el lado del servidor, esto rompe con la tendencia de realizar proyectos AJAX para determinados lenguajes(ej: el toolkit de google para java, rails para ruby, etc).
+
+Las principales caracteristicas de QooXdoo son:
+
+* Orientado a Objetos: a pesar de que javascript no es un lenguaje orientado a objetos del todo, qooxdoo incluye una implementacion de los conceptos asociados con la programacion orientada a objetos estos son: clases, objetos, mixins, interfaces, herencia, etc.
+
+* Soporta multiples browsers: firefox, internet explorer, opera, safari
+
+* Implementa un toolkit grafico que esta a la par con toolkits de uso profesional como SWT(java) o QT(c++, python, ruby, etc), en los que se incluye soporte para navegacion por teclado, foco y manejo del tabulador y manejo de drag and drop (arrastre y suelte).
+
+* Contiene un optimizador y compresor (quintando cosas que no sirven como comentarios o saltos de linea y renombrando los nombres de las variables por nombres mas cortos) para el codigo javascript.
+
+* Soporta internacionalizacion y localizacion.
+
+* Tiene un sistema de pruebas automatizadas (test runner)
+
+* Soporte para programacion orientada a eventos.
+
+
+\subsection{Marco Conceptual}
+
+Reverse Proxy:
+
+Un Proxy Inverso es un servidor proxy usado comunmente como front-end (la parte visible) de uno o mas servidores, funciona de forma opuesta a un servidor proxy regular ya que retransmite las conexiones entrantes de internet hacia los servidores (back-ends).
+
+El proxy inverso puede lidiar el mismo con la peticion o simplemente retransmitirla de forma parcial o total hacia los servidores.
+
+Las principales caracteristicaas de un servidor proxy inverso son:
+
+\begin{itemize}
+	\item Cifrado de datos: el servidor inverso puede ser el encargado de realizar una conexion cifrada (SSL) con las maquinas clientes en el caso en que los servidores reales (back-ends) no puedan hacerlo o en el caso en que el proxy inverso disponga de hardware de cifrado que acelere el proceso.
+	
+	\item Seguridad: el servidor proxy inverso es una capa de defensa adicional.
+	
+	\item Distribucion de carga: el servidor proxy inverso puede distribuir la carga	hacia los servidores reales (back-ends), cada uno puede disponer de una parte de la informacion o simplemente distribuir la carga basado en la disponibilidad de los servidores.
+	
+	\item Cache: el servidor proxy inverso puede disminuir la carga de los servidores utilizando tecnicas de cache de contenido invariable.
+\end{itemize}
+
+
 
 CIFS(Common Internet File System):
 
@@ -141,45 +245,6 @@ Samba es una implementación libre del protocolo CIFS que funciona en sistemas o
 Samba es realmente una implementacion de muchos servicios y muchos protocolos, entre los que están: NetBIOS sobre TCP/IP (NetBT), SMB (también conocido como CIFS), DCE/RPC o más concretamente, MSRPC, el servidor WINS también conocido como el servidor de nombres NetBIOS (NBNS), la suite de protocolos del dominio NT, con su Logon de entrada a dominio, la base de datos del gestor de cuentas seguras (SAM), el servicio Local Security Authority (LSA), el servicio de impresoras de NT. Todos estos servicios y protocolos son frecuentemente referidos de un modo incorrecto como NetBIOS o SMB.
 
 
-SOA (Service Oriented Arquitecture):
-
-SOA (Arquitectura Orientada a Servicios) es una evolucion de la computacion distribuida, SOA provee modularidad en la logica de negocios que puede ser representada como servicios para los clientes, estos servicios tienen bajo acoplamiento, en el sentido en que la interfaz de usuario(GUI) puede permanecer totalmente independiente de la capa de servicio.
-
-OASIS (Organization for the Advancement of Structured Information Standards) define SOA de la siguiente manera:
-
-Es un paradigma para organizar y utilizar caracteristicas distribuidas que pueden estar bajo el control de dominios diferentes. Provee un significado uniforme para ofrecer, descubrir, interactuar y utilizar estas caracteristicas para producir los efectos deseados con precondiciones y expectativas medibles.
-
-
-JSON(JavaScript Object Notation):
-
-JSON (Notacion de Objecto en JavaScript) es un formato liviano de intercambio de datos, es mas sencillo de leer y escribir para los humanos, ademas es facil para una maquina analizarlo y generarlo, esta basado en un subconjunto del lenguaje de programacion JavaScript Standard ECMA-262 3rd Edition - December 1999.
-
-JSON es un formato de texto que es completamente independiente del lengujae pero utiliza convenciones familiares para los programadores que hayan utilizado lenguajes derivados del lenguaje C (C, C++, C\#, Java, Python, etc)
-
-Por estas razones JSON se convierte en un lenguaje ideal para el intercambio de datos.
-
-JSON es construido en dos estructuras:
-
-* Una coleccion con pares nombre/valor, en varios leguajes esto es visto como un objeto, una estructura, un diccionario, una tabla hash, etc.
-
-* Una Lista ordenada de valores, en varios lenguajes esto es visto como un array, un vector, una lista, etc.
-
-Estas son estructuras de datos universales y gracias a que todos los lenguajes modernos las soportan de una forma u otra, tiene sentido que estas estructuras de datos que son intercambiable entre los lenguajes se utilizen como intercambio de datos.
-
-Por el hecho de que la mayoria de texto en formato JSON tienen una sintaxis valida en JavaScript, surge una forma para que un programa JavaScript analize datos en este formato utilizando la funcion built-in de JavaScript eval(), en este caso en lugar de utilizar un analizador especifico de JSON es el propio lenguaje el que se encarga de interpretar y ejecutar los datos para producir objetos nativos de JavaScript 
-
-El uso de esta tecnica puede ser segura siempre y cuando todo el entorno (los datos JSON y el programa JavaScript) esta bajo el control de una fuente confiable y unica, sin embargo en el ambiente de un servidor web esta confianza de que todo provenga de una unica fuente no se da, abriendo el paso a posibles fallos de seguridad.
-
-
-Ejemplo:
-
-Una lista de personas en JSON
-
-[
- { ``nombre'': ``Juan'', ``apellido'': ``Tascon'', ``codigo'': ``0233680'' },
- { ``nombre'': ``Diego'', ``apellido'': ``Tascon'', ``codigo'': ``0233681'' },
- { ``nombre'': ``Jose'', ``apellido'': ``Vidarte'', ``codigo'': ``0533282'' }
-]
 
 CGI(Common Gateway Interface) - FCGI(Fast CGI:
 
@@ -190,6 +255,7 @@ A pesar de que es muy sencillo modificar un programa para que sea funcional con 
 
 
 FastCGI surge como respuesta a la perdida de eficiencia que se genera al utilizar CGI, FastCGI en lugar de crear un proceso por cada peticion, permite utilizar un unico proceso persistente que maneje varias peticiones durante su ciclo de ejecucion.
+
 
 
 Control de Versiones:
@@ -224,6 +290,51 @@ El otro tipo de sistema de control de versiones son los sistemas distribuidos, e
 
 En estos sistemas la sincronizacion es conducida por el intercambio de parches (conjuntos de cambios) entre los desarrolladores esto demuestra a una clara diferencia con los sistemas centralizados
 
+
+
+WYSIWYG (What You See Is Wath You Get)
+
+WYSIWYG. (Lo que ves es lo que obtienes) es un concepto que aplicable a los editores de texto con formato (como por ejemplo un editor de HTML u OpenOffice.org) y en general a cualquier editor (ej: un editor de imagenes se puede considerar un editor WYSIWYG) el cual permite escribir un documento viendo inmediatamente el resultado final del documento, es el editor el encargado de generar el codigo fuente (ej: HTML o Latex) o los archivos con formato (ej: cualquier formato de imagen).
+
+Ejemplos de editores WYSIWYG son:
+
+* NVU/Kompozer (HTML)
+* Composer de Netscape y Mozilla (HTML)
+* Lyx (latex)
+* Krita (png, jpg, etc)
+* Inkscape (svg, pdf, etc)
+
+
+
+XP (Extreme Programming):
+XP(Programacion Extrema) es una disiplina de acercamiento al desarrollo de software, el exito de XP se debe a que se centra en la satisfaccion del cliente, la metodologia es diseñada para entregar a los clientes el software que necesita en el momento en que lo necesita, su mayor ventaja es que puede responder al cambio de requerimientos del cliente incluso en momentos avanzados del ciclo de vida de la aplicacion.
+
+Esta metodologia tambien hace emfasis en el trabajo en equipo, clientes, manejadores y desarrolladores hacen parte de un equipo dedicado a cumplir con la calidad del software.
+
+XP describe cuatro tareas basicas en el proceso de desarrollo de software:
+
+* Codificar: en XP lo mas importante de un producto de software el es codigo, la codificacion ayuda a comprender los verdaderos problemas del software a desarrollar, la codificacion puede ser utilizada para cononcer la solucion mas apropiada a un problema (ej: codificando todas las soluciones y determinando la mejor solucion a partir de pruebas automatizadas)
+
+* Probar: en XP las pruebas significan que un metodo no esta libre de errores hasta que no se prueba, por esto se deben realizar pruebas unitarias y pruebas de aceptacion acordadas con el cliente.
+
+* Escuchar: en la mayoria de los casos el programador no conoce a ciencia cierta la logica de negocio del sistema a desarrollar, la unica forma de conocer la funcionalidad del sistema es escuchar al cliente y entender la logica del negocio.
+
+* Diseño: desde un punto de vista minimalista uno podia afirmar que el desarrollo de una aplicacion no necesita mas que codificarm, probar y escuchar, si estas actividades se logran con exito el resultado debe ser siempre un sistema que funciones, pero en la practica esto no funciona, uno puede llegar lejos sin diseño pero en un determinado tiempo se va a atascar, los sistemas tienden a ser complejos y por esto las dependencias internas deben quedar muy claras, un buen diseño evita estos problemas de dependencias, lo que significa que al cambiar una porcion del sistema esta no afectara otras partes del mismo.
+
+* Buenas Practicas: las practicas de XP son 12 ( http://en.wikipedia.org/wiki/Extreme_Programming_Practices ) derivadas de ``best practices of software engineering'' (http://en.wikipedia.org/wiki/Best_practices), las cuales aconsejan sobre tecnicas probadas en otros problemas de desarrollo que han sido aplicadas con exito.
+
+
+
+RUP (Rational Unified Process)
+
+El RUP (Proceso unificado de rational) es un proceso de desarrollo de software que se utiliza en conjunto con el lenguaje UML(Lenguaje Unificado de Modelado), este define una metodologia para el analisis, implementación y documentación de sistemas orientados a objetos. RUP es en realidad un refinamiento realizado por Rational Software del original Proceso Unificado.
+
+El ciclo de vida de RUP esta basado en el desarrollo en espiral en la cual el proceso se divide en ciclos iterativos en donde cada ciclo concluye con un producto final, a su vez cada ciclo se divide en fases que finaliza con un hito (un lugar en donde tomar una desicion radical) estas fases son: 
+
+* Concepcion
+* Elaboracion
+* Construccion
+* Implementacion
 
 \subsection{Estado del Arte}
 
