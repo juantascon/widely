@@ -11,10 +11,10 @@
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="0.45.1"
-   width="2440"
-   height="1477.4741"
+   width="795.1181"
+   height="552.40155"
    version="1.0"
-   sodipodi:docbase="/home/juandiego/widely/doc/diagramas/ui"
+   sodipodi:docbase="/home/juandiego/widely/doc/diagrams/ui"
    sodipodi:docname="login.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <metadata
@@ -31,8 +31,8 @@
   <defs
      id="defs5" />
   <sodipodi:namedview
-     inkscape:window-height="677"
-     inkscape:window-width="1016"
+     inkscape:window-height="933"
+     inkscape:window-width="1272"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      guidetolerance="10.0"
@@ -43,126 +43,134 @@
      pagecolor="#ffffff"
      id="base"
      showgrid="true"
-     inkscape:zoom="0.31331029"
-     inkscape:cx="1696.7089"
-     inkscape:cy="996.18454"
+     inkscape:zoom="0.88617532"
+     inkscape:cx="381.71057"
+     inkscape:cy="219.13766"
      inkscape:window-x="0"
      inkscape:window-y="31"
      inkscape:current-layer="svg2"
-     showborder="false"
+     showborder="true"
      showguides="true"
-     inkscape:guide-bbox="true" />
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.99999976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect12882"
-     width="2437"
-     height="1414.4736"
-     x="1.4999999"
-     y="1.4999999" />
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.00000024;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect12884"
-     width="2437"
-     height="35.434303"
-     x="1.5000002"
-     y="1438.9741" />
-  <rect
-     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.99999952;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect2177"
-     width="597"
-     height="76.999489"
-     x="1641.5"
-     y="318.97461" />
-  <text
-     xml:space="preserve"
-     style="font-size:50px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="1411.1934"
-     y="375.3457"
-     id="text2179"
-     sodipodi:linespacing="125%"><tspan
-       sodipodi:role="line"
-       id="tspan2181"
-       x="1411.1934"
-       y="375.3457">Username</tspan></text>
+     inkscape:guide-bbox="true"
+     width="22.44cm"
+     height="15.59cm"
+     units="cm"
+     borderlayer="true" />
   <g
-     id="g3211"
-     transform="translate(-1.1920929e-7,-6483.4854)">
-    <text
-       sodipodi:linespacing="125%"
-       id="text2183"
-       y="7019.5996"
-       x="1399.9385"
-       style="font-size:50px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       xml:space="preserve"><tspan
-         y="7019.5996"
-         x="1399.9385"
-         id="tspan2185"
-         sodipodi:role="line">Password</tspan></text>
+     id="g2202"
+     transform="matrix(0.3262576,0,0,0.3262576,0,26)">
     <rect
-       y="6962.46"
+       y="1.4999999"
+       x="1.4999999"
+       height="1414.4736"
+       width="2437"
+       id="rect12882"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.99999976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       y="1438.9741"
+       x="1.5000002"
+       height="35.434303"
+       width="2437"
+       id="rect12884"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.00000024;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       y="318.97461"
        x="1641.5"
        height="76.999489"
        width="597"
-       id="rect2187"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.99999952;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-  </g>
-  <text
-     xml:space="preserve"
-     style="font-size:50px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="1367.2969"
-     y="696.11426"
-     id="text2189"
-     sodipodi:linespacing="125%"><tspan
-       sodipodi:role="line"
-       id="tspan2191"
-       x="1367.2969"
-       y="696.11426">Admin</tspan></text>
-  <g
-     id="g3186"
-     transform="translate(-4.2152099,-6483.4858)">
-    <rect
-       y="7122.4604"
-       x="1645.7152"
-       height="76.999489"
-       width="72.784927"
-       id="rect2193"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.99999976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <path
-       id="path2197"
-       d="M 1660.5001,7161.96 C 1678.1001,7181.96 1678.1001,7181.96 1678.1001,7181.96 L 1704.5001,7131.96"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-  </g>
-  <g
-     id="g3243"
-     transform="translate(-3.3793336,-6483.4858)">
-    <rect
-       y="7282.4595"
-       x="1929.7151"
-       height="115.30017"
-       width="312.16425"
-       id="rect3230"
+       id="rect2177"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.99999952;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <text
        sodipodi:linespacing="125%"
-       id="text3236"
-       y="7353.9033"
-       x="2085.4919"
+       id="text2179"
+       y="375.3457"
+       x="1411.1934"
        style="font-size:50px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        xml:space="preserve"><tspan
-         y="7353.9033"
+         y="375.3457"
+         x="1411.1934"
+         id="tspan2181"
+         sodipodi:role="line">Username</tspan></text>
+    <g
+       transform="translate(-1.1920929e-7,-6483.4854)"
+       id="g3211">
+      <text
+         xml:space="preserve"
+         style="font-size:50px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         x="1399.9385"
+         y="7019.5996"
+         id="text2183"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan2185"
+           x="1399.9385"
+           y="7019.5996">Password</tspan></text>
+      <rect
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.99999952;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2187"
+         width="597"
+         height="76.999489"
+         x="1641.5"
+         y="6962.46" />
+    </g>
+    <text
+       sodipodi:linespacing="125%"
+       id="text2189"
+       y="696.11426"
+       x="1367.2969"
+       style="font-size:50px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="696.11426"
+         x="1367.2969"
+         id="tspan2191"
+         sodipodi:role="line">Admin</tspan></text>
+    <g
+       transform="translate(-4.2152099,-6483.4858)"
+       id="g3186">
+      <rect
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.99999976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2193"
+         width="72.784927"
+         height="76.999489"
+         x="1645.7152"
+         y="7122.4604" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 1660.5001,7161.96 C 1678.1001,7181.96 1678.1001,7181.96 1678.1001,7181.96 L 1704.5001,7131.96"
+         id="path2197" />
+    </g>
+    <g
+       transform="translate(-3.3793336,-6483.4858)"
+       id="g3243">
+      <rect
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.99999952;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect3230"
+         width="312.16425"
+         height="115.30017"
+         x="1929.7151"
+         y="7282.4595" />
+      <text
+         xml:space="preserve"
+         style="font-size:50px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
          x="2085.4919"
-         id="tspan3238"
-         sodipodi:role="line">Login</tspan></text>
-  </g>
-  <text
-     xml:space="preserve"
-     style="font-size:50px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="167.17285"
-     y="1476.7661"
-     id="text14384"
-     sodipodi:linespacing="125%"><tspan
-       sodipodi:role="line"
-       id="tspan14386"
+         y="7353.9033"
+         id="text3236"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan3238"
+           x="2085.4919"
+           y="7353.9033">Login</tspan></text>
+    </g>
+    <text
+       sodipodi:linespacing="125%"
+       id="text14384"
+       y="1476.7661"
        x="167.17285"
-       y="1476.7661">Status Bar</tspan></text>
+       style="font-size:50px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="1476.7661"
+         x="167.17285"
+         id="tspan14386"
+         sodipodi:role="line">Status Bar</tspan></text>
+  </g>
 </svg>
