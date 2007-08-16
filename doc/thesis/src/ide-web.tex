@@ -4,67 +4,67 @@
 
 Los actores involucrados en el proceso del sistema son:
 
-* Usuario Anonimo: un usuario anonimo es cualquiera con acceso a la pantalla de inicio del sistema, en teoria cualquier sistema externo (pueden ser personas) que tenga la habilidad de comunicarse con el sistema es considerado un usuario anonimo.
+\begin{itemize}
 
-* Administrador: el usuario administrador es el que se encarga de configurar las tareas principales del sistema.
+	\item{Usuario Anonimo:} un usuario anonimo es cualquiera con acceso a la pantalla de inicio del sistema, en teoria cualquier sistema externo (pueden ser personas) que tenga la habilidad de comunicarse con el sistema es considerado un usuario anonimo.
+	
+	\item{Administrador:} el usuario administrador es el que se encarga de configurar las tareas principales del sistema.
+	
+	\item{Usuario:} un usuario es cualquier sistema registrado, validado y aprobado por el administrador.
 
-* Usuario: un usuario es cualquier sistema registrado, validado y aprobado por el administrador.
+\end{itemize}
 
 Los casos de uso a desarrollar son:
 
+\begin{description}
+	
+	\item [Autenticacion] (Authetication): \newline
+	El sistema debe permitir a un usuario desconocido poder autenticarse para que el sistema a partir dependiendo del proceso de autenticacion lo pueda tratar como un usuario registrado o como un usuario administrador.
+	
+	\item [Administracion de usuario] (Users Administration): \newline
+	El sistema debe permitir al usuario administrador crear y eliminar usuarios registrados, ademas debe permitir editar los datos de configuracion de estos usuarios.
+	
+	\item [Cambio de Clave de autenticacion] (Change Authentication Key): \newline
+	El sistema debe proveer a los usuarios y al administrador un proceso mediante el cual puedan cambiar sus llaves de autenticacion con el sistema (passwords).
+	
+	\item [Manejo de archivos y versiones] (File and Versions Handling): \newline
+	Gracias a la centralizacion que provee el IDE Web es posible integrar, de forma inteligente (incluso algunas acciones se deben poder hacer de forma transparante al usuario) el sistema de control de versiones con la administracion de los archivos del proyecto, a pesar de esta integracion, la copia de trabajo de cada usuario debe estar separado del repositorio del proyecto.
+	
+	\item [Edicion de codigo fuente] (Source Code Editing): \newline
+	El sistema debe tener una interfaz capaz de editar codigo fuente, opcionalmente se pueden incluir ayudas comunes pero de gran utilidad para un programador como son:
+	\begin{itemize}
+		\item AutoIndentacion
+		\item Autocompletado de palabras
+		\item Opciones de Codificacion(I18N)
+		\item Resaltado de sintaxis
+	\end{itemize}
+	
+	\item [Administracion de repositorios y copias de trabajo] (Repositories and Working Copies Administration): \newline
+	El programa debe tener una interfaz grafica que permita crear, acceder y actualizar repositorios de archivos a partir de las copias de trabajo de los usuarios, el manejo del repositorio se hara con una interfaz a un sistema manejador de versiones existente permitiendo aumentar la compatibilidad con otros sistemas, entre los sistemas de control de versiones mas populares se encuentran:
+	
+	\begin{itemize}
+		\item SubVersioN
+		\item CVS
+		\item GIT
+		\item Mercurial (HG)
+	\end{itemize}
+	
+	\item [Compilacion centralizada] (Centralized Compiling): \newline
+	El sistema debe ser capaz de compilar el codigo fuente de forma centralizada (en el servidor) utilizando interfaces con herramientas de compilacion.
+	
+	\item [Envio de Archivos] (File Sending): \newline
+	El servidor debe permitir al cliente una interfaz de acceso a sus archivos de forma local, utilizando un sistema de archivos de red para compartir los archivos ejecutables y de codigo fuente desde el servidor y hacia el cliente, algunos de los mas populares sistemas de archivos de red son:
+	
+	\begin{itemize}
+		\item SMB/CIFS
+		\item WebDAV
+		\item AFS
+		\item NFS
+		\item NCP
+	\end{itemize}
+	
+\end{description}
 
-* Autenticacion (Authetication):
-
-El sistema debe permitir a un usuario desconocido poder autenticarse para que el sistema a partir dependiendo del proceso de autenticacion lo pueda tratar como un usuario registrado o como un usuario administrador.
-
-* Administracion de usuario (Users Administration):
-
-El sistema debe permitir al usuario administrador crear y eliminar usuarios registrados, ademas debe permitir editar los datos de configuracion de estos usuarios.
-
-* Cambio de Clave de autenticacion (Change Authentication Key):
-
-El sistema debe proveer a los usuarios y al administrador un proceso mediante el cual puedan cambiar sus llaves de autenticacion con el sistema (passwords).
-
-
-* Manejo de archivos y versiones (File and Versions Handling):
-
-Gracias a la centralizacion que provee el IDE Web es posible integrar, de forma inteligente (incluso algunas acciones se deben poder hacer de forma transparante al usuario) el sistema de control de versiones con la administracion de los archivos del proyecto, a pesar de esta integracion, la copia de trabajo de cada usuario debe estar separado del repositorio del proyecto.
-
-* Edicion de codigo fuente (Source Code Editing)
-
-El sistema debe tener una interfaz capaz de editar codigo fuente, opcionalmente se pueden incluir ayudas comunes pero de gran utilidad para un programador como son:
-
-* AutoIndentacion
-* Autocompletado de palabras
-* Opciones de Codificacion(I18N)
-* Resaltado de sintaxis
-
-
-* Administracion de repositorios y copias de trabajo (Repositories and Working Copies Administration):
-
-El programa debe tener una interfaz grafica que permita crear, acceder y actualizar repositorios de archivos a partir de las copias de trabajo de los usuarios, el manejo del repositorio se hara con una interfaz a un sistema manejador de versiones existente permitiendo aumentar la compatibilidad con otros sistemas, entre los sistemas de control de versiones mas populares se encuentran:
-
-* SubVersioN
-* CVS
-* GIT
-* Mercurial (HG)
-
-
-* Compilacion centralizada (Centralized Compilation):
-
-El sistema debe ser capaz de compilar el codigo fuente de forma centralizada (en el servidor) utilizando interfaces con herramientas de compilacion.
-
-* Envio de Archivos (File Sending)
-
-El servidor debe permitir al cliente una interfaz de acceso a sus archivos de forma local, utilizando un sistema de archivos de red para compartir los archivos ejecutables y de codigo fuente desde el servidor y hacia el cliente, algunos de los mas populares sistemas de archivos de red son:
-
-* SMB/CIFS
-* WebDAV
-* AFS
-* NFS
-* NCP
-
-\newpage
 \begin{figure}
  \centering
  \includegraphics[scale=1]{../diagrams/output/usecases}
@@ -81,7 +81,6 @@ En la desarrollo de aplicaciones web lo mas comun es que no sea necesario crear 
 
 En el lado del servidor se utilizara una arquitectura orientada a servicios (SOA), la cual provee division, modularidad y bajo acoplamiento en la logica de negocio y entre la interfaz de usuario, vista en el lado cliente como un catalogo de servicios.
 
-\newpage
 \begin{landscape}
 \begin{figure}
  \centering
@@ -99,7 +98,7 @@ En el lado del servidor se utilizara una arquitectura orientada a servicios (SOA
 \begin{landscape}
 \begin{figure}
  \centering
- \includegraphics[scale=1]{../diagrams/output/conceptual}
+ \includegraphics[scale=0.9]{../diagrams/output/conceptual}
  \caption{Diagrama Conceptual}
  \label{diagrama:conceptual}
 \end{figure}
@@ -109,8 +108,6 @@ En el lado del servidor se utilizara una arquitectura orientada a servicios (SOA
 \subsubsection{Modelo de Navegacion}
 
 El modelo de navegacion muestra el flujo de navegacion que un usuario final puede seguir, el siguiente es un diagrama de navegacion de aplicacion web modificado para la adaptacion a la tecnica de desarrollo AJAX.
-
-\newpage
 
 \begin{landscape}
 \begin{figure}
@@ -126,13 +123,17 @@ El modelo de navegacion muestra el flujo de navegacion que un usuario final pued
 
 La interfaz del usuario se divide en 4 pantallas diferentes:
 
-* Login: Es la interfaz en donde el usuario procede a ingresar al sistema.
+\begin{enumerate}
 
-* Admin: Es la interfaz de configuracion de parametros del servidor y de administracion de usuarios.
+	\item Login: Es la interfaz en donde el usuario procede a ingresar al sistema.
+	
+	\item Admin: Es la interfaz de configuracion de parametros del servidor y de administracion de usuarios.
+	
+	\item Config: Es la interfaz de configuracion de los parametros del usuario, asi como sus repositorios y sus copias de trabajo.
+	
+	\item IDE: Es la interfaz principal, el verdadero IDE, contiene un editor, una barra de herramientas, una sistema de consulta de versiones del repositorio y un sistema de modificacion de jerarquia de archivos en forma de arbol.
 
-* Config: Es la interfaz de configuracion de los parametros del usuario, asi como sus repositorios y sus copias de trabajo.
-
-* IDE: Es la interfaz principal, el verdadero IDE, contiene un editor, una barra de herramientas, una sistema de consulta de versiones del repositorio y un sistema de modificacion de jerarquia de archivos en forma de arbol.
+\end{enumerate}
 
 \begin{landscape}
 \begin{figure}
@@ -160,7 +161,7 @@ La interfaz del usuario se divide en 4 pantallas diferentes:
 \begin{landscape}
 \begin{figure}
  \centering
- \includegraphics[scale=1]{../diagrams/output/ui-ide}
+ \includegraphics[scale=0.9]{../diagrams/output/ui-ide}
  \caption{Diagrama de Interfaz - IDE}
  \label{diagrama:ui-ide}
 \end{figure}
@@ -189,12 +190,16 @@ Las base de datos de mayor uso en la actualidad son las base de datos relacional
 
 Otras bases de datos menos utilizadas, pero no por esto menos atractivas son:
 
-* Base de Datos Orientada a Objetos(OODB): En estas el modelo de almacenamiento como su nombre lo dice es una base de datos cuyo sistema de consulta es orientado a objetos permitiendo patrones avanzados como herencia, encapsulamiento, paso de mensajes, etc.
+\begin{itemize}
 
-* Base de Datos XML(XMLDB): El uso principal de XML es estructurar datos, recibirlos y enviarlos, pero tambien podemos guardar datos en nuestros documentos o una coleccion de ellos para que sean tratados luego con algun lenguaje o herramienta XML.
+	\item Base de Datos Orientada a Objetos(OODB): En estas el modelo de almacenamiento como su nombre lo dice es una base de datos cuyo sistema de consulta es orientado a objetos permitiendo patrones avanzados como herencia, encapsulamiento, paso de mensajes, etc.
+	
+	\item Base de Datos XML(XMLDB): El uso principal de XML es estructurar datos, recibirlos y enviarlos, pero tambien podemos guardar datos en nuestros documentos o una coleccion de ellos para que sean tratados luego con algun lenguaje o herramienta XML.
+
+\end{itemize}
+
 
 \paragraph{Sistema de Archivos}
-
 
 Los sistemas de archivos mas comunes utilizan dispositivos de almacenamiento de datos que permiten el acceso a los datos como una cadena de bloques de un mismo tamaño, a veces llamados sectores. El software del sistema de archivos es responsable de la organizacion de estos sectores en archivos y directorios y mantiene un registro de que sectores pertenecen a que archivos y de que sectores no han sido utilizados.
 
@@ -202,17 +207,17 @@ En la practica, un sistema de archivos no requiere necesariamente de un disposit
 
 En sistemas de archivos jerarquicos, usualmente, se declara la ubicacion precisa de un archivo con una cadena de texto llamada "ruta". La nomenclatura para rutas varia ligeramente de sistema en sistema, pero mantienen por lo general una misma estructura. Una ruta viene dada por una sucesion de nombres de directorios y subdirectorios, ordenados jerarquicamente de izquierda a derecha y separados por algun caracter especial y puede terminar en el nombre de un archivo presente en la ultima rama de directorios especificada.
 
-\paragraph{Bases de Datos vs Sistemas de Archivos}
 
+\paragraph{Bases de Datos vs Sistemas de Archivos}
 
 Debido a que los manejadores de versiones trabajan sobre archivos que se encuentran sobre sistemas de archivos es por esto que en caso de que estos se encuentren en una base de datos, se nota inmediatamente una deficiencia en el tiempo requerido para procesar las acciones de administracion de versiones de archivos ya que en algun punto se hace necesario mover los archivos desde la base de datos hasta el sistema de archivos.
 
 Por esta razon para la realizacion del proyecto se ha tomado la desicion de no utilizar un manejador de base de datos, en lugar de esto se utilizara una jerarquia de archivos ordenada y bien definida.
 
+
 \begin{figure}
  \centering
- \includegraphics[scale=1]{../diagrams/output/fs}
+ \includegraphics[scale=0.9]{../diagrams/output/fs}
  \caption{Diagrama de Jerarquia de Sistema de Archivos}
  \label{diagrama:fs}
 \end{figure}
-

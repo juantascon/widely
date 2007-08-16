@@ -2,32 +2,30 @@
 
 \subsection{Tecnologías Implementadas}
 
-
-SOA (Service Oriented Arquitecture):
+\subsubsection*{SOA (Service Oriented Arquitecture)}
 
 SOA (Arquitectura Orientada a Servicios) es una evolucion de la computacion distribuida, SOA provee modularidad en la logica de negocios que puede ser representada como servicios para los clientes, estos servicios tienen bajo acoplamiento, en el sentido en que la interfaz de usuario(GUI) puede permanecer totalmente independiente de la capa de servicio.
 
-OASIS (Organization for the Advancement of Structured Information Standards) define SOA de la siguiente manera:
-
-Es un paradigma para organizar y utilizar caracteristicas distribuidas que pueden estar bajo el control de dominios diferentes. Provee un significado uniforme para ofrecer, descubrir, interactuar y utilizar estas caracteristicas para producir los efectos deseados con precondiciones y expectativas medibles.
+OASIS (Organization for the Advancement of Structured Information Standards) define SOA de la siguiente manera: es un paradigma para organizar y utilizar caracteristicas distribuidas que pueden estar bajo el control de dominios diferentes. Provee un significado uniforme para ofrecer, descubrir, interactuar y utilizar estas caracteristicas para producir los efectos deseados con precondiciones y expectativas medibles.
 
 SOA fue elegida principalmente por que provee division, modularidad y bajo acoplamiento dentro de la logica de negocio y en la comunicacion con la interfaz de usuario.
 
 
-
-JSON(JavaScript Object Notation):
+\subsubsection*{JSON(JavaScript Object Notation) \cite{json} }
 
 JSON (Notacion de Objecto en JavaScript) es un formato liviano de intercambio de datos, es mas sencillo de leer y escribir para los humanos, ademas es facil para una maquina analizarlo y generarlo, esta basado en un subconjunto del lenguaje de programacion JavaScript Standard ECMA-262 3rd Edition - December 1999.
 
-JSON es un formato de texto que es completamente independiente del lengujae pero utiliza convenciones familiares para los programadores que hayan utilizado lenguajes derivados del lenguaje C (C, C++, C\#, Java, Python, etc)
-
-Por estas razones JSON se convierte en un lenguaje ideal para el intercambio de datos.
+JSON es un formato de texto que es completamente independiente del lengujae pero utiliza convenciones familiares para los programadores que hayan utilizado lenguajes derivados del lenguaje C (C, C++, C\#, Java, Python, etc).\newline Por estas razones JSON se convierte en un lenguaje ideal para el intercambio de datos.
 
 JSON es construido en dos estructuras:
 
-* Una coleccion con pares nombre/valor, en varios leguajes esto es visto como un objeto, una estructura, un diccionario, una tabla hash, etc.
+\begin{itemize}
 
-* Una Lista ordenada de valores, en varios lenguajes esto es visto como un array, un vector, una lista, etc.
+	\item Una coleccion con pares nombre/valor, en varios leguajes esto es visto como un objeto, una estructura, un diccionario, una tabla hash, etc.
+	
+	\item Una Lista ordenada de valores, en varios lenguajes esto es visto como un array, un vector, una lista, etc.
+
+\end{itemize}
 
 Estas son estructuras de datos universales y gracias a que todos los lenguajes modernos las soportan de una forma u otra, tiene sentido que estas estructuras de datos que son intercambiable entre los lenguajes se utilizen como intercambio de datos.
 
@@ -35,24 +33,20 @@ Por el hecho de que la mayoria de texto en formato JSON tienen una sintaxis vali
 
 El uso de esta tecnica puede ser segura siempre y cuando todo el entorno (los datos JSON y el programa JavaScript) esta bajo el control de una fuente confiable y unica, sin embargo en el ambiente de un servidor web esta confianza de que todo provenga de una unica fuente no se da, abriendo el paso a posibles fallos de seguridad.
 
+Ejemplo: Una lista de personas en JSON se veria asi
 
-Ejemplo:
-
-Una lista de personas en JSON
-
+\begin{verbatim}
 [
  { ``nombre'': ``Juan'', ``apellido'': ``Tascon'', ``codigo'': ``0233680'' },
  { ``nombre'': ``Diego'', ``apellido'': ``Tascon'', ``codigo'': ``0233681'' },
  { ``nombre'': ``Jose'', ``apellido'': ``Vidarte'', ``codigo'': ``0533282'' }
 ]
+\end{verbatim}
 
-La principal ventaja que tiene sobre el formato XML es que no requiere realizar un analizador en el lenguaje JavaScript sino que este esta incluido en el lenguaje mismo.
-
-JSON esta esta siendo adoptado a una velocidad tan grande que quiza algun dia haya reemplazado por completo a su rival mas cercano XML.
-
+La principal ventaja que tiene sobre el formato XML es que no requiere realizar un analizador en el lenguaje JavaScript sino que este esta incluido en el lenguaje mismo.\newline JSON esta esta siendo adoptado a una velocidad tan grande que quiza algun dia haya reemplazado por completo a su rival mas cercano XML.
 
 
-WebDAV:
+\subsubsection*{WebDAV}
 
 WebDAV es una extension al protocolo HTTP 1.1 que permite realizar acciones de gestion de archivos tales como escribir, copiar, eliminar o modificar.
 
@@ -64,13 +58,23 @@ Con WebDav desaparecen las diferencias entre nuestro disco duro y el espacio web
 
 WebDAV añade los siguientes métodos a HTTP:
 
-    * PROPFIND - Usado para recuperar propiedades, almacenadas como XML, desde un recurso. También está sobrecargado para permitir recuperar la estructura de colección (la jerarquía de directorios) de un sistema remoto.
-    * PROPPATCH - Usado para cambiar y borrar múltiples propiedades de un recurso en una simple operación atómica(commit).
-    * MKCOL - Usado para crear colecciones (directorios)
-    * COPY - Usado para copiar un recurso desde un URI a otro.
-    * MOVE - Usado para mover un recurso desde un URI a otro.
-    * LOCK - Usado para bloquear (lock) un recurso.
-    * UNLOCK - Para desbloquear un recurso.
+\begin{itemize}
+
+	\item PROPFIND: Usado para recuperar propiedades, almacenadas como XML, desde un recurso. También está sobrecargado para permitir recuperar la estructura de colección (la jerarquía de directorios) de un sistema remoto.
+	
+	\item PROPPATCH: Usado para cambiar y borrar múltiples propiedades de un recurso en una simple operación atómica(commit).
+	
+	\item MKCOL: Usado para crear colecciones (directorios).
+	
+	\item COPY: Usado para copiar un recurso desde un URI a otro.
+	
+	\item MOVE: Usado para mover un recurso desde un URI a otro.
+	
+	\item LOCK: Usado para bloquear (lock) un recurso.
+	
+	\item UNLOCK: Para desbloquear un recurso.
+
+\end{itemize}
 
 Recurso es el nombre HTTP para una referencia que está apuntada por un Identificador de Recursos Uniforme o URI (Uniform Resource Identifier).
 
@@ -78,31 +82,30 @@ El grupo de trabajo WebDAV esta todavía trabajando en unas cuantas extensiones 
 
 Las principales ventajas de WebDAV sobre otros sistemas de archivos de red son:
 
-* Se puede acceder en modo solo lectura desde cualquier browser que soporte el protocolo HTTP 1.1.
+\begin{enumerate}
 
-* Todos los sistemas operativos incluyen soporte para WebDAV.
+	\item Se puede acceder en modo solo lectura desde cualquier browser que soporte el protocolo HTTP 1.1.
+	
+	\item Todos los sistemas operativos incluyen soporte para WebDAV.
+	
+	\item Es un estandar ampliamente utilizado.
+	
+	\item La implementacion de un servidor es bastante sencillo, por esta misma razon es muy facil de adaptarlo para que sea compatible con un sistema de autenticacion propio.
 
-* Es un estandar ampliamente utilizado.
-
-* La implementacion de un servidor es bastante sencillo, por esta misma razon es muy facil de adaptarlo para que sea compatible con un sistema de autenticacion propio.
+\end{enumerate}
 
 
-
-Ruby:
+\subsubsection*{Ruby \cite{ruby_lang} }
 
 Ruby es un lenguaje de programacion orientada a objetos, interpretado, creado por Yukihiro "Matz" Matsumoto, que tiene sintaxis inspirada en varios lenguajes de programacion como perl, smalltalk, python, C, Lisp, entre otros.
 
 Las principales caracteristicas de Ruby son:
 
-* Orientado a Objetos: en ruby todos los datos son objetos, incluso las clases y los tipos de datos que en algunos lenguajes son manejados como datos primitivos (enteros, strings, etc), los valores con nombre(variables) siempre hacen referencia a los objetos, no son los objetos mismos.
+\paragraph{Orientado a Objetos:}
+En ruby todos los datos son objetos, incluso las clases y los tipos de datos que en algunos lenguajes son manejados como datos primitivos (enteros, strings, etc), los valores con nombre(variables) siempre hacen referencia a los objetos, no son los objetos mismos. \newline Ruby soporta ademas herencia, polimorfismo, tipado dinamico, mixins (definiciones de metodos y variables agrupados que se pueden incluir en la definicion de clases y en los objetos), y metodos singletons(los metodos no solo son parte de las clases sino que ademas pueden pertenecer unicamente a un objeto).
 
-Ruby soporta ademas herencia, polimorfismo, tipado dinamico, mixins (definiciones de metodos y variables agrupados que se pueden incluir en la definicion de clases y en los objetos), y metodos singletons(los metodos no solo son parte de las clases sino que ademas pueden pertenecer unicamente a un objeto).
-
-* Duck Typing: El termino Duck typing (tipado de pato) hace referencia a la prueba del pato (duck test) que dice que si un animal que camina como pato, nada como pato y grazna como pato, entonces se podria decir que ese animal es un pato.
-
-Es un principio de los lenguajes de programacion con tipado dinamico en donde el conjunto de metodos y propiedades de un objeto determina la semantica valida, en lugar de su herencia de una clase o un tipo de dato en particular.
-
-Ejemplo:
+\paragraph{Duck Typing:}
+El termino Duck typing (tipado de pato) hace referencia a la prueba del pato (duck test) que dice que si un animal que camina como pato, nada como pato y grazna como pato, entonces se podria decir que ese animal es un pato.\newline Es un principio de los lenguajes de programacion con tipado dinamico en donde el conjunto de metodos y propiedades de un objeto determina la semantica valida, en lugar de su herencia de una clase o un tipo de dato en particular.\newline Ejemplo:
 
 \begin{verbatim}
 def concatenar(a, b)
@@ -113,11 +116,11 @@ def concatenar(a, b)
 end
 \end{verbatim}
 
-* Instrospeccion: Instrospeccion de tipos es la capacidad de algunos lenguajes de programacion orientados a objetos que permite determinar el tipo de un objeto en tiempo de ejecucion.
+\paragraph{Instrospeccion}:
+Instrospeccion de tipos es la capacidad de algunos lenguajes de programacion orientados a objetos que permite determinar el tipo de un objeto en tiempo de ejecucion.
 
-* Iteradores y Closures(bloques): en ruby el llamado a metodos permite pasar un fragmento de codigo (bloque o closures) como parte de los parametros de entrada del metodo, permitiendo definir iteradores basados en estos bloques de codigo
-
-Ejemplo:
+\paragraph{Iteradores y Closures(bloques):}
+En ruby el llamado a metodos permite pasar un fragmento de codigo (bloque o closures) como parte de los parametros de entrada del metodo, permitiendo definir iteradores basados en estos bloques de codigo.\newline Ejemplo:
 
 \begin{verbatim}
 ['hola', 3, 'que mas'].each {|item| puts item}
@@ -127,22 +130,19 @@ Ejemplo:
 \end{verbatim}
 
 
-* Expresiones Regulares Nativas: ruby permite definicion de expresiones regulares nativas en el lenguaje de forma similar a como se hacen en el lenguaje perl.
-
-Ejemplo:
+\paragraph{Expresiones Regulares Nativas:}
+Ruby permite definicion de expresiones regulares nativas en el lenguaje de forma similar a como se hacen en el lenguaje perl.\newline Ejemplo:
 
 \begin{verbatim}
 "archivo.png".match(/^[a-z]*.png/)[0]
 # => "archivo.png"
 \end{verbatim}
 
-* Inyeccion de Dependencias: Inyeccion de dependencias describe una situacion en donde un objeto utiliza un segundo objeto para proveer una caracteristica particular, por ejemplo pasando una conexion de base de datos como argumento en el constructor en lugar de crear uno internamente.
+\paragraph{Inyeccion de Dependencias:}
+Inyeccion de dependencias describe una situacion en donde un objeto utiliza un segundo objeto para proveer una caracteristica particular, por ejemplo pasando una conexion de base de datos como argumento en el constructor en lugar de crear uno internamente.\newline El termino ``Inyeccion de Dependencias'' no se refiere realmente a una dependencia que es inyectada sino que es un proveedor de alguna caracteristica o recurso el que es inyectado.
 
-El termino ``Inyeccion de Dependencias'' no se refiere realmente a una dependencia que es inyectada sino que es un proveedor de alguna caracteristica o recurso el que es inyectado.
-
-* Metaprogramacion: Metaprogramacion se refiere a programas de computadora que tienen la habilidad de escribir o manipular otros programas(incluso a ellos mismos). En muchos casos esto permite a los programadores hacer mas cosas en el mismo tiempo que hubiera tomado escribir el codigo de forma manual.
-
-Ejemplo
+\paragraph{Metaprogramacion:}
+Metaprogramacion se refiere a programas de computadora que tienen la habilidad de escribir o manipular otros programas(incluso a ellos mismos). En muchos casos esto permite a los programadores hacer mas cosas en el mismo tiempo que hubiera tomado escribir el codigo de forma manual.\newline Ejemplo:
 
 \begin{verbatim}
 #! /usr/bin/env ruby
@@ -154,28 +154,24 @@ file.puts "#! /usr/bin/env ruby'
 
 Este programa genera 200 lineas de programa que muestran en pantalla los numeros desde el 0 hasta el 200.
 
-* Reflexion: reflexion es la capacidad de un programa de observar y modificar su estructura interna.
-
-Ejemplo:
+\paragraph{Reflexion:}
+Reflexion es la capacidad de un programa de observar y modificar su estructura interna.\newline Ejemplo:
 
 \begin{verbatim}
 Object.methods
 # => ["inspect", "private_class_method", "const_missing", "clone", ... ]
 \end{verbatim}
 
-* Continuaciones y generadores: Una continuacion es un objeto que representa un punto en el programa, permitiendo que sea posible regresar alli en cualquier momento, incluso en los casos en los que la ejecucion se encuentre en un ambito diferente(ej: dentro de un metodo).
+\paragraph{Continuaciones y generadores:}
+Una continuacion es un objeto que representa un punto en el programa, permitiendo que sea posible regresar alli en cualquier momento, incluso en los casos en los que la ejecucion se encuentre en un ambito diferente(ej: dentro de un metodo).
 
-* DRY(Don't Repeat Yourself): EL principio No te repitas, es una filosofía de definición de procesos que promueve la reducción de la duplicación.
-
-Según este principio ninguna pieza de información debería estar duplicada nunca debido a que la duplicación incrementa la dificultad en los cambios y evolución posterior, puede perjudicar la claridad y crea un espacio para posibles inconsistencias.
-
-Cuando el principio DRY se aplica de forma eficiente los cambios en cualquier parte del proceso requieren cambios en un único lugar. Por contra, si algunas partes del proceso está repertida por varios sitios, los cambios pueden provocar fallos con mayor facilidad si todos los sitios en los que aparece no se encuentran sincronizados.
+\paragraph{DRY(Don't Repeat Yourself):}
+El principio No te repitas, es una filosofía de definición de procesos que promueve la reducción de la duplicación.\newline Según este principio ninguna pieza de información debería estar duplicada nunca debido a que la duplicación incrementa la dificultad en los cambios y evolución posterior, puede perjudicar la claridad y crea un espacio para posibles inconsistencias.\newline Cuando el principio DRY se aplica de forma eficiente los cambios en cualquier parte del proceso requieren cambios en un único lugar. Por contra, si algunas partes del proceso está repertida por varios sitios, los cambios pueden provocar fallos con mayor facilidad si todos los sitios en los que aparece no se encuentran sincronizados.
 
 Como nota personal del autor la razon de mayor peso para escoger este lenguaje de programacion sobre otros es que es un lenguaje muy comodo y atractivo, con muchas caracteristicas unicas, que hacen de ruby uno de los lenguajes mas potentes que se pueden encontrar en estos tiempos.
 
 
-
-Pound:
+\subsubsection*{Pound \cite{pound} }
 
 Las soluciones actuales para despacho de informacion procesada a traves de la web son:
 
@@ -188,39 +184,36 @@ Otra solucion es la de extender el servidor web con modulos que sirvan como inte
 La solucion mas inteligente es tener en el propio lenguaje un pequeño servidor web constante para generar los datos dinamicos y utilizar un servidor web mas elaborado para los datos estaticos, adicional a esto unirlos como un solo servidor utilizando un proxy inverso(algunos servidores web sirven tambien como proxy inverso) y puesto que para la aplicacion se necesita un servidor para los webservices otro para los archivos estaticos y otro para el servidor de envio de archivos (WebDAV), entonces esta se convierte en la solucion mas optima partiendo del hecho de que el tiempo en el proceso de comunicacion entre el proxy inverso y los otros servidores es casi nulo.
 
 
-
-QooXdoo:
+\subsubsection*{QooXdoo \cite{qooxdoo} }
 
 QooXdoo es un framework de trabajo que esta pensado para el desarrollo profesional en Javascript, contiene una conjunto de herramientas avanzada de desarrollo de Interfaces de usuario y de comunicacion cliente-servidor de alto nivel, este framework no tiene dependencia alguna con el lenguaje utilizado en el lado del servidor, esto rompe con la tendencia de realizar proyectos AJAX para determinados lenguajes(ej: el toolkit de google para java, rails para ruby, etc).
 
 Las principales caracteristicas de QooXdoo son:
 
-* Orientado a Objetos: a pesar de que javascript no es un lenguaje orientado a objetos del todo, qooxdoo incluye una implementacion de los conceptos asociados con la programacion orientada a objetos estos son: clases, objetos, mixins, interfaces, herencia, etc.
+\begin{itemize}
 
-* Soporta multiples browsers: firefox, internet explorer, opera, safari
+	\item Orientado a Objetos: a pesar de que javascript no es un lenguaje orientado a objetos del todo, qooxdoo incluye una implementacion de los conceptos asociados con la programacion orientada a objetos estos son: clases, objetos, mixins, interfaces, herencia, etc.
+	
+	\item Soporta multiples browsers: firefox, internet explorer, opera, safari
+	\item Implementa un toolkit grafico que esta a la par con toolkits de uso profesional como SWT(java) o QT(c++, python, ruby, etc), en los que se incluye soporte para navegacion por teclado, foco y manejo del tabulador y manejo de drag and drop (arrastre y suelte).
+	\item Contiene un optimizador y compresor (quintando cosas que no sirven como comentarios o saltos de linea y renombrando los nombres de las variables por nombres mas cortos) para el codigo javascript.
+	\item Soporta internacionalizacion y localizacion.
+	\item Tiene un sistema de pruebas automatizadas (test runner)
+	\item Soporte para programacion orientada a eventos.
 
-* Implementa un toolkit grafico que esta a la par con toolkits de uso profesional como SWT(java) o QT(c++, python, ruby, etc), en los que se incluye soporte para navegacion por teclado, foco y manejo del tabulador y manejo de drag and drop (arrastre y suelte).
-
-* Contiene un optimizador y compresor (quintando cosas que no sirven como comentarios o saltos de linea y renombrando los nombres de las variables por nombres mas cortos) para el codigo javascript.
-
-* Soporta internacionalizacion y localizacion.
-
-* Tiene un sistema de pruebas automatizadas (test runner)
-
-* Soporte para programacion orientada a eventos.
+\end{itemize}
 
 
 \subsection{Marco Conceptual}
 
-Reverse Proxy:
+\subsubsection*{Reverse Proxy}
 
-Un Proxy Inverso es un servidor proxy usado comunmente como front-end (la parte visible) de uno o mas servidores, funciona de forma opuesta a un servidor proxy regular ya que retransmite las conexiones entrantes de internet hacia los servidores (back-ends).
+Un Proxy Inverso es un servidor proxy usado comunmente como front-end (la parte visible) de uno o mas servidores, funciona de forma opuesta a un servidor proxy regular ya que retransmite las conexiones entrantes de internet hacia los servidores (back-ends).\newline El proxy inverso puede el mismo lidiar con la peticion o simplemente retransmitirla de forma parcial o total hacia los servidores.
 
-El proxy inverso puede lidiar el mismo con la peticion o simplemente retransmitirla de forma parcial o total hacia los servidores.
-
-Las principales caracteristicaas de un servidor proxy inverso son:
+Un proxy inverso se distingue por:
 
 \begin{itemize}
+
 	\item Cifrado de datos: el servidor inverso puede ser el encargado de realizar una conexion cifrada (SSL) con las maquinas clientes en el caso en que los servidores reales (back-ends) no puedan hacerlo o en el caso en que el proxy inverso disponga de hardware de cifrado que acelere el proceso.
 	
 	\item Seguridad: el servidor proxy inverso es una capa de defensa adicional.
@@ -228,43 +221,36 @@ Las principales caracteristicaas de un servidor proxy inverso son:
 	\item Distribucion de carga: el servidor proxy inverso puede distribuir la carga	hacia los servidores reales (back-ends), cada uno puede disponer de una parte de la informacion o simplemente distribuir la carga basado en la disponibilidad de los servidores.
 	
 	\item Cache: el servidor proxy inverso puede disminuir la carga de los servidores utilizando tecnicas de cache de contenido invariable.
+
 \end{itemize}
 
 
+\subsubsection*{CIFS(Common Internet File System)}
 
-CIFS(Common Internet File System):
-
-CIFS (Systema de Archivos Comun de Internet) es un protocolo de red que permite compartir archivos e impresoras (entre otras cosas) entre nodos de una red.
-
-CIFS fue originalmente inventado por IBM con el nombre de SMB(Server Message Block), pero la versión más común hoy en día es la modificada ampliamente por Microsoft.
-
-Microsoft renombró SMB a Common Internet File System (CIFS) y añadió más características, que incluyen soporte para enlaces simbólicos, enlaces duros (hard links), y mayores tamaños de archivos.
-
-Samba es una implementación libre del protocolo CIFS que funciona en sistemas operativos Unix.
-
-Samba es realmente una implementacion de muchos servicios y muchos protocolos, entre los que están: NetBIOS sobre TCP/IP (NetBT), SMB (también conocido como CIFS), DCE/RPC o más concretamente, MSRPC, el servidor WINS también conocido como el servidor de nombres NetBIOS (NBNS), la suite de protocolos del dominio NT, con su Logon de entrada a dominio, la base de datos del gestor de cuentas seguras (SAM), el servicio Local Security Authority (LSA), el servicio de impresoras de NT. Todos estos servicios y protocolos son frecuentemente referidos de un modo incorrecto como NetBIOS o SMB.
+CIFS (Systema de Archivos Comun de Internet) es un protocolo de red que permite compartir archivos e impresoras (entre otras cosas) entre nodos de una red.\newline CIFS fue originalmente inventado por IBM con el nombre de SMB(Server Message Block), pero la versión más común hoy en día es la modificada ampliamente por Microsoft.\newline  Microsoft renombró SMB a Common Internet File System (CIFS) y añadió más características, que incluyen soporte para enlaces simbólicos, enlaces duros (hard links), y mayores tamaños de archivos.
 
 
+\subsubsection*{Samba \cite{samba} }
 
-CGI(Common Gateway Interface) - FCGI(Fast CGI:
+Samba es una implementación libre del protocolo CIFS que funciona en sistemas operativos Unix.\newline Samba es realmente una implementacion de muchos servicios y muchos protocolos, entre los que están: NetBIOS sobre TCP/IP (NetBT), SMB (también conocido como CIFS), DCE/RPC o más concretamente, MSRPC, el servidor WINS también conocido como el servidor de nombres NetBIOS (NBNS), la suite de protocolos del dominio NT, con su Logon de entrada a dominio, la base de datos del gestor de cuentas seguras (SAM), el servicio Local Security Authority (LSA), el servicio de impresoras de NT. Todos estos servicios y protocolos son frecuentemente referidos de un modo incorrecto como NetBIOS o SMB.
+
+
+\subsubsection*{CGI(Common Gateway Interface) - FCGI(Fast CGI)}
 
 CGI(Interfaz de salida comun) es un protocolo estandar para enlazar aplicaciones externas con un servidor de informacion (generalmente un servidor web), esto permite al servidor pasar las peticiones del cliente hacia la aplicacion externa, en este caso el servidor puede retornar la salida de la aplicacion hacia el cliente.
 
-
 A pesar de que es muy sencillo modificar un programa para que sea funcional con CGI, surge un inconveniente y es que CGI necesita una copia completa de la ejecucion del programa (un proceso) para cada peticion CGI, es por esto que la carga de trabajo se incrementa rapidamente en el servidor, como solucion han surgido tecnicas mas eficientes como incluir un interprete del lenguaje a utilizar como un modulo del servidor (por ejemplo mod\_php en apache) y otro menos utilizado pero no por eso menos eficiente FastCGI.
-
 
 FastCGI surge como respuesta a la perdida de eficiencia que se genera al utilizar CGI, FastCGI en lugar de crear un proceso por cada peticion, permite utilizar un unico proceso persistente que maneje varias peticiones durante su ciclo de ejecucion.
 
 
-
-Control de Versiones:
+\subsubsection*{Control de Versiones}
 
 Control de versiones se refiere al proceso de administrar multiples revisiones de la misma unidad de informacion, es utilizada con mayor frecuencia en el desarrollo de software.
 Debido a la naturaleza del desarrollo de software de multiples programadores trabajando sobre multiples archivos simultaneamente, surge la necesidad de llevar un control sobre quien, en que momento y los mas importante cuales cambios se hacen sobre los archivos de codigo fuente.
 
 
-Sistema de Control de Versiones:
+\subsubsection*{Sistema de Control de Versiones}
 
 Un sistema de control de versiones permite gestionar las versiones de todos los items de configuracion que forman la linea base de un producto o una configuracion del mismo. Este tipo de sistemas facilitan la administracion de las distintas versiones de cada producto desarrollado junto a las posibles especializaciones realizadas para algun cliente especifico.
 
@@ -272,94 +258,113 @@ Los sistemas de control de versiones son utilizados principalmente en la industr
 
 Aunque un sistema de control de versiones puede realizarse de forma manual, es muy aconsejable disponer de herramientas que faciliten esta gestion entre las mas populares se encuentran:
 
-* CVS
-* SubVersion (SVN)
-* GIT
-* Darcs
-* BitKeeper
-* Mercurial (HG)
-* Source Safe
+\begin{itemize}
+
+	\item CVS \cite{cvs}
+	\item SubVersion (SVN) \cite{svn}
+	\item GIT \cite{git}
+	\item Darcs \cite{darcs}
+	\item BitKeeper \cite{bitkeeper}
+	\item Mercurial (HG) \cite{mercurial}
+	\item Source Safe \cite{ssafe}
+
+\end{itemize}
+
 
 Algunos sistemas de control de versiones utilizan un modelo de trabajo centralizado en donde todas las funciones de control son realizadas en un servidor compartido, si dos desarrolladores tratan de cambiar el mismo archivo al mismo tiempo sin un metodo de control del acceso los desarrolladores podrian terminar sobre escribiendo el trabajo del otro, es por esto que los sistemas de control centralizados resuelven este problema utilizando 2 tecnicas de modelo de almacenamiento:
 
-* Bloqueo de archivos: el bloqueo de archivos permite a un usuario impedir que otros obtengan y modifiquen una copia de una unidad de informacion determinada, asegurando asi la integridad de los datos.
+\begin{enumerate}
 
-* Fusion de Versiones: algunos sistemas de control de versiones permiten que varios desarrolladores trabajen sobre una unidad de informacion al mismo tiempo, esto hace que el primer desarrollador en enviar los cambios no tenga ningun problema, sin embargo debe proveerse facilidades para que los subsiguientes cambios no eliminen los cambios enviados por el primer desarrollador.
+	\item Bloqueo de archivos: el bloqueo de archivos permite a un usuario impedir que otros obtengan y modifiquen una copia de una unidad de informacion determinada, asegurando asi la integridad de los datos.
+	
+	\item Fusion de Versiones: algunos sistemas de control de versiones permiten que varios desarrolladores trabajen sobre una unidad de informacion al mismo tiempo, esto hace que el primer desarrollador en enviar los cambios no tenga ningun problema, sin embargo debe proveerse facilidades para que los subsiguientes cambios no eliminen los cambios enviados por el primer desarrollador.
 
-El otro tipo de sistema de control de versiones son los sistemas distribuidos, en los cuales existe una aproximacion uno a uno contraria a la aproximacion cliente-servidor de los sistemas centralizados, en lugar de que la informacion se centre en un unico repositorio en donde los clientes se sincronizan, cada desarrollador posee una copia del repositorio de codigo.
+\end{enumerate}
 
-En estos sistemas la sincronizacion es conducida por el intercambio de parches (conjuntos de cambios) entre los desarrolladores esto demuestra a una clara diferencia con los sistemas centralizados
+El otro tipo de sistema de control de versiones son los sistemas distribuidos, en los cuales existe una aproximacion uno a uno contraria a la aproximacion cliente-servidor de los sistemas centralizados, en lugar de que la informacion se centre en un unico repositorio en donde los clientes se sincronizan, cada desarrollador posee una copia del repositorio de codigo.\newline En estos sistemas la sincronizacion es conducida por el intercambio de parches (conjuntos de cambios) entre los desarrolladores esto demuestra a una clara diferencia con los sistemas centralizados
 
-
-
-WYSIWYG (What You See Is Wath You Get)
+\subsubsection*{WYSIWYG (What You See Is Wath You Get)}
 
 WYSIWYG. (Lo que ves es lo que obtienes) es un concepto que aplicable a los editores de texto con formato (como por ejemplo un editor de HTML u OpenOffice.org) y en general a cualquier editor (ej: un editor de imagenes se puede considerar un editor WYSIWYG) el cual permite escribir un documento viendo inmediatamente el resultado final del documento, es el editor el encargado de generar el codigo fuente (ej: HTML o Latex) o los archivos con formato (ej: cualquier formato de imagen).
 
-Ejemplos de editores WYSIWYG son:
+Algunos ejemplos de editores WYSIWYG son:
 
-* NVU/Kompozer (HTML)
-* Composer de Netscape y Mozilla (HTML)
-* Lyx (latex)
-* Krita (png, jpg, etc)
-* Inkscape (svg, pdf, etc)
+\begin{itemize}
+
+	\item NVU/Kompozer (HTML)
+	\item Composer de Netscape y Mozilla (HTML)
+	\item Lyx (latex)
+	\item Krita (png, jpg, etc)
+	\item Inkscape (svg, pdf, etc)
+
+\end{itemize}
 
 
+\subsubsection*{XP (Extreme Programming) \cite{xp} }
 
-XP (Extreme Programming):
 XP(Programacion Extrema) es una disiplina de acercamiento al desarrollo de software, el exito de XP se debe a que se centra en la satisfaccion del cliente, la metodologia es diseñada para entregar a los clientes el software que necesita en el momento en que lo necesita, su mayor ventaja es que puede responder al cambio de requerimientos del cliente incluso en momentos avanzados del ciclo de vida de la aplicacion.
 
-Esta metodologia tambien hace emfasis en el trabajo en equipo, clientes, manejadores y desarrolladores hacen parte de un equipo dedicado a cumplir con la calidad del software.
+Esta metodologia tambien hace enfasis en el trabajo en equipo, clientes, manejadores y desarrolladores hacen parte de un equipo dedicado a cumplir con la calidad del software.
 
 XP describe cuatro tareas basicas en el proceso de desarrollo de software:
 
-* Codificar: en XP lo mas importante de un producto de software el es codigo, la codificacion ayuda a comprender los verdaderos problemas del software a desarrollar, la codificacion puede ser utilizada para cononcer la solucion mas apropiada a un problema (ej: codificando todas las soluciones y determinando la mejor solucion a partir de pruebas automatizadas)
+\paragraph{Codificar:} En XP lo mas importante de un producto de software el es codigo, la codificacion ayuda a comprender los verdaderos problemas del software a desarrollar, la codificacion puede ser utilizada para cononcer la solucion mas apropiada a un problema (ej: codificando todas las soluciones y determinando la mejor solucion a partir de pruebas automatizadas)
 
-* Probar: en XP las pruebas significan que un metodo no esta libre de errores hasta que no se prueba, por esto se deben realizar pruebas unitarias y pruebas de aceptacion acordadas con el cliente.
+\paragraph{Probar:} En XP las pruebas significan que un metodo no esta libre de errores hasta que no se prueba, por esto se deben realizar pruebas unitarias y pruebas de aceptacion acordadas con el cliente.
 
-* Escuchar: en la mayoria de los casos el programador no conoce a ciencia cierta la logica de negocio del sistema a desarrollar, la unica forma de conocer la funcionalidad del sistema es escuchar al cliente y entender la logica del negocio.
+\paragraph{Escuchar:} En la mayoria de los casos el programador no conoce a ciencia cierta la logica de negocio del sistema a desarrollar, la unica forma de conocer la funcionalidad del sistema es escuchar al cliente y entender la logica del negocio.
 
-* Diseño: desde un punto de vista minimalista uno podia afirmar que el desarrollo de una aplicacion no necesita mas que codificarm, probar y escuchar, si estas actividades se logran con exito el resultado debe ser siempre un sistema que funciones, pero en la practica esto no funciona, uno puede llegar lejos sin diseño pero en un determinado tiempo se va a atascar, los sistemas tienden a ser complejos y por esto las dependencias internas deben quedar muy claras, un buen diseño evita estos problemas de dependencias, lo que significa que al cambiar una porcion del sistema esta no afectara otras partes del mismo.
+\paragraph{Diseñar:} Desde un punto de vista minimalista uno podia afirmar que el desarrollo de una aplicacion no necesita mas que codificarm, probar y escuchar, si estas actividades se logran con exito el resultado debe ser siempre un sistema que funciones, pero en la practica esto no funciona, uno puede llegar lejos sin diseño pero en un determinado tiempo se va a atascar, los sistemas tienden a ser complejos y por esto las dependencias internas deben quedar muy claras, un buen diseño evita estos problemas de dependencias, lo que significa que al cambiar una porcion del sistema esta no afectara otras partes del mismo.
 
-* Buenas Practicas: las practicas de XP son 12 ( http://en.wikipedia.org/wiki/Extreme\_Programming\_Practices ) derivadas de ``best practices of software engineering'' (http://en.wikipedia.org/wiki/Best\_practices), las cuales aconsejan sobre tecnicas probadas en otros problemas de desarrollo que han sido aplicadas con exito.
+\paragraph{Buenas Practicas:} Las practicas a seguir en XP son 12 \cite{xp_practices} derivadas de ``best practices of software engineering'' \cite{best_practices}, las cuales aconsejan sobre tecnicas probadas en otros problemas de desarrollo que han sido aplicadas con exito.
 
 
-
-RUP (Rational Unified Process)
+\subsubsection*{RUP (Rational Unified Process) \cite{rup}}
 
 El RUP (Proceso unificado de rational) es un proceso de desarrollo de software que se utiliza en conjunto con el lenguaje UML(Lenguaje Unificado de Modelado), este define una metodologia para el analisis, implementación y documentación de sistemas orientados a objetos. RUP es en realidad un refinamiento realizado por Rational Software del original Proceso Unificado.
 
 El ciclo de vida de RUP esta basado en el desarrollo en espiral en la cual el proceso se divide en ciclos iterativos en donde cada ciclo concluye con un producto final, a su vez cada ciclo se divide en fases que finaliza con un hito (un lugar en donde tomar una desicion radical) estas fases son: 
 
-* Concepcion
-* Elaboracion
-* Construccion
-* Implementacion
+\begin{enumerate}
+
+	\item Concepcion
+	\item Elaboracion
+	\item Construccion
+	\item Implementacion
+
+\end{enumerate}
+
 
 \subsection{Estado del Arte}
 
 En los últimos días las aplicaciones web se han visto afectadas por la implementación de una técnica conocida como AJAX, la cual añade la habilidad de cargar de forma dinámica partes de la interfaz, en este momento podemos ver aplicaciones muy útiles y fáciles de usar, las cuales accedemos totalmente utilizando únicamente el navegador, entre estas se destacan:
 
-Writely: Procesador de textos, con acceso mediante el navegador, posee un interfaz ajax y varias características adicionales como la posibilidad de añadir etiquetas (tags) a los documentos y la de compartir (ya sea en lectura o también en escritura) con otros usuarios.
 
-Gmail: es un servicio de correo electrónico gratuito en etapa de pruebas (beta), que ha captado la atención de los medios de información por sus innovaciones tecnológicas, su capacidad y por algunas quejas de violación a la privacidad de los usuarios.
+\paragraph{Writely: \cite{writely}} Es un procesador de textos, con acceso mediante el navegador, posee un interfaz ajax y varias características adicionales como la posibilidad de añadir etiquetas (tags) a los documentos y la de compartir (ya sea en lectura o también en escritura) con otros usuarios.
 
-Google Calendar: Gratuito servicio de calendarios en linea, permite mantener presente facilmente fechas de cumpleaños, reuniones, busqueda en internet de eventos importantes, etc.
+\paragraph{Gmail: \cite{gmail}} Es un servicio de correo electrónico gratuito en etapa de pruebas (beta), que ha captado la atención de los medios de información por sus innovaciones tecnológicas, su capacidad y por algunas quejas de violación a la privacidad de los usuarios.
 
-Flickr: es un sitio web de organización de fotografías digitales y red social. Fue desarrollado por Ludicorp, una empresa de Vancouver, Canadá, fundada en 2002. En marzo de 2005, Flickr y Ludicorp fueron compradas por Yahoo!. El servicio es utilizado extensamente por bloggers como depósito de fotos. El sistema de Flickr permite hacer búsquedas de imágenes por etiquetas (tags), por fecha y por licencias de Creative Commons.
+\paragraph{Google Calendar: \cite{google_calendar}} Servicio gratuito de calendarios en linea, permite mantener presente facilmente fechas de cumpleaños, reuniones, busqueda en internet de eventos importantes, etc.
+
+\paragraph{Flickr: \cite{flickr}} Es un sitio web de organización de fotografías digitales y red social. Fue desarrollado por Ludicorp, una empresa de Vancouver, Canadá, fundada en 2002. En marzo de 2005, Flickr y Ludicorp fueron compradas por Yahoo!. El servicio es utilizado extensamente por bloggers como depósito de fotos. El sistema de Flickr permite hacer búsquedas de imágenes por etiquetas (tags), por fecha y por licencias de Creative Commons.
+
 
 En el mundo de los IDEs encontramos herramientas que han cambiado la forma en la que se diseñan y desarrollan los programas de computadora, los mas importantes actualmente son:
 
-Eclipse: Eclipse es una IDE multiplataforma libre para crear aplicaciones clientes de cualquier tipo. La primera y más importante aplicación que ha sido realizada con este entorno es la afamado IDE Java llamado Java Development Toolkit (JDT) y el compilador incluido en Eclipse, que se usaron para desarrollar el propio Eclipse.
 
-Kdevelop: es un entorno integrado de desarrollo con licencia GPL para sistemas Linux y otros sistemas Unix, a diferencia de muchas otras interfaces de desarrollo, KDevelop no cuenta con un compilador propio, por lo que depende de gcc para producir código binario. Su última versión se encuentra actualmente bajo desarrollo y soporta entre otros lenguajes de programación a C, C++, Java, SQL, Python, Perl, Pascal y Bash.
+\paragraph{Eclipse: \cite{eclipse}} Es un IDE multiplataforma libre para crear aplicaciones clientes de cualquier tipo. La primera y más importante aplicación que ha sido realizada con este entorno es la afamado IDE Java llamado Java Development Toolkit (JDT) y el compilador incluido en Eclipse, que se usaron para desarrollar el propio Eclipse.
 
-Visual Studio .NET: es un conjunto de herramientas integrado para la construcción y desarrollo de servicios web XML y soluciones Web creado por Microsoft y ampliamente utilizado en el desarrollo de aplicaciones basadas en Windows.
+\paragraph{Kdevelop: \cite{kdevelop}} Es un entorno integrado de desarrollo con licencia GPL para sistemas Linux y otros sistemas Unix, a diferencia de muchas otras interfaces de desarrollo, KDevelop no cuenta con un compilador propio, por lo que depende de gcc para producir código binario. Su última versión se encuentra actualmente bajo desarrollo y soporta entre otros lenguajes de programación a C, C++, Java, SQL, Python, Perl, Pascal y Bash.
+
+\paragraph{Visual Studio .NET: \cite{visual_studio}} Es un conjunto de herramientas integrado para la construcción y desarrollo de servicios web XML y soluciones Web creado por Microsoft y ampliamente utilizado en el desarrollo de aplicaciones basadas en Windows.
+
 
 Durante el proceso de desarrollo surgieron dos herramientas similares a la nuestra, estas son:
 
-* Gyre: una herramienta que se basa en el desarrollo de aplicaciones web con el framework rails y el lenguaje ruby, esta herramienta se especializa de forma elegante en la depuración de dichas aplicaciones, incluyendo un depurador gráfico y un sistema de previsualización de resultados.
 
-* CodeIDE: esta herramienta se basa en la compilación y ejecución de varios lenguajes, entre los que se incluyen Basic, Pascal, ANSI C, Perl, JavaScript, HTML, MySQL, LISP y MATH, sin embargo por razones de seguridad los lenguajes no incluyen todas sus caracteristicas, por esta misma razón y por que carece de un buen manajador de proyectos (manejo eficiente de multiples archivos), resulta dificil realizar aplicaciones que sirvan para algo mas que realizar calculos o trabajar con cadenas de texto.
+\paragraph{Gyre:\cite{gyre}} Una herramienta que se basa en el desarrollo de aplicaciones web con el framework rails y el lenguaje ruby, esta herramienta se especializa de forma elegante en la depuración de dichas aplicaciones, incluyendo un depurador gráfico y un sistema de previsualización de resultados.
+
+\paragraph{CodeIDE:\cite{codeide}} Esta herramienta se basa en la compilación y ejecución de varios lenguajes, entre los que se incluyen Basic, Pascal, ANSI C, Perl, JavaScript, HTML, MySQL, LISP y MATH, sin embargo por razones de seguridad los lenguajes no incluyen todas sus caracteristicas, por esta misma razón y por que carece de un buen manajador de proyectos (manejo eficiente de multiples archivos), resulta dificil realizar aplicaciones que sirvan para algo mas que realizar calculos o trabajar con cadenas de texto.
+
 
 La aplicación desarrollada no tiene antecedentes registrados en el ambito de integracion del sistema de control de versiones, compilador y entorno de desarrollo centralizado accesible via web.
