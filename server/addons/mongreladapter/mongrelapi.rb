@@ -84,6 +84,5 @@ module MongrelAPI
 		return @server.stop
 	end
 	
-	
 end
 end

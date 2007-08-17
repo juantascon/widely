@@ -110,4 +110,10 @@ class WPluginable
 		wplugin.activate(self)
 	end
 	
+	#
+	# Opcionalmente llamado para inicializar el plugin
+	#
+	def wplugin_init()
+	end
+	
 end

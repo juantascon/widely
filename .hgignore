@@ -11,3 +11,4 @@ doc/diagrams/output
 *.dvi
 *.backup
 *.toc
+*.pdf
