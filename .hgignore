@@ -4,6 +4,7 @@ syntax: glob
 *.kdevses
 *.kilepr
 gui/script
+gui/build
 doc/diagrams/output
 *.aux
 *.log

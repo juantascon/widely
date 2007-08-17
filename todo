@@ -1,15 +1,5 @@
 TODO:
 
-[gui::Config]: datos de usuario
-[gui::Admin]: paramentros del servidor
-[gui::IDE]:
-	preguntar por copia de trabajo activa al inicio
-	toolbar principal (logout, config, wc activa))
-
-[webservice::Compilator,gui::IDE]: crear una interfaz de compilacion
-[doc]:
-	arquitectura -> poner patrones (modulos, web services, APIs, minicore, ducktyping)
-
 ADICIONALES:
 
 [gui::IDE]: Atajos de teclado
@@ -27,9 +17,6 @@ ADICIONALES:
 	resaltar sintaxis
 
 [gui::IDE, webservice::Repos]:Visor de diferencias
-[gui::IDE, webservice::Downloader]: Downloader
-*: Pasar todo a ingles
-
 
 BUGS:
 
