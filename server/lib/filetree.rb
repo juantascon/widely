@@ -33,12 +33,13 @@ class FileTree
 	#
 	class FileNode
 		attr_reader :parent, :id, :ftype
-		attr_writer :content
+		attr_writer :status
 		
 		def initialize(parent, id)
 			@parent = parent
 			@id = id
 			@ftype = FTYPE::FILE
+			@status = nil
 		end
 		
 		#
@@ -61,10 +62,11 @@ class FileTree
 		
 		def to_h
 			return {
-				"name" => id,
+				"name" => @id,
 				"path" => fullpath(1),
 				"childs" => false,
-				"type" => "file"
+				"type" => "file",
+				"status" => @status
 			}
 		end
 	end

@@ -4,6 +4,7 @@
 
 wmodule :Repo => [ :Auth ] do |mod|
 	begin
+		mod.require "status.rb"
 		mod.require "version.rb"
 		mod.require "repository.rb"
 		mod.require "default.rb"

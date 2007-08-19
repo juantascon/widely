@@ -89,7 +89,6 @@ module Repository
 		return false
 	end
 	
-	
 	#
 	# Realiza un checkout desde el repositorio hacia la copia de trabajo
 	#
@@ -115,16 +114,82 @@ module Repository
 		
 		# El checkout se logro exitosamente
 		return true
-	end	
+	end
 	
 	#
-	# Permite ver el estado de los cambios hechos en una copia de trabajo
+	# Permite ver el estado de los cambios hechos en un archivo en una copia de
+	# trabajo
+	#
+	# wc_dir: el directorio de la copia de trabajo
+	# path: la ruta del archivo
+	#
+	def status(wc_dir, path)
+		
+		w_info("#{path}")
+		
+		# Se procesa la ruta de entrada
+		path, rpath = process_path(path, wc_dir)
+		return false, "invalid path: #{path}" if ! path
+		
+		# Se ejecuta el comando status
+		cmd = Command.exec("svn", "status", "-v", "--xml", rpath)
+		
+		# Si el comando no termino con exito
+		if ! cmd.status.success?
+			w_warn("Fail -- #{cmd.stderr}")
+			return false, cmd.stderr
+		end
+		
+		begin
+			doc = REXML::Document.new(cmd.stdout)
+			wc_status = doc.root.get_elements("target")[0].get_elements("entry")[0].get_elements("wc-status")[0]
+			
+			item = wc_status.attribute("item").to_s
+			copied = wc_status.attribute("copied").to_s
+			
+			return true, Repo::Status::ADDED if copied == "true"
+			
+			case item
+				when "added"
+					return true, Repo::Status::ADDED
+				when "normal"
+					return true, Repo::Status::NORMAL
+				when "modified"
+					return true, Repo::Status::MODIFIED
+				when "deleted"
+					return true, Repo::Status::DELETED
+				when "unversioned"
+					return true, Repo::Status::NOCONTROL
+				when "conflicted"
+					return true, Repo::Status::CONFLICTED
+				else
+					raise Exception.new
+			end
+		rescue Exception => ex
+			w_debugx ex
+			return false, "Invalid Status: #{item}, please report this bug to admin"
+		end
+		
+		return false, "Please report this bug to admin"
+	end
+	
+	#
+	# Actualiza la copia de trabajo con los cambios del repositorio
 	#
 	# wc_dir: el directorio de la copia de trabajo
 	#
-	def status(wc_dir)
-		w_info("#{wc_dir}")
-		# TODO: implementar
+	def update(wc_dir)
+		# Se ejecuta el comando update
+		cmd = Command.exec("svn", "update", wc_dir)
+		
+		# Si el comando no termino con exito
+		if ! cmd.status.success?
+			w_warn("Fail -- #{cmd.stderr}")
+			return false, cmd.stderr
+		end
+		
+		# El update se logro exitosamente
+		return true
 	end
 	
 	#

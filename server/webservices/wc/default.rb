@@ -35,10 +35,30 @@ module Default
 		return @repo.checkout(@data_dir, version)
 	end
 	
+	#
+	# Actualiza la copia de trabajo con los cambios del repositorio
+	#
+	def update()
+		return @repo.update(@data_dir)
+	end
 	
+	#
+	# TODO: doc
+	#
 	def status()
-		# TODO: terminar
-		return @repo.status(@data_dir)
+		ls_status, tree = self.ls("/")
+		
+		return false, tree if ! ls_status
+		
+		tree.root.each do |c|
+			next if c.ftype != FileTree::FTYPE::FILE
+			
+			repo_status, ret = @repo.status(@data_dir, c.fullpath)
+			
+			c.status = ret
+		end
+		
+		return true, tree
 	end
 	
 	#

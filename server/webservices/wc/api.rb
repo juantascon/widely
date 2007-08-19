@@ -71,6 +71,7 @@ class API
 		return true, ret
 	end
 	
+	
 	#
 	# Hace checkout desde el repositorio hacia la copia de trabajo
 	#
@@ -81,6 +82,28 @@ class API
 		version = Repo::Version.new(args["version"]) if args["version"]
 		
 		return wc.checkout(version)
+	end
+	
+	#
+	# Actualiza los cambios desde el repositorio hacia la copia de trabajo
+	#
+	def update(args)
+		args.check("session_id")
+		session = Auth::SessionSet.instance.get_ex(args["session_id"])
+		wc = session.wc
+		
+		return wc.update()
+	end
+	
+	#
+	# TODO: doc
+	#
+	def status(args)
+		args.check("session_id")
+		session = Auth::SessionSet.instance.get_ex(args["session_id"])
+		wc = session.wc
+		
+		return wc.status()
 	end
 	
 	#

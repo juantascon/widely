@@ -2,7 +2,8 @@
 
 id_w=$(obj_ws wc/create "session_id=$id&repo_id=$id_r&name=project1-wc1&manager=default") ; echo $id_w
 
-raw_ws wc/create "session_id=$id&repo_id=$id_r&name=project1-wc2&manager=default"
+id_w2=$(obj_ws wc/create "session_id=$id&repo_id=$id_r&name=project1-wc2&manager=default"); echo $id_w2
+
 raw_ws wc/list "session_id=$id"
 
 raw_ws auth/set_wc "session_id=$id&wc_id=$id_w"
@@ -23,3 +24,6 @@ raw_ws wc/move "session_id=$id&path_from=/dir1/dir1_1&path_to=/"
 
 raw_ws wc/ls "session_id=$id&path=/"
 raw_ws wc/version_list "session_id=$id"
+
+raw_ws wc/status "session_id=$id"
+
