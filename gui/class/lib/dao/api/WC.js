@@ -41,6 +41,18 @@ qx.Mixin.define("lib.dao.api.WC",
 				"Checkout") );
 		},
 		
+		wc_update: function() {
+			return ( new lib.dao.WRQ("wc", "update",
+				{ "session_id": global.session.id },
+				"Update") );
+		},
+		
+		wc_status: function() {
+			return ( new lib.dao.WRQ("wc", "status",
+				{ "session_id": global.session.id },
+				"Status") );
+		},
+		
 		wc_commit: function(log) {
 			return ( new lib.dao.WRQ("wc", "commit",
 				{ "session_id": global.session.id, "log": log },

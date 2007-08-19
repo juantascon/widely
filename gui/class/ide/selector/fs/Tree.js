@@ -42,48 +42,6 @@ qx.Class.define("ide.selector.fs.Tree",
 	members:
 	{
 		/*
-		 * Carga el arbol de archivos a partir de un hash
-		 *
-		 * data: la informacion del arbol de archivos
-		 *
-		 */
-		load_from_hash: function(data) {
-			this.destroyContent();
-			
-			for (var i in data){
-				data[i]["version"] = this.getVersion();
-				
-				// Si un hijo es tipo directorio
-				if (data[i]["type"] == "dir"){
-					this.addToFolder(ide.selector.fs.Dir.new_from_hash(data[i]));
-				}
-				
-				// Si un hijo es tipo archivo
-				if (data[i]["type"] == "file"){
-					this.addToFolder(ide.selector.fs.File.new_from_hash(data[i]));
-				}
-			}
-		},
-		
-		/*
-		 * Busca un hijo a partir de la ruta del archivo
-		 *
-		 * path: la ruta a buscar
-		 *
-		 */
-		find_child_by_path: function(path) {
-			// Todos los hijos de forma recursiva
-			var items = this.getItems(true, true);
-			
-			for (var i in items) {
-				// Encontro el archivo
-				if (items[i].getPath() == path) { return items[i]; }
-			}
-			
-			return null;
-		},
-		
-		/*
 		 * Permite hacer la peticion al servidor y cargar los datos
 		 * del arbol de archivos
 		 *
@@ -92,8 +50,82 @@ qx.Class.define("ide.selector.fs.Tree",
 			var load_rq = this.wc_ls("/", this.getVersion());
 			
 			load_rq.addEventListener("ok", function(e) {
-				this.load_from_hash(e.getData());
+				var data = e.getData();
+				
+				this.destroyContent();
+				
+				for (var i in data){
+					data[i]["version"] = this.getVersion();
+					
+					// Si un hijo es tipo directorio
+					if (data[i]["type"] == "dir"){
+						this.addToFolder(ide.selector.fs.Dir.new_from_hash(data[i]));
+					}
+					
+					// Si un hijo es tipo archivo
+					if (data[i]["type"] == "file"){
+						this.addToFolder(ide.selector.fs.File.new_from_hash(data[i]));
+					}
+				}
+				/* TODO: doc */
+				if (! this.is_read_only()) {
+					this.load_status();
+				}
 			}, this);
+		},
+		
+		/*
+		 * TODO:  doc
+		 */
+		load_status: function() {
+			var status_rq = this.wc_status();
+			
+			status_rq.addEventListener("ok", function(e) {
+				var data = e.getData();
+				
+				for (var i in data){
+					this.set_child_status(data[i]);
+				}
+			}, this);
+		},
+		
+		/*
+		 * TODO:  doc
+		 */
+		set_child_status: function(data) {
+			if ( data["type"] == "file" ) {
+				var obj = this.find_child(""+data["path"] + "/" + data["name"]);
+				if (qx.util.Validation.isValid(obj)) {
+					obj.set_status(data["status"]);
+				}
+			}
+			
+			if ( data["type"] == "dir" ) {
+				if ( data["childs"] ) {
+					for (var i in data["childs"]) {
+						this.set_child_status(data["childs"][i]);
+					}
+				}
+			}
+		},
+		
+		/*
+		 * Busca un hijo a partir de la ruta completa y el nombre del
+		 * archivo
+		 *
+		 * full_name: el nombre completo del archivo
+		 *
+		 */
+		find_child: function(full_name) {
+			// Todos los hijos de forma recursiva
+			var items = this.getItems(true, true);
+			
+			for (var i in items) {
+				// Encontro el archivo
+				if (items[i].full_name() == full_name) { return items[i]; }
+			}
+			
+			return null;
 		},
 		
 		/*
@@ -195,7 +227,5 @@ qx.Class.define("ide.selector.fs.Tree",
 				
 			}, this);
 		}
-		
-		
 	}
 });

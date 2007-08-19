@@ -44,6 +44,14 @@ qx.Class.define("ide.selector.ToolBar",
 				execute: function(e){
 					global.selectorview.getTree().commit();
 				}
+			},
+			{
+				// Boton para hacer checkout o update desde el repositorio
+				type: "button", permanent: true,
+				label: "Update/Checkout",icon: "actions/go-up",
+				execute: function(e){
+					global.selectorview.getVersionstable().update_checkout();
+				}
 			}
 		]);
 		

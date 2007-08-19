@@ -55,35 +55,71 @@ qx.Class.define("ide.selector.VersionsTable",
 	members:
 	{
 		/*
-		 * Carga la tabla de versiones
-		 *
-		 * data: la lista de versiones
+		 * Lanza la peticion al servidor para cargar la lista de
+		 * versiones
 		 *
 		 */
-		load_from_hash: function(data) {
-			var tm_data = [];
+		load: function(){
+			var rq = this.wc_version_list();
+			rq.addEventListener("ok", function(e) {
+				var tm_data = [];
+				var data = e.getData();
+				
+				for (var i in data){
+					tm_data.push([data[i]["id"], data[i]["description"], data[i]["date"], data[i]["author"]]);
+				}
+				
+				/*
+				 * Adiciona las versiones especiales:
+				 *
+				 * 0: la version inicial
+				 * WC: la copia de trabajo actual
+				 *
+				 */
+				tm_data[0] = ["0", "Initial Version", 0, ""];
+				tm_data.push(["WC", "Working Copy", 0, ""]);
+				
+				this.getTableModel().setData(tm_data);
+				/*
+				 * Selecciona por defecto la ultima version de la lista de versiones,
+				 * la copia de trabajo
+				 *
+				 */
+				this.getSelectionModel().setSelectionInterval(0,tm_data.length-1);
+				
+			}, this);
+		},
+		
+		/*
+		 * TODO: doc
+		 *
+		 */
+		update_checkout: function() {
+			var version = this.selected_row_id();
 			
-			for (var i in data){
-				tm_data.push([data[i]["id"], data[i]["description"], data[i]["date"], data[i]["author"]]);
+			if (version == cons.WC) {
+				var confirm_popup = lib.ui.Msg.warn(global.selectorview, "Update WC from Repository?");
+				
+				confirm_popup.addEventListener("ok", function(e) {
+					var update_rq = this.wc_update();
+					
+					update_rq.addEventListener("ok", function(e) {
+						global.selectorview.getTree().load();
+					}, this);
+				}, this);
+				
 			}
-			
-			/*
-			 * Adiciona las versiones especiales:
-			 *
-			 * 0: la version inicial
-			 * WC: la copia de trabajo actual
-			 *
-			 */
-			tm_data[0] = ["0", "Initial Version", 0, ""];
-			tm_data.push(["WC", "Working Copy", 0, ""]);
-			
-			this.getTableModel().setData(tm_data);
-			/*
-			 * Selecciona por defecto la ultima version de la lista de versiones,
-			 * la copia de trabajo
-			 *
-			 */
-			this.getSelectionModel().setSelectionInterval(0,tm_data.length-1);
+			else {
+				var confirm_popup = lib.ui.Msg.warn(global.selectorview, "Checkout to version: "+version+" ?");
+				
+				confirm_popup.addEventListener("ok", function(e) {
+					var checkout_rq = this.wc_checkout(version);
+					
+					checkout_rq.addEventListener("ok", function(e) {
+						global.selectorview.set_tree_version(cons.WC);
+					}, this);
+				}, this);
+			}
 		},
 		
 		/*
@@ -97,18 +133,6 @@ qx.Class.define("ide.selector.VersionsTable",
 			var id = ""+this.getTableModel().getData()[row][0];
 			if (id == "WC") { id = ""+cons.WC }
 			return id;
-		},
-		
-		/*
-		 * Lanza la peticion al servidor para cargar la lista de
-		 * versiones
-		 *
-		 */
-		load: function(){
-			var rq = this.wc_version_list();
-			rq.addEventListener("ok", function(e) {
-				this.load_from_hash(e.getData());
-			}, this);
 		}
 	}
 });

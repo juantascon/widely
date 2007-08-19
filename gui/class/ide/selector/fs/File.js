@@ -34,6 +34,35 @@ qx.Class.define("ide.selector.fs.File",
 		}
 	},
 	
+	members:
+	{
+		set_status: function(status) {
+			switch (status) {
+				case ide.selector.fs.Status.NORMAL:
+					break;
+				case ide.selector.fs.Status.MODIFIED:
+					this.getLabelObject().setBackgroundColor("#FAFFCC");// Yellow
+					break;
+				case ide.selector.fs.Status.ADDED:
+					this.getLabelObject().setBackgroundColor("#BBDDBB");// Green
+					break;
+				case ide.selector.fs.Status.NOCONTROL:
+					this.getLabelObject().setBackgroundColor("#FFA0FF");// Purple
+					
+					break;
+				case ide.selector.fs.Status.DELETED:
+					this.getLabelObject().setBackgroundColor("red");
+					break;
+				case ide.selector.fs.Status.CONFLICTED:
+					this.getLabelObject().setBackgroundColor("#FF7355"); // Red
+					break;
+				default:
+					this.getLabelObject().setBackgroundColor("black");
+					break;
+			}
+		}
+	},
+	
 	statics:
 	{
 		/*
