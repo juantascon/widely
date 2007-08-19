@@ -14,13 +14,16 @@ module SunCompiler
 	#
 	def compile(wc, path)
 		
-		return false, "invalid File: #{path}" if ! File.absolute?(path)
+		path = File.cleanpath(path)
 		
-		filename = File.cleanpath("#{wc.data_dir}/#{path}")
+		if ( ! File.absolute?(path) ) or
+			( ! File.exist? File.cleanpath("#{wc.data_dir}/#{path}") )
+			return false, "invalid File: #{path}"
+		end
 		
-		return false, "Invalid File: #{path}" if ! File.exist? filename
+		cmd = Command.exec2(wc.data_dir, "javac", ".#{path}")
+		cmd = cmd.wait
 		
-		cmd = Command.exec("javac", filename)
 		status = cmd.status.exitstatus
 		
 		case status

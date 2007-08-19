@@ -16,7 +16,7 @@ qx.Class.define("ide.selector.VersionsTable",
 		this.base(arguments, tm);
 		
 		with(this) {
-			set({height: "84%", width: "100%"});
+			set({height: "100%", width: "100%"});
 			setOverflow("auto");
 			setBackgroundColor("white");
 			setStatusBarVisible(false);
@@ -91,7 +91,9 @@ qx.Class.define("ide.selector.VersionsTable",
 		},
 		
 		/*
-		 * TODO: doc
+		 * Permite hacer update/checkout en la copia de trabajo desde
+		 * el repositorio, cuando esta selccionada la version WC hace
+		 * update y cuando no hace checkout
 		 *
 		 */
 		update_checkout: function() {

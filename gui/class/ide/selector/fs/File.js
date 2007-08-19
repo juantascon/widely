@@ -1,12 +1,12 @@
 /*
- * Representacion  de un archivo del arbol de archivos
+ * Representacion de un archivo del arbol de archivos
  *
  */
 qx.Class.define("ide.selector.fs.File",
 {
 	extend: qx.ui.tree.TreeFile,
 	
-	include: [ ide.selector.fs.DragAndDrop ],
+	include: [ ide.selector.fs.DragAndDrop, lib.dao.api.Compiler ],
 	
 	/*
 	 * name: el nombre del archivo
@@ -36,6 +36,13 @@ qx.Class.define("ide.selector.fs.File",
 	
 	members:
 	{
+		/*
+		 * Pinta el fondo del archivo en el arbol de acuerdo a su estado con respecto
+		 * al repositorio
+		 *
+		 * status: el estado del archivo
+		 *
+		 */
 		set_status: function(status) {
 			switch (status) {
 				case ide.selector.fs.Status.NORMAL:
@@ -60,6 +67,18 @@ qx.Class.define("ide.selector.fs.File",
 					this.getLabelObject().setBackgroundColor("black");
 					break;
 			}
+		},
+		
+		/*
+		 * Compila este archivo utilizando el compilador javac
+		 *
+		 */
+		compile_javac: function() {
+			var compile_rq = this.compiler_compile("javac", this.full_name());
+			
+			compile_rq.addEventListener("fail", function(e) {
+				lib.ui.Msg.error(global.editorview, "Compiler errors: "+e.getData());
+			});
 		}
 	},
 	

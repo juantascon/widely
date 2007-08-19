@@ -67,7 +67,12 @@ qx.Class.define("ide.selector.fs.Tree",
 						this.addToFolder(ide.selector.fs.File.new_from_hash(data[i]));
 					}
 				}
-				/* TODO: doc */
+				
+				/*
+				 * En caso de que el arbol sea de WC se debe cargar el estado
+				 * de los archivos
+				 *
+				 */
 				if (! this.is_read_only()) {
 					this.load_status();
 				}
@@ -75,7 +80,8 @@ qx.Class.define("ide.selector.fs.Tree",
 		},
 		
 		/*
-		 * TODO:  doc
+		 * Realiza una peticion de carga de estado de los archivos del arbol
+		 *
 		 */
 		load_status: function() {
 			var status_rq = this.wc_status();
@@ -90,9 +96,12 @@ qx.Class.define("ide.selector.fs.Tree",
 		},
 		
 		/*
-		 * TODO:  doc
+		 * Coloca el estado de un archivo en el arbol
+		 * si es un directorio el de sus hijo
+		 *
 		 */
 		set_child_status: function(data) {
+			// Cuando es un archivo
 			if ( data["type"] == "file" ) {
 				var obj = this.find_child(""+data["path"] + "/" + data["name"]);
 				if (qx.util.Validation.isValid(obj)) {
@@ -100,6 +109,7 @@ qx.Class.define("ide.selector.fs.Tree",
 				}
 			}
 			
+			// Cuando es un directorio
 			if ( data["type"] == "dir" ) {
 				if ( data["childs"] ) {
 					for (var i in data["childs"]) {

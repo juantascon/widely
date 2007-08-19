@@ -43,7 +43,8 @@ module Default
 	end
 	
 	#
-	# TODO: doc
+	# Obtiene el estado de los archivos de la copia de trabajo con respecto
+	# al repositorio
 	#
 	def status()
 		ls_status, tree = self.ls("/")

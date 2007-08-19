@@ -17,6 +17,14 @@ qx.Class.define("ide.editor.ToolBar",
 				execute: function(e){
 					global.editorview.getTabview().getSelected().save_file_content();
 				}
+			},
+			{
+				// Boton para compilar el archivo
+				type: "button", permanent: false,
+				label: "Compile", icon: "actions/system-run",
+				execute: function(e){
+					global.editorview.getTabview().getSelected().getFile().compile_javac();
+				}
 			}
 		]);
 		

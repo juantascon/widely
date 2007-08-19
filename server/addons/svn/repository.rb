@@ -117,6 +117,25 @@ module Repository
 	end
 	
 	#
+	# Actualiza la copia de trabajo con los cambios del repositorio
+	#
+	# wc_dir: el directorio de la copia de trabajo
+	#
+	def update(wc_dir)
+		# Se ejecuta el comando update
+		cmd = Command.exec("svn", "update", wc_dir)
+		
+		# Si el comando no termino con exito
+		if ! cmd.status.success?
+			w_warn("Fail -- #{cmd.stderr}")
+			return false, cmd.stderr
+		end
+		
+		# El update se logro exitosamente
+		return true
+	end
+	
+	#
 	# Permite ver el estado de los cambios hechos en un archivo en una copia de
 	# trabajo
 	#
@@ -171,25 +190,6 @@ module Repository
 		end
 		
 		return false, "Please report this bug to admin"
-	end
-	
-	#
-	# Actualiza la copia de trabajo con los cambios del repositorio
-	#
-	# wc_dir: el directorio de la copia de trabajo
-	#
-	def update(wc_dir)
-		# Se ejecuta el comando update
-		cmd = Command.exec("svn", "update", wc_dir)
-		
-		# Si el comando no termino con exito
-		if ! cmd.status.success?
-			w_warn("Fail -- #{cmd.stderr}")
-			return false, cmd.stderr
-		end
-		
-		# El update se logro exitosamente
-		return true
 	end
 	
 	#
@@ -361,7 +361,7 @@ module Repository
 		return false, "invalid path: #{path}" if ! path or File.root?(path)
 		
 		# Se ejecuta el comando <add|delete>
-		cmd = Command.exec(* (["svn"] + cmd + [rpath]) )
+		cmd = Command.exec(* (["svn", "--force"] + cmd + [rpath]) )
 		
 		# Si el comando no termino con exito
 		if ! cmd.status.success?

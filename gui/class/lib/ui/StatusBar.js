@@ -17,6 +17,9 @@ qx.Class.define("lib.ui.StatusBar",
 	construct: function () {
 		this.base(arguments);
 		
+		// Coloca la barra siempre encima de todo
+		this.setZIndex(2);
+		
 		this.setHeight("auto");
 		this.setBorder(new qx.ui.core.Border(1, "solid", "#91A5BD"));
 		

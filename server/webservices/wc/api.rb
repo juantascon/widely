@@ -96,7 +96,8 @@ class API
 	end
 	
 	#
-	# TODO: doc
+	# Obtiene el estado de los archivos de la copia de trabajo con respecto
+	# al repositorio
 	#
 	def status(args)
 		args.check("session_id")
