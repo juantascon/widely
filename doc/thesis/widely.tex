@@ -4,15 +4,24 @@
 
 \begin{document}
 
-% Las tablas de contenido a espacio sencillo
-%\singlespacing
 
-\tableofcontents
-\newpage
-\listoffigures
+% Las tablas de contenido a espacio sencillo
+\begin{singlespacing}
+	\tableofcontents
+	\newpage
+	\listoffigures
+\end{singlespacing}
 
 % El documento a espacio doble
 \doublespacing
+
+%
+% Indentacion de comienzo de parrafo:
+% 3 lineas hacia abajo
+% 2 letras hacia la derecha
+%
+%\parindent 2ex
+\parskip 3em
 
 \include{src/agradecimientos} % hacer
 \include{src/introduccion} % formato
