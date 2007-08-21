@@ -1,37 +1,45 @@
 \documentclass[12pt,letterpaper,oneside]{article}
 
-\include{config}
+\include{var/includes}
 
 \begin{document}
 
+\include{var/metainfo}
+\include{var/footer}
 
 % Las tablas de contenido a espacio sencillo
-\begin{singlespacing}
-	\tableofcontents
-	\newpage
-	\listoffigures
-\end{singlespacing}
-
-% El documento a espacio doble
-\doublespacing
+\begin{onehalfspacing}
+	\begin{pagestyle}{empty}
+		\tableofcontents \newpage
+		\listoffigures \newpage
+	\end{pagestyle}
+\end{onehalfspacing}
 
 %
 % Indentacion de comienzo de parrafo:
+% 0 letras hacia la derecha
 % 3 lineas hacia abajo
-% 2 letras hacia la derecha
 %
-%\parindent 2ex
+\parindent 0ex
 \parskip 3em
 
-\include{src/agradecimientos} % hacer
-\include{src/introduccion} % formato
-\include{src/definicion-problema} % formato
-\include{src/objetivos} % formato
-\include{src/alcances} % formato
-\include{src/justificacion} % formato
-\include{src/marco-referencia} % formato
-\include{src/ide-web} % formato
-\include{src/conclusiones} % formato
-\include{src/bibliografia} % hacer
+% Reinicia el contador de paginas a 1
+\setcounter{page}{1}
+
+% El documento a espacio doble
+\begin{doublespacing}
+	
+	\include{content/agradecimientos}
+	\include{content/introduccion}
+	\include{content/definicion-problema}
+	\include{content/objetivos}
+	\include{content/alcances}
+	\include{content/justificacion}
+	\include{content/marco-referencia}
+	\include{content/ide-web}
+	\include{content/conclusiones}
+	\include{content/bibliografia}
+	
+\end{doublespacing}
 
 \end{document}

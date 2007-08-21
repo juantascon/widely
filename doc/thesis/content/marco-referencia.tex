@@ -11,6 +11,27 @@ OASIS (Organization for the Advancement of Structured Information Standards) def
 SOA fue elegida principalmente por que provee división, modularidad y bajo acoplamiento dentro de la lógica de negocio y en la comunicación con la interfaz de usuario.
 
 
+\subsubsection*{Java \cite{java} }
+
+Java es un lenguaje de programación creado originalmente por Sun Microsystems, una aplicación java normalmente se compila en un código máquina llamado bytecode (Codigo Byte), este código es ejecutado por una máquina virual de java, la máquina virtual interpreta las instrucciones de la aplicación en bytecode y las ejecuta en la máquina nativa, también es posible ejecutarlo de forma directa en un procesador java.
+
+Las características \cite{java_caracteristicas} principales de java son:
+
+\begin{enumerate}
+	
+	\item Orientado a Objetos: desde el comienzo uno de los objetivos de java ha sido incorporar y fusionar dentro del nucleo principal de java las partes buenas de otros lenguajes de programación orientados a objetos.
+	
+	\item Multiplataforma: la maquina virtual de java conocida tambien como JRE (Java RunTime Environment), estan disponibles para la mayoria de sistemas operativos.
+	
+	\item Fácil de aprender: su sintaxis proviene de lenguajes como C o C++, a diferencia de estos lenguajes, java elimina algunos aspectos como herencia multiple o punteros facilitando el trabajo del programador y evitando que cometa algunos errores. Como contraparte estas características si se saben utilizar pueden llegar a ser herramientas muy poderosas olvidadas en el mundo de java.
+	
+	\item Robusto: hace numerosas comprobaciones en tiempo de compilación y ejecución, además de esto java elimina muchas de las características de otros lenguajes como C++, para mantener reducidas las especificaciones del lenguaje y añadir características muy útiles como el garbage collector (reciclador de memoria dinámica). No es necesario preocuparse de liberar memoria, el reciclador se encarga de ello y cuando entra en acción, permite liberar bloques de memoria muy grandes, lo que reduce la fragmentación de la memoria.
+	
+\end{enumerate}
+
+Para este proyecto se ha escogido implementar una interfaz con el compilador de java de Sun Microsystems debido a su robustes y a su facilidad de control en el momento de la ejecución, además como punto adicional, java es probablemente el lenguaje mas popular en estos tiempos ya que ha sido adoptado en innumerables proyectos alrededor del mundo.
+
+
 \subsubsection*{JSON(JavaScript Object Notation) \cite{json} }
 
 JSON (Notación de Objecto en JavaScript) es un formato liviano de intercambio de datos, es mas sencillo de leer y escribir para los humanos, ademas es fácil para una maquina analizarlo y generarlo, esta basado en un subconjunto del lenguaje de programacion JavaScript TODO: bibliografia: Standard ECMA-262 3rd Edition - December 1999.
@@ -37,9 +58,9 @@ Ejemplo: Una lista de personas en JSON se vería así
 
 \begin{verbatim}
 [
- { ``nombre'': ``Juan'', ``apellido'': ``Tascon'', ``codigo'': ``0233680'' },
- { ``nombre'': ``Diego'', ``apellido'': ``Tascon'', ``codigo'': ``0233681'' },
- { ``nombre'': ``Jose'', ``apellido'': ``Vidarte'', ``codigo'': ``0533282'' }
+ { ``nombre'': ``Juan'', ``apellido'': ``Tascon'' },
+ { ``nombre'': ``Diego'', ``apellido'': ``Tascon'' },
+ { ``nombre'': ``Jose'', ``apellido'': ``Vidarte'' }
 ]
 \end{verbatim}
 
