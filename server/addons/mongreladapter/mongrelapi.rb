@@ -80,7 +80,7 @@ module MongrelAPI
 	# detiene el servidor
 	#
 	def stop()
-		w_info "stop(mongrel) => http://127.0.0.1:#{@port}"
+		w_info "STOP => httpapi:mongrel"
 		return @server.stop
 	end
 	

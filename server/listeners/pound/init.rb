@@ -4,10 +4,10 @@
 
 wmodule :Pound do |mod|
 	begin
-		raise Exception, "pound binary not found" if Command.exec("which", "pound").status != 0
-		
 		mod.require "dispatcher.rb"
 		mod.require "default.rb"
+		
+		Pound::Default.class_eval "POUND_HELPER = \"#{mod.base_dir}/helper/pound\""
 		
 		true
 	rescue Exception => ex

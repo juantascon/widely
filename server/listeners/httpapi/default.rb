@@ -51,7 +51,7 @@ module Default
 	# Detiene el listener
 	#
 	def stop()
-		w_info "stop(webrick) => http://127.0.0.1:#{@port}"
+		w_info "STOP => httpapi:webrick"
 		return @server.shutdown
 	end
 	

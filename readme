@@ -12,8 +12,9 @@ Instrucciones:
 
 dependencias:
 
-* ruby
-* pound
+* ruby => 1.8.5
+* pound >= 2.3.2
+* java jdk (preferiblemente el de sun)
 * mongrel (opcional pero recomendado)
 
 las instrucciones para ejecutarlo son:
@@ -35,7 +36,7 @@ para instalar mongrel se ejecuta(como rut) "gem install -Y mongrel"
 
 de ahora en adelante el <srv> va a ser http://localhost:7777/
 
-4. ingresar a <srv>/gui/build/html/login.html por el browser
+4. ingresar a <srv>/gui/html/login.html por el browser
 5. marcar la casilla de admin (la clave por defecto es "admin" o "admin1") y logearse
 6. crear un usuario
 7. seleccionar el usuario y darle donde dice "editar configuracion de usuario"

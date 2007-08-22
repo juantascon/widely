@@ -63,7 +63,8 @@ module Default
 		# Inicia el servidor como un proceso nuevo
 		w_info "run(pound) => http://127.0.0.1:#{@port}"
 		return Thread.new do
-			Command.exec("pound","-f", @config_file.path, "-p", @pid_file.path)
+			Command.exec("#{POUND_HELPER}","-v", "-f", @config_file.path, "-p", @pid_file.path)
+			self.stop
 		end
 	end
 	
@@ -71,7 +72,10 @@ module Default
 	# Detiene el listener
 	#
 	def stop()
-		w_info "stop(pound) => http://127.0.0.1:#{@port}"
+		w_info "STOP => pound"
+		w_info "!!! WARNING !!!"
+		w_info "!!! WIDELY MAIN SERVER STOPED !!!"
+		
 		#pid = File.new(@pid_file.path).read.to_i
 		#Process.kill("TERM", pid)
 	end

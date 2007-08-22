@@ -11,6 +11,8 @@ autoload(:SingleForwardable, "forwardable.rb")
 autoload(:CGI, "cgi.rb")
 autoload(:Thread, "thread.rb")
 autoload(:Tempfile, "tempfile.rb")
+autoload(:YAML, "yaml.rb")
+
 
 #
 # Widely lib Autoloads
