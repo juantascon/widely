@@ -55,7 +55,7 @@ APPLICATION_CLASSNAME = App
 # Files that will be copied from the source directory into the build
 # directory (space separated list). The default list is empty.
 #
-APPLICATION_FILES = html/ resource/
+APPLICATION_FILES = index.html html/ resource/
 
 #-------------------------------------------------------------------------------
 # For a full list and description of available application settings, please 

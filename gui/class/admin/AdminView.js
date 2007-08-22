@@ -20,6 +20,17 @@ qx.Class.define("admin.AdminView",
 		
 		this.add_tab(new admin.tab.System);
 		this.add_tab(new admin.tab.User);
+		
+		var logout_button = new qx.ui.pageview.buttonview.Button("Logout", "icon/32/actions/application-exit.png");
+		logout_button.addEventListener("click", function(e){
+			var confirm = lib.ui.Msg.warn(global.mainframe, "Do you really want to logout?");
+			confirm.addEventListener("ok", function(e) {
+				// termina la aplicacion
+				global.app.instance.quit();
+			});
+		});
+		this.getBar().add(new qx.ui.basic.HorizontalSpacer());
+		this.getBar().add(logout_button);
 	},
 	
 	members:
