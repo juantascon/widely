@@ -7,13 +7,9 @@
 \include{var/metainfo}
 \include{var/footer}
 
-% Las tablas de contenido a espacio sencillo
-\begin{onehalfspacing}
-	\begin{pagestyle}{empty}
-		\tableofcontents \newpage
-		\listoffigures \newpage
-	\end{pagestyle}
-\end{onehalfspacing}
+\include{var/toc}
+
+
 
 %
 % Indentacion de comienzo de parrafo:
@@ -30,6 +26,7 @@
 \begin{doublespacing}
 	
 	\include{content/agradecimientos}
+	\include{content/resumen}
 	\include{content/introduccion}
 	\include{content/definicion-problema}
 	\include{content/objetivos}
