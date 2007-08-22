@@ -5,4 +5,4 @@ all:
 	pdflatex ./widely.tex
 
 clean:
-	@rm *.log *.lof *.toc *.out *.dvi *.aux  *.pdf *.backup */*.backup */*.aux 2>/dev/null
+	@rm *.log *.lof *.toc *.out *.dvi *.aux *.pdf *.backup */*.backup */*.aux 2>/dev/null
