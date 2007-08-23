@@ -34,7 +34,7 @@ qx.Mixin.define("lib.dao.api.WC",
 		
 		
 		wc_checkout: function(version) {
-			if (! version) { version = "-1" }
+			if (qx.util.Validation.isInvalid(version)) { version = "-1" }
 			
 			return ( new lib.dao.WRQ("wc", "checkout",
 				{ "session_id": global.session.id, "version": version },
@@ -66,7 +66,7 @@ qx.Mixin.define("lib.dao.api.WC",
 		},
 		
 		wc_cat: function(path, version) {
-			if (! version) { version = "-1" }
+			if (qx.util.Validation.isInvalid(version)) { version = "-1" }
 			
 			return ( new lib.dao.WRQ("wc", "cat",
 				{ "session_id": global.session.id, "path": path, "version": version },
@@ -74,7 +74,7 @@ qx.Mixin.define("lib.dao.api.WC",
 		},
 		
 		wc_ls: function(path, version) {
-			if (! version) { version = "-1" }
+			if (qx.util.Validation.isInvalid(version)) { version = "-1" }
 			
 			return ( new lib.dao.WRQ("wc", "ls",
 				{ "session_id": global.session.id, "path": path, "version": version },
@@ -82,7 +82,7 @@ qx.Mixin.define("lib.dao.api.WC",
 		},
 		
 		wc_add: function(path, as_dir) {
-			if (! as_dir) { as_dir = false }
+			if (qx.util.Validation.isInvalid(as_dir)) { as_dir = false }
 			return ( new lib.dao.WRQ("wc", "add",
 				{ "session_id": global.session.id, "path": path, "as_dir": as_dir },
 				"Load Dir Listing") );
