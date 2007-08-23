@@ -6,11 +6,11 @@ Los actores involucrados en el proceso del sistema son:
 
 \begin{itemize}
 
-	\item{Usuario Anónimo}(Anonimous User): un usuario anónimo es cualquiera con acceso a la pantalla de inicio del sistema, en teoría cualquier sistema externo (pueden ser personas) que tenga la habilidad de comunicarse con el sistema es considerado un usuario anónimo.
+	\item{Usuario Anónimo} (Anonimous User): un usuario anónimo es cualquiera con acceso a la pantalla de inicio del sistema, en teoría cualquier sistema externo (pueden ser personas) que tenga la habilidad de comunicarse con el sistema es considerado un usuario anónimo.
 	
-	\item{Administrador}(Administrator): el usuario administrador es el que se encarga de configurar las tareas principales del sistema.
+	\item{Administrador} (Administrator): el usuario administrador es el que se encarga de configurar las tareas principales del sistema.
 	
-	\item{Usuario}(User): un usuario es cualquier sistema registrado, validado y aprobado por el administrador.
+	\item{Usuario} (User): un usuario es cualquier sistema registrado, validado y aprobado por el administrador.
 
 \end{itemize}
 
@@ -19,24 +19,24 @@ Los casos de uso a desarrollar son:
 \begin{description}
 	
 	\item [Autenticación] (Authetication): \newline
-	El sistema debe permitir a un usuario desconocido poder autenticarse para que el sistema a partir dependiendo del proceso de autenticación lo pueda tratar como un usuario registrado o como un usuario administrador.
+	El sistema debe permitir a un usuario desconocido poder autenticarse con el sistema para que este dependiendo del proceso de autenticación lo pueda tratar como un usuario registrado o como un usuario administrador.
 	
-	\item [Administración de usuario] (Users Administration): \newline
-	El sistema debe permitir al usuario administrador crear y eliminar usuarios registrados, ademas debe permitir editar los datos de configuración de estos usuarios.
+	\item [Administración de usuarios] (Users Administration): \newline
+	El sistema debe permitir al usuario administrador crear y eliminar usuarios registrados, además debe permitir editar los datos de configuración los usuarios.
 	
-	\item [Cambio de Clave de autenticación] (Authentication Key Changing): \newline
-	El sistema debe proveer a los usuarios y al administrador un proceso mediante el cual puedan cambiar sus llaves de autenticación con el sistema (passwords).
+	\item [Cambio de clave de autenticación] (Authentication Key Changing): \newline
+	El sistema debe proveer a los usuarios y al administrador un proceso mediante el cual puedan cambiar sus claves de autenticación con el sistema (passwords).
 	
 	\item [Manejo de archivos y versiones] (File and Versions Handling): \newline
-	Gracias a la centralización que provee el IDE Web es posible integrar, de forma inteligente (incluso algunas acciones se deben poder hacer de forma transparente al usuario) el sistema de control de versiones con la administración de los archivos del proyecto, a pesar de esta integración, la copia de trabajo de cada usuario debe estar separado del repositorio del proyecto.
+	Gracias a la centralización que provee el IDE Web es posible integrar, de forma inteligente (incluso algunas acciones se pueden hacer de forma transparente al usuario) el sistema de control de versiones con la administración de los archivos del proyecto, a pesar de esta integración, la copia de trabajo de cada usuario estará separada del repositorio del proyecto.
 	
 	\item [Edición de código fuente] (Source Code Editing): \newline
 	El sistema debe tener una interfaz capaz de editar código fuente, opcionalmente se pueden incluir ayudas comunes pero de gran utilidad para un programador como son:
+	
 	\begin{itemize}
-		\item AutoIndentación
-		\item Autocompletado de palabras
-		\item Opciones de Codificación(I18N)
-		\item Resaltado de sintaxis
+		\item Autoindentación.
+		\item Autocompletado de palabras.
+		\item Resaltado de sintaxis.
 	\end{itemize}
 	
 	\item [Administración de repositorios y copias de trabajo] (Repositories and Working Copies Administration): \newline
@@ -75,13 +75,13 @@ Los casos de uso a desarrollar son:
 
 \subsubsection{Arquitectura}
 
-Al tratarse de una aplicación web la arquitectura que se utilizara para el desarrollo del proyecto sera la arquitectura Cliente-Servidor en la cual el servidor se encarga de centralizar la información y la lógica y la presenta a múltiples clientes encargados de hacer peticiones de acuerdo a sus necesidades.
+Al tratarse de una aplicación web la arquitectura que se utilizará para el desarrollo del proyecto sera la arquitectura Cliente-Servidor en la cual el servidor se encarga de centralizar la información y la lógica y la presenta a múltiples clientes encargados de hacer peticiones de acuerdo a sus necesidades.
 
-En la desarrollo de aplicaciones web lo mas común es que no sea necesario crear el lado cliente de la aplicación ya que se utiliza como cliente un browser(explorador) incluido en la mayoría de sistemas operativos modernos, por lo tanto, la mayor parte del desarrollo web se centra en la creación del servidor que es encargado, incluso, de generar la interfaz a los clientes para que estos la muestren al usuario final.
+En la desarrollo de aplicaciones web lo mas común es que no sea necesario crear el lado cliente de la aplicación ya que se utiliza como cliente un browser(navegador) incluido en la mayoría de sistemas operativos modernos, por lo tanto, la mayor parte del desarrollo web se centra en la creación del servidor que es encargado, incluso, de generar la interfaz a los clientes para que estos la muestren al usuario final.
 
-En el lado del servidor se utilizara una arquitectura orientada a servicios (SOA), la cual provee división, modularidad y bajo acoplamiento en la lógica de negocio y en la comunicación interfaz-servidor, el servidor es visto en el lado cliente como un catalogo de servicios.
+En el lado del servidor se utilizará una arquitectura orientada a servicios (SOA), la cual provee división, modularidad y bajo acoplamiento en la lógica de negocio y en la comunicación interfaz-servidor, el servidor es visto en el lado cliente como un catalogo de servicios.
 
-El servidor incluye también un sistema de despacho de peticiones del cliente, el cual permite evacuar de forma inteligente las respuestas pasando por un servidor principal encargado de distribuir las peticiones y luego a través de servidores configurables encargados de atender la petición
+El servidor incluye también un sistema de despacho de peticiones del cliente, el cual permite evacuar de forma inteligente las respuestas pasando por un servidor principal encargado de distribuir las peticiones y luego a través de servidores configurables encargados de atender la petición.
 
 \begin{landscape}
 \begin{figure}
@@ -102,28 +102,28 @@ Este modelo conceptual describe los elementos reales involucrados en el software
 \begin{description}
 	
 	\item [Archivo/Directorio](File/Directory): \newline
-	Un archivo es un trozo del código fuente de la aplicación que intenta desarrollar el programador, un directorio es un lugar donde estos archivos se organizan.
+	Un archivo es un trozo del código fuente de la aplicación que intenta desarrollar el programador, un directorio es el lugar donde estos archivos se organizan.
 	
 	\item [Version](Version): \newline
-	Una versión se refiere al estado de un archivo en un momento dado y como se relaciona con los cambios históricos que hechos sobre este.
+	Una versión se refiere al estado de un archivo en un momento dado y como se relaciona con los cambios históricos hechos sobre este.
 	
 	\item [Copia de Trabajo](Working Copy): \newline
-	Una copia de trabajo es un conjunto de archivos en donde se almacenan diversos archivos que pertenecen al proyecto de software, con estos archivos pueden ser modificados por el desarrollador produciendo nuevas versiones de los mismos.
+	Una copia de trabajo es un lugar en donde se almacenan diversos archivos que pertenecen al proyecto de software utilizados en el trabajo del programador, estos archivos pueden ser modificados por el desarrollador produciendo nuevas versiones de los mismos.
 	
 	\item [Repositorio](Repository): \newline
 	Un repositorio es en donde se almacenan los archivos y directorios del proyecto de software, también se lleva un registro histórico de los cambios hechos sobre estos archivos e información adicional sobre los mismos cambios como a que versión corresponde, quien los hizo, cuando, etc.
 	
 	\item [Compilador/Interprete](Compiler/Interpreter): \newline
-	Un compilador es el encargado de generar una aplicación de software a partir de los archivos de código fuente, procesa estos archivos para generar un archivo ejecutable que programa el sistema utilizado, un interprete es similar con la diferencia de que el código es interpretado e inmediatamente ejecutado.
+	Un compilador es el encargado de generar una aplicación de software a partir de los archivos de código fuente, procesa estos archivos para generar un programa ejecutable, un interprete es similar con la diferencia de que el código es interpretado e inmediatamente ejecutado.
 	
 	\item [Editor de Texto](Text Editor): \newline
 	Un editor de textos es el encargado de modificar los archivos de código fuente.
 	
 	\item [Entorno de Desarrollo](Develop Environment): \newline
-	El entorno de desarrollo se refiere a la centralización y a la cooperación de diversas herramientas de desarrollo como el editor de textos, el compilador, el manejo de versiones(repositorio - copia de trabajo), etc
+	El entorno de desarrollo se refiere a unificación y a la cooperación de diversas herramientas de desarrollo como el editor de textos, el compilador, el manejador de versiones(repositorio - copia de trabajo), etc.
 	
 	\item [Desarrollador](Developer): \newline
-	El desarrollador es cualquier sistema que se comunique con el entorno de desarrollo para producir una aplicación a partir de código fuente.
+	El desarrollador es cualquier sistema que se comunique con el entorno de desarrollo para producir una aplicación a partir de archivos de código fuente.
 	
 	\item [Aplicación](Application): \newline
 	Una aplicación es una pieza de software que sirve para solucionar un problema especifico.
@@ -142,19 +142,19 @@ Este modelo conceptual describe los elementos reales involucrados en el software
 
 \subsubsection{Modelo de Navegación}
 
-El modelo de navegación muestra el flujo de navegación que un usuario final puede seguir, el siguiente es un diagrama de navegación de aplicación web modificado para la adaptación a la técnica de desarrollo AJAX.
+El modelo de navegación muestra el flujo que un usuario final puede seguir, el siguiente es un diagrama de navegación de aplicación web modificado para la adaptación a la técnica de desarrollo AJAX.
 
 El punto inicial de la aplicación es la pagina de Login, desde ahí tiene dos opciones:
 
 \begin{enumerate}
 	
-	\item Administración: procede a la pagina como usuario administrador, aquí se pueden cambiar los parámetros del servidor y crear, eliminar y configurar (por medio de la pagina de configuración) los usuarios del sistema.
+	\item Administración: procede a la página como usuario administrador, aquí se pueden cambiar los parámetros del servidor y crear, eliminar y configurar los usuarios del sistema.
 	
 	\item IDE: esta es la pagina principal en donde el usuario desarrolla sus aplicaciones.
 	
 \end{enumerate}
 
-Como pagina adicional esta la pagina de Configuración la cual permite configurar los parámetros de los usuarios, ademas de crear y eliminar repositorios y copias de trabajo.
+Como pagina adicional esta la pagina de Configuración la cual permite modificar los parámetros de configuración de los usuarios, además de crear y eliminar repositorios y copias de trabajo.
 
 Durante el proceso de interacción entre el cliente y el servidor se utilizan los webservices definidos en el servidor, estos webservices son los encargados de ejecutar los procesos lógicos utilizados durante la navegación del usuario en la aplicación
 
@@ -180,7 +180,7 @@ La interfaz del usuario se divide en 4 pantallas diferentes:
 	
 	\item Config: Es la interfaz de configuración de los parámetros del usuario, así como sus repositorios y sus copias de trabajo.
 	
-	\item IDE: Es la interfaz principal, el verdadero IDE, contiene un editor, una barra de herramientas, una sistema de consulta de versiones del repositorio y un sistema de modificación de jerarquía de archivos en forma de árbol
+	\item IDE: Es la interfaz principal, el verdadero IDE, contiene un editor, una barra de herramientas, una sistema de consulta de versiones del repositorio y un sistema de modificación de jerarquía de archivos en forma de árbol.
 
 \end{enumerate}
 
@@ -224,7 +224,7 @@ La arquitectura orientada a servicios permitió dividir la aplicación en paquet
 \begin{description}
 	
 	\item[Addons] (Agregados):\newline
-	El módulo de Agregados contiene todos los elementos que no son obligatorios para la correcta ejecución de la aplicación
+	El módulo de Agregados contiene todos los elementos que no son obligatorios para la correcta ejecución de la aplicación.
 	
 	\item[Server] (Servidor):\newline
 	El módulo del Servidor contiene toda la lógica del negocio distribuida en servicios web así como el sistema de despacho de las peticiones del cliente.
@@ -251,13 +251,13 @@ La arquitectura orientada a servicios permitió dividir la aplicación en paquet
 
 \paragraph{Bases de datos}
 
-Las base de datos de mayor uso en la actualidad son las base de datos relacionales estas se fundamentan en el uso de "relaciones", las cuales podrán considerarse desde un punto de vista lógico como conjuntos de datos llamados "tuplas", en este modelo no importa el lugar ni la forma en que se almacenan los datos, teniendo como ventaja su fácil entendimiento y utilización para un usuario casual de la base de datos.
+Las base de datos de mayor uso en la actualidad son las base de datos relacionales, estas se fundamentan en el uso de "relaciones", las cuales podrán considerarse desde un punto de vista lógico como conjuntos de datos llamados "tuplas", en este modelo no importa el lugar ni la forma en que se almacenan los datos, teniendo como ventaja su fácil entendimiento y utilización para un usuario casual de la base de datos.
 
 Otras bases de datos menos utilizadas, pero no por esto menos atractivas son:
 
 \begin{itemize}
 
-	\item Base de Datos Orientada a Objetos(OODB): En estas el modelo de almacenamiento como su nombre lo dice es una base de datos cuyo sistema de consulta es orientado a objetos permitiendo patrones avanzados como herencia, encapsulamiento, paso de mensajes, etc.
+	\item Base de Datos Orientada a Objetos(OODB): En estas el sistema de consulta es orientado a objetos permitiendo patrones avanzados como herencia, encapsulamiento, paso de mensajes, etc.
 	
 	\item Base de Datos XML(XMLDB): El uso principal de XML es estructurar datos, recibirlos y enviarlos, pero también podemos guardar datos en nuestros documentos o una colección de ellos para que sean tratados luego con algún lenguaje o herramienta XML.
 
@@ -266,18 +266,18 @@ Otras bases de datos menos utilizadas, pero no por esto menos atractivas son:
 
 \paragraph{Sistema de Archivos}
 
-Los sistemas de archivos mas comunes utilizan dispositivos de almacenamiento de datos que permiten el acceso a los datos como una cadena de bloques de un mismo tamaño, a veces llamados sectores. El software del sistema de archivos es responsable de la organización de estos sectores en archivos y directorios y mantiene un registro de que sectores pertenecen a que archivos y de que sectores no han sido utilizados.
+Los sistemas de archivos mas comunes utilizan dispositivos de almacenamiento de datos que permiten el acceso a los datos como una cadena de bloques de un mismo tamaño, a veces llamados sectores. El software del sistema de archivos es responsable de la organización de estos sectores en archivos y directorios y mantiene un registro de que sectores pertenecen a que archivos y de que sectores no han sido utilizados aún.
 
-En la practica, un sistema de archivos no requiere necesariamente de un dispositivo de almacenamiento de datos, sino que puede ser utilizado también para acceder a datos generados dinámicamente, como los recibidos a través de una conexión de red, un generador de números aleatorios, un sistema de configuración en donde cada parámetro es representado por un archivo y en donde las acciones de obtener o cambiar el valor del parámetro es equivalente a escribir o leer en el archivo, entre otros.
+En la practica, un sistema de archivos no requiere necesariamente de un dispositivo de almacenamiento físico, sino que puede ser utilizado también para acceder a datos como los generados dinámicamente, los recibidos a través de una conexión de red, un generador de números aleatorios o los de un sistema de configuración en donde cada parámetro es representado por un archivo y en donde las acciones de obtener o cambiar el valor del parámetro es equivalente a escribir o leer en los archivo.
 
-En sistemas de archivos jerárquicos, usualmente, se declara la ubicación precisa de un archivo con una cadena de texto llamada "ruta". La nomenclatura para rutas varia ligeramente de sistema en sistema, pero mantienen por lo general una misma estructura. Una ruta viene dada por una sucesión de nombres de directorios y subdirectorios, ordenados jerárquicamente de izquierda a derecha y separados por algún carácter especial y puede terminar en el nombre de un archivo presente en la ultima rama de directorios especificada.
+En sistemas de archivos jerárquicos, usualmente, se declara la ubicación precisa de un archivo con una cadena de texto llamada "ruta". La nomenclatura para rutas varía ligeramente de sistema en sistema, pero mantienen por lo general una misma estructura. Una ruta viene dada por una sucesión de nombres de directorios y subdirectorios, ordenados jerárquicamente de izquierda a derecha y separados por algún carácter especial.
 
 
 \paragraph{Bases de Datos vs Sistemas de Archivos}
 
-Debido a que los manejadores de versiones trabajan sobre archivos que se encuentran sobre sistemas de archivos es por esto que en caso de que estos se encuentren en una base de datos, se nota inmediatamente una deficiencia en el tiempo requerido para procesar las acciones de administración de versiones de archivos ya que en algún punto se hace necesario mover los archivos desde la base de datos hasta el sistema de archivos.
+Debido a que los manejadores de versiones trabajan sobre archivos que se encuentran sobre sistemas de archivos, en el en caso en que estos se encuentren en una base de datos, se nota inmediatamente una deficiencia en el tiempo requerido para procesar las acciones de administración de versiones de archivos ya que en algún punto se hace necesario mover los archivos desde la base de datos hacia el sistema de archivos.
 
-Por esta razón para la realización del proyecto se ha tomado la decisión de no utilizar un manejador de base de datos, en lugar de esto se utilizara una jerarquía de archivos ordenada y bien definida.
+Por esta razón para la realización del proyecto se ha tomado la decisión de no utilizar un manejador de base de datos, en lugar de esto se utilizará una jerarquía de archivos ordenada y bien definida.
 
 
 \begin{figure}
@@ -315,3 +315,4 @@ El manual de usuario se encuentra en: \textit{\textbf{widely/doc/manual/}}
 Las pruebas se encuentran en: \textit{\textbf{widely/tests/}}
 
 Los resultados e informes de estas pruebas se encuentran en: \textit{\textbf{widely/tests/results/}}
+
