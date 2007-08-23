@@ -77,7 +77,7 @@ Los casos de uso a desarrollar son:
 
 Al tratarse de una aplicación web la arquitectura que se utilizará para el desarrollo del proyecto sera la arquitectura Cliente-Servidor en la cual el servidor se encarga de centralizar la información y la lógica y la presenta a múltiples clientes encargados de hacer peticiones de acuerdo a sus necesidades.
 
-En la desarrollo de aplicaciones web lo mas común es que no sea necesario crear el lado cliente de la aplicación ya que se utiliza como cliente un browser(navegador) incluido en la mayoría de sistemas operativos modernos, por lo tanto, la mayor parte del desarrollo web se centra en la creación del servidor que es encargado, incluso, de generar la interfaz a los clientes para que estos la muestren al usuario final.
+En el desarrollo de aplicaciones web lo mas común es que no sea necesario crear el lado cliente de la aplicación ya que se utiliza como cliente un browser(navegador) incluido en la mayoría de sistemas operativos modernos, por lo tanto, la mayor parte del desarrollo web se centra en la creación del servidor que es encargado, incluso, de generar la interfaz a los clientes para que estos la muestren al usuario final.
 
 En el lado del servidor se utilizará una arquitectura orientada a servicios (SOA), la cual provee división, modularidad y bajo acoplamiento en la lógica de negocio y en la comunicación interfaz-servidor, el servidor es visto en el lado cliente como un catalogo de servicios.
 
@@ -251,7 +251,7 @@ La arquitectura orientada a servicios permitió dividir la aplicación en paquet
 
 \paragraph{Bases de datos}
 
-Las base de datos de mayor uso en la actualidad son las base de datos relacionales, estas se fundamentan en el uso de "relaciones", las cuales podrán considerarse desde un punto de vista lógico como conjuntos de datos llamados "tuplas", en este modelo no importa el lugar ni la forma en que se almacenan los datos, teniendo como ventaja su fácil entendimiento y utilización para un usuario casual de la base de datos.
+Las base de datos de mayor uso en la actualidad son las base de datos relacionales, estas se fundamentan en el uso de ``relaciones'', las cuales podrán considerarse desde un punto de vista lógico como conjuntos de datos llamados ``tuplas'', en este modelo no importa el lugar ni la forma en que se almacenan los datos, teniendo como ventaja su fácil entendimiento y utilización para un usuario casual de la base de datos.
 
 Otras bases de datos menos utilizadas, pero no por esto menos atractivas son:
 
@@ -270,12 +270,12 @@ Los sistemas de archivos mas comunes utilizan dispositivos de almacenamiento de 
 
 En la practica, un sistema de archivos no requiere necesariamente de un dispositivo de almacenamiento físico, sino que puede ser utilizado también para acceder a datos como los generados dinámicamente, los recibidos a través de una conexión de red, un generador de números aleatorios o los de un sistema de configuración en donde cada parámetro es representado por un archivo y en donde las acciones de obtener o cambiar el valor del parámetro es equivalente a escribir o leer en los archivo.
 
-En sistemas de archivos jerárquicos, usualmente, se declara la ubicación precisa de un archivo con una cadena de texto llamada "ruta". La nomenclatura para rutas varía ligeramente de sistema en sistema, pero mantienen por lo general una misma estructura. Una ruta viene dada por una sucesión de nombres de directorios y subdirectorios, ordenados jerárquicamente de izquierda a derecha y separados por algún carácter especial.
+En sistemas de archivos jerárquicos, usualmente, se declara la ubicación precisa de un archivo con una cadena de texto llamada ``ruta''. La nomenclatura para rutas varía ligeramente de sistema en sistema, pero mantienen por lo general una misma estructura. Una ruta viene dada por una sucesión de nombres de directorios y subdirectorios, ordenados jerárquicamente de izquierda a derecha y separados por algún carácter especial.
 
 
 \paragraph{Bases de Datos vs Sistemas de Archivos}
 
-Debido a que los manejadores de versiones trabajan sobre archivos que se encuentran sobre sistemas de archivos, en el en caso en que estos se encuentren en una base de datos, se nota inmediatamente una deficiencia en el tiempo requerido para procesar las acciones de administración de versiones de archivos ya que en algún punto se hace necesario mover los archivos desde la base de datos hacia el sistema de archivos.
+Debido a que los manejadores de versiones trabajan sobre sistemas de archivos, en el caso en que estos se encuentren en una base de datos, se nota inmediatamente una deficiencia en el tiempo requerido para procesar las acciones de administración de versiones en ellos ya que en algún punto se hace necesario moverlos desde la base de datos hacia el sistema de archivos.
 
 Por esta razón para la realización del proyecto se ha tomado la decisión de no utilizar un manejador de base de datos, en lugar de esto se utilizará una jerarquía de archivos ordenada y bien definida.
 

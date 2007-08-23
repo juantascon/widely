@@ -1,0 +1,5 @@
+ruby >= 1.8.5
+rubygems >= 0.9.2
+pound >= 2.3.2
+java jdk 6 (preferiblemente el de sun)
+mongrel (opcional pero muy recomendado)

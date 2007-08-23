@@ -34,7 +34,7 @@ Los métodos, técnicas o lenguajes utilizadas para desarrollar RIAs son:
 
 SOA (Arquitectura Orientada a Servicios) es una evolución de la computación distribuida, SOA provee modularidad en la lógica de negocios que puede ser representada como servicios para los clientes, estos servicios tienen bajo acoplamiento, en el sentido en que la interfaz de usuario(GUI) puede permanecer totalmente independiente de la lógica de negocio.
 
-OASIS (Organization for the Advancement of Structured Information Standards) define SOA de la siguiente manera: "Es un paradigma para organizar y utilizar características distribuidas que pueden estar bajo el control de dominios diferentes. Provee un significado uniforme para ofrecer, descubrir, interactuar y utilizar estas características para producir los efectos deseados con precondiciones y expectativas medibles."
+OASIS (Organization for the Advancement of Structured Information Standards) define SOA de la siguiente manera: ``Es un paradigma para organizar y utilizar características distribuidas que pueden estar bajo el control de dominios diferentes. Provee un significado uniforme para ofrecer, descubrir, interactuar y utilizar estas características para producir los efectos deseados con precondiciones y expectativas medibles.''
 
 SOA fue elegida principalmente por que provee división, modularidad y bajo acoplamiento dentro de la lógica de negocio y en la comunicación con la interfaz de usuario.
 
@@ -42,9 +42,9 @@ SOA fue elegida principalmente por que provee división, modularidad y bajo acop
 \subsubsection*{Java \cite{java} }
 \label{tec:java}
 
-Java es un lenguaje de programación creado originalmente por Sun Microsystems, una aplicación java normalmente se compila en un código máquina llamado bytecode (Codigo Byte), este código es ejecutado por una máquina virtual de java, esta interpreta las instrucciones de la aplicación (bytecode) y las ejecuta en la máquina nativa, también es posible ejecutar estas aplicaciones de forma directa en un procesador java.
+Java es un lenguaje de programación creado originalmente por Sun Microsystems.\newline Una aplicación java normalmente se compila en un código máquina llamado bytecode (Codigo Byte), este código es ejecutado por una máquina virtual de java, esta interpreta las instrucciones de la aplicación (bytecode) y las ejecuta en la máquina nativa, también es posible ejecutar estas aplicaciones de forma directa en un procesador java.
 
-Las características \cite{java_caracteristicas} principales de java son:
+Las características principales de java \cite{java_caracteristicas} son:
 
 \begin{enumerate}
 	
@@ -102,7 +102,7 @@ La principal ventaja que tiene sobre el formato XML es que no requiere realizar 
 
 WebDAV es una extensión al protocolo HTTP 1.1 que permite realizar acciones de gestión sobre archivos tales como escribir, copiar, eliminar o modificar.
 
-El objetivo de WebDAV se define por su lema ``makes the Web Writable'' (hacer que la web permita escritura), esto permite hacer de la web un espacio de colaboración, donde varias personas distintas puedan participar conjuntamente en la elaboración de documentos.
+El objetivo de WebDAV se define por su lema ``Makes the Web Writable'' (hacer que la web sea escribible), esto permite hacer de la web un espacio de colaboración, donde varias personas distintas puedan participar conjuntamente en la elaboración de documentos.
 
 Algunas de las características mas destacadas de webdav (aparte de proporcionar acceso a la escritura del documento vía http) son el locking o posibilidad de cerrar dicho acceso de escritura, un mecanismo imprescindible para un entorno de trabajo compartido, evitando, cuando se desee, que el trabajo nuevo de un usuario sobrescriba al del anterior. La posibilidad de describir propiedades (meta datos) del documento en formato XML, como titulo, asunto, autor, fecha, tamaño, que aunque no aparecen en el documento proporcionan información sobre el mismo y pueden ser fácilmente gestionados por el protocolo (permitiendo funciones de listado de datos, búsqueda inteligente, etc).
 
@@ -142,8 +142,8 @@ Las principales ventajas de WebDAV sobre otros sistemas de archivos de red son:
 	
 	\item Es un estándar ampliamente utilizado.
 	
-	\item La implementación de un servidor es bastante sencillo, por esta misma razón es muy fácil adaptarlo para que sea compatible con un sistema de autenticación propio.
-
+	\item La implementación de un servidor es bastante sencillo, por esta misma razón es muy fácil empotrarlo en cualquier aplicación y adaptarlo para que sea compatible con un sistema de autenticación propio.
+	
 \end{enumerate}
 
 
@@ -283,7 +283,7 @@ Un proxy inverso se distingue por:
 	
 	\item Seguridad: el servidor proxy inverso es una capa de defensa adicional.
 	
-	\item Distribución de carga: el servidor proxy inverso puede distribuir la carga hacia los servidores reales (back-ends), cada uno puede tener una parte de la información o simplemente distribuir la carga basado en la disponibilidad de los servidores.
+	\item Distribución de carga: el servidor proxy inverso puede distribuir la carga hacia los servidores reales (back-ends), cada uno puede tener una parte de la información o simplemente distribuirla basado en la disponibilidad de los servidores.
 	
 	\item Caché: el servidor proxy inverso puede disminuir la carga de los servidores utilizando técnicas de caché de contenido estático.
 
@@ -321,7 +321,7 @@ Un sistema de control de versiones permite gestionar las versiones de todos los 
 
 Los sistemas de control de versiones son utilizados principalmente en la industria del software para controlar las distintas versiones del código fuente, sin embargo, los mismos conceptos son aplicables en otros ámbitos no solo para código fuente sino para documentos en general, imágenes, etc.
 
-Aunque un el control de versiones puede realizarse de forma manual, es muy aconsejable disponer de herramientas que faciliten esta gestión entre las mas populares se encuentran:
+Aunque el control de versiones puede realizarse de forma manual, es muy aconsejable disponer de herramientas que faciliten esta gestión entre las mas populares se encuentran:
 
 \begin{itemize}
 
@@ -348,9 +348,9 @@ Algunos sistemas de control de versiones utilizan un modelo de trabajo centraliz
 
 El otro tipo de sistema de control de versiones son los sistemas distribuidos, en los cuales existe una aproximación uno a uno contraria a la aproximación cliente-servidor de los sistemas centralizados, en lugar de que la información se centre en un único repositorio de donde los clientes se sincronizan, cada desarrollador posee una copia del repositorio del código.\newline En estos sistemas la sincronización es conducida por el intercambio de parches (conjuntos de cambios) entre los desarrolladores.
 
-\subsubsection*{WYSIWYG (What You See Is Wath You Get)}
+\subsubsection*{WYSIWYG (What You See Is What You Get)}
 
-WYSIWYG. (Lo que ves es lo que obtienes) es un concepto que aplicable a los editores de texto con formato (como por ejemplo un editor de HTML u OpenOffice.org) y en general a cualquier editor (ej: un editor de imágenes se puede considerar un editor WYSIWYG) el cual permite escribir un documento viendo inmediatamente el resultado final del mismo, es el editor el encargado de generar el código fuente (ej: HTML o Latex) o los archivos con formato (ej: una imagen).
+WYSIWYG. (Lo que ves es lo que obtienes) es un concepto aplicable a los editores de texto con formato (como por ejemplo un editor de HTML u OpenOffice.org) y en general a cualquier editor (ej: un editor de imágenes se puede considerar un editor WYSIWYG), el cual permite escribir un documento viendo inmediatamente el resultado final del mismo, es el editor el encargado de generar el código fuente (ej: HTML o Latex) o los archivos con formato (ej: una imagen).
 
 Algunos ejemplos de editores WYSIWYG son:
 
@@ -379,7 +379,7 @@ XP describe cinco tareas básicas en el proceso de desarrollo de software:
 
 \paragraph{Escuchar:} En la mayoría de los casos el programador no conoce a ciencia cierta la lógica de negocio del sistema a desarrollar, la única forma de conocer la funcionalidad del sistema es escuchar al cliente y entender la lógica del negocio.
 
-\paragraph{Diseñar:} Desde un punto de vista minimista se podría afirmar que el desarrollo de una aplicación no necesita mas que codificar, probar y escuchar, si estas actividades se logran con éxito el resultado debe ser siempre un sistema que funcione bien, pero en la practica esto sencillamente no se da, se puede llegar muy lejos sin diseño pero en algún determinado momento se va a atascar, los sistemas tienden a ser complejos y por esto las dependencias internas deben quedar muy claras, un buen diseño evita estos problemas de dependencias, lo que significa que al cambiar una porción del sistema esta no afectará otras partes del mismo.
+\paragraph{Diseñar:} Desde un punto de vista simple, se podría afirmar que el desarrollo de una aplicación no necesita mas que codificar, probar y escuchar, si estas actividades se logran con éxito el resultado debe ser siempre un sistema que funcione bien, pero en la practica esto sencillamente no se da, se puede llegar muy lejos sin diseño pero en algún determinado momento se va a atascar, los sistemas tienden a ser complejos y por esto las dependencias internas deben quedar muy claras, un buen diseño evita estos problemas de dependencias, lo que significa que al cambiar una porción del sistema esta no afectará otras partes del mismo.
 
 \paragraph{Buenas Practicas:} Las practicas a seguir en XP son 12 \cite{xp_practices} derivadas de ``best practices of software engineering'' \cite{best_practices}, las cuales aconsejan sobre técnicas probadas en otros problemas de desarrollo que han sido aplicadas con éxito.
 
