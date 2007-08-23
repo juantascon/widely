@@ -18,7 +18,7 @@ qx.Class.define("lib.ui.Msg",
 		 */
 		error: function(position_parent, msg) {
 			return new lib.ui.popupdialog.Atom(position_parent,
-				msg, "icon/22/status/dialog-error.png");
+				msg, "icon/32/status/dialog-error.png");
 		},
 		
 		/*
@@ -30,7 +30,7 @@ qx.Class.define("lib.ui.Msg",
 		 */
 		warn: function(position_parent, msg) {
 			return new lib.ui.popupdialog.Atom(position_parent,
-				msg, "icon/22/status/dialog-warning.png");
+				msg, "icon/32/status/dialog-warning.png");
 		},
 		
 		/*
@@ -42,7 +42,7 @@ qx.Class.define("lib.ui.Msg",
 		 */
 		info: function(position_parent, msg) {
 			return new lib.ui.popupdialog.Atom(position_parent,
-				msg, "icon/22/status/dialog-information.png");
+				msg, "icon/32/status/dialog-information.png");
 		}
 	}
 });
