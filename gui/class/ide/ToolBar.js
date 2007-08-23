@@ -49,7 +49,7 @@ qx.Class.define("ide.ToolBar",
 				type: "button", permanent: true,
 				label: "Help", icon: "categories/system-help",
 				execute: function(e){
-				
+					(new qx.client.NativeWindow("/doc/manual/index.html")).open()
 				}, _this: this
 			}
 		]);
