@@ -6,6 +6,7 @@ syntax: glob
 gui/script
 gui/build
 doc/diagrams/output
+doc/manual/html
 *.aux
 *.log
 *.dvi
