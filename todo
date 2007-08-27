@@ -22,3 +22,11 @@ BUGS:
 
 [gui::IDE]:
 	* no desactiva el tab(o avisa) de un archivo modificado en WC(delete, commit, write)
+revision general
+
+[gui::IDE]:
+	clone()
+	recargar status() en intervalos de tiempo
+[webservice::WC]:
+	wc/ls -"/"
+	wc/ls +status()
