@@ -19,7 +19,7 @@ Los casos de uso a desarrollar son:
 \begin{description}
 	
 	\item [Autenticación] (Authetication): \newline
-	El sistema debe permitir a un usuario desconocido poder autenticarse con el sistema para que este dependiendo del proceso de autenticación lo pueda tratar como un usuario registrado o como un usuario administrador.
+	El sistema debe permitir a un usuario desconocido poder autenticarse con el sistema para que este, dependiendo del proceso de autenticación (modo usuario o modo administrador), lo pueda tratar como un usuario registrado o como un usuario administrador.
 	
 	\item [Administración de usuarios] (Users Administration): \newline
 	El sistema debe permitir al usuario administrador crear y eliminar usuarios registrados, además debe permitir editar los datos de configuración los usuarios.
@@ -40,7 +40,7 @@ Los casos de uso a desarrollar son:
 	\end{itemize}
 	
 	\item [Administración de repositorios y copias de trabajo] (Repositories and Working Copies Administration): \newline
-	El programa debe tener una interfaz gráfica que permita crear, acceder y actualizar repositorios de archivos a partir de las copias de trabajo de los usuarios, el manejo del repositorio se hará con una interfaz a un sistema manejador de versiones existente permitiendo aumentar la compatibilidad con otros sistemas, entre los sistemas de control de versiones mas populares se encuentran:
+	El programa debe tener una interfaz gráfica que permita crear, acceder y actualizar repositorios de archivos a partir de las copias de trabajo de los usuarios, el manejo del repositorio se hará con una interfaz a un sistema manejador de versiones existente permitiendo aumentar la compatibilidad con otros sistemas, entre los sistemas de control de versiones más populares se encuentran:
 	
 	\begin{itemize}
 		\item SubVersioN
@@ -53,7 +53,7 @@ Los casos de uso a desarrollar son:
 	El sistema debe ser capaz de compilar el código fuente de forma centralizada (en el servidor) utilizando interfaces con herramientas de compilación
 	
 	\item [Envío de Archivos] (File Sending): \newline
-	El servidor debe permitir al cliente una interfaz de acceso a sus archivos de forma local, utilizando un sistema de archivos de red para compartir los archivos ejecutables y de código fuente desde el servidor y hacia el cliente, algunos de los mas populares sistemas de archivos de red son:
+	El servidor debe permitir al cliente una interfaz de acceso a sus archivos de forma local, utilizando un sistema de archivos de red para compartir los archivos ejecutables y de código fuente desde el servidor y hacia el cliente, algunos de los más populares sistemas de archivos de red son:
 	
 	\begin{itemize}
 		\item SMB/CIFS
@@ -77,9 +77,9 @@ Los casos de uso a desarrollar son:
 
 Al tratarse de una aplicación web la arquitectura que se utilizará para el desarrollo del proyecto sera la arquitectura Cliente-Servidor en la cual el servidor se encarga de centralizar la información y la lógica y la presenta a múltiples clientes encargados de hacer peticiones de acuerdo a sus necesidades.
 
-En el desarrollo de aplicaciones web lo mas común es que no sea necesario crear el lado cliente de la aplicación ya que se utiliza como cliente un browser(navegador) incluido en la mayoría de sistemas operativos modernos, por lo tanto, la mayor parte del desarrollo web se centra en la creación del servidor que es encargado, incluso, de generar la interfaz a los clientes para que estos la muestren al usuario final.
+En el desarrollo de aplicaciones web lo más común es que no sea necesario crear el lado cliente de la aplicación ya que se utiliza como cliente un browser(navegador) incluido en la mayoría de sistemas operativos modernos, por lo tanto, la mayor parte del desarrollo web se centra en la creación del servidor que es encargado, incluso, de generar la interfaz a los clientes para que estos la muestren al usuario final.
 
-En el lado del servidor se utilizará una arquitectura orientada a servicios (SOA), la cual provee división, modularidad y bajo acoplamiento en la lógica de negocio y en la comunicación interfaz-servidor, el servidor es visto en el lado cliente como un catalogo de servicios.
+En el lado del servidor se utilizará una arquitectura orientada a servicios (SOA \cite{soa}), la cual provee división, modularidad y bajo acoplamiento en la lógica de negocio y en la comunicación interfaz-servidor, el servidor es visto en el lado cliente como un catalogo de servicios, el cliente accede a estos servicios por medio de objetos de acceso a datos (DAOs \cite{dao} ) los cuales son interfaces que representan cada uno de los servicios del catálogo de servicios.
 
 El servidor incluye también un sistema de despacho de peticiones del cliente, el cual permite evacuar de forma inteligente las respuestas pasando por un servidor principal encargado de distribuir las peticiones y luego a través de servidores configurables encargados de atender la petición.
 
@@ -108,7 +108,7 @@ Este modelo conceptual describe los elementos reales involucrados en el software
 	Una versión se refiere al estado de un archivo en un momento dado y como se relaciona con los cambios históricos hechos sobre este.
 	
 	\item [Copia de Trabajo](Working Copy): \newline
-	Una copia de trabajo es un lugar en donde se almacenan diversos archivos que pertenecen al proyecto de software utilizados en el trabajo del programador, estos archivos pueden ser modificados por el desarrollador produciendo nuevas versiones de los mismos.
+	Una copia de trabajo es un lugar en donde el programador almacena diversos archivos que pertenecen al proyecto de software, estos archivos pueden ser modificados por el desarrollador produciendo nuevas versiones de los mismos.
 	
 	\item [Repositorio](Repository): \newline
 	Un repositorio es en donde se almacenan los archivos y directorios del proyecto de software, también se lleva un registro histórico de los cambios hechos sobre estos archivos e información adicional sobre los mismos cambios como a que versión corresponde, quien los hizo, cuando, etc.
@@ -117,7 +117,7 @@ Este modelo conceptual describe los elementos reales involucrados en el software
 	Un compilador es el encargado de generar una aplicación de software a partir de los archivos de código fuente, procesa estos archivos para generar un programa ejecutable, un interprete es similar con la diferencia de que el código es interpretado e inmediatamente ejecutado.
 	
 	\item [Editor de Texto](Text Editor): \newline
-	Un editor de textos es el encargado de modificar los archivos de código fuente.
+	Un editor de textos es el encargado de asistir al desarrollador en el proceso de visualización y modificación de los archivos de código fuente.
 	
 	\item [Entorno de Desarrollo](Develop Environment): \newline
 	El entorno de desarrollo se refiere a unificación y a la cooperación de diversas herramientas de desarrollo como el editor de textos, el compilador, el manejador de versiones(repositorio - copia de trabajo), etc.
@@ -144,17 +144,17 @@ Este modelo conceptual describe los elementos reales involucrados en el software
 
 El modelo de navegación muestra el flujo que un usuario final puede seguir, el siguiente es un diagrama de navegación de aplicación web modificado para la adaptación a la técnica de desarrollo AJAX.
 
-El punto inicial de la aplicación es la pagina de Login, desde ahí tiene dos opciones:
+El punto inicial de la aplicación es la página de Login, desde ahí tiene dos opciones:
 
 \begin{enumerate}
 	
 	\item Administración: procede a la página como usuario administrador, aquí se pueden cambiar los parámetros del servidor y crear, eliminar y configurar los usuarios del sistema.
 	
-	\item IDE: esta es la pagina principal en donde el usuario desarrolla sus aplicaciones.
+	\item IDE: esta es la página principal en donde el usuario desarrolla sus aplicaciones.
 	
 \end{enumerate}
 
-Como pagina adicional esta la pagina de Configuración la cual permite modificar los parámetros de configuración de los usuarios, además de crear y eliminar repositorios y copias de trabajo.
+Como página adicional esta la página de Configuración la cual permite modificar los parámetros de configuración de los usuarios, además de crear y eliminar repositorios y copias de trabajo.
 
 Durante el proceso de interacción entre el cliente y el servidor se utilizan los webservices definidos en el servidor, estos webservices son los encargados de ejecutar los procesos lógicos utilizados durante la navegación del usuario en la aplicación
 
@@ -249,36 +249,20 @@ La arquitectura orientada a servicios permitió dividir la aplicación en paquet
 
 \subsubsection{Jerarquía de Archivos}
 
-\paragraph{Bases de datos}
+Los componentes de la jerarquía de archivos del proyecto son:
 
-Las base de datos de mayor uso en la actualidad son las base de datos relacionales, estas se fundamentan en el uso de ``relaciones'', las cuales podrán considerarse desde un punto de vista lógico como conjuntos de datos llamados ``tuplas'', en este modelo no importa el lugar ni la forma en que se almacenan los datos, teniendo como ventaja su fácil entendimiento y utilización para un usuario casual de la base de datos.
-
-Otras bases de datos menos utilizadas, pero no por esto menos atractivas son:
-
-\begin{itemize}
-
-	\item Base de Datos Orientada a Objetos(OODB): En estas el sistema de consulta es orientado a objetos permitiendo patrones avanzados como herencia, encapsulamiento, paso de mensajes, etc.
+\begin{description}
 	
-	\item Base de Datos XML(XMLDB): El uso principal de XML es estructurar datos, recibirlos y enviarlos, pero también podemos guardar datos en nuestros documentos o una colección de ellos para que sean tratados luego con algún lenguaje o herramienta XML.
-
-\end{itemize}
-
-
-\paragraph{Sistema de Archivos}
-
-Los sistemas de archivos mas comunes utilizan dispositivos de almacenamiento de datos que permiten el acceso a los datos como una cadena de bloques de un mismo tamaño, a veces llamados sectores. El software del sistema de archivos es responsable de la organización de estos sectores en archivos y directorios y mantiene un registro de que sectores pertenecen a que archivos y de que sectores no han sido utilizados aún.
-
-En la practica, un sistema de archivos no requiere necesariamente de un dispositivo de almacenamiento físico, sino que puede ser utilizado también para acceder a datos como los generados dinámicamente, los recibidos a través de una conexión de red, un generador de números aleatorios o los de un sistema de configuración en donde cada parámetro es representado por un archivo y en donde las acciones de obtener o cambiar el valor del parámetro es equivalente a escribir o leer en los archivo.
-
-En sistemas de archivos jerárquicos, usualmente, se declara la ubicación precisa de un archivo con una cadena de texto llamada ``ruta''. La nomenclatura para rutas varía ligeramente de sistema en sistema, pero mantienen por lo general una misma estructura. Una ruta viene dada por una sucesión de nombres de directorios y subdirectorios, ordenados jerárquicamente de izquierda a derecha y separados por algún carácter especial.
-
-
-\paragraph{Bases de Datos vs Sistemas de Archivos}
-
-Debido a que los manejadores de versiones trabajan sobre sistemas de archivos, en el caso en que estos se encuentren en una base de datos, se nota inmediatamente una deficiencia en el tiempo requerido para procesar las acciones de administración de versiones en ellos ya que en algún punto se hace necesario moverlos desde la base de datos hacia el sistema de archivos.
-
-Por esta razón para la realización del proyecto se ha tomado la decisión de no utilizar un manejador de base de datos, en lugar de esto se utilizará una jerarquía de archivos ordenada y bien definida.
-
+	\item[$<Object\ Directory>$] (Directorio de Objetos):\newline
+	Un directorio de objetos es un directorio que contiene subdirectorios en donde cada uno de estos describe un objeto del sistema (ej: cada subdirectorio del directorio $<config\_dir>/users$ describe un objeto tipo usuario en el sistema)
+	
+	\item[$<data\_dir>$] (Directorio de datos):\newline
+	Un directorio de datos es, como su nombre lo indica, un directorio en donde se almacenan datos de trabajo de un objeto del sistema (ej: el directorio $<config\_dir>/users/<user\_id>/data\_dir/wcs/<wc\_name>/data\_dir$ contiene los datos de trabajo de la copia de trabajo $<wc\_name>$ del usuario $<user\_id>$)
+	
+	\item[$<file.conf>$] (Archivo de configuración):\newline
+	Un archivo de configuracion permitiendo tanto a un usuario como al sistema modificar facilmente los datos de configuración de parámetros de los objetos del sistema, posee una sintaxis que es clara y rápida de interpretar por ambos (usuario y sistema)
+	
+\end{description}
 
 \begin{figure}
  \centering
@@ -312,7 +296,10 @@ El manual de usuario se encuentra en: \textit{\textbf{widely/doc/manual/}}
 
 \subsection{Pruebas}
 
-Las pruebas se encuentran en: \textit{\textbf{widely/tests/}}
+Las pruebas realizadas corresponden a pruebas de integración de cada webservice (la única interfaz lógica entre el servidor y el cliente). La construcción de los webservices siguió un enfoque basado en el desarrollo guiado por pruebas (Test Driven Development \cite{tdd}).
+
+
+Las pruebas desarrolladas se encuentran en: \textit{\textbf{widely/tests/}}
 
 Los resultados e informes de estas pruebas se encuentran en: \textit{\textbf{widely/tests/results/}}
 

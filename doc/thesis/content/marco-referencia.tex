@@ -13,7 +13,7 @@ Generalmente las RIAs:
 
 \begin{itemize}
 	
-	\item Son ejecutadas en un navegador web o no necesitan instalación adicional de software.
+	\item Son ejecutadas en un navegador web y no necesitan instalación adicional de software.
 	
 	\item Son ejecutadas localmente en un entorno seguro.
 	
@@ -29,12 +29,12 @@ Los métodos, técnicas o lenguajes utilizadas para desarrollar RIAs son:
 	\item Lenguajes de Interfaz de Usuario (ej: XUL).
 \end{itemize}
 
-\subsubsection*{SOA (Service Oriented Arquitecture)}
+\subsubsection*{SOA (Service Oriented Arquitecture) \cite{soa} }
 \label{tec:soa}
 
 SOA (Arquitectura Orientada a Servicios) es una evolución de la computación distribuida, SOA provee modularidad en la lógica de negocios que puede ser representada como servicios para los clientes, estos servicios tienen bajo acoplamiento, en el sentido en que la interfaz de usuario(GUI) puede permanecer totalmente independiente de la lógica de negocio.
 
-OASIS (Organization for the Advancement of Structured Information Standards) define SOA de la siguiente manera: ``Es un paradigma para organizar y utilizar características distribuidas que pueden estar bajo el control de dominios diferentes. Provee un significado uniforme para ofrecer, descubrir, interactuar y utilizar estas características para producir los efectos deseados con precondiciones y expectativas medibles.''
+OASIS (Organization for the Advancement of Structured Information Standards) define SOA de la siguiente manera: ``Es un paradigma para organizar y utilizar características distribuidas que pueden estar bajo el control de dominios diferentes. Provee un significado uniforme para ofrecer, descubrir, interactuar y utilizar estas características para producir los efectos deseados con precondiciones y expectativas medibles.'' \cite{oasis_soa}
 
 SOA fue elegida principalmente por que provee división, modularidad y bajo acoplamiento dentro de la lógica de negocio y en la comunicación con la interfaz de usuario.
 
@@ -42,29 +42,29 @@ SOA fue elegida principalmente por que provee división, modularidad y bajo acop
 \subsubsection*{Java \cite{java} }
 \label{tec:java}
 
-Java es un lenguaje de programación creado originalmente por Sun Microsystems.\newline Una aplicación java normalmente se compila en un código máquina llamado bytecode (Codigo Byte), este código es ejecutado por una máquina virtual de java, esta interpreta las instrucciones de la aplicación (bytecode) y las ejecuta en la máquina nativa, también es posible ejecutar estas aplicaciones de forma directa en un procesador java.
+Java es un lenguaje de programación creado originalmente por Sun Microsystems.\newline Una aplicación Java normalmente se compila en un código máquina llamado bytecode (Codigo Byte), este código es ejecutado por una máquina virtual de Java, esta interpreta las instrucciones de la aplicación (bytecode) y las ejecuta en la máquina nativa, también es posible ejecutar estas aplicaciones de forma directa en un procesador Java.
 
-Las características principales de java \cite{java_caracteristicas} son:
+Las características principales de Java \cite{java_caracteristicas} son:
 
 \begin{enumerate}
 	
-	\item Orientado a Objetos: desde el comienzo uno de los objetivos de java ha sido incorporar y fusionar dentro del núcleo principal las partes buenas de otros lenguajes de programación orientados a objetos.
+	\item Orientado a Objetos: desde el comienzo uno de los objetivos de Java ha sido incorporar y fusionar dentro del núcleo principal las partes buenas de otros lenguajes de programación orientados a objetos.
 	
-	\item Multiplataforma: la máquina virtual de java conocida también como JRE (Java RunTime Environment), está disponible para la mayoría de sistemas operativos.
+	\item Multiplataforma: la máquina virtual de Java conocida también como JRE (Java RunTime Environment), está disponible para la mayoría de sistemas operativos.
 	
-	\item Fácil de aprender: su sintaxis proviene de lenguajes como C o C++, a diferencia de estos lenguajes, java elimina algunos aspectos como la herencia múltiple o los punteros, facilitando el trabajo del programador evitando que cometa algunos errores. Como contraparte estas características, bien utilizadas, pueden llegar a ser herramientas muy poderosas que simplemente se han olvidado en el mundo de java.
+	\item Fácil de aprender: su sintaxis proviene de lenguajes como C o C++, a diferencia de estos lenguajes, Java elimina algunos aspectos como la herencia múltiple o los punteros, facilitando el trabajo del programador evitando que cometa algunos errores. Como contraparte estas características, bien utilizadas, pueden llegar a ser herramientas muy poderosas que simplemente se han olvidado en el mundo de Java.
 	
-	\item Robusto: hace numerosas comprobaciones en tiempo de compilación y de ejecución, además de esto, java elimina muchas de las características de otros lenguajes como C++, para mantener reducidas las especificaciones del lenguaje y añadir características muy útiles como el garbage collector (reciclador de memoria dinámica). No es necesario preocuparse por liberar memoria, este reciclador se encarga de ello y cuando entra en acción, permite liberar bloques de memoria muy grandes, reduciendo la fragmentación de la memoria.
+	\item Robusto: hace numerosas comprobaciones en tiempo de compilación y de ejecución, además de esto, Java elimina muchas de las características de otros lenguajes como C++, para mantener reducidas las especificaciones del lenguaje y añadir características muy útiles como el garbage collector (reciclador de memoria dinámica). No es necesario preocuparse por liberar memoria, este reciclador se encarga de ello y cuando entra en acción, permite liberar bloques de memoria muy grandes, reduciendo la fragmentación de la memoria.
 	
 \end{enumerate}
 
-Para este proyecto se ha decidió implementar una interfaz con el compilador de java de Sun Microsystems debido a su robustez y a su facilidad de control en el momento de la ejecución, además, como punto adicional java es probablemente el lenguaje mas popular en estos tiempos ya que ha sido adoptado en innumerables proyectos alrededor del mundo.
+Para este proyecto se ha decidió implementar una interfaz con el compilador de Java de Sun Microsystems debido a su robustez y a su facilidad de control en el momento de la ejecución, además, como punto adicional Java es probablemente el lenguaje más popular en estos tiempos ya que ha sido adoptado en innumerables proyectos alrededor del mundo.
 
 
 \subsubsection*{JSON(JavaScript Object Notation) \cite{json} }
 \label{tec:json}
 
-JSON (Notación de Objecto en JavaScript) es un formato liviano de intercambio de datos, es mas sencillo de leer y escribir para los humanos, además es fácil para una máquina analizarlo y generarlo, esta basado en un subconjunto del lenguaje de programación JavaScript (Standard ECMA-262 3rd Edition \cite{json_ecma}).
+JSON (Notación de Objecto en JavaScript) es un formato liviano de intercambio de datos, es más sencillo de leer y escribir para los humanos, además es fácil para una máquina analizarlo y generarlo, esta basado en un subconjunto del lenguaje de programación JavaScript (Standard ECMA-262 3rd Edition \cite{json_ecma}).
 
 JSON es un formato de texto que es completamente independiente del lenguaje pero utiliza convenciones familiares para los programadores que hayan utilizado lenguajes derivados del lenguaje C (C, C++, C\#, Java, Python, etc).\newline Por estas razones JSON se convierte en un lenguaje ideal para el intercambio de datos.
 
@@ -94,19 +94,19 @@ Por el hecho de que la mayoría de texto en formato JSON tienen una sintaxis vá
 
 El uso de esta técnica puede ser segura siempre y cuando todo el entorno (los datos JSON y el programa JavaScript) esté bajo el control de una fuente confiable y única, sin embargo en el ambiente de un servidor web rara vez se tiene que todo provenga de una única fuente, abriendo el paso a posibles fallos de seguridad si no se utiliza con cuidado.
 
-La principal ventaja que tiene sobre el formato XML es que no requiere realizar un analizador en el lenguaje JavaScript sino que este está incluido en el lenguaje mismo.\newline JSON está siendo adoptado a una velocidad tan rápida que quizá algún día haya reemplazado por completo a su rival mas cercano XML.
+La principal ventaja que tiene sobre el formato XML es que no requiere realizar un analizador en el lenguaje JavaScript sino que este está incluido en el lenguaje mismo.\newline JSON está siendo adoptado a una velocidad tan rápida que quizá algún día haya reemplazado por completo a su rival más cercano XML.
 
 
-\subsubsection*{WebDAV}
+\subsubsection*{WebDAV \cite{webdav} }
 \label{tec:webdav}
 
-WebDAV es una extensión al protocolo HTTP 1.1 que permite realizar acciones de gestión sobre archivos tales como escribir, copiar, eliminar o modificar.
+WebDAV es una extensión al protocolo HTTP 1.1 que permite realizar acciones de gestión sobre archivos tales como escribir, copiar, eliminar o modificar \cite{webdav_rfc}.
 
 El objetivo de WebDAV se define por su lema ``Makes the Web Writable'' (hacer que la web sea escribible), esto permite hacer de la web un espacio de colaboración, donde varias personas distintas puedan participar conjuntamente en la elaboración de documentos.
 
-Algunas de las características mas destacadas de webdav (aparte de proporcionar acceso a la escritura del documento vía http) son el locking o posibilidad de cerrar dicho acceso de escritura, un mecanismo imprescindible para un entorno de trabajo compartido, evitando, cuando se desee, que el trabajo nuevo de un usuario sobrescriba al del anterior. La posibilidad de describir propiedades (meta datos) del documento en formato XML, como titulo, asunto, autor, fecha, tamaño, que aunque no aparecen en el documento proporcionan información sobre el mismo y pueden ser fácilmente gestionados por el protocolo (permitiendo funciones de listado de datos, búsqueda inteligente, etc).
+Algunas de las características más destacadas de webdav (aparte de proporcionar acceso a la escritura del documento vía HTTP) son el locking o posibilidad de cerrar dicho acceso de escritura, un mecanismo imprescindible para un entorno de trabajo compartido, evitando, cuando se desee, que el trabajo nuevo de un usuario sobrescriba al del anterior. La posibilidad de describir propiedades (meta datos) del documento en formato XML, como titulo, asunto, autor, fecha, tamaño, que aunque no aparecen en el documento proporcionan información sobre el mismo y pueden ser fácilmente gestionados por el protocolo (permitiendo funciones de listado de datos, búsqueda inteligente, etc).
 
-Con WebDav desaparecen las diferencias entre nuestro disco duro y el espacio web. Es mucho mas practico para las empresas guardar sus documentos en servidores web desde donde podrán asegurar su inmediata disponibilidad de forma segura.
+Con WebDav desaparecen las diferencias entre nuestro disco duro y el espacio web. Es mucho más practico para las empresas guardar sus documentos en servidores web desde donde podrán asegurar su inmediata disponibilidad de forma segura.
 
 WebDAV añade los siguientes métodos a HTTP:
 
@@ -130,7 +130,7 @@ WebDAV añade los siguientes métodos a HTTP:
 
 Recurso es el nombre HTTP para una referencia que está apuntada por un Identificador de Recursos Uniforme o URI (Uniform Resource Identifier).
 
-El grupo de trabajo WebDAV esta todavía trabajando en unas cuantas extensiones a WebDAV, incluyendo: control de redirecciones, enlaces, límites de espacio en disco y mejoras en la especificación base para que alcance el nivel de madurez del resto de estándares de Internet.
+El grupo de trabajo WebDAV \cite{ietf} está todavía trabajando en unas cuantas extensiones a WebDAV, incluyendo: control de redirecciones, enlaces, límites de espacio en disco y mejoras en la especificación base para que alcance el nivel de madurez del resto de estándares de Internet.
 
 Las principales ventajas de WebDAV sobre otros sistemas de archivos de red son:
 
@@ -140,7 +140,7 @@ Las principales ventajas de WebDAV sobre otros sistemas de archivos de red son:
 	
 	\item Todos los sistemas operativos modernos incluyen soporte para WebDAV.
 	
-	\item Es un estándar ampliamente utilizado.
+	\item Es un estándar ampliamente utilizado \cite{webdav_rfc}.
 	
 	\item La implementación de un servidor es bastante sencillo, por esta misma razón es muy fácil empotrarlo en cualquier aplicación y adaptarlo para que sea compatible con un sistema de autenticación propio.
 	
@@ -150,12 +150,12 @@ Las principales ventajas de WebDAV sobre otros sistemas de archivos de red son:
 \subsubsection*{Ruby \cite{ruby_lang} }
 \label{tec:ruby}
 
-Ruby es un lenguaje de programación orientada a objetos e interpretado, creado por Yukihiro Matsumoto, que tiene una sintaxis inspirada en varios lenguajes de programación como perl, smalltalk, python, C, Lisp, entre otros.
+Ruby es un lenguaje de programación orientada a objetos e interpretado, creado por Yukihiro Matsumoto, que tiene una sintaxis inspirada en varios lenguajes de programación como Perl, Smalltalk, Python, C, Lisp, entre otros.
 
 Las principales características de Ruby son:
 
 \paragraph{Orientado a Objetos:}
-En ruby todos los datos son objetos, incluso las clases y los tipos de datos que en algunos lenguajes son manejados como datos primitivos (enteros, strings, etc), los valores con nombre(variables) siempre hacen referencia a los objetos, no son los objetos mismos. \newline Ruby soporta herencia, polimorfismo, tipado dinámico, mixins (definiciones de métodos y variables agrupados que se pueden incluir en la definición de clases y en los objetos), y métodos singletons(los métodos no solo son parte de las clases sino que también pueden pertenecer únicamente a un objeto).
+En Ruby todos los datos son objetos, incluso las clases y los tipos de datos que en algunos lenguajes son manejados como datos primitivos (enteros, strings, etc), los valores con nombre(variables) siempre hacen referencia a los objetos, no son los objetos mismos. \newline Ruby soporta herencia, polimorfismo, tipado dinámico, mixins (definiciones de métodos y variables agrupados que se pueden incluir en la definición de clases y en los objetos), y métodos singletons(los métodos no solo son parte de las clases sino que también pueden pertenecer únicamente a un objeto).
 
 \paragraph{Duck Typing:}
 El termino Duck typing (tipado de pato) hace referencia a la prueba del pato (duck test) que dice que si un animal que camina como pato, nada como pato y grazna como pato, entonces se podría decir que ese animal es un pato.\newline Es un principio de los lenguajes de programación con tipado dinámico en donde el conjunto de métodos y propiedades de un objeto determina la semántica valida, en lugar de su herencia de una clase o un tipo de dato en particular.\newline Ejemplo:
@@ -179,13 +179,13 @@ end
 \end{verbatim}
 
 \paragraph{Iteradores y Closures(bloques):}
-En ruby el llamado a métodos permite pasar un fragmento de código (bloque o closures) como parte de los parámetros de entrada del método, permitiendo definir iteradores basados en estos bloques de código.\newline Ejemplo:
+En Ruby el llamado a métodos permite pasar un fragmento de código (bloque o closures) como parte de los parámetros de entrada del método, permitiendo definir iteradores basados en estos bloques de código.\newline Ejemplo:
 
 \begin{verbatim}
-['hola', 3, 'que mas'].each {|item| puts item}
+['hola', 3, 'que hay'].each {|item| puts item}
 # => hola
 # => 3
-# => que mas
+# => que hay
 \end{verbatim}
 
 \paragraph{Expresiones Regulares Nativas:}
@@ -200,7 +200,7 @@ Ruby permite definición de expresiones regulares nativas en el lenguaje, de for
 Inyección de dependencias describe una situación en donde un objeto utiliza a un segundo objeto para proveer una característica particular, por ejemplo pasando una conexión de base de datos como argumento en el constructor en lugar de crear uno internamente.\newline El termino ``Inyección de Dependencias'' no se refiere realmente a una dependencia que es inyectada sino que es un proveedor de alguna característica o recurso el que es inyectado.
 
 \paragraph{Metaprogramacion:}
-Metaprogramación se refiere a programas que tienen la habilidad de escribir o manipular otros programas(incluso a ellos mismos). En muchos casos esto permite a los programadores hacer mas cosas en el mismo tiempo que hubiera tomado escribir el código de forma manual.\newline Ejemplo:
+Metaprogramación se refiere a programas que tienen la habilidad de escribir o manipular otros programas(incluso a ellos mismos). En muchos casos esto permite a los programadores hacer más cosas en el mismo tiempo que hubiera tomado escribir el código de forma manual.\newline Ejemplo:
 
 \begin{verbatim}
 #! /usr/bin/env ruby
@@ -226,7 +226,7 @@ Una continuación es un objeto que representa un punto en el programa, permitien
 \paragraph{DRY(Don't Repeat Yourself):}
 El principio No te repitas, es una filosofía de definición de procesos que promueve la reducción de la duplicación.\newline Según este principio ninguna pieza de información debería estar en dos partes distintas al mismo tiempo debido a que la duplicación incrementa la dificultad en el tratamiento de los cambios y evolución posterior, puede perjudicar la claridad y crea un espacio en donde se pueden encontrar posibles inconsistencias.\newline Cuando el principio DRY se aplica de forma eficiente, los cambios en cualquier parte del proceso requieren que estos cambios se hagan en un único lugar.
 
-Como nota personal del autor la razón de mayor peso para escoger este lenguaje de programación sobre otros, es que es un lenguaje muy cómodo y atractivo, con muchas características únicas, que hacen de ruby uno de los lenguajes mas potentes que se pueden encontrar en estos tiempos.
+Como nota personal del autor la razón de mayor peso para escoger este lenguaje de programación para desarrollar el servidor en lugar de otros lenguajes más difundidos y conocidos en el mundo Web como PHP o Python, es que su sintaxis es muy cómoda y atractivo y está repleta de ``azucares sintácticos'', además de las muchas características únicas mencionadas anteriormente que hacen de Ruby uno de los lenguajes más potentes que se pueden encontrar por estos dias.
 
 
 \subsubsection*{Pound \cite{pound} }
@@ -238,15 +238,15 @@ La solución CGI (Common Gateway Interface), que implica realizar una comunicaci
 
 Como respuesta a este problema surge FastCGI que agiliza el proceso de ejecución de programas teniéndolos siempre funcionando y esperando las peticiones del servidor.
 
-Otra solución es la de extender el servidor web con módulos que sirvan como interpretes y ejecutores para lenguajes no compilados, quizá el mas popular sea el módulo del servidor web Apache para el lenguaje PHP, los inconvenientes de esta solución son que para cada lenguaje y para cada servidor se debe crear un interprete adicional y que no se puede implementar en lenguajes compilados(ej: c/c++, java, etc).
+Otra solución es la de extender el servidor web con módulos que sirvan como interpretes y ejecutores para lenguajes no compilados, quizá el más popular sea el módulo del servidor web Apache para el lenguaje PHP, los inconvenientes de esta solución son que para cada lenguaje y para cada servidor se debe crear un interprete adicional y que no se puede implementar en lenguajes compilados(ej: C/C++, Java, etc).
 
-La solución mas inteligente es tener en el propio lenguaje un pequeño servidor web constante para generar los datos dinámicos y utilizar un servidor web mas elaborado para los datos estáticos, adicional a esto unirlos detrás de un solo servidor utilizando un proxy inverso(algunos servidores web sirven también como proxy inverso) y puesto que para esta aplicación se necesita: un servidor para los webservices, otro para los archivos estáticos y otro para el servidor de envió de archivos (WebDAV), entonces esta solución se convierte en la mas óptima partiendo del hecho de que el tiempo gastado en el proceso de comunicación entre el proxy inverso y los otros servidores es casi nulo.
+La solución más inteligente es tener en el propio lenguaje un pequeño servidor web constante para generar los datos dinámicos y utilizar un servidor web más elaborado para los datos estáticos, adicional a esto unirlos detrás de un solo servidor utilizando un proxy inverso(algunos servidores web sirven también como proxy inverso) y puesto que para esta aplicación se necesita: un servidor para los webservices, otro para los archivos estáticos y otro para el servidor de envió de archivos (WebDAV), entonces esta solución se convierte en la más óptima partiendo del hecho de que el tiempo gastado en el proceso de comunicación entre el proxy inverso y los otros servidores es casi nulo.
 
 
 \subsubsection*{QooXdoo \cite{qooxdoo} }
 \label{tec:qooxdoo}
 
-QooXdoo es un framework de trabajo que está pensado para el desarrollo profesional en Javascript, contiene una conjunto de herramientas de alto nivel para el desarrollo de interfaces de usuario y de comunicación cliente-servidor, este framework no tiene dependencia alguna con el lenguaje utilizado en el lado del servidor, esto rompe con la tendencia de realizar proyectos AJAX para determinados lenguajes(ej: el toolkit de google para java, rails para ruby, etc).
+QooXdoo es un framework de trabajo que está pensado para el desarrollo profesional en Javascript, contiene una conjunto de herramientas de alto nivel para el desarrollo de interfaces de usuario y de comunicación cliente-servidor, este framework no tiene dependencia alguna con el lenguaje utilizado en el lado del servidor, esto rompe con la tendencia de realizar proyectos AJAX para determinados lenguajes(ej: el toolkit de google para Java, Rails para Ruby, etc).
 
 Las principales características de QooXdoo son:
 
@@ -254,11 +254,11 @@ Las principales características de QooXdoo son:
 
 	\item Orientado a Objetos: a pesar de que JavaScript no es un lenguaje orientado a objetos del todo, qooxdoo incluye una implementación de los conceptos asociados con la programación orientada a objetos estos son: clases, objetos, mixins, interfaces, herencia, etc.
 	
-	\item Soporta múltiples navegadores: firefox, internet explorer, opera, safari
+	\item Soporta múltiples navegadores: Firefox, Internet Explorer, Opera, Safari.
 	
-	\item Implementa un toolkit gráfico que esta a la par con toolkits de uso profesional como SWT(java) o QT(c++, python, ruby, etc), en los que se incluye soporte para navegación por teclado, manejo del foco y del tabulador y manejo de drag and drop (arrastre y suelte).
+	\item Implementa un toolkit gráfico que esta a la par con toolkits de uso profesional como SWT(Java) o QT(C++, Python, Ruby, etc), en los que se incluye soporte para navegación por teclado, manejo del foco y del tabulador y manejo de drag and drop (arrastre y suelte).
 	
-	\item Contiene un optimizador y compresor (quitando cosas que no sirven como comentarios o saltos de linea y renombrando las variables por nombres mas cortos) para el código JavaScript.
+	\item Contiene un optimizador y compresor (quitando cosas que no sirven como comentarios o saltos de linea y renombrando las variables por nombres más cortos) para el código JavaScript.
 	
 	\item Soporta I18N y localización.
 	
@@ -269,11 +269,43 @@ Las principales características de QooXdoo son:
 \end{itemize}
 
 
+\subsubsection*{Bases de datos}
+
+Las base de datos de mayor uso en la actualidad son las base de datos relacionales, estas se fundamentan en el uso de ``relaciones'', las cuales podrán considerarse desde un punto de vista lógico como conjuntos de datos llamados ``tuplas'', en este modelo no importa el lugar ni la forma en que se almacenan los datos, teniendo como ventaja su fácil entendimiento y utilización para un usuario casual de la base de datos.
+
+Otras bases de datos menos utilizadas, pero no por esto menos atractivas son:
+
+\begin{itemize}
+
+	\item Base de Datos Orientada a Objetos(OODB): En estas el sistema de consulta es orientado a objetos permitiendo patrones avanzados como herencia, encapsulamiento, paso de mensajes, etc.
+	
+	\item Base de Datos XML(XMLDB): El uso principal de XML es estructurar datos, recibirlos y enviarlos, pero también podemos guardar datos en nuestros documentos o una colección de ellos para que sean tratados luego con algún lenguaje o herramienta XML.
+
+\end{itemize}
+
+
+\subsubsection*{Sistema de Archivos}
+
+Los sistemas de archivos más comunes utilizan dispositivos de almacenamiento de datos que permiten el acceso a los datos como una cadena de bloques de un mismo tamaño, a veces llamados sectores. El software del sistema de archivos es responsable de la organización de estos sectores en archivos y directorios y mantiene un registro de que sectores pertenecen a que archivos y de que sectores no han sido utilizados aún.
+
+En la practica, un sistema de archivos no requiere necesariamente de un dispositivo de almacenamiento físico, sino que puede ser utilizado también para acceder a datos como los generados dinámicamente, los recibidos a través de una conexión de red, un generador de números aleatorios o los de un sistema de configuración en donde cada parámetro es representado por un archivo y en donde las acciones de obtener o cambiar el valor del parámetro es equivalente a escribir o leer en los archivo.
+
+En sistemas de archivos jerárquicos, usualmente, se declara la ubicación precisa de un archivo con una cadena de texto llamada ``ruta''. La nomenclatura para rutas varía ligeramente de sistema en sistema, pero mantienen por lo general una misma estructura. Una ruta viene dada por una sucesión de nombres de directorios y subdirectorios, ordenados jerárquicamente de izquierda a derecha y separados por algún carácter especial.
+
+
+\subsubsection*{Bases de Datos vs Sistemas de Archivos}
+
+Debido a que los manejadores de versiones trabajan sobre sistemas de archivos, en el caso en que estos se encuentren en una base de datos, se nota inmediatamente una deficiencia en el tiempo requerido para procesar las acciones de administración de versiones en ellos ya que en algún punto se hace necesario moverlos desde la base de datos hacia el sistema de archivos.
+
+Por esta razón para la realización del proyecto se ha tomado la decisión de no utilizar un manejador de base de datos, en lugar de esto se utilizará una jerarquía de archivos ordenada y bien definida.
+
+
+
 \subsection{Marco Conceptual}
 
 \subsubsection*{Reverse Proxy}
 
-Un Proxy Inverso es un servidor proxy usado comúnmente como front-end (la parte visible) de uno o mas servidores, funciona de forma opuesta a un servidor proxy regular ya que retransmite las conexiones entrantes desde internet hacia los servidores (back-ends).\newline El proxy inverso puede lidiar con la petición o simplemente retransmitirla de forma parcial o total hacia los servidores.
+Un Proxy Inverso es un servidor proxy usado comúnmente como front-end (la parte visible) de uno o más servidores, funciona de forma opuesta a un servidor proxy regular ya que retransmite las conexiones entrantes desde Internet hacia los servidores (back-ends).\newline El proxy inverso puede lidiar con la petición o simplemente retransmitirla de forma parcial o total hacia los servidores.
 
 Un proxy inverso se distingue por:
 
@@ -304,7 +336,7 @@ Samba es una implementación libre del protocolo CIFS que funciona en sistemas o
 
 CGI(Interfaz de salida común) es un protocolo estándar para enlazar aplicaciones externas con un servidor de información (generalmente un servidor web), esto permite al servidor pasar las peticiones del cliente hacia la aplicación externa, en este caso el servidor puede retornar la salida de la aplicación hacia el cliente.
 
-A pesar de que es muy sencillo modificar un programa para que sea funcional con CGI, surge un inconveniente y es que CGI necesita una copia completa de la ejecución del programa (un proceso) por cada petición, es por esto que la carga de trabajo se incrementa rápidamente en el servidor, como solución han surgido técnicas mas eficientes como incluir un interprete del lenguaje a utilizar, como un módulo del servidor (por ejemplo mod\_php en apache) y otro menos utilizado pero no por eso menos eficiente FastCGI.
+A pesar de que es muy sencillo modificar un programa para que sea funcional con CGI, surge un inconveniente y es que CGI necesita una copia completa de la ejecución del programa (un proceso) por cada petición, es por esto que la carga de trabajo se incrementa rápidamente en el servidor, como solución han surgido técnicas más eficientes como incluir un interprete del lenguaje a utilizar, como un módulo del servidor (por ejemplo mod\_php en apache) y otro menos utilizado pero no por eso menos eficiente FastCGI.
 
 FastCGI surge como respuesta a la pérdida de eficiencia que se genera al utilizar CGI, FastCGI en lugar de crear un proceso por cada petición, permite utilizar varios procesos persistentes que manejen varias peticiones durante su ciclo de ejecución.
 
@@ -312,7 +344,7 @@ FastCGI surge como respuesta a la pérdida de eficiencia que se genera al utiliz
 \subsubsection*{Control de Versiones}
 
 Control de versiones se refiere al proceso de administrar múltiples revisiones de la misma unidad de información, es utilizada con mayor frecuencia en el desarrollo de software.
-Debido a la naturaleza del desarrollo de software, múltiples programadores trabajando sobre múltiples archivos simultáneamente, surge la necesidad de llevar un control sobre quién, cuando y lo mas importante cuales cambios se hacen sobre los archivos de código fuente.
+Debido a la naturaleza del desarrollo de software, múltiples programadores trabajando sobre múltiples archivos simultáneamente, surge la necesidad de llevar un control sobre quién, cuando y lo más importante cuales cambios se hacen sobre los archivos de código fuente.
 
 
 \subsubsection*{Sistema de Control de Versiones}
@@ -321,7 +353,7 @@ Un sistema de control de versiones permite gestionar las versiones de todos los 
 
 Los sistemas de control de versiones son utilizados principalmente en la industria del software para controlar las distintas versiones del código fuente, sin embargo, los mismos conceptos son aplicables en otros ámbitos no solo para código fuente sino para documentos en general, imágenes, etc.
 
-Aunque el control de versiones puede realizarse de forma manual, es muy aconsejable disponer de herramientas que faciliten esta gestión entre las mas populares se encuentran:
+Aunque el control de versiones puede realizarse de forma manual, es muy aconsejable disponer de herramientas que faciliten esta gestión entre las más populares se encuentran:
 
 \begin{itemize}
 
@@ -373,13 +405,13 @@ Esta metodología también hace énfasis en el trabajo en equipo en donde client
 
 XP describe cinco tareas básicas en el proceso de desarrollo de software:
 
-\paragraph{Codificar:} En XP lo mas importante de un producto de software el es código, la codificación ayuda a comprender los verdaderos problemas del software a desarrollar, la codificación puede ser utilizada para conocer la solución mas apropiada a un problema (ej: codificando todas las soluciones y determinando la mejor solución a partir de pruebas automatizadas)
+\paragraph{Codificar:} En XP lo más importante de un producto de software el es código, la codificación ayuda a comprender los verdaderos problemas del software a desarrollar, la codificación puede ser utilizada para conocer la solución más apropiada a un problema (ej: codificando todas las soluciones y determinando la mejor solución a partir de pruebas automatizadas)
 
 \paragraph{Probar:} En XP las pruebas significan que un método no esta libre de errores hasta que no se pruebe lo contrario, por ello, se deben realizar pruebas unitarias y pruebas de aceptación acordadas con el cliente.
 
 \paragraph{Escuchar:} En la mayoría de los casos el programador no conoce a ciencia cierta la lógica de negocio del sistema a desarrollar, la única forma de conocer la funcionalidad del sistema es escuchar al cliente y entender la lógica del negocio.
 
-\paragraph{Diseñar:} Desde un punto de vista simple, se podría afirmar que el desarrollo de una aplicación no necesita mas que codificar, probar y escuchar, si estas actividades se logran con éxito el resultado debe ser siempre un sistema que funcione bien, pero en la practica esto sencillamente no se da, se puede llegar muy lejos sin diseño pero en algún determinado momento se va a atascar, los sistemas tienden a ser complejos y por esto las dependencias internas deben quedar muy claras, un buen diseño evita estos problemas de dependencias, lo que significa que al cambiar una porción del sistema esta no afectará otras partes del mismo.
+\paragraph{Diseñar:} Desde un punto de vista simple, se podría afirmar que el desarrollo de una aplicación no necesita más que codificar, probar y escuchar, si estas actividades se logran con éxito el resultado debe ser siempre un sistema que funcione bien, pero en la practica esto sencillamente no se da, se puede llegar muy lejos sin diseño pero en algún determinado momento se va a atascar, los sistemas tienden a ser complejos y por esto las dependencias internas deben quedar muy claras, un buen diseño evita estos problemas de dependencias, lo que significa que al cambiar una porción del sistema esta no afectará otras partes del mismo.
 
 \paragraph{Buenas Practicas:} Las practicas a seguir en XP son 12 \cite{xp_practices} derivadas de ``best practices of software engineering'' \cite{best_practices}, las cuales aconsejan sobre técnicas probadas en otros problemas de desarrollo que han sido aplicadas con éxito.
 
@@ -409,12 +441,12 @@ En los últimos días las aplicaciones web se han visto afectadas por la adopci�
 
 \paragraph{Gmail: \cite{gmail}} Es un servicio de correo electrónico gratuito en etapa de pruebas (beta), que ha captado la atención de los medios de información por sus innovaciones tecnológicas, su capacidad y por algunas quejas de violación a la privacidad de los usuarios.
 
-\paragraph{Google Calendar: \cite{google_calendar}} Es un servicio gratuito de calendarios en linea que permite mantener presente fácilmente fechas de cumpleaños, reuniones, búsqueda en internet de eventos importantes, etc.
+\paragraph{Google Calendar: \cite{google_calendar}} Es un servicio gratuito de calendarios en linea que permite mantener presente fácilmente fechas de cumpleaños, reuniones, búsqueda en Internet de eventos importantes, etc.
 
 \paragraph{Flickr: \cite{flickr}} Es un sitio web de organización de fotografías digitales y red social. Fue desarrollado por Ludicorp, una empresa de Vancouver, Canadá, fundada en 2002. En marzo de 2005, Flickr y Ludicorp fueron compradas por Yahoo!. El servicio es utilizado extensamente por bloggers para el depósito de fotos. El sistema de Flickr permite hacer búsquedas de imágenes por etiquetas (tags), por fechas y por licencias.
 
 
-En el mundo de los IDEs encontramos herramientas que han cambiado la forma en la que se diseñan y desarrollan las aplicaciones, los mas importantes actualmente son:
+En el mundo de los IDEs encontramos herramientas que han cambiado la forma en la que se diseñan y desarrollan las aplicaciones, los más importantes actualmente son:
 
 
 \paragraph{Eclipse: \cite{eclipse}} Es un sistema multiplataforma libre que permite crear aplicaciones de cualquier tipo. La primera y más importante aplicación que ha sido realizada con este entorno es la afamado IDE Java llamado Java Development Toolkit (JDT) y el compilador utilizado para desarrollar el propio Eclipse, ambos están incluidos en el entorno.
@@ -429,7 +461,7 @@ Durante el proceso de desarrollo surgieron dos herramientas similares a la desar
 
 \paragraph{Gyre:\cite{gyre}} Una herramienta que se basa en el desarrollo de aplicaciones web con el framework Ruby on Rails, esta herramienta se especializa de forma elegante en la depuración de dichas aplicaciones, incluyendo un depurador gráfico y un sistema de previsualización de resultados.
 
-\paragraph{CodeIDE:\cite{codeide}} Esta herramienta se basa en la compilación y ejecución de varios lenguajes, entre los que se incluyen Basic, Pascal, ANSI C, Perl, JavaScript, HTML, MySQL, LISP y MATH, sin embargo por razones de seguridad los lenguajes no incluyen todas sus características, por esta misma razón y por que carece de un buen manejador de proyectos (manejo eficiente de múltiples archivos), resulta difícil realizar aplicaciones que sirvan para algo mas que realizar cálculos o trabajar con cadenas de texto.
+\paragraph{CodeIDE:\cite{codeide}} Esta herramienta se basa en la compilación y ejecución de varios lenguajes, entre los que se incluyen Basic, Pascal, ANSI C, Perl, JavaScript, HTML, MySQL, LISP y MATH, sin embargo por razones de seguridad los lenguajes no incluyen todas sus características, por esta misma razón y por que carece de un buen manejador de proyectos (manejo eficiente de múltiples archivos), resulta difícil realizar aplicaciones que sirvan para algo más que realizar cálculos o trabajar con cadenas de texto.
 
 
 La aplicación desarrollada no tiene antecedentes registrados en el ámbito de integración del sistema de control de versiones, compilador y entorno de desarrollo centralizado accesible vía web.

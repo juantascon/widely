@@ -2,9 +2,9 @@
 
 \subsection{Definición y delimitación del problema}
 
-Un IDE puede convertirse en una aplicación muy compleja si integra muchas herramientas de diversos lenguajes de programación, debido a esto la aplicación desarrollada únicamente soporta las herramientas del lenguaje de programación Java, a pesar de esto, su diseño y arquitectura permiten que sea fácil extenderlo a otras herramientas y lenguajes de programación.
+Un IDE puede convertirse en una aplicación muy compleja si integra muchas herramientas de diversos lenguajes de programación, debido a esto la aplicación desarrollada únicamente soporta las herramientas del lenguaje de programación seleccionado, a pesar de esto, su diseño y arquitectura permiten que sea fácil extenderlo a otras herramientas y lenguajes de programación.
 
-Algunos IDEs incluyen sus propios compiladores y depuradores como es el caso del IDE Eclipse, para resolver el problema de la compilación se creó una interfaz de comunicación con el compilador de la distribución de Java de Sun Microsystems.
+Algunos IDEs incluyen sus propios compiladores y depuradores como es el caso del IDE Eclipse, para resolver el problema de la compilación se creará una interfaz de comunicación con un compilador del lenguaje de programación seleccionado.
 
 El proceso de ejecución se realiza de forma local, lo que significa que los programas generados (los proyectos de desarrollo que realizan los usuarios) no son ejecutados en el ambiente del servidor sino que son transferidos al cliente y este se encarga de su ejecución.
 
