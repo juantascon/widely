@@ -1,4 +1,54 @@
 \section{IDE WEB}
+
+\subsection{Licencia}
+
+Widely, Acuerdo de Licencia:
+
+Copyright (C) 2006-2007 Juan Diego Tascón V. \newline Este programa es software libre; puede ser redistribuido y/o modificado bajo los términos de la Licencia Publica General GNU GPL versión 2 \cite{gpl} publicada por la Free Software Foundation \cite{fsf}. \newline Este programa es distribuido con la esperanza de que sea útil, pero SIN NINGUNA GARANTÍA; sin siquiera la garantía implicada de MERCADEO o CONVENIENCIA PARA PROPÓSITO PARTICULAR, para mas detalles consulte la Licencia Publica General GNU version 2 incluida en este programa.\newline Si no está incluida una copia de la Licencia Publica General GNU versión 2 \cite{gpl} escriba a la Free Software Foundation \cite{fsf}, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. \newline Las siguientes son dependencias de este programa que no están distribuidos bajo GPL pero que tienen licencias compatibles:
+
+\begin{itemize}
+	\item Interprete Ruby: Ruby License \cite{ruby_lic}.
+	\item Subversion: Collabnet SubVersion License \cite{svn_lic}.
+	\item QooXdoo: GNU Lesser General Public License (LGPL) \cite{lgpl} y Eclipse Public License (EPL) \cite{epl}.
+\end{itemize}
+
+\subsection{Metodología}
+
+Mi propuesta para la realización de este proyecto se resume en la declaración de un punto intermedio en donde se describa el problema y los resultados esperados.
+
+El diseño debe ser adaptable, fácil de modificar y su límite de detalle debe ser el punto en donde se pueda escoger, sin que se vea reflejado en un cambio de diseño, cualquier variante de los siguientes factores:
+
+\begin{itemize}
+	\item El lenguaje de programación
+	\item Las herramientas a utilizar (ej: depuradores, bases de datos, etc)
+	\item Las bibliotecas disponibles para el lenguaje de programación
+	\item Las tecnologías asociadas (ej: XML, Java, etc)
+\end{itemize}
+
+Lo principal de este diseño es diferenciar y describir, pero no detallar, los sistemas que componen la aplicación (ej: sistema de control de usuarios, sistema de envío de la información, etc), luego de esto se procederá con la realización de la aplicación (programación) en donde los detalles de la implementación se describen dentro del propio código (no en diagramas de colaboración o de secuencia), y en donde los resultados sufran un proceso de reingeniería hasta lograr una solución estable que satisfaga los resultados esperados.
+
+Se tendrá siempre en mente el proceso de reingeniría que puede ser iniciado ya sea por cambios en los requerimientos, cambios de plataforma o por errores de integración no previstos, por esta razón el diseño debe estar preparado para que estos cambios afecten el menor número de subsistemas posibles.
+
+Sólo se realizarán los diagramas que sean realmente necesarios y útiles, los cuales serán de dos tipos: los diagramas de división que son aquellos que explican de que forma se separarán los sistemas de la aplicación y los requerimientos del sistema y los diagramas externos que explican procesos separados de la lógica de negocios pero que son necesarios para la culminación del proyecto, para este caso particular se produjeron los siguientes diagramas:
+
+\begin{itemize}
+	
+	\item Diagramas de División:
+	\subitem Casos de Uso
+	\subitem Diagrama de Arquitectura
+	\subitem Modelo Conceptual
+	\subitem Diagrama de Paquetes
+	
+	\item Diagramas Externos:
+	\subitem Modelo de Navegación
+	\subitem Diseño de Interfaz
+	\subitem Jerarquía de Archivos
+	
+\end{itemize}
+
+Algunas partes del proyecto que sean más tangibles se realizarán siguiendo un desarrollo conducido por pruebas \cite{tdd}, esto es, primero se harán los casos de pruebas de acuerdo a los requisitos y luego se construirán los sistemas para que pasen estas pruebas de forma satisfactoria.
+
+
 \subsection{Formulación}
 \subsubsection{Casos de Uso}
 
@@ -79,9 +129,11 @@ Al tratarse de una aplicación web la arquitectura que se utilizará para el des
 
 En el desarrollo de aplicaciones web lo más común es que no sea necesario crear el lado cliente de la aplicación ya que se utiliza como cliente un browser(navegador) incluido en la mayoría de sistemas operativos modernos, por lo tanto, la mayor parte del desarrollo web se centra en la creación del servidor que es encargado, incluso, de generar la interfaz a los clientes para que estos la muestren al usuario final.
 
-En el lado del servidor se utilizará una arquitectura orientada a servicios (SOA \cite{soa}), la cual provee división, modularidad y bajo acoplamiento en la lógica de negocio y en la comunicación interfaz-servidor, el servidor es visto en el lado cliente como un catalogo de servicios, el cliente accede a estos servicios por medio de objetos de acceso a datos (DAOs \cite{dao} ) los cuales son interfaces que representan cada uno de los servicios del catálogo de servicios.
+En el lado del servidor se utilizará una arquitectura orientada a servicios (SOA \cite{soa}), la cual provee división, modularidad y bajo acoplamiento en la lógica de negocio y en la comunicación interfaz-servidor, estos servicios se desarrollarán utilizando un desarrollo conducido por pruebas \cite{tdd}.\newline El servidor es entonces visto en el lado cliente como un catalogo de servicios, el cliente accede a estos servicios por medio de objetos de acceso a datos (DAOs \cite{dao} ) los cuales son interfaces que representan cada uno de los servicios del catálogo de servicios.
 
 El servidor incluye también un sistema de despacho de peticiones del cliente, el cual permite evacuar de forma inteligente las respuestas pasando por un servidor principal encargado de distribuir las peticiones y luego a través de servidores configurables encargados de atender la petición.
+
+Los compenentes del servidor se integrán utilizando un sistema de declaración de módulos y plugins permitiendo modificar el comportamiento de los diferentes servicios de acuerdo a los plugins cargados en tiempo de ejecución.
 
 \begin{landscape}
 \begin{figure}
@@ -279,9 +331,9 @@ Los componentes de la jerarquía de archivos del proyecto son:
 
 \subsubsection{Implementación del Software}
 
-La implementación del servidor se encuentra en: \textit{\textbf{widely/server/}}
+La implementación del servidor se encuentra en el mismo directorio en donde se encuentra este documento bajo la siguiente ruta: \textit{\textbf{widely/server/}}
 
-La implementación del cliente se encuentra en: \textit{\textbf{widely/gui/}}
+La implementación del cliente se encuentra en el mismo directorio en donde se encuentra este documento bajo la siguiente ruta: \textit{\textbf{widely/gui/}}
 
 
 \subsubsection{Documentación Interna del Código}
@@ -291,15 +343,13 @@ La documentación interna se incluye con el código fuente de la aplicación.
 
 \subsubsection{Manual de Usuario}
 
-El manual de usuario se encuentra en: \textit{\textbf{widely/doc/manual/}}
+El manual de usuario se encuentra en el mismo directorio en donde se encuentra este documento bajo la siguiente ruta: \textit{\textbf{widely/doc/manual/}}
 
 
 \subsection{Pruebas}
 
 Las pruebas realizadas corresponden a pruebas de integración de cada webservice (la única interfaz lógica entre el servidor y el cliente). La construcción de los webservices siguió un enfoque basado en el desarrollo guiado por pruebas (Test Driven Development \cite{tdd}).
 
+Las pruebas desarrolladas se encuentran en el mismo directorio en donde se encuentra este documento bajo la siguiente ruta:: \textit{\textbf{widely/tests/}}
 
-Las pruebas desarrolladas se encuentran en: \textit{\textbf{widely/tests/}}
-
-Los resultados e informes de estas pruebas se encuentran en: \textit{\textbf{widely/tests/results/}}
-
+Los resultados e informes de estas pruebas se encuentran en el mismo directorio en donde se encuentra este documento bajo la siguiente ruta: \textit{\textbf{widely/tests/results/}}

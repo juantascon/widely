@@ -4,7 +4,7 @@
 
 \label{tec:all}
 
-\subsubsection*{RIA (Rich Internet Application)}
+\subsubsection{RIA (Rich Internet Application)}
 \label{tec:ria}
 
 Rich Internet Applications o Aplicaciones Ricas de Internet son aplicaciones web que tienen funcionalidades propias de las tradicionales aplicaciones de escritorio. Usualmente las RIAs transfieren el procesamiento necesario para la interfaz del usuario al cliente web pero mantienen la parte lógica y de procesamiento de los datos en el servidor de la aplicación.
@@ -29,20 +29,20 @@ Los métodos, técnicas o lenguajes utilizadas para desarrollar RIAs son:
 	\item Lenguajes de Interfaz de Usuario (ej: XUL).
 \end{itemize}
 
-\subsubsection*{SOA (Service Oriented Arquitecture) \cite{soa} }
+\subsubsection{SOA (Service Oriented Arquitecture)}
 \label{tec:soa}
 
-SOA (Arquitectura Orientada a Servicios) es una evolución de la computación distribuida, SOA provee modularidad en la lógica de negocios que puede ser representada como servicios para los clientes, estos servicios tienen bajo acoplamiento, en el sentido en que la interfaz de usuario(GUI) puede permanecer totalmente independiente de la lógica de negocio.
+SOA \cite{soa} (Arquitectura Orientada a Servicios) es una evolución de la computación distribuida, SOA provee modularidad en la lógica de negocios que puede ser representada como servicios para los clientes, estos servicios tienen bajo acoplamiento, en el sentido en que la interfaz de usuario(GUI) puede permanecer totalmente independiente de la lógica de negocio.
 
 OASIS (Organization for the Advancement of Structured Information Standards) define SOA de la siguiente manera: ``Es un paradigma para organizar y utilizar características distribuidas que pueden estar bajo el control de dominios diferentes. Provee un significado uniforme para ofrecer, descubrir, interactuar y utilizar estas características para producir los efectos deseados con precondiciones y expectativas medibles.'' \cite{oasis_soa}
 
 SOA fue elegida principalmente por que provee división, modularidad y bajo acoplamiento dentro de la lógica de negocio y en la comunicación con la interfaz de usuario.
 
 
-\subsubsection*{Java \cite{java} }
+\subsubsection{Java}
 \label{tec:java}
 
-Java es un lenguaje de programación creado originalmente por Sun Microsystems.\newline Una aplicación Java normalmente se compila en un código máquina llamado bytecode (Codigo Byte), este código es ejecutado por una máquina virtual de Java, esta interpreta las instrucciones de la aplicación (bytecode) y las ejecuta en la máquina nativa, también es posible ejecutar estas aplicaciones de forma directa en un procesador Java.
+Java \cite{java} es un lenguaje de programación creado originalmente por Sun Microsystems.\newline Una aplicación Java normalmente se compila en un código máquina llamado bytecode (Codigo Byte), este código es ejecutado por una máquina virtual de Java, esta interpreta las instrucciones de la aplicación (bytecode) y las ejecuta en la máquina nativa, también es posible ejecutar estas aplicaciones de forma directa en un procesador Java.
 
 Las características principales de Java \cite{java_caracteristicas} son:
 
@@ -61,10 +61,10 @@ Las características principales de Java \cite{java_caracteristicas} son:
 Para este proyecto se ha decidió implementar una interfaz con el compilador de Java de Sun Microsystems debido a su robustez y a su facilidad de control en el momento de la ejecución, además, como punto adicional Java es probablemente el lenguaje más popular en estos tiempos ya que ha sido adoptado en innumerables proyectos alrededor del mundo.
 
 
-\subsubsection*{JSON(JavaScript Object Notation) \cite{json} }
+\subsubsection{JSON (JavaScript Object Notation)}
 \label{tec:json}
 
-JSON (Notación de Objecto en JavaScript) es un formato liviano de intercambio de datos, es más sencillo de leer y escribir para los humanos, además es fácil para una máquina analizarlo y generarlo, esta basado en un subconjunto del lenguaje de programación JavaScript (Standard ECMA-262 3rd Edition \cite{json_ecma}).
+JSON \cite{json} (Notación de Objecto en JavaScript) es un formato liviano de intercambio de datos, es más sencillo de leer y escribir para los humanos, además es fácil para una máquina analizarlo y generarlo, esta basado en un subconjunto del lenguaje de programación JavaScript (Standard ECMA-262 3rd Edition \cite{json_ecma}).
 
 JSON es un formato de texto que es completamente independiente del lenguaje pero utiliza convenciones familiares para los programadores que hayan utilizado lenguajes derivados del lenguaje C (C, C++, C\#, Java, Python, etc).\newline Por estas razones JSON se convierte en un lenguaje ideal para el intercambio de datos.
 
@@ -97,10 +97,10 @@ El uso de esta técnica puede ser segura siempre y cuando todo el entorno (los d
 La principal ventaja que tiene sobre el formato XML es que no requiere realizar un analizador en el lenguaje JavaScript sino que este está incluido en el lenguaje mismo.\newline JSON está siendo adoptado a una velocidad tan rápida que quizá algún día haya reemplazado por completo a su rival más cercano XML.
 
 
-\subsubsection*{WebDAV \cite{webdav} }
+\subsubsection{WebDAV}
 \label{tec:webdav}
 
-WebDAV es una extensión al protocolo HTTP 1.1 que permite realizar acciones de gestión sobre archivos tales como escribir, copiar, eliminar o modificar \cite{webdav_rfc}.
+WebDAV \cite{webdav} es una extensión al protocolo HTTP 1.1 que permite realizar acciones de gestión sobre archivos tales como escribir, copiar, eliminar o modificar \cite{webdav_rfc}.
 
 El objetivo de WebDAV se define por su lema ``Makes the Web Writable'' (hacer que la web sea escribible), esto permite hacer de la web un espacio de colaboración, donde varias personas distintas puedan participar conjuntamente en la elaboración de documentos.
 
@@ -147,15 +147,15 @@ Las principales ventajas de WebDAV sobre otros sistemas de archivos de red son:
 \end{enumerate}
 
 
-\subsubsection*{Ruby \cite{ruby_lang} }
+\subsubsection{Ruby}
 \label{tec:ruby}
 
-Ruby es un lenguaje de programación orientada a objetos e interpretado, creado por Yukihiro Matsumoto, que tiene una sintaxis inspirada en varios lenguajes de programación como Perl, Smalltalk, Python, C, Lisp, entre otros.
+Ruby \cite{ruby_lang} es un lenguaje de programación orientada a objetos e interpretado, creado por Yukihiro Matsumoto, que tiene una sintaxis inspirada en varios lenguajes de programación como Perl, Smalltalk, Python, C, Lisp, entre otros.
 
 Las principales características de Ruby son:
 
 \paragraph{Orientado a Objetos:}
-En Ruby todos los datos son objetos, incluso las clases y los tipos de datos que en algunos lenguajes son manejados como datos primitivos (enteros, strings, etc), los valores con nombre(variables) siempre hacen referencia a los objetos, no son los objetos mismos. \newline Ruby soporta herencia, polimorfismo, tipado dinámico, mixins (definiciones de métodos y variables agrupados que se pueden incluir en la definición de clases y en los objetos), y métodos singletons(los métodos no solo son parte de las clases sino que también pueden pertenecer únicamente a un objeto).
+En Ruby todos los datos son objetos, incluso las clases y los tipos de datos que en algunos lenguajes son manejados como datos primitivos (enteros, strings, etc), los valores con nombre(variables) siempre hacen referencia a los objetos, no son los objetos mismos. \newline Ruby soporta herencia, polimorfismo, tipado dinámico, mixins (definiciones de métodos y variables agrupados que se pueden incluir en la definición de clases y en los objetos), y métodos singletons (los métodos singletons son métodos que no solo son parte de las clases sino que también pueden pertenecer únicamente a una instancia).
 
 \paragraph{Duck Typing:}
 El termino Duck typing (tipado de pato) hace referencia a la prueba del pato (duck test) que dice que si un animal que camina como pato, nada como pato y grazna como pato, entonces se podría decir que ese animal es un pato.\newline Es un principio de los lenguajes de programación con tipado dinámico en donde el conjunto de métodos y propiedades de un objeto determina la semántica valida, en lugar de su herencia de una clase o un tipo de dato en particular.\newline Ejemplo:
@@ -229,8 +229,10 @@ El principio No te repitas, es una filosofía de definición de procesos que pro
 Como nota personal del autor la razón de mayor peso para escoger este lenguaje de programación para desarrollar el servidor en lugar de otros lenguajes más difundidos y conocidos en el mundo Web como PHP o Python, es que su sintaxis es muy cómoda y atractivo y está repleta de ``azucares sintácticos'', además de las muchas características únicas mencionadas anteriormente que hacen de Ruby uno de los lenguajes más potentes que se pueden encontrar por estos dias.
 
 
-\subsubsection*{Pound \cite{pound} }
+\subsubsection{Pound}
 \label{tec:pound}
+
+Pound \cite{pound} es un proxy inverso creado por Apsis IT Security, pound permite distrubución de carga basado en reglas de despacho definidas.\cite{pound}
 
 Las soluciones actuales para despacho de información procesada a través de la web son:
 
@@ -240,10 +242,10 @@ Como respuesta a este problema surge FastCGI que agiliza el proceso de ejecució
 
 Otra solución es la de extender el servidor web con módulos que sirvan como interpretes y ejecutores para lenguajes no compilados, quizá el más popular sea el módulo del servidor web Apache para el lenguaje PHP, los inconvenientes de esta solución son que para cada lenguaje y para cada servidor se debe crear un interprete adicional y que no se puede implementar en lenguajes compilados(ej: C/C++, Java, etc).
 
-La solución más inteligente es tener en el propio lenguaje un pequeño servidor web constante para generar los datos dinámicos y utilizar un servidor web más elaborado para los datos estáticos, adicional a esto unirlos detrás de un solo servidor utilizando un proxy inverso(algunos servidores web sirven también como proxy inverso) y puesto que para esta aplicación se necesita: un servidor para los webservices, otro para los archivos estáticos y otro para el servidor de envió de archivos (WebDAV), entonces esta solución se convierte en la más óptima partiendo del hecho de que el tiempo gastado en el proceso de comunicación entre el proxy inverso y los otros servidores es casi nulo.
+La solución más inteligente es tener en el propio lenguaje un pequeño servidor web constante para generar los datos dinámicos y utilizar un servidor web más elaborado para los datos estáticos, adicional a esto unirlos detrás de un solo servidor utilizando un proxy inverso(algunos servidores web sirven también como proxy inverso) y puesto que para esta aplicación se necesita: un servidor para los webservices, otro para los archivos estáticos y otro para el servidor de envió de archivos (WebDAV), entonces esta solución se convierte en la más óptima partiendo del hecho de que el tiempo gastado en el proceso de comunicación entre el proxy inverso y los otros servidores es casi nulo, para el desarrollo de esta aplicación se ha desidido utilizar Pound como front-end de los servidores nombrados anteriormente.
 
 
-\subsubsection*{QooXdoo \cite{qooxdoo} }
+\subsubsection{QooXdoo \cite{qooxdoo} }
 \label{tec:qooxdoo}
 
 QooXdoo es un framework de trabajo que está pensado para el desarrollo profesional en Javascript, contiene una conjunto de herramientas de alto nivel para el desarrollo de interfaces de usuario y de comunicación cliente-servidor, este framework no tiene dependencia alguna con el lenguaje utilizado en el lado del servidor, esto rompe con la tendencia de realizar proyectos AJAX para determinados lenguajes(ej: el toolkit de google para Java, Rails para Ruby, etc).
@@ -269,7 +271,7 @@ Las principales características de QooXdoo son:
 \end{itemize}
 
 
-\subsubsection*{Bases de datos}
+\subsubsection{Bases de datos}
 
 Las base de datos de mayor uso en la actualidad son las base de datos relacionales, estas se fundamentan en el uso de ``relaciones'', las cuales podrán considerarse desde un punto de vista lógico como conjuntos de datos llamados ``tuplas'', en este modelo no importa el lugar ni la forma en que se almacenan los datos, teniendo como ventaja su fácil entendimiento y utilización para un usuario casual de la base de datos.
 
@@ -284,7 +286,7 @@ Otras bases de datos menos utilizadas, pero no por esto menos atractivas son:
 \end{itemize}
 
 
-\subsubsection*{Sistema de Archivos}
+\subsubsection{Sistema de Archivos}
 
 Los sistemas de archivos más comunes utilizan dispositivos de almacenamiento de datos que permiten el acceso a los datos como una cadena de bloques de un mismo tamaño, a veces llamados sectores. El software del sistema de archivos es responsable de la organización de estos sectores en archivos y directorios y mantiene un registro de que sectores pertenecen a que archivos y de que sectores no han sido utilizados aún.
 
@@ -293,7 +295,7 @@ En la practica, un sistema de archivos no requiere necesariamente de un disposit
 En sistemas de archivos jerárquicos, usualmente, se declara la ubicación precisa de un archivo con una cadena de texto llamada ``ruta''. La nomenclatura para rutas varía ligeramente de sistema en sistema, pero mantienen por lo general una misma estructura. Una ruta viene dada por una sucesión de nombres de directorios y subdirectorios, ordenados jerárquicamente de izquierda a derecha y separados por algún carácter especial.
 
 
-\subsubsection*{Bases de Datos vs Sistemas de Archivos}
+\subsubsection{Bases de Datos vs Sistemas de Archivos}
 
 Debido a que los manejadores de versiones trabajan sobre sistemas de archivos, en el caso en que estos se encuentren en una base de datos, se nota inmediatamente una deficiencia en el tiempo requerido para procesar las acciones de administración de versiones en ellos ya que en algún punto se hace necesario moverlos desde la base de datos hacia el sistema de archivos.
 

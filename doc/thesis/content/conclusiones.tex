@@ -2,7 +2,7 @@
 
 \subsection{Resultados}
 
-El resultado más importante que se obtuvo es una aplicación \footnote {Referencias: Objetivo General} que centraliza en un solo punto los procesos de almacenamiento de información, edición de código, compilación y administración de las versiones de los archivos, facilitando la integración con máquinas clientes de bajas prestaciones y cuyo único requisito es que tenga instalado cualquiera de los sistemas operativos modernos.
+El resultado más importante que se obtuvo es una aplicación \footnote {Referencias: Objetivo General} que centraliza en un solo punto los procesos de almacenamiento de información, edición de código, compilación y administración de las versiones de los archivos, facilitando la integración con máquinas clientes de bajas prestaciones y cuyo único requisito es que tenga instalado cualquier sistema operativo moderno.
 
 Se seleccionaron las siguientes tecnologías \footnote {Referencias: Tecnologías Utilizadas} para el desarrollo de la aplicación:
 
@@ -64,6 +64,9 @@ Como resultados adicionales la aplicación permite:
 	\item Acceso a los datos de configuración, los repositorios y las copias de trabajo de los usuarios vía WebDAV.
 	\footnote {Referencias: Tecnologías Utilizadas: WebDAV - Objetivos Específicos: 1}
 	
+	\item Configuración del sistema de distribución de carga.
+	\footnote {Referencias: Tecnologías Utilizadas: Pound - Objetivos Específicos: 3}
+	
 \end{itemize}
 
 Además de todo esto el proceso de desarrollo de la aplicación permite que cualquier persona continúe con el trabajo debido a la documentación generada y a la claridad de la implementación.
@@ -118,7 +121,6 @@ Las verdaderas consecuencias del diseño son sólo medibles con heurísticas ace
 \paragraph{El lenguaje de programación:}
 Es posible encontrarse con muchos lenguajes de programación, en la actualidad existen aproximadamente 2500 \cite{bd_lenguajes_programacion}, sin contar los lenguajes de uso personal y los lenguajes para entornos muy específicos, de acuerdo con lo anterior podemos entonces afirmar que existen lenguajes de programación de todos los colores y sabores y así mismo cada uno tiene sus propias características, habilidades, herramientas, soporte, paradigmas y lo mas importante de todo el enfoque, algo que hace que la solución cambie de forma radical e incluso, en algunos casos, hace que la solución sea algo inalcanzable. \newline De esto se concluye que el diseño de la solución de un problema varía de acuerdo a las características del lenguaje.
 
-
 \paragraph{Las herramientas a utilizar:}
 Este concepto se puede observar mejor en el ámbito de las aplicaciones web, un campo que ha soportado una revolución desde el punto de vista de las ayudas y facilidades para el desarrollador, en donde han surgido herramientas de gran envergadura conocidas como frameworks que automatizan procesos como: las conexiones a base de datos, el deployment (de desarrollo, pruebas y producción), las pruebas unitarias, la organización del proyecto, etc. Cada uno de estos frameworks crean dependencias que obligan a hacer las cosas de cierta forma(ej: en ruby on rails se debe seguir una arquitectura modelo-vista-controlador), cambiando de forma radical el diseño de nuestra aplicación.
 
@@ -129,9 +131,9 @@ Una biblioteca no es más que una implementación de un concepto de programació
 Generalmente en la programación de software existen muchas formas de hacer las cosas que dependen incluso de la época en la que nos encontremos, el ejemplo más claro es que hace unos 10 años la mayoría de la programación seguía un paradigma funcional, hoy la media es utilizar sistemas orientados a objetos y es muy posible que para mañana se utilicen herramientas basadas en la concurrencia de los procesos como el paradigma de los agentes o el de restricciones.
 
 
-Desde luego estas afirmaciones también tienen sus limites ya que simplemente lanzarse a programar la solución, traeará problemas que entre los más importantes están la perdida de trabajo y la creación de software poco expansible y cerrado.
+Desde luego estas afirmaciones también tienen sus limites ya que simplemente lanzarse a programar la solución, traerá problemas que entre los más importantes están la perdida de trabajo y la creación de software poco expansible y cerrado.
 
-Por estas razones mi propuesta para la realización de este proyecto se resume en la declaración de un punto intermedio en donde se describa el problema y los resultados esperados y en donde el diseño sea adaptable (fácil de modificar) y cuyo límite de detalle sea el punto en donde se pueda escoger cualquiera de las variantes de los factores mencionados anteriormente sin que se vea reflejado en un cambio en el diseño.\newline Lo principal de este diseño es diferenciar y describir, pero no detallar, los sistemas que componen la aplicación (ej: sistema de control de usuarios, sistema de envío de la información, etc), luego de esto se procede con la realización de la aplicación (programación) en donde los detalles de la implementación se describan dentro del propio código (no en diagramas de colaboración o de secuencia), y en donde los resultados sufran un proceso de reingeniería hasta lograr una solución estable que satisfaga los resultados esperados.
+La correcta aplicación de la metodología propuesta hizo posible que este proyecto se consumara de forma oportuna y eficaz obteniendo una aplicación bien elaborada, clara y que opcionalmente puedrá ser continuada por terceros gracias a la documentación obtenida y a su licencia de libre uso y distribución.
 
 Otras experiencias obtenidas se basan en la adquisición de nuevos conocimientos y dominio de diversas tecnologías, estas son:
 
