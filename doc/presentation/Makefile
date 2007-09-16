@@ -2,6 +2,8 @@ MAINFILE := ./widely-presentation.tex
 
 all:
 	latex $(MAINFILE)
+	latex $(MAINFILE)
+	latex $(MAINFILE)
 	pdflatex $(MAINFILE)
 
 clean:

@@ -1,8 +1,10 @@
+MAINFILE := ./widely-thesis.tex
+
 all:
-	latex ./widely.tex
-	latex ./widely.tex
-	latex ./widely.tex
-	pdflatex ./widely.tex
+	latex $(MAINFILE)
+	latex $(MAINFILE)
+	latex $(MAINFILE)
+	pdflatex $(MAINFILE)
 
 clean:
-	@rm *.log *.lof *.toc *.out *.dvi *.aux *.pdf *.backup */*.backup */*.aux 2>/dev/null
+	@rm *.log *.lof *.toc *.nav *.snm *.out *.dvi *.aux *.pdf *.backup */*.backup */*.aux 2>/dev/null
