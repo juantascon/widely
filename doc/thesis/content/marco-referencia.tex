@@ -4,10 +4,10 @@
 
 \label{tec:all}
 
-\subsubsection{RIA (Rich Internet Application)}
+\subsubsection{RIA}
 \label{tec:ria}
 
-Rich Internet Applications o Aplicaciones Ricas de Internet son aplicaciones web que tienen funcionalidades propias de las tradicionales aplicaciones de escritorio. Usualmente las RIAs transfieren el procesamiento necesario para la interfaz del usuario al cliente web pero mantienen la parte lógica y de procesamiento de los datos en el servidor de la aplicación.
+RIA (Rich Internet Applications o en español Aplicaciones Ricas de Internet) se refiere a aplicaciones web que tienen funcionalidades propias de las tradicionales aplicaciones de escritorio. Usualmente las RIAs transfieren el procesamiento necesario para la interfaz del usuario al cliente web pero mantienen la parte lógica y de procesamiento de los datos en el servidor de la aplicación.
 
 Generalmente las RIAs:
 
@@ -29,10 +29,10 @@ Los métodos, técnicas o lenguajes utilizadas para desarrollar RIAs son:
 	\item Lenguajes de Interfaz de Usuario (ej: XUL).
 \end{itemize}
 
-\subsubsection{SOA (Service Oriented Arquitecture)}
+\subsubsection{SOA}
 \label{tec:soa}
 
-SOA \cite{soa} (Arquitectura Orientada a Servicios) es una evolución de la computación distribuida, SOA provee modularidad en la lógica de negocios que puede ser representada como servicios para los clientes, estos servicios tienen bajo acoplamiento, en el sentido en que la interfaz de usuario(GUI) puede permanecer totalmente independiente de la lógica de negocio.
+SOA \cite{soa} (Service Oriented Arquitecture o en español Arquitectura Orientada a Servicios) es una evolución de la computación distribuida, SOA provee modularidad en la lógica de negocios que puede ser representada como servicios para los clientes, estos servicios tienen bajo acoplamiento, en el sentido en que la interfaz de usuario(GUI) puede permanecer totalmente independiente de la lógica de negocio.
 
 OASIS (Organization for the Advancement of Structured Information Standards) define SOA de la siguiente manera: ``Es un paradigma para organizar y utilizar características distribuidas que pueden estar bajo el control de dominios diferentes. Provee un significado uniforme para ofrecer, descubrir, interactuar y utilizar estas características para producir los efectos deseados con precondiciones y expectativas medibles.'' \cite{oasis_soa}
 
@@ -61,10 +61,10 @@ Las características principales de Java \cite{java_caracteristicas} son:
 Para este proyecto se ha decidió implementar una interfaz con el compilador de Java de Sun Microsystems debido a su robustez y a su facilidad de control en el momento de la ejecución, además, como punto adicional Java es probablemente el lenguaje más popular en estos tiempos ya que ha sido adoptado en innumerables proyectos alrededor del mundo.
 
 
-\subsubsection{JSON (JavaScript Object Notation)}
+\subsubsection{JSON }
 \label{tec:json}
 
-JSON \cite{json} (Notación de Objecto en JavaScript) es un formato liviano de intercambio de datos, es más sencillo de leer y escribir para los humanos, además es fácil para una máquina analizarlo y generarlo, esta basado en un subconjunto del lenguaje de programación JavaScript (Standard ECMA-262 3rd Edition \cite{json_ecma}).
+JSON \cite{json} (JavaScript Object Notation o en español Notación de Objecto en JavaScript) es un formato liviano de intercambio de datos, es más sencillo de leer y escribir para los humanos, además es fácil para una máquina analizarlo y generarlo, esta basado en un subconjunto del lenguaje de programación JavaScript (Standard ECMA-262 3rd Edition \cite{json_ecma}).
 
 JSON es un formato de texto que es completamente independiente del lenguaje pero utiliza convenciones familiares para los programadores que hayan utilizado lenguajes derivados del lenguaje C (C, C++, C\#, Java, Python, etc).\newline Por estas razones JSON se convierte en un lenguaje ideal para el intercambio de datos.
 
@@ -245,10 +245,10 @@ Otra solución es la de extender el servidor web con módulos que sirvan como in
 La solución más inteligente es tener en el propio lenguaje un pequeño servidor web constante para generar los datos dinámicos y utilizar un servidor web más elaborado para los datos estáticos, adicional a esto unirlos detrás de un solo servidor utilizando un proxy inverso(algunos servidores web sirven también como proxy inverso) y puesto que para esta aplicación se necesita: un servidor para los webservices, otro para los archivos estáticos y otro para el servidor de envió de archivos (WebDAV), entonces esta solución se convierte en la más óptima partiendo del hecho de que el tiempo gastado en el proceso de comunicación entre el proxy inverso y los otros servidores es casi nulo, para el desarrollo de esta aplicación se ha desidido utilizar Pound como front-end de los servidores nombrados anteriormente.
 
 
-\subsubsection{QooXdoo \cite{qooxdoo} }
+\subsubsection{QooXdoo}
 \label{tec:qooxdoo}
 
-QooXdoo es un framework de trabajo que está pensado para el desarrollo profesional en Javascript, contiene una conjunto de herramientas de alto nivel para el desarrollo de interfaces de usuario y de comunicación cliente-servidor, este framework no tiene dependencia alguna con el lenguaje utilizado en el lado del servidor, esto rompe con la tendencia de realizar proyectos AJAX para determinados lenguajes(ej: el toolkit de google para Java, Rails para Ruby, etc).
+QooXdoo \cite{qooxdoo} es un framework de trabajo que está pensado para el desarrollo profesional en Javascript, contiene una conjunto de herramientas de alto nivel para el desarrollo de interfaces de usuario y de comunicación cliente-servidor, este framework no tiene dependencia alguna con el lenguaje utilizado en el lado del servidor, esto rompe con la tendencia de realizar proyectos AJAX para determinados lenguajes(ej: el toolkit de google para Java, Rails para Ruby, etc).
 
 Las principales características de QooXdoo son:
 
@@ -293,9 +293,6 @@ Los sistemas de archivos más comunes utilizan dispositivos de almacenamiento de
 En la practica, un sistema de archivos no requiere necesariamente de un dispositivo de almacenamiento físico, sino que puede ser utilizado también para acceder a datos como los generados dinámicamente, los recibidos a través de una conexión de red, un generador de números aleatorios o los de un sistema de configuración en donde cada parámetro es representado por un archivo y en donde las acciones de obtener o cambiar el valor del parámetro es equivalente a escribir o leer en los archivo.
 
 En sistemas de archivos jerárquicos, usualmente, se declara la ubicación precisa de un archivo con una cadena de texto llamada ``ruta''. La nomenclatura para rutas varía ligeramente de sistema en sistema, pero mantienen por lo general una misma estructura. Una ruta viene dada por una sucesión de nombres de directorios y subdirectorios, ordenados jerárquicamente de izquierda a derecha y separados por algún carácter especial.
-
-
-\subsubsection{Bases de Datos vs Sistemas de Archivos}
 
 Debido a que los manejadores de versiones trabajan sobre sistemas de archivos, en el caso en que estos se encuentren en una base de datos, se nota inmediatamente una deficiencia en el tiempo requerido para procesar las acciones de administración de versiones en ellos ya que en algún punto se hace necesario moverlos desde la base de datos hacia el sistema de archivos.
 
